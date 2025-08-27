@@ -23,7 +23,7 @@ body {
 
 .left {
   flex: 1;
-  background:#4C8F5A; 
+  background:#4C8F5A;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +48,7 @@ body {
   border-radius: 5px;
 }
 
+
 .right {
   flex: 1;
   background: #4C8F5A;
@@ -57,13 +58,12 @@ body {
 }
 
 .login-box {
-  width: 50%;
-  height: 30%;
+  width: 45%;
+  height: 45%;
   background: white;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  color: black;
 
 }
 
@@ -100,6 +100,7 @@ body {
   margin-left: 25%;
   margin-bottom: 20px;
 }
+
 .login-box button:hover {
   background: #222;
 }
@@ -122,6 +123,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 
 .logos img {
@@ -153,3 +155,88 @@ body {
   position: relative;
   z-index: 10;
 }
+
+
+.login-container {
+     background-color: #fff;
+     padding: 30px;
+     border-radius: 10px;
+     width: 100%;
+     max-width: 350px;
+     box-shadow: 0 0 15px rgba(0,0,0,0.1);
+     float: right;
+   }
+
+
+   .login-container h2 {
+     margin-bottom: 20px;
+     text-align: center;
+   }
+
+
+   .form-group {
+     margin-bottom: 15px;
+   }
+
+
+   label {
+     display: block;
+     margin-bottom: 5px;
+     font-weight: bold;
+     margin-left: 20%;
+     margin-right: 30%;
+   }
+
+
+   input[type="email"],
+   input[type="password"] {
+     width: 60%;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     margin-left: 20%;
+     margin-right: 30%;
+   }
+
+
+   .form-check {
+     display: flex;
+     align-items: center;
+     margin-bottom: 15px;
+   }
+
+
+   .form-check input {
+     margin-right: 5px;
+   }
+
+
+   button {
+     width: 100%;
+     background-color: #007bff;
+     color: white;
+     border: none;
+     padding: 10px;
+     font-size: 16px;
+     border-radius: 5px;
+     cursor: pointer;
+   }
+
+
+   button:hover {
+     background-color: #0056b3;
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
