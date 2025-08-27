@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Ceará Científico</title>
-  <link rel="stylesheet" href="/assets/styles/loginadm.css">
+  <link rel="stylesheet" href="/assets/login_adm.css">
 </head>
 <body>
     <div class="fundo-arredondado"></div>
   <div class="container">
     <div class="left">
       <div class="logo">
-       <img src="/assets/img/SACC.png" alt="Ceará Científico" style=" float: right; margin-top: 15%; margin-bottom: 50%; margin-left: 15%;margin-right: 10%;">
+       <img src="/assets/SACC.png" alt="Ceará Científico" style=" float: right; margin-top: 15%; margin-bottom: 50%; margin-left: 15%;margin-right: 10%; width: 80%;">
       </div>
     </div>
 
@@ -19,22 +19,36 @@
     <div class="right">
       <div class="login-box">
         <div class="login-cont">
-        <h2 style="margin-bottom: 50px;">Login</h2>
-        <form>
-          <label for="usuario">Usuário</label>
-          <input type="text" id="usuario" name="usuario">
+          <header style="font-size: 40px;text-align: center;">Login
+            <br>
+            <div style="display: flex; padding: 1px; margin-left: 32%;">
+              <div><button style="border-bottom-left-radius:30px ; border-top-left-radius: 30px;width: 120%;margin: auto;">Admin</button></div>
+              <div><button style="border-radius: 30px; width: 120%;margin: auto;background-color: #4C8F5A;">Jurado</button></div>
+            </div>
+          </header>
+        <form method="POST" id="loginForm">
+     <div class="form-group">
+       <label for="email">Email:</label>
+       <input type="email" name="email" id="email" required placeholder="exemplo@dominio.com" />
+     </div>
 
-          <label for="senha">Senha</label>
-          <input type="password" id="senha" name="senha">
 
-          <button type="submit">Entrar</button>
-          <a href="#" class="forgot" style="text-align: center; font-size: 15px;">Esqueceu sua senha?</a>
-        </form>
+     <div class="form-group">
+       <label for="password">Senha:</label>
+       <input type="password" name="password" id="password" required placeholder="Digite sua senha" />
+     </div>
 
-        <div class="logos">
-          <img src="/assets/img/ceara.png" alt="Governo do Ceará">
-          <img src="/assets/img/crede7.png" alt="Crede 7 Canindé">
-          <img src="/assets/img/cearacientifico.png" alt="Ceará Científico">
+
+    
+
+
+     <button type="submit">Entrar</button>
+   </form>
+
+
+
+         <div class="logos">
+          <img src="/assets/crede7.png" alt="Crede 7 Canindé" style="align-items: center; margin-left: 43%; margin-right: 80%;">
           </div>
         </div>
       </div>
@@ -43,6 +57,7 @@
   </div>
 </body>
 </html>
+
 
 
 
