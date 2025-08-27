@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 70px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;            
+  justify-content: center; 
+  align-items: center;     
+  gap: 5px;                
+  margin: 10px 0;           
+}
+
+.container img {
+  width: 23%;            
+   margin: auto;           
+}
+
+.container2 {
+  background: #4C8F5A;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.search-box input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f9f9f9;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  font-weight: bold;
+  color: #555;
+}
+
+.btn {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view {
+  background: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+}
+
+.edit {
+  background: transparent;
+  border: 1px solid #ffc107;
+  color: #ffc107;
+}
+
+.renew {
+  background: transparent;
+  border: 1px solid #17a2b8;
+  color: #17a2b8;
+}
+
+.delete {
+  background: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}

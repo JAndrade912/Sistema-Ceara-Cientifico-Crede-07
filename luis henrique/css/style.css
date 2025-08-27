@@ -1,0 +1,210 @@
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #F5F5F5;
+  color: #333;
+  min-height: 100vh;
+}
+
+
+
+/* BOTÕES */
+.btn-verde {
+  background-color: #2E7D32;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: 0.3s;
+}
+
+.btn-verde:hover { opacity: 0.8; }
+
+.btn-laranja {
+  background-color: #FF8C42;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: 0.3s;
+}
+
+.btn-laranja:hover { opacity: 0.8; }
+
+.btn-cinza {
+  background-color: #B0B0B0;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: 0.3s;
+}
+
+.btn-cinza:hover { opacity: 0.8; }
+
+/* MENU LATERAL (ADMIN) */
+.menu-lateral {
+  width: 220px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  min-height: 100vh;
+}
+
+.menu-lateral h2 {
+  margin-bottom: 20px;
+  color: #FF8C42;
+}
+
+.menu-lateral ul {
+  list-style: none;
+}
+
+.menu-lateral ul li {
+  margin-bottom: 12px;
+}
+
+.menu-lateral ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  padding: 6px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.menu-lateral ul li a:hover {
+  background-color: #FF8C42;
+  color: white;
+}
+
+/* MENU SUPERIOR (JURADO) */
+.menu-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.menu-superior nav a {
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.menu-superior nav a:hover {
+  background-color: #FF8C42;
+  color: white;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.conteudo, #conteudo-principal {
+  padding: 20px;
+}
+
+/* CARDS DASHBOARD */
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff;
+  flex: 1;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  min-width: 200px;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+.status.cinza { background-color: #B0B0B0; }
+.status.laranja { background-color: #FF8C42; }
+.status.verde { background-color: #2E7D32; }
+
+/* TABELAS */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+}
+
+table thead {
+  background-color: #FF8C42;
+  color: white;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #F5F5F5;
+}
+
+/* FORMULÁRIOS DE AVALIAÇÃO */
+form .criterios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form input[type="number"], form input[type="text"] {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 900px) {
+  .cards {
+    flex-direction: column;
+  }
+  
+  .menu-lateral {
+    width: 100%;
+    box-shadow: none;
+  }
+}
