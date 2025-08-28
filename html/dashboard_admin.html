@@ -1,1 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Administrativo</title>
+<link rel="stylesheet" href="dashboard-admin.css">
+
+<!-- Bootstrap 3 -->
+<link rel="stylesheet" href="/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+<script src="/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+<script src="/bootstrap-3.4.1-dist/js/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div id="overlay" onclick="closeMobileSidebar()"></div>
+<button id="mobile-toggle" onclick="toggleSidebar()">
+  <span class="glyphicon glyphicon-menu-hamburger"></span>
+</button>
+
+<div id="sidebar">
+  <div>
+    <button class="toggle-btn" onclick="toggleSidebar()">
+      <img src="/img/SIMBOLO.png" alt="SACC">
+      <span class="brand-text">SACC</span>
+    </button>
+    <ul class="nav">
+      <li><a href="#"><span class="glyphicon glyphicon-home"></span> <span class="label-text">Dashboard</span></a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-education"></span> <span class="label-text">Escolas</span></a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-file"></span> <span class="label-text">Trabalhos</span></a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> <span class="label-text">Jurados</span></a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-stats"></span> <span class="label-text">Relatórios</span></a></li>
+    </ul>
+  </div>
+  <ul class="nav bottom-nav">
+    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> <span class="label-text">Sair</span></a></li>
+  </ul>
+</div>
+
+<main id="main">
+  <div class="container-fluid">
+    <h2>Dashboard Administrativo</h2>
+    <p class="text-muted">Escolha uma das opções abaixo para realizar cadastros:</p>
+    <div class="row top-buttons text-center" style="margin-bottom:20px;">
+      <button class="btn btn-success btn-lg m-r-5" data-toggle="modal" data-target="#modalInstituicao" style="background-color: rgb(135, 190, 101);">Cadastrar Instituição</button>
+      <button class="btn btn-success btn-lg m-r-5" data-toggle="modal" data-target="#modalJurado" style="background-color: rgb(135, 190, 101);">Cadastrar Jurado</button>
+      <button class="btn btn-success btn-lg m-r-5" data-toggle="modal" data-target="#modalTrabalho" style="background-color: rgb(135, 190, 101);">Cadastrar Trabalho</button>
+    </div>
+
+    <!-- MODAIS -->
+    <!-- Modal Instituição -->
+    <div class="modal fade" id="modalInstituicao" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cadastrar Instituição</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label for="instituicao-nome">Nome da Instituição</label>
+              <input type="text" id="instituicao-nome" class="form-control" placeholder="Digite o nome da instituição" required>
+              <label for="instituicao-localidade">Localidade</label>
+              <select id="instituicao-localidade" class="form-control">
+                <option selected disabled>Selecione...</option>
+                <option value="1">Caridade</option>
+                <option value="2">Canindé</option>
+                <option value="3">Paramoti</option>
+                <option value="4">General Sampaio</option>
+                <option value="5">Santa Quitéria</option>
+                <option value="6">Itatira</option>
+              </select>
+              <label for="instituicao-categoria">Categoria</label>
+              <select id="instituicao-categoria" class="form-control">
+                <option selected disabled>Selecione...</option>
+                <option value="1">Focalizado</option>
+              </select>
+              <div id="campo-ide">
+                <label for="instituicao-ide">IDE Médio da Escola</label>
+                <input type="number" id="instituicao-ide" class="form-control" placeholder="Digite o IDE médio">
+              </div>
+              <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Jurado -->
+    <div class="modal fade" id="modalJurado" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cadastrar Jurado</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label>Nome</label>
+              <input type="text" class="form-control" placeholder="Digite seu nome" required>
+              <label>Telefone</label>
+              <input type="text" class="form-control" placeholder="Digite seu telefone" required>
+              <label>CPF</label>
+              <input type="text" class="form-control" placeholder="Digite seu CPF" required>
+              <label>E-mail SIC-CED</label>
+              <input type="text" class="form-control" placeholder="Digite seu e-mail" required>
+              <label for="jurado-categoria">Categoria</label>
+              <select id="jurado-categoria" class="form-control" required>
+                <option selected disabled>Selecione...</option>
+                <option value="1">I - Ensino Médio</option>
+                <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="3">III - Pesquisa Júnior</option>
+                <option value="4">IV - PcD</option>
+              </select>
+
+              <div id="jurado-area" style="display:none;">
+                <label>Área</label>
+                <select class="form-control">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                  <option value="2">Matemática e suas Tecnologias - MT</option>
+                  <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                  <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                </select>
+              </div>
+
+              <div id="jurado-area2" style="display:none;">
+                <label>Área</label>
+                <select class="form-control">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Ensino Fundamental</option>
+                  <option value="2">Ensino Médio</option>
+                </select>
+              </div>
+              <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Trabalho -->
+    <div class="modal fade" id="modalTrabalho" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cadastrar Trabalho</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label>Título do Trabalho</label>
+              <input type="text" class="form-control" placeholder="Digite o nome do Trabalho" required>
+              <label>Escola</label>
+              <input type="text" class="form-control" placeholder="Digite o nome da Escola" required>
+              <label for="trabalho-categoria">Categoria</label>
+              <select id="trabalho-categoria" class="form-control" required>
+                <option selected disabled>Selecione...</option>
+                <option value="1">I - Ensino Médio</option>
+                <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="3">III - Pesquisa Júnior</option>
+                <option value="4">IV - PcD</option>
+              </select>
+
+              <div id="trabalho-area" style="display:none;">
+                <label>Área</label>
+                <select class="form-control">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                  <option value="2">Matemática e suas Tecnologias - MT</option>
+                  <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                  <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                </select>
+              </div>
+
+              <div id="trabalho-area2" style="display:none;">
+                <label>Área</label>
+                <select class="form-control">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Ensino Fundamental</option>
+                  <option value="2">Ensino Médio</option>
+                </select>
+              </div>
+              <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="row stat-row">
+      <div class="col-sm-4">
+        <div class="stat-box stat-primary">
+          <span class="glyphicon glyphicon-education ico"></span>
+          <h2 id="total-escolas">120</h2>
+          <p>Escolas Cadastradas</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="stat-box stat-success">
+          <span class="glyphicon glyphicon-file ico"></span>
+          <h2 id="total-trabalhos">350</h2>
+          <p>Trabalhos Cadastrados</p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="stat-box stat-info">
+          <span class="glyphicon glyphicon-user ico"></span>
+          <h2 id="total-jurados">50</h2>
+          <p>Jurados Cadastrados</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ranking -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="ranking-box">
+          <h3 class="text-center">Ranking Preliminar</h3>
+          <div class="row" style="margin-top:12px;">
+            <div class="col-sm-6">
+              <label>Categoria</label>
+              <select id="ranking-categoria" class="form-control">
+                <option selected disabled>-- Selecione a Categoria --</option>
+                <option value="I">I - Ensino Médio</option>
+                <option value="II">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="III">III - Pesquisa Júnior</option>
+                <option value="IV">IV - PcD</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label>Área</label>
+              <select id="ranking-area" class="form-control" disabled>
+                <option selected>-- Primeiro selecione a categoria --</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:14px; overflow-x:auto;">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Posição</th>
+                  <th>Trabalho</th>
+                  <th>Escola</th>
+                  <th>Nota</th>
+                </tr>
+              </thead>
+              <tbody id="ranking-tbody">
+                <tr>
+                  <td colspan="4" class="text-center text-muted" style="vertical-align:middle;">Selecione Categoria e Área para visualizar o ranking</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+// SIDEBAR
+function toggleSidebar(){
+  if(window.innerWidth <= 768){
+    $('#sidebar').toggleClass('mobile-open');
+    $('#overlay').toggleClass('show');
+  } else {
+    $('#sidebar').toggleClass('collapsed');
+    $('#main').toggleClass('collapsed');
+  }
+}
+function closeMobileSidebar(){
+  $('#sidebar').removeClass('mobile-open');
+  $('#overlay').removeClass('show');
+}
+$(window).on('resize', function(){
+  if(window.innerWidth > 768){
+    $('#sidebar').removeClass('mobile-open');
+    $('#overlay').removeClass('show');
+  }
+});
+
+// RANKING
+const rankingAreas = {
+  "I":["Linguagens, Códigos e suas Tecnologias - LC","Matemática e suas Tecnologias - MT","Ciências da Natureza - CN","Educação Ambiental e Engenharias - CH","Robótica"],
+  "II":["Linguagens, Códigos e suas Tecnologias - LC","Matemática e suas Tecnologias - MT","Ciências da Natureza - CN","Educação Ambiental e Engenharias - CH","Robótica"],
+  "III":[],
+  "IV":["Ensino Fundamental","Ensino Médio"]
+};
+$('#ranking-categoria').on('change', function(){
+  const cat=$(this).val(); const areaSel=$('#ranking-area'); areaSel.empty();
+  if(cat && rankingAreas[cat].length>0){
+    areaSel.append('<option selected disabled>-- Selecione a Área --</option>');
+    rankingAreas[cat].forEach(a=>areaSel.append('<option>'+a+'</option>'));
+    areaSel.prop('disabled', false);
+  } else {
+    areaSel.append('<option selected>-- Sem área --</option>');
+    areaSel.prop('disabled', true);
+  }
+  $('#ranking-tbody').html('<tr><td colspan="4" class="text-center text-muted" style="vertical-align:middle;">Selecione Categoria e Área para visualizar o ranking</td></tr>');
+});
+$('#ranking-area').on('change', function(){
+  $('#ranking-tbody').html('<tr><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td></tr><tr><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td></tr><tr><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td></tr>');
+});
+
+// MODAIS LÓGICA
+$('#instituicao-categoria').change(function () {
+  ($(this).val() === '1') ? $('#campo-ide').slideDown() : $('#campo-ide').slideUp();
+});
+$('#jurado-categoria').change(function () {
+  var categoria = $(this).val();
+  if (categoria === '1' || categoria === '2') {
+    $('#jurado-area').slideDown(); $('#jurado-area2').slideUp();
+  } else if (categoria === '4') {
+    $('#jurado-area').slideUp(); $('#jurado-area2').slideDown();
+  } else { $('#jurado-area, #jurado-area2').slideUp(); }
+});
+$('#trabalho-categoria').change(function () {
+  var categoria = $(this).val();
+  if (categoria === '1' || categoria === '2') {
+    $('#trabalho-area').slideDown(); $('#trabalho-area2').slideUp();
+  } else if (categoria === '4') {
+    $('#trabalho-area').slideUp(); $('#trabalho-area2').slideDown();
+  } else { $('#trabalho-area, #trabalho-area2').slideUp(); }
+});
+</script>
+
+</body>
+</html>
 
