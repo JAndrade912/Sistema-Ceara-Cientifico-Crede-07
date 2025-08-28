@@ -154,3 +154,18 @@ body {
   position: relative;
   z-index: 10;
 }
+
+.form-group {
+     margin-bottom: 15px;
+   }
+
+   
+   input[type="password"],
+   input[type="password"] {
+     width: 60%;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     margin-left: 20%;
+     margin-right: 30%;
+   }
