@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard Administrativo</title>
 
- 
+
   <link rel="stylesheet" href="/biblioteca/bootstrap.min.css">
   <script src="/biblioteca/jquery.min.js"></script>
   <script src="/biblioteca/bootstrap.min.js"></script>
@@ -16,7 +17,7 @@
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    
+
     /* Sidebar */
     .sidebar {
       position: fixed;
@@ -100,13 +101,16 @@
       padding: 30px;
       transition: margin-left 0.3s ease;
     }
+
     .main.collapsed {
       margin-left: 70px;
     }
+
     .main h2 {
       font-weight: 600;
       margin-bottom: 10px;
     }
+
     .main p {
       color: #666;
       margin-bottom: 25px;
@@ -122,9 +126,10 @@
       font-weight: 500;
       transition: all .3s ease;
     }
+
     .btn-lg:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
     /* MODAIS */
@@ -134,18 +139,22 @@
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
     }
+
     .modal-content {
       border-radius: 10px;
       box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
     }
+
     .modal-body {
       padding: 25px;
     }
+
     .form-control {
       margin-bottom: 15px;
       border-radius: 6px;
       border: 1px solid #ccc;
     }
+
     input[type="submit"] {
       background-color: rgb(113, 153, 88);
       color: white;
@@ -155,79 +164,83 @@
       font-weight: 600;
       transition: all .3s ease;
     }
+
     input[type="submit"]:hover {
       background-color: rgb(103, 124, 89);
     }
 
-    #campo-ide, #jurado-area, #jurado-area2, #trabalho-area, #trabalho-area2 {
+    #campo-ide,
+    #jurado-area,
+    #jurado-area2,
+    #trabalho-area,
+    #trabalho-area2 {
       display: none;
     }
 
     .ranking-container h3 {
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #2c3e50;
-  }
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
 
-  .ranking-filters {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
+    .ranking-filters {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
 
-  .ranking-select {
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    min-width: 10%;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
+    .ranking-select {
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      min-width: 10%;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
 
-  .ranking-select:hover {
-    border-color: #1abc9c;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
+    .ranking-select:hover {
+      border-color: #1abc9c;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
 
-  .ranking-table {
-    width: 90%;
-    margin: 0 auto;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  }
+    .ranking-table {
+      width: 90%;
+      margin: 0 auto;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-  .ranking-table th {
-    background-color: rgb(135, 190, 101);
-    color: white;
-    padding: 12px;
-    font-weight: 600;
-    text-align: left;
-  }
+    .ranking-table th {
+      background-color: rgb(135, 190, 101);
+      color: white;
+      padding: 12px;
+      font-weight: 600;
+      text-align: left;
+    }
 
-  .ranking-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    color: #333;
-  }
+    .ranking-table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      color: #333;
+    }
 
-  .ranking-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
+    .ranking-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
 
-  .ranking-table tr:hover {
-    background-color: rgba(0,0,0,0.1);
-    transition: background-color 0.3s;
-  }
-
-  
+    .ranking-table tr:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
   </style>
 </head>
+
 <body>
 
   <!-- Sidebar -->
@@ -255,175 +268,180 @@
     <p>Escolha uma das opções abaixo para realizar cadastros:</p>
 
     <div class="text-center">
-      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalInstituicao" style="background-color: rgb(135, 190, 101);">Cadastrar Instituição</button>
-      <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalJurado"style="background-color: rgb(135, 190, 101);">Cadastrar Jurado</button>
-      <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalTrabalho" style="background-color: rgb(135, 190, 101);">Cadastrar Trabalho</button>
+      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalInstituicao"
+        style="background-color: rgb(135, 190, 101);">Cadastrar Instituição</button>
+      <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalJurado"
+        style="background-color: rgb(135, 190, 101);">Cadastrar Jurado</button>
+      <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalTrabalho"
+        style="background-color: rgb(135, 190, 101);">Cadastrar Trabalho</button>
     </div>
 
     <div class="modal fade" id="modalInstituicao" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Cadastrar Instituição</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <label for="instituicao-nome">Nome da Instituição</label>
-            <input type="text" id="instituicao-nome" class="form-control" placeholder="Digite o nome da instituição" required>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cadastrar Instituição</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label for="instituicao-nome">Nome da Instituição</label>
+              <input type="text" id="instituicao-nome" class="form-control" placeholder="Digite o nome da instituição"
+                required>
 
-            <label for="instituicao-localidade">Localidade</label>
-            <select id="instituicao-localidade" class="form-control">
-              <option selected disabled>Selecione...</option>
-              <option value="1">Caridade</option>
-              <option value="2">Canindé</option>
-              <option value="3">Paramoti</option>
-              <option value="4">General Sampaio</option>
-              <option value="5">Santa Quitéria</option>
-              <option value="6">Itatira</option>
-            </select>
+              <label for="instituicao-localidade">Localidade</label>
+              <select id="instituicao-localidade" class="form-control">
+                <option selected disabled>Selecione...</option>
+                <option value="1">Caridade</option>
+                <option value="2">Canindé</option>
+                <option value="3">Paramoti</option>
+                <option value="4">General Sampaio</option>
+                <option value="5">Santa Quitéria</option>
+                <option value="6">Itatira</option>
+              </select>
 
-            <label for="instituicao-categoria">Categoria</label>
-            <select id="instituicao-categoria" class="form-control">
-              <option selected disabled>Selecione...</option>
-              <option value="1">Focalizado</option>
-            </select>
+              <label for="instituicao-categoria">Categoria</label>
+              <select id="instituicao-categoria" class="form-control">
+                <option selected disabled>Selecione...</option>
+                <option value="1">Focalizado</option>
+              </select>
 
-            <div id="campo-ide">
-              <label for="instituicao-ide">IDE Médio da Escola</label>
-              <input type="number" id="instituicao-ide" class="form-control" placeholder="Digite o IDE médio">
-            </div>
+              <div id="campo-ide">
+                <label for="instituicao-ide">IDE Médio da Escola</label>
+                <input type="number" id="instituicao-ide" class="form-control" placeholder="Digite o IDE médio">
+              </div>
 
-            <input type="submit" value="Enviar">
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              <input type="submit" value="Enviar">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal fade" id="modalJurado" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Cadastrar Jurado</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <label>Nome</label>
-            <input type="text" class="form-control" placeholder="Digite seu nome" required>
+    <div class="modal fade" id="modalJurado" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cadastrar Jurado</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label>Nome</label>
+              <input type="text" class="form-control" placeholder="Digite seu nome" required>
 
-            <label>Telefone</label>
-            <input type="text" class="form-control" placeholder="Digite seu telefone" required>
+              <label>Telefone</label>
+              <input type="text" class="form-control" placeholder="Digite seu telefone" required>
 
-            <label>CPF</label>
-            <input type="text" class="form-control" placeholder="Digite seu CPF" required>
+              <label>CPF</label>
+              <input type="text" class="form-control" placeholder="Digite seu CPF" required>
 
-            <label>E-mail SIC-CED</label>
-            <input type="text" class="form-control" placeholder="Digite seu e-mail" required>
+              <label>E-mail SIC-CED</label>
+              <input type="text" class="form-control" placeholder="Digite seu e-mail" required>
 
-            <label for="jurado-categoria">Categoria</label>
-            <select id="jurado-categoria" class="form-control" required>
-              <option selected disabled>Selecione...</option>
-              <option value="1">I - Ensino Médio</option>
-              <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-              <option value="3">III - Pesquisa Júnior</option>
-              <option value="4">IV - PcD</option>
-            </select>
-
-            <div id="jurado-area">
-              <label>Área</label>
-              <select class="form-control " >
+              <label for="jurado-categoria">Categoria</label>
+              <select id="jurado-categoria" class="form-control" required>
                 <option selected disabled>Selecione...</option>
-                <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                <option value="2">Matemática e suas Tecnologias - MT</option>
-                <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                <option value="1">I - Ensino Médio</option>
+                <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="3">III - Pesquisa Júnior</option>
+                <option value="4">IV - PcD</option>
               </select>
-            </div>
 
-            <div id="jurado-area2">
-              <label>Área</label>
-              <select class="form-control" >
-                <option selected disabled>Selecione...</option>
-                <option value="1">Ensino Fundamental</option>
-                <option value="2">Ensino Médio</option>
-              </select>
-            </div>
+              <div id="jurado-area">
+                <label>Área</label>
+                <select class="form-control ">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                  <option value="2">Matemática e suas Tecnologias - MT</option>
+                  <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                  <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                </select>
+              </div>
 
-            <input type="submit" value="Enviar">
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              <div id="jurado-area2">
+                <label>Área</label>
+                <select class="form-control">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Ensino Fundamental</option>
+                  <option value="2">Ensino Médio</option>
+                </select>
+              </div>
+
+              <input type="submit" value="Enviar">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="modal fade" id="modalTrabalho" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Cadastrar Trabalho</h4>
-        </div>
-        <div class="modal-body">
-          <form>
-            <label>Título do Trabalho</label>
-            <input type="text" class="form-control" placeholder="Digite o nome do Trabalho" required>
+    <div class="modal fade" id="modalTrabalho" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cadastrar Trabalho</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label>Título do Trabalho</label>
+              <input type="text" class="form-control" placeholder="Digite o nome do Trabalho" required>
 
-            <label>Escola</label>
-            <input type="text" class="form-control" placeholder="Digite o nome da Escola" required>
+              <label>Escola</label>
+              <input type="text" class="form-control" placeholder="Digite o nome da Escola" required>
 
-            <label for="trabalho-categoria">Categoria</label>
-            <select id="trabalho-categoria" class="form-control" required>
-              <option selected disabled>Selecione...</option>
-              <option value="1">I - Ensino Médio</option>
-              <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-              <option value="3">III - Pesquisa Júnior</option>
-              <option value="4">IV - PcD</option>
-            </select>
-
-            <div id="trabalho-area">
-              <label>Área</label>
-              <select class="form-control" >
+              <label for="trabalho-categoria">Categoria</label>
+              <select id="trabalho-categoria" class="form-control" required>
                 <option selected disabled>Selecione...</option>
-                <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                <option value="2">Matemática e suas Tecnologias - MT</option>
-                <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                <option value="1">I - Ensino Médio</option>
+                <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="3">III - Pesquisa Júnior</option>
+                <option value="4">IV - PcD</option>
               </select>
-            </div>
 
-            <div id="trabalho-area2">
-              <label>Área</label>
-              <select class="form-control">
-                <option selected disabled>Selecione...</option>
-                <option value="1">Ensino Fundamental</option>
-                <option value="2">Ensino Médio</option>
-              </select>
-            </div>
+              <div id="trabalho-area">
+                <label>Área</label>
+                <select class="form-control">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                  <option value="2">Matemática e suas Tecnologias - MT</option>
+                  <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                  <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                </select>
+              </div>
 
-            <input type="submit" value="Enviar">
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              <div id="trabalho-area2">
+                <label>Área</label>
+                <select class="form-control">
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">Ensino Fundamental</option>
+                  <option value="2">Ensino Médio</option>
+                </select>
+              </div>
+
+              <input type="submit" value="Enviar">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
 
     <!-- Ranking Preliminar -->
     <div class="ranking-container text-center" style="margin-top:40px;">
       <h3>Ranking Preliminar</h3>
-      <div class="ranking-filters" style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
+      <div class="ranking-filters"
+        style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:20px;">
         <select id="ranking-categoria" class="ranking-select">
           <option selected disabled>-- Selecione a Categoria --</option>
           <option value="I">I - Ensino Médio</option>
@@ -447,7 +465,9 @@
           </tr>
         </thead>
         <tbody id="ranking-tbody">
-          <tr><td colspan="4">Selecione Categoria e Área para visualizar o ranking</td></tr>
+          <tr>
+            <td colspan="4">Selecione Categoria e Área para visualizar o ranking</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -468,7 +488,7 @@
       main.classList.toggle("collapsed");
     }
 
-   $('#instituicao-categoria').change(function () {
+    $('#instituicao-categoria').change(function () {
       ($(this).val() === '1') ? $('#campo-ide').slideDown() : $('#campo-ide').slideUp();
     });
 
@@ -495,21 +515,21 @@
     });
     // Ranking Preliminar
     const rankingAreas = {
-      "I": ["Linguagens, Códigos e suas Tecnologias - LC","Matemática e suas Tecnologias - MT","Ciências da Natureza, Educação Ambiental e Engenharias - CN","Ciências Humanas e Sociais Aplicadas - CH","Robótica, Automação e Aplicação das TIC"],
-      "II": ["Linguagens, Códigos e suas Tecnologias - LC","Matemática e suas Tecnologias - MT","Ciências da Natureza, Educação Ambiental e Engenharias - CN","Ciências Humanas e Sociais Aplicadas - CH","Robótica, Automação e Aplicação das TIC"],
+      "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza, Educação Ambiental e Engenharias - CN", "Ciências Humanas e Sociais Aplicadas - CH", "Robótica, Automação e Aplicação das TIC"],
+      "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza, Educação Ambiental e Engenharias - CN", "Ciências Humanas e Sociais Aplicadas - CH", "Robótica, Automação e Aplicação das TIC"],
       "III": [], // Pesquisa Júnior não tem área
-      "IV": ["Ensino Fundamental","Ensino Médio"]
+      "IV": ["Ensino Fundamental", "Ensino Médio"]
     };
 
     const categoriaSelect = document.getElementById('ranking-categoria');
     const areaSelect = document.getElementById('ranking-area');
     const tbody = document.getElementById('ranking-tbody');
 
-    categoriaSelect.addEventListener('change', function() {
+    categoriaSelect.addEventListener('change', function () {
       const cat = this.value;
       areaSelect.innerHTML = '<option selected disabled>-- Selecione a Área --</option>';
 
-      if(cat && rankingAreas[cat].length > 0){
+      if (cat && rankingAreas[cat].length > 0) {
         rankingAreas[cat].forEach(area => {
           const opt = document.createElement('option');
           opt.value = area;
@@ -527,10 +547,10 @@
       tbody.innerHTML = '<tr><td colspan="4">Selecione Categoria e Área para visualizar o ranking</td></tr>';
     });
 
-    areaSelect.addEventListener('change', function() {
+    areaSelect.addEventListener('change', function () {
       const cat = categoriaSelect.value;
       const area = this.value;
-      if(cat === "III" || (cat && area)){
+      if (cat === "III" || (cat && area)) {
         tbody.innerHTML = `
           <tr><td>1</td><td>Trabalho A</td><td>Escola X</td><td>95</td></tr>
           <tr><td>2</td><td>Trabalho B</td><td>Escola Y</td><td>92</td></tr>
@@ -541,5 +561,5 @@
   </script>
 
 </body>
-</html>
 
+</html>

@@ -67,12 +67,12 @@ body {
 }
 
 .logo img {
-float: right; 
-margin-top: 15%;
- margin-bottom: 50%;
+  float: right;
+  margin-top: 15%;
+  margin-bottom: 50%;
   margin-left: 15%;
   margin-right: 10%;
-   width: 80%;
+  width: 80%;
 }
 
 .logos {
@@ -102,8 +102,6 @@ margin-top: 15%;
   z-index: 1;
 }
 
-<<<<<<< HEAD
-=======
 .imagem-container {
   position: relative;
   z-index: 10;
@@ -114,7 +112,6 @@ margin-top: 15%;
   height: auto;
 }
 
->>>>>>> 309b2712e6e492405e98ef026918ca475094c453
 .logo {
   position: relative;
   z-index: 10;
@@ -130,56 +127,60 @@ margin-top: 15%;
   float: right;
 }
 
-<<<<<<< HEAD
-.form-group {
-     margin-bottom: 10px;
-   }
+HEAD .form-group {
+  margin-bottom: 10px;
+}
 
-   label {
-     display: block;
-     margin-bottom: 5px;
-     font-weight: bold;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: 20%;
+  margin-right: 30%;
+}
 
-   input[type="email"],
-   input[type="password"] {
-     width: 60%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
+input[type="email"],
+input[type="password"] {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-right: 30%;
+}
 
-   h2 {
-   font-size: 150%;
-   }
-=======
+h2 {
+  font-size: 150%;
+}
 
 .login-container h2 {
   margin-bottom: 20px;
   text-align: center;
 }
->>>>>>> 309b2712e6e492405e98ef026918ca475094c453
 
-.Escolha{
-   border-bottom-left-radius:30px ; border-top-left-radius: 30px;width: 120%;margin: auto;
+.Escolha {
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  width: 120%;
+  margin: auto;
 }
 
-<<<<<<< HEAD
-.Escolha1{
-   border-radius: 30px; width: 120%;margin: auto;background-color: #4C8F5A;
-   
+.Escolha1 {
+  border-radius: 30px;
+  width: 120%;
+  margin: auto;
+  background-color: #4C8F5A;
+
 }
-.Box-Escolha{
-  display: flex; padding: 1px; margin-left: 32%;
-  
-=======
-.form-group {
-  margin-bottom: 15px;
->>>>>>> 309b2712e6e492405e98ef026918ca475094c453
+
+.Box-Escolha {
+  display: flex;
+  padding: 1px;
+  margin-left: 32%;
+
+  .form-group {
+    margin-bottom: 15px;
+  }
 }
 
 
