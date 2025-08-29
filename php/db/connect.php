@@ -10,3 +10,4 @@
     if($conn -> error){
         die("Não foi possível conectar ao banco de dados");
     }
+?>
