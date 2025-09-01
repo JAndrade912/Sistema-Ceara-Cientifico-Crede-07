@@ -36,7 +36,8 @@ body {
   flex: 1;
   background: #4C8F5A;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -46,7 +47,8 @@ body {
   background: white;
   padding: 15px;
   border-radius: 12px;
- font-size: 85%;
+  text-align: left;
+  font-size: 85%;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -65,14 +67,13 @@ body {
   margin-bottom: 20px;
 }
 
-
 .logo img {
-float: right; 
-margin-top: 15%;
- margin-bottom: 50%;
+  float: right;
+  margin-top: 15%;
+  margin-bottom: 50%;
   margin-left: 15%;
   margin-right: 10%;
-   width: 80%;
+  width: 80%;
 }
 
 .logos {
@@ -80,14 +81,16 @@ margin-top: 15%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  justify-content: center;
   gap: 20px;
+  position: relative;
+  top: -25px;
+  margin-left: 25%;
+  margin-right: 38%;
 }
 
 .logos img {
   height: 40px;
-  align-items: center;
-  justify-content: center;
+  align-items: center; margin-left: 43%; margin-right: 80%;
 }
 
 .fundo-arredondado {
@@ -106,7 +109,6 @@ margin-top: 15%;
   z-index: 10;
 }
 
-HEAD
 .imagem-frente {
   width: 300px;
   height: auto;
@@ -117,47 +119,6 @@ HEAD
   z-index: 10;
 }
 
-
-.form-group {
-     margin-bottom: 15px;
-   }
-
-   label {
-     display: block;
-     margin-bottom: 5px;
-     font-weight: bold;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
-
-   input[type="text"],
-   input[type="password"] {
-     width: 60%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
-
-h2 {
-  font-size: 150%;
-}
- 
-.Escolha1 {
-  border-radius: 30px;
-  width: 120%;
-  height: 100%;
-  margin: auto;
-  background-color: #4C8F5A;
-}
-#jurados{
-  color: #4C8F5A;
-  font-weight: 100;
-}
-#titulo-jurados{
-  text-align: center;
-}
 .login-container {
   background-color: #fff;
   padding: 30px;
@@ -168,15 +129,60 @@ h2 {
   float: right;
 }
 
+HEAD .form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: 20%;
+  margin-right: 30%;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-right: 30%;
+}
+
+h2 {
+  font-size: 150%;
+}
 
 .login-container h2 {
   margin-bottom: 20px;
   text-align: center;
 }
 
+.Escolha {
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
+  width: 120%;
+  margin: auto;
+}
 
-.form-group {
-  margin-bottom: 15px;
+.Escolha1 {
+  border-radius: 30px;
+  width: 120%;
+  margin: auto;
+  background-color: #4C8F5A;
+
+}
+
+.Box-Escolha {
+  display: flex;
+  padding: 1px;
+  margin-left: 32%;
+
+  .form-group {
+    margin-bottom: 15px;
+  }
 }
 
 
@@ -222,11 +228,48 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
-#bt1:hover {
-  background-color: #4C8F5A;
+
+
+button:hover {
+  background-color: #0056b3;
 }
-#login-tit{
-  margin-bottom: 50px; 
-  font-size: 45px;
-  text-align: center;
+/*    TRANSFUSÃO DE CSS EMBUTIDO      */
+.login-cont header{
+  font-size: 40px;text-align: center;
+}
+#login-con1{
+  display: flex; padding: 1px; margin-left: 32%;
+}
+#bt1{
+border-bottom-left-radius:30px ; border-top-left-radius: 30px;width: 120%;margin: auto;
+}
+#bt1:hover{
+background-color: #4C8F5A;
+}
+#bt2{
+  border-radius: 30px; width: 120%;margin: auto;background-color: #4C8F5A;
+}
+/*   -----------------   */
+#tit{
+    text-align: center;
+    padding-bottom: 12px;
+}
+#card-corpo{
+display: flex; justify-content: center; flex-direction: column;
+align-items: center;     width: 140px; box-shadow: 0 -6px 10px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-foto{
+    width: 90px; height: 90px;
+    align-items: center;
+    text-align: center;
+}
+
+.tit-maior{
+    color: #4C8F5A;
+    background-color: #fff;
+    border-radius: 2px;
+    font-weight: 100;
+    padding: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
