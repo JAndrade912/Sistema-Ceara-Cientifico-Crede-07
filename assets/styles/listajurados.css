@@ -102,3 +102,14 @@ th {
 .btn:hover {
   opacity: 0.7;
 }
+/*    TRANSFUSÃO DE CSS EMBUTIDO      */
+#cont2-tit{
+  color: white; text-align: center; font-size: 170%;
+}
+th {
+  font-size: 125%;
+  width: 30%;
+}
+.th-excecao{
+  width: 5%;
+}

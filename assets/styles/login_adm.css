@@ -89,6 +89,7 @@ body {
 
 .logos img {
   height: 40px;
+  align-items: center; margin-left: 43%; margin-right: 80%;
 }
 
 .fundo-arredondado {
@@ -230,4 +231,20 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+/*    TRANSFUSÃO DE CSS EMBUTIDO      */
+.login-cont header{
+  font-size: 40px;text-align: center;
+}
+#login-con1{
+  display: flex; padding: 1px; margin-left: 32%;
+}
+#bt1{
+border-bottom-left-radius:30px ; border-top-left-radius: 30px;width: 120%;margin: auto;
+}
+#bt1:hover{
+background-color: #4C8F5A;
+}
+#bt2{
+  border-radius: 30px; width: 120%;margin: auto;background-color: #4C8F5A;
 }

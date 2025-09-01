@@ -85,6 +85,7 @@ margin-top: 15%;
 
 .logos img {
   height: 40px;
+  align-items: center; margin-left: 43%; margin-right: 80%;
 }
 
 .fundo-arredondado {
@@ -103,20 +104,18 @@ margin-top: 15%;
   z-index: 10;
 }
 
-<<<<<<< HEAD
-=======
+HEAD
 .imagem-frente {
   width: 300px;
   height: auto;
 }
 
->>>>>>> 309b2712e6e492405e98ef026918ca475094c453
 .logo {
   position: relative;
   z-index: 10;
 }
 
-<<<<<<< HEAD
+
 .form-group {
      margin-bottom: 15px;
    }
@@ -143,8 +142,6 @@ h2 {
   font-size: 150%;
 }
  
-
-
 .Escolha1 {
   border-radius: 30px;
   width: 120%;
@@ -158,8 +155,7 @@ h2 {
 }
 #titulo-jurados{
   text-align: center;
-=======
-
+}
 .login-container {
   background-color: #fff;
   padding: 30px;
@@ -211,7 +207,6 @@ input[type="password"] {
 
 .form-check input {
   margin-right: 5px;
->>>>>>> 309b2712e6e492405e98ef026918ca475094c453
 }
 
 
@@ -225,8 +220,11 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
-
-
-button:hover {
-  background-color: #0056b3;
+#bt1:hover {
+  background-color: #4C8F5A;
+}
+#login-tit{
+  margin-bottom: 50px; 
+  font-size: 8px !important;
+  text-align: center;
 }

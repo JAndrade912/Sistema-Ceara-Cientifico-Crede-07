@@ -117,3 +117,13 @@ th {
   margin-left: 25%;
   margin-bottom: 20px;
 }
+/*    TRANSFUSÃO DE CSS EMBUTIDO      */
+th{
+  font-size: 125%;
+}
+#cont2-tit{
+  color: white; text-align: center; font-size: 170%;
+}
+.logos img{
+  align-items: center; margin-left: 43%; margin-right: 80%; position: relative; top: -25px; margin-left: 38%;
+}

@@ -17,13 +17,13 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   background: white;
 }
 
 .left {
   flex: 1;
-  background:#4C8F5A; 
+  background: #4C8F5A;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,7 +62,7 @@ body {
   background: white;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   color: black;
 
 }
@@ -124,11 +124,9 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
 .logos img {
-  height: 40px;
+  height: 40px;align-items: center; margin-left: 43%; margin-right: 80%; position: relative; top: -20px; margin-left: 38%;
 }
-
 .fundo-arredondado {
   position: absolute;
   top: 0;
@@ -141,13 +139,13 @@ body {
 }
 
 .imagem-container {
-    position: relative; 
-    z-index: 10; 
+  position: relative;
+  z-index: 10;
 }
 
 .imagem-frente {
-    width: 300px;
-    height: auto;
+  width: 300px;
+  height: auto;
 }
 
 .logo {
@@ -156,25 +154,38 @@ body {
 }
 
 .form-group {
-     margin-bottom: 15px;
-   }
+  margin-bottom: 15px;
+}
 
 
-   label {
-     display: block;
-     margin-bottom: 5px;
-     font-weight: bold;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: 20%;
+  margin-right: 30%;
+}
 
 
-   input[type="email"],
-   input[type="password"] {
-     width: 60%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
+input[type="email"],
+input[type="password"] {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-right: 30%;
+}
+/*    TRANSFUSÃO DE CSS EMBUTIDO      */
+.logo img {
+  float: right;
+  margin-top: 15%;
+  margin-bottom: 50%;
+  margin-left: 15%;
+  margin-right: 10%;
+  width: 80%;
+}
+#login-text {
+  margin-bottom: 50px;
+}
+
