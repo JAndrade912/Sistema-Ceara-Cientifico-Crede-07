@@ -24,7 +24,7 @@ CREATE TABLE Jurados (
     usu_jurado VARCHAR(45) NOT NULL,
     pass_jurado VARCHAR(6) NOT NULL,
     cpf INT(11) NOT NULL,
-    id_contato INT,
+    id_contatos INT,
     id_categoria INT
 );
 CREATE TABLE Areas (
