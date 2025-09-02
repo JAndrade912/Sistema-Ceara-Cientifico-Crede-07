@@ -41,8 +41,8 @@ body {
 }
 
 .login-box {
-  width: 45%;
-  height: 38%;
+  width: 34%;
+  height: 30%;
   background: white;
   padding: 15px;
   border-radius: 12px;
@@ -73,23 +73,6 @@ body {
   margin-left: 15%;
   margin-right: 10%;
   width: 80%;
-}
-
-.logos {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  position: relative;
-  top: -25px;
-  margin-left: 25%;
-  margin-right: 38%;
-}
-
-.logos img {
-  height: 40px;
-  align-items: center; margin-left: 43%; margin-right: 80%;
 }
 
 .fundo-arredondado {
@@ -159,92 +142,10 @@ h2 {
   text-align: center;
 }
 
-.Escolha {
-  border-bottom-left-radius: 30px;
-  border-top-left-radius: 30px;
-  width: 120%;
-  margin: auto;
-}
-
-.Escolha1 {
-  border-radius: 30px;
-  width: 120%;
-  margin: auto;
-  background-color: #4C8F5A;
-
-}
-
-.Box-Escolha {
-  display: flex;
-  padding: 1px;
-  margin-left: 32%;
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-}
-
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  margin-left: 20%;
-  margin-right: 30%;
-}
-
-
-input[type="email"],
-input[type="password"] {
-  width: 60%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-left: 20%;
-  margin-right: 30%;
-}
-
-
-.form-check {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-
 .form-check input {
   margin-right: 5px;
 }
 
-
-button {
-  width: 100%;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-
-button:hover {
-  background-color: #0056b3;
-}
-/*    TRANSFUSÃO DE CSS EMBUTIDO      */
-.login-cont header{
-  font-size: 40px;text-align: center;
-}
-#login-con1{
-  display: flex; padding: 1px; margin-left: 32%;
-}
-#bt1{
-border-bottom-left-radius:30px ; border-top-left-radius: 30px;width: 120%;margin: auto;
-}
-#bt1:hover{
-background-color: #4C8F5A;
-}
-#bt2{
-  border-radius: 30px; width: 120%;margin: auto;background-color: #4C8F5A;
+b {
+  font-size: 20px;
 }
