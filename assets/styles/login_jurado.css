@@ -7,53 +7,60 @@
 
 body {
   height: 100vh;
+  background: #4C8F5A !important;
+}
+
+nav {
+  padding: 25px !important;
+  text-align: center;
+  display: flex;
+  justify-content: center !important;
+  flex-direction: row;
+}
+
+#corpo-foto {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f2f2f2;
+  text-align: center;
 }
 
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+#img-sacc {
+  width: 200px;
+  text-align: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#tit {
+  color: #4C8F5A;
+  background-color: #fff;
+  border-radius: 2px;
+  font-weight: 100;
+  padding: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/*REPOSIÇÃO*/
+#login-box {
+  justify-content: center;
+  width: 45%;
   background: white;
-}
-
-.left {
-  flex: 1;
-  background: #4C8F5A;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  flex-direction: column;
-  position: relative;
-}
-
-.right {
-  flex: 1;
-  background: #4C8F5A;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-box {
-  width: 34%;
-  height: 30%;
-  background: white;
+  margin-top: 5%;
   padding: 15px;
   border-radius: 12px;
- font-size: 85%;
+  text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
 }
 
-.login-box button {
-  width: 50%;
+#login-box button {
   padding: 12px;
-  margin-top: 10px;
+  margin-top: 20px;
   background: #3c3c3c;
   color: white;
   border: none;
@@ -63,86 +70,96 @@ body {
   margin-right: 25%;
   margin-left: 25%;
   margin-bottom: 20px;
+
 }
 
-.logo img {
-float: right; 
-margin-top: 15%;
- margin-bottom: 50%;
-  margin-left: 15%;
-  margin-right: 10%;
-   width: 80%;
+#coluna {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
 }
 
-.fundo-arredondado {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 55vw;
-  height: 100vh;
-  background: linear-gradient(to bottom, #ffffff, #ffffff);
-  border-bottom-right-radius: 100% 100%;
-  z-index: 1;
+#card-corpo {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+  height: 184px;
+  margin: 10px;
+  border-bottom: #4C8F5A;
+  width: 140px;
 }
 
-.imagem-container {
+.card-foto {
+  width: 90px;
+  height: 90px;
+  align-items: center;
+  text-align: center;
+}
+
+
+.logos {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
   position: relative;
-  z-index: 10;
+  top: -25px;
+  margin-left: 25%;
+  margin-right: 38%;
 }
 
-.logo {
-  position: relative;
-  z-index: 10;
+
+.logos img {
+  height: 40px;
+  align-items: center;
+  margin-left: 43%;
+  margin-right: 80%;
+  margin-top: 12%;
 }
 
-.form-group {
-     margin-bottom: 15px;
-   }
-
-   label {
-     display: block;
-     margin-bottom: 5px;
-     font-weight: bold;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
-
-   input[type="text"],
-   input[type="password"] {
-     width: 60%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
-
-.form-group {
-  margin-bottom: 15px;
+#card-pai {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  margin-left: 20%;
-  margin-right: 30%;
+.container {
+  align-items: center;
+  margin-top: 55px;
 }
 
-input[type="text"],
-input[type="password"] {
-  width: 60%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-left: 20%;
-  margin-right: 30%;
+#bt1 {
+  font-size: 5px;
+  padding: 3px;
+  height: 45px;
+  font-weight: 550;
+  width: 120px;
 }
 
-.form-check input {
-  margin-right: 5px;
+#bt1:hover {
+  background-color: #4C8F5A;
 }
 
-h2 {
-  font-size: 20px;
+.col {
+  justify-content: space-around;
+  flex: 0 0 0 !important;
+}
+
+#colunas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group label{
+ margin-left: 25%;
+}
+
+b {
+ color: #4C8F5A;
 }
