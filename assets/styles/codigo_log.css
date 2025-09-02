@@ -31,20 +31,8 @@ body {
   flex-direction: column;
   position: relative;
 }
-
-.logo h1 {
-  width: 50;
-}
-
 .ceara {
   color: #444;
-}
-
-.cientifico {
-  background: #ff6f47;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 5px;
 }
 
 .right {
@@ -63,7 +51,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   color: black;
-
 }
 
 .login-box h2 {
@@ -103,22 +90,6 @@ body {
 
 .login-box button:hover {
   background: #222;
-}
-
-.logos {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logos img {
-  height: 40px;
-  align-items: center;
-  margin-left: 38%;
-  margin-right: 90%;
-  position: relative;
-  top: -1px;
 }
 
 .fundo-arredondado {
