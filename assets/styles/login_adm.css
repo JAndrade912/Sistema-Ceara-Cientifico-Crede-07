@@ -111,10 +111,6 @@ body {
   float: right;
 }
 
-HEAD .form-group {
-  margin-bottom: 10px;
-}
-
 label {
   display: block;
   margin-bottom: 5px;
@@ -131,15 +127,6 @@ input[type="password"] {
   border-radius: 5px;
   margin-left: 20%;
   margin-right: 30%;
-}
-
-h2 {
-  font-size: 150%;
-}
-
-.login-container h2 {
-  margin-bottom: 20px;
-  text-align: center;
 }
 
 .form-check input {

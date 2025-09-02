@@ -90,12 +90,6 @@ margin-top: 15%;
   z-index: 10;
 }
 
-HEAD
-.imagem-frente {
-  width: 300px;
-  height: auto;
-}
-
 .logo {
   position: relative;
   z-index: 10;
@@ -123,11 +117,6 @@ HEAD
      margin-right: 30%;
    }
 
-.login-container h2 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 .form-group {
   margin-bottom: 15px;
 }
@@ -148,12 +137,6 @@ input[type="password"] {
   border-radius: 5px;
   margin-left: 20%;
   margin-right: 30%;
-}
-
-.form-check {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
 }
 
 .form-check input {

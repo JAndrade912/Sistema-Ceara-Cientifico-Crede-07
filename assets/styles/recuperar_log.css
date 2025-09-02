@@ -32,22 +32,6 @@ body {
   position: relative;
 }
 
-.logo h1 {
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.ceara {
-  color: #444;
-}
-
-.cientifico {
-  background: #ff6f47;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 5px;
-}
-
 .right {
   flex: 1;
   background: #4C8F5A;
@@ -67,7 +51,7 @@ body {
 }
 
 .login-box h2 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 20px;
 }
 
@@ -99,10 +83,6 @@ body {
   margin-right: 25%;
   margin-left: 25%;
   margin-bottom: 20px;
-}
-
-.login-box button:hover {
-  background: #222;
 }
 
 .fundo-arredondado {

@@ -31,9 +31,6 @@ body {
   flex-direction: column;
   position: relative;
 }
-.ceara {
-  color: #444;
-}
 
 .right {
   flex: 1;
@@ -51,11 +48,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   color: black;
-}
-
-.login-box h2 {
-  margin-bottom: 20px;
-  font-size: 20px;
 }
 
 .login-box label {
@@ -86,10 +78,6 @@ body {
   margin-right: 25%;
   margin-left: 25%;
   margin-bottom: 20px;
-}
-
-.login-box button:hover {
-  background: #222;
 }
 
 .fundo-arredondado {
@@ -129,4 +117,8 @@ body {
 
 #red-senha {
   margin-bottom: 50px;
+}
+
+b{
+  font-size: 15px;
 }

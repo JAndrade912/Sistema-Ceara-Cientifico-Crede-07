@@ -29,15 +29,6 @@ body {
   position: relative;
 }
 
-.logo h1 {
-  font-size: 36px;
-  font-weight: bold;
-}
-
-.ceara {
-  color: #444;
-}
-
 .right {
   flex: 1;
   background: #4C8F5A;
@@ -54,7 +45,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
   color: black;
-
 }
 
 .login-box label {
@@ -87,14 +77,6 @@ body {
   margin-bottom: 20px;
 }
 
-.login-box button:hover {
-  background: #222;
-}
-
-.forgot:hover {
-  text-decoration: underline;
-}
-
 .fundo-arredondado {
   position: absolute;
   top: 0;
@@ -119,7 +101,6 @@ body {
 .form-group {
      margin-bottom: 15px;
    }
-
    
    input[type="password"],
    input[type="password"] {
@@ -134,13 +115,11 @@ body {
 .logo img{
   float: right; margin-top: 15%; margin-bottom: 50%; margin-left: 15%;margin-right: 10%; width: 80%;
 }
-#login-tit{
-  margin-bottom: 50px;
-}
 
 b {
  margin-left: 20%;
 }
+
 h2 {
   font-size: 20px;
 }
