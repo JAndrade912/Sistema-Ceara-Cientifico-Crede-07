@@ -1,36 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Ceará Científico</title>
-  <link rel="stylesheet" href="assets/styles/index.css">
+  <title>SACC - Home</title>
+  <link rel="stylesheet" href="/assets/styles/index.css">
+  <link rel="stylesheet" href="/boostrap/CSS/bootstrap.min.css">
+  <link rel="alternate" href="/assets/img/SIMBOLO.png" type="application/atom+xml" title="Atom">
   <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
+  <script src="boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <div class="fundo-arredondado"></div>
-  <div class="container">
-    <div class="left">
-      <div class="logo"><img src="/assets/img/SACC.png"></div>
+  <nav class="navbar bg-body-tertiary">
+    <div class="d-flex">
+      <a class="navbar-brand" href="#">
+        <div id="corpo-img"> 
+          <img src="/assets/img/SACC.png" alt="Logo" id="img-sacc" class="d-inline-block align-text-top">
+        </div>
+      </a>
     </div>
-    <div class="right">
-      <h1 class="tit-maior">Selecione seu Login</h1>
-        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-          <div class="card-body" id="card-corpo">
-            <h5 class="card-title" id="tit">Admin</h5>
-            <img src="assets/img/admin.png" alt="Icone do Admin" class="card-foto">
+  </nav>
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="container-fluid" id="login-box">
+      <h1 class="h1" id="tit">Selecione seu Login</h1>
+      <div class="row d-flex justify-content-center align-items-center" id="coluna">
+        <div class="col justify-content-center align-items-center" id="colunas">
+          <div class="card text-bg-light mb-3 d-flex" style="max-width: 10rem;" id="card-pai">
+            <div class="card-body" id="card-corpo">
+              <br><br>
+              <img src="/assets/img/jurado.png" alt="Icone do Jurado" class="card-foto">
+              <button class="btn btn-success" id="bt1">Jurado</button>
+            </div>
           </div>
         </div>
-        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-          <div class="card-body" id="card-corpo">
-            <h5 class="card-title" id="tit">Jurado</h5>
-            <img src="assets/img/admin.png" alt="Icone do Jurado" class="card-foto">
+        <div class="col">
+          <div class="card text-bg-light mb-3" style="max-width: 10rem;" id="card-pai">
+            <div class="card-body" id="card-corpo">
+              <br><br>
+              <img src="/assets/img/admin.png" alt="Icone do Admin" class="card-foto">
+              <button class="btn btn-success" id="bt1">Admin</button>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="logos">
+        <img src="/assets/img/crede7.png" alt="Crede 7 Canindé">
+      </div>
     </div>
   </div>
   </div>
 </body>
 </html>
-<!--ESQUELETO DO INDEX-->
