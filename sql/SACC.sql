@@ -6,19 +6,23 @@ CREATE TABLE Administracao(
     usuario VARCHAR(45) NOT NULL,
     senha VARCHAR(6) NOT NULL
 );
+
 CREATE TABLE Categoria(
 	id_categoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL
 );
+
 CREATE TABLE `Status` (
 	id_status INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL
 );
+
 CREATE TABLE Contatos(
     id_contatos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     telefone INT(11) NOT NULL,
     email VARCHAR(45) NOT NULL
 );
+
 CREATE TABLE Jurados (
 	id_jurados INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     usu_jurado VARCHAR(45) NOT NULL,
@@ -27,10 +31,12 @@ CREATE TABLE Jurados (
     id_contatos INT,
     id_categoria INT
 );
+
 CREATE TABLE Areas (
 	id_areas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL
 );
+
 CREATE TABLE Escolas(
  	id_escolas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL,
@@ -38,6 +44,7 @@ CREATE TABLE Escolas(
     ide VARCHAR(45) NOT NULL,
     municipio VARCHAR(45) NOT NULL
 );
+
 CREATE TABLE Trabalhos(
  	id_trabalhos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(45) NOT NULL,
@@ -48,6 +55,7 @@ CREATE TABLE Trabalhos(
     id_areas INT,
     id_categoria INT
 );
+
 CREATE TABLE Notas(
 	id_notas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     notas FLOAT(4) NOT NULL,
