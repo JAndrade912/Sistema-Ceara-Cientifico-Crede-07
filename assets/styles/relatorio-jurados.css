@@ -1,0 +1,43 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #FF8C42;
+    font-size: 14px;
+}
+
+td input[type="number"], td input[type="text"] {
+    width: 80%;
+    padding: 5px;
+    text-align: center;
+}
+
+thead {
+    background-color: #a38bbd;
+}
+
+input[readonly] {
+    background-color: #f0f0f0;
+}
+
+h2 {
+    text-align: center;
+    color: #4a3c63;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #fafafa;
+}
