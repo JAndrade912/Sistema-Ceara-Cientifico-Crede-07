@@ -1,3 +1,7 @@
+<?php
+ session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +32,7 @@
       <div class="login-box">
         <div class="login-cont">
           <h2><b>Jurado</b></h2><br>
-          <form method="POST" action="" id="loginForm">
+          <form method="POST" action="login_adm.php" id="loginForm">
             <div class="form-group">
               <label for="usuario"><b>Usuário:</b></label>
               <br>
@@ -42,6 +46,13 @@
             </div>
             <button type="submit" id="bt1">Entrar</button>
           </form>
+
+          <?php
+          if(isset($_SESSION['erro_login'])){
+            echo "<p class = 'text-danger'> " . $_SESSION['erro_login'] . "</p>";
+            unset($_SESSION['erro_login']);
+          }
+          ?>
         </div>
       </div>
     </div>
