@@ -32,21 +32,6 @@ body {
   position: relative;
 }
 
-.logo h1 {
-  width: 50;
-}
-
-.ceara {
-  color: #444;
-}
-
-.cientifico {
-  background: #ff6f47;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 5px;
-}
-
 .right {
   flex: 1;
   background: #4C8F5A;
@@ -56,18 +41,13 @@ body {
 }
 
 .login-box {
-  width: 40%;
-  height: 34%;
+  width: 34%;
+  height: 30%;
   background: white;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   color: black;
-
-}
-
-.login-box h2 {
-  margin-bottom: 20px;
 }
 
 .login-box label {
@@ -86,7 +66,7 @@ body {
 }
 
 .login-box button {
-  width: 100%;
+  width: 50%;
   padding: 12px;
   margin-top: 20px;
   background: #3c3c3c;
@@ -95,39 +75,9 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
-}
-
-.login-box button:hover {
-  background: #222;
-}
-
-.forgot {
-  display: block;
-  margin-top: 10px;
-  font-size: 12px;
-  color: #666;
-  text-align: right;
-  text-decoration: none;
-}
-
-.forgot:hover {
-  text-decoration: underline;
-}
-
-.logos {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logos img {
-  height: 40px;
-  align-items: center;
-  margin-left: 38%;
-  margin-right: 90%;
-  position: relative;
-  top: -1px;
+  margin-right: 25%;
+  margin-left: 25%;
+  margin-bottom: 20px;
 }
 
 .fundo-arredondado {
@@ -167,4 +117,8 @@ body {
 
 #red-senha {
   margin-bottom: 50px;
+}
+
+b{
+  font-size: 15px;
 }

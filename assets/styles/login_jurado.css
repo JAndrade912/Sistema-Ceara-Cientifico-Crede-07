@@ -7,51 +7,58 @@
 
 body {
   height: 100vh;
+  background: #4C8F5A !important;
+}
+
+nav {
+  padding: 25px !important;
+  text-align: center;
+  display: flex;
+  justify-content: center !important;
+  flex-direction: row;
+}
+
+#corpo-foto {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f2f2f2;
+  text-align: center;
 }
 
-.container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  background: white;
-}
-
-.left {
-  flex: 1;
-  background: #4C8F5A;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  flex-direction: column;
-  position: relative;
-}
-
-.right {
-  flex: 1;
-  background: #4C8F5A;
-  display: flex;
-  justify-content: center;
+#img-sacc {
+  width: 200px;
+  text-align: center;
   align-items: center;
 }
 
-.login-box {
+a {
+  text-decoration: none;
+  color: black;
+}
+
+#tit {
+  color: #4C8F5A;
+  background-color: #fff;
+  border-radius: 2px;
+  font-weight: 100;
+  padding: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/*REPOSIÇÃO*/
+#login-box {
+  justify-content: center;
   width: 45%;
-  height: 38%;
   background: white;
+  margin-top: 5%;
   padding: 15px;
   border-radius: 12px;
- font-size: 85%;
+  text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
 }
 
-.login-box button {
-  width: 50%;
+#login-box button {
   padding: 12px;
   margin-top: 20px;
   background: #3c3c3c;
@@ -63,170 +70,96 @@ body {
   margin-right: 25%;
   margin-left: 25%;
   margin-bottom: 20px;
+
 }
 
-
-.logo img {
-float: right; 
-margin-top: 15%;
- margin-bottom: 50%;
-  margin-left: 15%;
-  margin-right: 10%;
-   width: 80%;
+#coluna {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
 }
+
+#card-corpo {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+  height: 184px;
+  margin: 10px;
+  border-bottom: #4C8F5A;
+  width: 140px;
+}
+
+.card-foto {
+  width: 90px;
+  height: 90px;
+  align-items: center;
+  text-align: center;
+}
+
 
 .logos {
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  justify-content: center;
   gap: 20px;
+  position: relative;
+  top: -25px;
+  margin-left: 25%;
+  margin-right: 38%;
 }
+
 
 .logos img {
   height: 40px;
   align-items: center;
-  justify-content: center;
+  margin-left: 43%;
+  margin-right: 80%;
+  margin-top: 12%;
 }
 
-.fundo-arredondado {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 55vw;
-  height: 100vh;
-  background: linear-gradient(to bottom, #ffffff, #ffffff);
-  border-bottom-right-radius: 100% 100%;
-  z-index: 1;
-}
-
-.imagem-container {
-  position: relative;
-  z-index: 10;
-}
-
-HEAD
-.imagem-frente {
-  width: 300px;
-  height: auto;
-}
-
-.logo {
-  position: relative;
-  z-index: 10;
-}
-
-
-.form-group {
-     margin-bottom: 15px;
-   }
-
-   label {
-     display: block;
-     margin-bottom: 5px;
-     font-weight: bold;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
-
-   input[type="text"],
-   input[type="password"] {
-     width: 60%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
-
-h2 {
-  font-size: 150%;
-}
- 
-.Escolha1 {
-  border-radius: 30px;
-  width: 120%;
-  height: 100%;
-  margin: auto;
-  background-color: #4C8F5A;
-}
-#jurados{
-  color: #4C8F5A;
-  font-weight: 100;
-}
-#titulo-jurados{
-  text-align: center;
-}
-.login-container {
-  background-color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 350px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  float: right;
-}
-
-
-.login-container h2 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  margin-left: 20%;
-  margin-right: 30%;
-}
-
-
-input[type="email"],
-input[type="password"] {
-  width: 60%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-left: 20%;
-  margin-right: 30%;
-}
-
-
-.form-check {
+#card-pai {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-
-.form-check input {
-  margin-right: 5px;
+.container {
+  align-items: center;
+  margin-top: 55px;
 }
 
-
-button {
-  width: 100%;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
+#bt1 {
+  font-size: 5px;
+  padding: 3px;
+  height: 45px;
+  font-weight: 550;
+  width: 120px;
 }
+
 #bt1:hover {
   background-color: #4C8F5A;
 }
-#login-tit{
-  margin-bottom: 50px; 
-  font-size: 45px;
-  text-align: center;
+
+.col {
+  justify-content: space-around;
+  flex: 0 0 0 !important;
+}
+
+#colunas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-group label{
+ margin-left: 25%;
+}
+
+b {
+ color: #4C8F5A;
 }
