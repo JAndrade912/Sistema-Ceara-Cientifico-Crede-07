@@ -15,7 +15,7 @@ $stmt -> execute();
 if($stmt -> rowCount() > 0){
     $dados = $stmt -> fetch(PDO::FETCH_ASSOC);
 
-    if(password_verify($senha, $dados["password"])){
+    if(password_verify($senha, $dados["senha"])){
         $_SESSION['usuario_id'] = $dados['id'];
         $_SESSION['usuario_nome'] = $usuario;
         header('Location: ../dashboards/admin/dashboard_admin.html');
