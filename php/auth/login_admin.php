@@ -22,12 +22,12 @@ if($stmt -> rowCount() > 0){
         exit();
     }else{
        $_SESSION['erro_login'] = 'Senha incorreta!';
-       header('Location: ../php/auth/login_adm.php');
+       header('Location: ../php/auth/login_admin.php');
        exit(); 
     }
 }else{
     $_SESSION['erro_login'] = "Usuário não encontrado!";
-    header('Location: ../php/auth/login_adm.php');
+    header('Location: ../php/auth/login_admin.php');
     exit();
 }
 
