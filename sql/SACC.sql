@@ -1,69 +1,79 @@
 CREATE DATABASE SACC;
 USE SACC;
 
-CREATE TABLE Administracao(
+-- Tabela de administração
+CREATE TABLE Administracao (
     id_admin INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(45) NOT NULL,
-    senha VARCHAR(6) NOT NULL
+    senha VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Categoria(
-	id_categoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+-- Categorias
+CREATE TABLE Categoria (
+    id_categoria INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL
 );
 
+-- Status
 CREATE TABLE `Status` (
-	id_status INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_status INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE Contatos(
+-- Contatos
+CREATE TABLE Contatos (
     id_contatos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    telefone INT(11) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
     email VARCHAR(45) NOT NULL
 );
 
+-- Jurados
 CREATE TABLE Jurados (
-	id_jurados INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    usu_jurado VARCHAR(45) NOT NULL,
-    pass_jurado VARCHAR(6) NOT NULL,
-    cpf INT(11) NOT NULL,
-    id_contatos INT,
-    id_categoria INT
+    id_jurados INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(45) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    id_contatos INT NULL,
+    id_categoria INT NULL
 );
 
+-- Áreas
 CREATE TABLE Areas (
-	id_areas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_areas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE Escolas(
- 	id_escolas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+-- Escolas
+CREATE TABLE Escolas (
+    id_escolas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL,
     focalizada TINYINT(1) NOT NULL,
     ide VARCHAR(45) NOT NULL,
     municipio VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE Trabalhos(
- 	id_trabalhos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+-- Trabalhos
+CREATE TABLE Trabalhos (
+    id_trabalhos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(45) NOT NULL,
     observacoes VARCHAR(45) NOT NULL,
-    id_escolas INT,
-    id_jurados INT,
-    id_status INT,
-    id_areas INT,
-    id_categoria INT
+    id_escolas INT NULL,
+    id_jurados INT NULL,
+    id_status INT NULL,
+    id_areas INT NULL,
+    id_categoria INT NULL
 );
 
-CREATE TABLE Notas(
-	id_notas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+-- Notas
+CREATE TABLE Notas (
+    id_notas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     notas FLOAT(4) NOT NULL,
-    id_trabalhos INT,
-    id_jurados INT,
-    id_escolas INT
+    id_trabalhos INT NULL,
+    id_jurados INT NULL,
+    id_escolas INT NULL
 );
 
+-- Relacionamentos
 ALTER TABLE Jurados 
 ADD CONSTRAINT fk_jurados_contatos 
 FOREIGN KEY (id_contatos) 
