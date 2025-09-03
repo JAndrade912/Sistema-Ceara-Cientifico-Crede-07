@@ -150,8 +150,8 @@ body {
   font-weight: bold;
 }
 
-.status.cinza { background-color: #B0B0B0; }
-.status.laranja { background-color: #FF8C42; }
+.status.cinza { background-color: #B0B0B0; position: relative; top: 7px;}
+.status.laranja { background-color: #FF8C42; position: relative; top: 7px;}
 .status.verde { background-color: #2E7D32; }
 
 /* TABELAS */
@@ -208,3 +208,4 @@ form input[type="number"], form input[type="text"] {
     box-shadow: none;
   }
 }
+
