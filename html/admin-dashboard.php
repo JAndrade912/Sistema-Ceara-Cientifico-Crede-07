@@ -15,13 +15,12 @@ $userName = $_SESSION['usuario'];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard Administrativo</title>
-  <link rel="stylesheet" href="dashboard-admin.css">
 
-  <link href="/boostrap/CSS/bootstrap.min.css" rel="stylesheet">
-  <script src="/boostrap/JS/bootstrap.bundle.min.js"></script>
-  <link href="/boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
-  <script src="/boostrap/JS/jquery.min.js"></script>
-  <link rel="stylesheet" href="/assets/styles/dashboard-admin.css">
+  <link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
+  <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
+  <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
+  <script src="../boostrap/JS/jquery.min.js"></script>
+  <link rel="stylesheet" href="../assets/styles/dashboard-admin.css">
   
 </head>
 <body>
@@ -32,22 +31,22 @@ $userName = $_SESSION['usuario'];
   <i class="bi bi-list"></i>
 </button>
 
-<div id="sidebar">
+<div id="sidebar" style="background-color: #4C8F5A;">
   <div>
     <button class="toggle-btn" onclick="toggleSidebar()">
-      <img src="./img/SIMBOLO.png" alt="SACC">
+      <img src="../assets/img/SIMBOLO.png" alt="SACC">
       <span class="brand-text">SACC</span>
     </button>
-    <ul class="nav">
-      <li><a href="#"><i class="bi bi-house-door-fill"></i> <span class="label-text">Dashboard</span></a></li>
-      <li><a href="#"><i class="bi bi-mortarboard-fill"></i> <span class="label-text">Escolas</span></a></li>
-      <li><a href="#"><i class="bi bi-file-earmark-text-fill"></i> <span class="label-text">Trabalhos</span></a></li>
-      <li><a href="#"><i class="bi bi-person-fill"></i> <span class="label-text">Jurados</span></a></li>
-      <li><a href="#"><i class="bi bi-bar-chart-fill"></i> <span class="label-text">Relatórios</span></a></li>
+    <ul class="nav flex-column">
+      <li><a href="#"><i class="bi bi-house"></i> <span class="label-text">Dashboard</span></a></li>
+      <li><a href="#"><i class="bi bi-mortarboard"></i> <span class="label-text">Escolas</span></a></li>
+      <li><a href="#"><i class="bi bi-file-earmark"></i> <span class="label-text">Trabalhos</span></a></li>
+      <li><a href="#"><i class="bi bi-person"></i> <span class="label-text">Jurados</span></a></li>
+      <li><a href="#"><i class="bi bi-bar-chart"></i> <span class="label-text">Relatórios</span></a></li>
     </ul>
   </div>
-  <ul class="nav bottom-nav">
-    <li><a href="../php/admLogout.php"><i class="bi bi-box-arrow-right"></i> <span class="label-text">Sair</span></a></li>
+  <ul class="nav flex-column bottom-nav">
+    <li><a href="#"><i class="bi bi-box-arrow-right"></i> <span class="label-text">Sair</span></a></li>
   </ul>
 </div>
 
@@ -59,9 +58,9 @@ $userName = $_SESSION['usuario'];
 
     <div class="row text-center mb-4">
       <div class="col">
-        <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalInstituicao" style="background-color: rgb(135, 190, 101);">Cadastrar Instituição</button>
-        <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado" style="background-color: rgb(135, 190, 101);">Cadastrar Jurado</button>
-        <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalTrabalho" style="background-color: rgb(135, 190, 101);">Cadastrar Trabalho</button>
+        <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalInstituicao" style="background-color: #4C8F5A;">Cadastrar Instituição</button>
+        <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado" style="background-color: #4C8F5A;">Cadastrar Jurado</button>
+        <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalTrabalho" style="background-color: #4C8F5A;">Cadastrar Trabalho</button>
       </div>
     </div>
 
@@ -89,8 +88,8 @@ $userName = $_SESSION['usuario'];
                 <option value="6">Itatira</option>
               </select>
 
-              <label for="instituicao-categoria" class="form-label mt-2">Categoria</label>
-              <select id="instituicao-categoria" class="form-control">
+              <label for="instituicao-tipo" class="form-label mt-2">Tipo</label>
+              <select id="instituicao-tipo" class="form-control">
                 <option selected disabled>Selecione...</option>
                 <option value="1">Focalizado</option>
               </select>
@@ -121,6 +120,8 @@ $userName = $_SESSION['usuario'];
       <div class="modal-body">
          <form>
               <label>Nome</label>
+              <input type="text" class="form-control" placeholder="Digite seu nome" required>
+              <label>Apelido</label>
               <input type="text" class="form-control" placeholder="Digite seu nome" required>
               <label>Telefone</label>
               <input type="text" class="form-control" placeholder="Digite seu telefone" required>
@@ -273,10 +274,12 @@ $userName = $_SESSION['usuario'];
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Posição</th>
+                  <th>Classificação</th>
                   <th>Trabalho</th>
                   <th>Escola</th>
-                  <th>Nota</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th>Nota Final</th>
                 </tr>
               </thead>
               <tbody id="ranking-tbody">
@@ -318,7 +321,7 @@ $userName = $_SESSION['usuario'];
   });
 
   // Lógica dos modais e exibição de áreas
-  $('#instituicao-categoria').change(function () {
+  $('#instituicao-tipo').change(function () {
     ($(this).val() === '1') ? $('#campo-ide').slideDown() : $('#campo-ide').slideUp();
   });
   $('#jurado-categoria').change(function () {

@@ -7,12 +7,12 @@ body { background: #f4f6f9;
   margin:0; }
 
 /* Sidebar */
-#sidebar { position: fixed; 
-  top:0; 
-  left:0; 
+#sidebar { 
+  position: fixed; 
+  top:0; left:0; 
   width: var(--sidebar-width); 
   height:100%; 
-  background-color: rgb(135, 190, 101); 
+  background-color: #4C8F5A; 
   color:black; 
   transition: width 0.25s ease, left 0.25s ease; 
   z-index:1100; 
@@ -20,13 +20,12 @@ body { background: #f4f6f9;
   flex-direction:column; 
   justify-content:space-between; 
   border-right:1px solid rgba(0,0,0,0.06); 
-  overflow-x:hidden; }
-#sidebar.collapsed { 
-  width: var(--sidebar-collapsed); }
-#sidebar.mobile-open { 
-  left:0; }
-#campo-ide{ 
-  display: none;}
+  overflow-x:hidden; 
+}
+#sidebar.collapsed {
+   width: var(--sidebar-collapsed); }
+#sidebar.mobile-open {
+   left:0; }
 
 .sidebar-top { 
   padding:12px; 
@@ -55,18 +54,14 @@ body { background: #f4f6f9;
   color:black; 
   text-decoration:none; 
   transition: background .15s, color .15s; }
-#sidebar .nav li a .glyphicon { 
-  font-size:18px; 
-  min-width:24px; 
-  text-align:center; }
-#sidebar .nav li a:hover, #sidebar .nav li.active > a { 
-  background-color: rgba(0,0,0,0.08); 
-  color:#000; }
+#sidebar .nav li a:hover, #sidebar .nav li.active > a {
+   background-color: rgba(0,0,0,0.08); 
+   color:#000; }
 
 #sidebar.collapsed .label-text { 
   display:none; }
-#sidebar.collapsed .sidebar-top .brand-text { 
-  opacity:0; }
+#sidebar.collapsed .sidebar-top .brand-text {
+   opacity:0; }
 #sidebar.collapsed .nav li a { 
   justify-content:center; 
   padding-left:0; 
@@ -82,22 +77,21 @@ body { background: #f4f6f9;
   background:transparent; 
   cursor:pointer; 
   transition: all 0.25s ease; }
-.toggle-btn img { 
-  width:36px; 
-  height:auto; 
-  transition: all 0.25s ease; }
+.toggle-btn img {
+   width:36px; 
+   height:auto; 
+   transition: all 0.25s ease; }
 .toggle-btn .brand-text { 
   margin-left:10px; 
   font-weight:700; 
-  font-size:18px; 
-  color:black; 
-  white-space:nowrap; 
-  transition: opacity 0.25s ease; }
+  font-size:18px;
+   color:black; 
+   white-space:nowrap; 
+   transition: opacity 0.25s ease; }
 #sidebar.collapsed .toggle-btn .brand-text { 
   opacity:0; 
   pointer-events:none; }
 
-/* Bottom logout */
 #sidebar .bottom-nav { 
   padding:10px 0; 
   border-top:1px solid rgba(0,0,0,0.1); }

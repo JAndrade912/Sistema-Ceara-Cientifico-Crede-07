@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard Relatórios</title>
 
-<link href="./bootstrap/CSS/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="./bootstrap/CSS/bootstrap-icons.css">
-<script src="./bootstrap/JS/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="./assets/styles/relatorios.css">
+<link href="../bootstrap/CSS/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../bootstrap/CSS/bootstrap-icons.css">
+<script src="../bootstrap/JS/bootstrap.bundle.min.js"></script>
+<script src="../boostrap/JS/jquery.min.js"></script>
+<link rel="stylesheet" href="../assets/styles/relatorios.css">
 </head>
 <body>
 
@@ -17,11 +18,10 @@
   <i class="bi bi-list"></i>
 </button>
 
-<!-- Sidebar -->
-<div id="sidebar">
+<div id="sidebar" style="background-color: #4C8F5A;">
   <div>
     <button class="toggle-btn" onclick="toggleSidebar()">
-      <img src="/img/SIMBOLO.png" alt="SACC">
+      <img src="../assets/img/SIMBOLO.png" alt="SACC">
       <span class="brand-text">SACC</span>
     </button>
     <ul class="nav flex-column">
@@ -39,6 +39,8 @@
 
 <main id="main">
   <h2>Relatórios de Trabalhos</h2>
+  <br>
+  <hr><br>
 
   <!-- Filtros -->
   <div class="filter-group">
@@ -62,6 +64,14 @@
     </select>
   </div>
 
+<!-- Botões de relatórios -->
+  <div class="report-buttons">
+    <button id="byJurado">Por Jurado</button>
+    <button id="bothJurado">Ambos os Jurados</button>
+    <button id="bySchool">Por Escola</button>
+    <button id="ranking">Ranking</button>
+  </div>
+  <br>
   <!-- Tabela de trabalhos -->
   <table class="table table-bordered" id="workTable">
     <thead>
@@ -76,13 +86,7 @@
     <tbody></tbody>
   </table>
 
-  <!-- Botões de relatórios -->
-  <div class="report-buttons">
-    <button id="byJurado">Por Jurado</button>
-    <button id="bothJurado">Ambos os Jurados</button>
-    <button id="bySchool">Por Escola</button>
-    <button id="ranking">Ranking</button>
-  </div>
+  
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -177,7 +181,7 @@ function filterWorks(){
         <td>${w.school}</td>
         <td>${w.category}</td>
         <td>${w.area || '-'}</td>
-        <td><span class="download-icon"><i class="bi bi-download"></i></span></td>
+        <td><span ><i><img src="../assets/img/dowload.svg"></i></span></td>
       </tr>
     `);
   });
