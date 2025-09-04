@@ -95,3 +95,11 @@ button {
   text-align: center;
   align-items: center;
 }
+
+nav {
+  padding: 25px !important;
+  text-align: center;
+  display: flex;
+  justify-content: center !important;
+  flex-direction: row;
+}
