@@ -38,11 +38,11 @@ $userName = $_SESSION['usuario'];
       <span class="brand-text">SACC</span>
     </button>
     <ul class="nav flex-column">
-      <li><a href="#"><i class="bi bi-house"></i> <span class="label-text">Dashboard</span></a></li>
-      <li><a href="#"><i class="bi bi-mortarboard"></i> <span class="label-text">Escolas</span></a></li>
-      <li><a href="#"><i class="bi bi-file-earmark"></i> <span class="label-text">Trabalhos</span></a></li>
-      <li><a href="#"><i class="bi bi-person"></i> <span class="label-text">Jurados</span></a></li>
-      <li><a href="#"><i class="bi bi-bar-chart"></i> <span class="label-text">Relatórios</span></a></li>
+      <li><a href="admin-dashboard.php"><i class="bi bi-house"></i> <span class="label-text">Dashboard</span></a></li>
+     <li><a href="admin-escolas.html"><i class="bi bi-mortarboard"></i> <span class="label-text">Escolas</span></a></li>
+     <li><a href="admin-trabalhos.html"><i class="bi bi-file-earmark"></i> <span class="label-text">Trabalhos</span></a></li>
+     <li><a href="admin-jurados.html"><i class="bi bi-person"></i> <span class="label-text">Jurados</span></a></li>
+     <li><a href="admin-relatorios.html"><i class="bi bi-bar-chart"></i> <span class="label-text">Relatórios</span></a></li>
     </ul>
   </div>
   <ul class="nav flex-column bottom-nav">
