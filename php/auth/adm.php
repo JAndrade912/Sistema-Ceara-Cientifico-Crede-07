@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once '../php/db/connect.php';    
+require_once 'php/db/connect.php';    
 
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -18,16 +18,16 @@ if($stmt -> rowCount() > 0){
     if(password_verify($senha, $dados["senha"])){
         $_SESSION['usuario_id'] = $dados['id'];
         $_SESSION['usuario_nome'] = $usuario;
-        header('Location: ../dashboards/admin/dashboard_admin.html');
+        header('Location: html/dashboards/admin/dashboard_admin.html');
         exit();
     }else{
        $_SESSION['erro_login'] = 'Senha incorreta!';
-       header('Location: ../php/auth/login_admin.php');
+       header('Location: php/auth/adm.php');
        exit(); 
     }
 }else{
     $_SESSION['erro_login'] = "Usuário não encontrado!";
-    header('Location: ../php/auth/login_admin.php');
+    header('Location: php/auth/adm.php');
     exit();
 }
 

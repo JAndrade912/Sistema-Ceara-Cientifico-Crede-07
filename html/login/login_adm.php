@@ -29,7 +29,7 @@
             <br>
             <br>
           </header>
-          <form method="POST" action="../php/auth/login_admin.php" id="loginForm">
+          <form method="POST" action="php/auth/adm.php" id="loginForm">
             <div class="form-group">
               <label for="email">Email:</label>
               <input type="email" name="usuario" id="email" required placeholder="exemplo@dominio.com" />
