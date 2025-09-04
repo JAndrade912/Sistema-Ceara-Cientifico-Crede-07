@@ -113,7 +113,7 @@ body {
 }
 
 .menu-superior nav a:hover {
-  background-color: #FF8C42;
+  background-color: #4C8F5A;
   color: white;
 }
 
@@ -168,7 +168,7 @@ table th, table td {
 }
 
 table thead {
-  background-color: #FF8C42;
+  background-color: #4C8F5A;
   color: white;
 }
 
@@ -186,6 +186,10 @@ form .criterios {
 
 form label {
   font-weight: bold;
+}
+
+h1{
+  text-align: center;
 }
 
 form input[type="number"], form input[type="text"] {
