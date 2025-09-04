@@ -1,72 +1,67 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Trabalhos</title>
-  <link rel="stylesheet" href="../assets/styles/dashboard.css">
-  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Relatórios</title>
+
+
+<link href="../bootstrap/CSS/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../bootstrap/CSS/bootstrap-icons.css">
+<script src="../bootstrap/JS/bootstrap.bundle.min.js"></script>
+<script src="../boostrap/JS/jquery.min.js"></script>
+<link rel="stylesheet" href="../assets/styles/relatorios.css">
 </head>
-
 <body>
-  <div class="admin-container">
-    <aside class="menu-lateral">
-      <h2>Admin</h2>
-      <ul>
-        <li><a href="admin-dashboard.html">Dashboard</a></li>
-        <li><a href="admin-trabalhos.html">Trabalhos</a></li>
-        <li><a href="admin-escolas.html">Escolas</a></li>
-        <li><a href="admin-jurados.html">Jurados</a></li>
-        <li><a href="admin-criterios.html">Critérios</a></li>
-        <li><a href="admin-ordem.html">Ordem</a></li>
-        <li><a href="admin-notas.html">Notas</a></li>
-        <li><a href="admin-ranking.html">Ranking</a></li>
-        <li><a href="admin-relatorios.html">Relatórios</a></li>
-      </ul>
-    </aside>
 
-    <main class="conteudo">
-      <h1>Trabalhos</h1>
-      <button class="btn-verde">Adicionar Trabalho</button>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome do Trabalho</th>
-            <th>Escola</th>
-            <th>Categoria</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Trabalho de Matemática</td>
-            <td>Escola A</td>
-            <td>MT</td>
-            <td class="status laranja">Rascunho</td>
-            <td>
-              <button class="btn-laranja">Editar</button>
-              <button class="btn-cinza">Deletar</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Projeto de Ciências</td>
-            <td>Escola B</td>
-            <td>CN</td>
-            <td class="status verde">Enviado</td>
-            <td>
-              <button class="btn-laranja">Editar</button>
-              <button class="btn-cinza">Deletar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
-  </div>
-  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
+
+<div id="overlay" onclick="closeMobileSidebar()"></div>
+<button id="mobile-toggle" onclick="toggleSidebar()">
+ <i class="bi bi-list"></i>
+</button>
+
+
+<div id="sidebar" style="background-color: #4C8F5A;">
+ <div>
+   <button class="toggle-btn" onclick="toggleSidebar()">
+     <img src="../assets/img/SIMBOLO.png" alt="SACC">
+     <span class="brand-text">SACC</span>
+   </button>
+   <ul class="nav flex-column">
+     <li><a href="#"><i class="bi bi-house"></i> <span class="label-text">Dashboard</span></a></li>
+     <li><a href="#"><i class="bi bi-mortarboard"></i> <span class="label-text">Escolas</span></a></li>
+     <li><a href="#"><i class="bi bi-file-earmark"></i> <span class="label-text">Trabalhos</span></a></li>
+     <li><a href="#"><i class="bi bi-person"></i> <span class="label-text">Jurados</span></a></li>
+     <li><a href="#"><i class="bi bi-bar-chart"></i> <span class="label-text">Relatórios</span></a></li>
+   </ul>
+ </div>
+ <ul class="nav flex-column bottom-nav">
+   <li><a href="#"><i class="bi bi-box-arrow-right"></i> <span class="label-text">Sair</span></a></li>
+ </ul>
+</div>
+
+
+<main id="main">
+ <h2>Relatórios de Trabalhos</h2>
+ <br>
+ <hr><br>
+
+
+ <!-- Tabela de trabalhos -->
+ <table class="table table-bordered" id="workTable">
+   <thead>
+     <tr>
+       <th>Título do Trabalho</th>
+       <th>Escola</th>
+       <th>Categoria</th>
+       <th>Área</th>
+       <th>Download</th>
+     </tr>
+   </thead>
+   <tbody></tbody>
+ </table>
+
+
+ </main>
 </body>
 </html>
