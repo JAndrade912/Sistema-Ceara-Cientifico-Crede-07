@@ -65,6 +65,10 @@ button {
     margin-right: 10px;
     border-radius: 4px;
 }
+button a{
+    text-decoration-line: none;
+    color: white;
+}
 
 .draft {
     background-color: #4C8F5A;
