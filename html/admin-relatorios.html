@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Ranking</title>
-  <link rel="stylesheet" href="/assets/styles/dashboard.css">
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
+  <title>Admin - Relatórios</title>
+  <link rel="stylesheet" href="../assets/styles/dashboard.css">
+  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
 </head>
 
 <body>
@@ -27,33 +27,35 @@
     </aside>
 
     <main class="conteudo">
-      <h1>Ranking</h1>
+      <h1>Relatórios / Exportação</h1>
+      <button class="btn-verde">Exportar PDF</button>
+      <button class="btn-verde">Exportar Excel</button>
       <table>
         <thead>
           <tr>
-            <th>Posição</th>
             <th>Trabalho</th>
-            <th>Nota Final</th>
-            <th>Desempate</th>
+            <th>Categoria</th>
+            <th>Status</th>
+            <th>Nota Média</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
             <td>Trabalho de Matemática</td>
+            <td>MT</td>
+            <td class="status verde">Enviado</td>
             <td>85</td>
-            <td>--</td>
           </tr>
           <tr>
-            <td>2</td>
             <td>Projeto de Ciências</td>
+            <td>CN</td>
+            <td class="status laranja">Rascunho</td>
             <td>80</td>
-            <td>Critério de desempate A</td>
           </tr>
         </tbody>
       </table>
     </main>
   </div>
-  <script src="boostrap/JS/bootstrap.bundle.min.js"></script>
+  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Escolas</title>
-  <link rel="stylesheet" href="/assets/styles/dashboard.css">
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
+  <title>Admin - Visualização de Notas</title>
+  <link rel="stylesheet" href="../assets/styles/dashboard.css">
+  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
 </head>
+
 <body>
   <div class="admin-container">
     <aside class="menu-lateral">
@@ -25,38 +27,33 @@
     </aside>
 
     <main class="conteudo">
-      <h1>Cadastro de Escolas</h1>
-      <button class="btn-verde">Adicionar Escola</button>
+      <h1>Visualização de Notas</h1>
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nome da Escola</th>
-            <th>Localidade</th>
-            <th>Ações</th>
+            <th>Trabalho</th>
+            <th>Jurado</th>
+            <th>Nota</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>Escola A</td>
-            <td>São Paulo</td>
-            <td>
-              <button class="btn-laranja">Editar</button>
-            </td>
+            <td>Trabalho de Matemática</td>
+            <td>Maria Silva</td>
+            <td>85</td>
+            <td class="status verde">Enviado</td>
           </tr>
           <tr>
-            <td>2</td>
-            <td>Escola B</td>
-            <td>Rio de Janeiro</td>
-            <td>
-              <button class="btn-laranja">Editar</button>
-            </td>
+            <td>Projeto de Ciências</td>
+            <td>João Souza</td>
+            <td>--</td>
+            <td class="status cinza">Não iniciado</td>
           </tr>
         </tbody>
       </table>
     </main>
   </div>
+  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
 </body>
-<script src="boostrap/JS/bootstrap.bundle.min.js"></script>
 </html>

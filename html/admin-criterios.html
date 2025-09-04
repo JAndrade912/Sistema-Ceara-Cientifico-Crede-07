@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Trabalhos</title>
-  <link rel="stylesheet" href="/assets/styles/dashboard.css">
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
+  <title>Admin - Critérios</title>
+  <link rel="stylesheet" href="../assets/styles/dashboard.css">
+  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
 </head>
 
 <body>
@@ -27,46 +27,38 @@
     </aside>
 
     <main class="conteudo">
-      <h1>Trabalhos</h1>
-      <button class="btn-verde">Adicionar Trabalho</button>
+      <h1>Configuração de Critérios de Avaliação</h1>
+      <button class="btn-verde">Adicionar Critério</button>
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nome do Trabalho</th>
-            <th>Escola</th>
-            <th>Categoria</th>
-            <th>Status</th>
+            <th>Critério</th>
+            <th>Peso</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>1</td>
-            <td>Trabalho de Matemática</td>
-            <td>Escola A</td>
-            <td>MT</td>
-            <td class="status laranja">Rascunho</td>
+            <td>Clareza</td>
+            <td>20%</td>
             <td>
               <button class="btn-laranja">Editar</button>
-              <button class="btn-cinza">Deletar</button>
             </td>
           </tr>
           <tr>
             <td>2</td>
-            <td>Projeto de Ciências</td>
-            <td>Escola B</td>
-            <td>CN</td>
-            <td class="status verde">Enviado</td>
+            <td>Originalidade</td>
+            <td>30%</td>
             <td>
               <button class="btn-laranja">Editar</button>
-              <button class="btn-cinza">Deletar</button>
             </td>
           </tr>
         </tbody>
       </table>
     </main>
   </div>
-  <script src="boostrap/JS/bootstrap.bundle.min.js"></script>
+  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Ordem de Apresentação</title>
-  <link rel="stylesheet" href="/assets/styles/dashboard.css">
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
+  <title>Admin - Trabalhos</title>
+  <link rel="stylesheet" href="../assets/styles/dashboard.css">
+  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
 </head>
 
 <body>
@@ -27,15 +27,17 @@
     </aside>
 
     <main class="conteudo">
-      <h1>Ordem de Apresentação</h1>
-      <button class="btn-verde">Organizar por Rota/Localidade</button>
+      <h1>Trabalhos</h1>
+      <button class="btn-verde">Adicionar Trabalho</button>
       <table>
         <thead>
           <tr>
-            <th>Posição</th>
-            <th>Trabalho</th>
+            <th>ID</th>
+            <th>Nome do Trabalho</th>
             <th>Escola</th>
             <th>Categoria</th>
+            <th>Status</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -44,17 +46,27 @@
             <td>Trabalho de Matemática</td>
             <td>Escola A</td>
             <td>MT</td>
+            <td class="status laranja">Rascunho</td>
+            <td>
+              <button class="btn-laranja">Editar</button>
+              <button class="btn-cinza">Deletar</button>
+            </td>
           </tr>
           <tr>
             <td>2</td>
             <td>Projeto de Ciências</td>
             <td>Escola B</td>
             <td>CN</td>
+            <td class="status verde">Enviado</td>
+            <td>
+              <button class="btn-laranja">Editar</button>
+              <button class="btn-cinza">Deletar</button>
+            </td>
           </tr>
         </tbody>
       </table>
     </main>
   </div>
-  <script src="boostrap/JS/bootstrap.bundle.min.js"></script>
+  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
 </body>
 </html>
