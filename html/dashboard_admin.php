@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])){
-  header('Location: ../../html/login_adm.php');
+  header('Location: ../html/login_adm.php');
   exit();
 }
 

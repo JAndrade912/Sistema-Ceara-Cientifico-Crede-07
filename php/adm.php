@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 session_start();
 require_once '../php/connect.php';
 
@@ -22,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario'] = $user['usuario'];
             $_SESSION['senha'] = $user['senha'];
 
-            header('Location: ../html/dashboards/admin/dashboard_admin.php');
+            header('Location: ../html/dashboard_admin.php');
             exit();
         } else {
             $_SESSION['login_error'] = 'Email e/ou senha errados!';
