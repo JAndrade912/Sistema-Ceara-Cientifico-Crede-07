@@ -1,61 +1,190 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Relatórios</title>
-  <link rel="stylesheet" href="../assets/styles/dashboard.css">
-  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Relatórios</title>
+
+<link href="./bootstrap/CSS/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./bootstrap/CSS/bootstrap-icons.css">
+<script src="./bootstrap/JS/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="./assets/styles/relatorios.css">
 </head>
-
 <body>
-  <div class="admin-container">
-    <aside class="menu-lateral">
-      <h2>Admin</h2>
-      <ul>
-        <li><a href="admin-dashboard.html">Dashboard</a></li>
-        <li><a href="admin-trabalhos.html">Trabalhos</a></li>
-        <li><a href="admin-escolas.html">Escolas</a></li>
-        <li><a href="admin-jurados.html">Jurados</a></li>
-        <li><a href="admin-criterios.html">Critérios</a></li>
-        <li><a href="admin-ordem.html">Ordem</a></li>
-        <li><a href="admin-notas.html">Notas</a></li>
-        <li><a href="admin-ranking.html">Ranking</a></li>
-        <li><a href="admin-relatorios.html">Relatórios</a></li>
-      </ul>
-    </aside>
 
-    <main class="conteudo">
-      <h1>Relatórios / Exportação</h1>
-      <button class="btn-verde">Exportar PDF</button>
-      <button class="btn-verde">Exportar Excel</button>
-      <table>
-        <thead>
-          <tr>
-            <th>Trabalho</th>
-            <th>Categoria</th>
-            <th>Status</th>
-            <th>Nota Média</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Trabalho de Matemática</td>
-            <td>MT</td>
-            <td class="status verde">Enviado</td>
-            <td>85</td>
-          </tr>
-          <tr>
-            <td>Projeto de Ciências</td>
-            <td>CN</td>
-            <td class="status laranja">Rascunho</td>
-            <td>80</td>
-          </tr>
-        </tbody>
-      </table>
-    </main>
+<div id="overlay" onclick="closeMobileSidebar()"></div>
+<button id="mobile-toggle" onclick="toggleSidebar()">
+  <i class="bi bi-list"></i>
+</button>
+
+<!-- Sidebar -->
+<div id="sidebar">
+  <div>
+    <button class="toggle-btn" onclick="toggleSidebar()">
+      <img src="/img/SIMBOLO.png" alt="SACC">
+      <span class="brand-text">SACC</span>
+    </button>
+    <ul class="nav flex-column">
+      <li><a href="#"><i class="bi bi-house"></i> <span class="label-text">Dashboard</span></a></li>
+      <li><a href="#"><i class="bi bi-mortarboard"></i> <span class="label-text">Escolas</span></a></li>
+      <li><a href="#"><i class="bi bi-file-earmark"></i> <span class="label-text">Trabalhos</span></a></li>
+      <li><a href="#"><i class="bi bi-person"></i> <span class="label-text">Jurados</span></a></li>
+      <li><a href="#"><i class="bi bi-bar-chart"></i> <span class="label-text">Relatórios</span></a></li>
+    </ul>
   </div>
-  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
+  <ul class="nav flex-column bottom-nav">
+    <li><a href="#"><i class="bi bi-box-arrow-right"></i> <span class="label-text">Sair</span></a></li>
+  </ul>
+</div>
+
+<main id="main">
+  <h2>Relatórios de Trabalhos</h2>
+
+  <!-- Filtros -->
+  <div class="filter-group">
+    <select id="schoolFilter">
+      <option value="">Selecione a Escola</option>
+      <option value="EEEP Francisco Paiva Tavares">EEEP Francisco Paiva Tavares</option>
+      <option value="EEEP Jose Vidal Alves">EEEP Jose Vidal Alves</option>
+      <option value="EEM Casemiro Bezerra de Araújo">EEM Casemiro Bezerra de Araújo</option>
+    </select>
+
+    <select id="categoryFilter">
+      <option value="">Selecione a Categoria</option>
+      <option value="I">Ensino Médio</option>
+      <option value="II">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+      <option value="III">Pesquisa Júnior</option>
+      <option value="IV">PcD</option>
+    </select>
+
+    <select id="areaFilter">
+      <option value="">Selecione a Área</option>
+    </select>
+  </div>
+
+  <!-- Tabela de trabalhos -->
+  <table class="table table-bordered" id="workTable">
+    <thead>
+      <tr>
+        <th>Título do Trabalho</th>
+        <th>Escola</th>
+        <th>Categoria</th>
+        <th>Área</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Botões de relatórios -->
+  <div class="report-buttons">
+    <button id="byJurado">Por Jurado</button>
+    <button id="bothJurado">Ambos os Jurados</button>
+    <button id="bySchool">Por Escola</button>
+    <button id="ranking">Ranking</button>
+  </div>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+// SIDEBAR
+function toggleSidebar(){
+  if(window.innerWidth <= 768){
+    $('#sidebar').toggleClass('mobile-open');
+    $('#overlay').toggleClass('show');
+  } else {
+    $('#sidebar').toggleClass('collapsed');
+    $('#main').toggleClass('collapsed');
+  }
+}
+function closeMobileSidebar(){
+  $('#sidebar').removeClass('mobile-open');
+  $('#overlay').removeClass('show');
+}
+$(window).on('resize', function(){
+  if(window.innerWidth > 768){
+    $('#sidebar').removeClass('mobile-open');
+    $('#overlay').removeClass('show');
+  }
+});
+
+// Dados de exemplo
+const works = [
+  {title:"Trabalho LM", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Linguagens, Códigos e suas Tecnologias - LC"},
+  {title:"Trabalho MT1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Matemática e suas Tecnologias - MT"},
+  {title:"Trabalho CN1", school:"EEEP Jose Vidal Alves", category:"Ensino Médio", area:"Ciências da Natureza - CN"},
+  {title:"Trabalho CH1", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio", area:"Educação Ambiental e Engenharias - CH"},
+  {title:"Trabalho ROB1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Robótica, Automação e Aplicação das TIC"},
+  {title:"Trabalho LM2", school:"EEEP Jose Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Linguagens, Códigos e suas Tecnologias - LC"},
+  {title:"Trabalho MT2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Matemática e suas Tecnologias - MT"},
+  {title:"Trabalho CN2", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Ciências da Natureza - CN"},
+  {title:"Trabalho CH2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Educação Ambiental e Engenharias - CH"},
+  {title:"Trabalho ROB2", school:"EEEP Jose Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Robótica, Automação e Aplicação das TIC"},
+  {title:"Pesquisa Jr1", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
+  {title:"Pesquisa Jr2", school:"EEEP Jose Vidal Alves", category:"Pesquisa Júnior", area:""},
+  {title:"Pesquisa Jr3", school:"EEM Casemiro Bezerra de Araújo", category:"Pesquisa Júnior", area:""},
+  {title:"Pesquisa Jr4", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
+  {title:"Pesquisa Jr5", school:"EEEP Jose Vidal Alves", category:"Pesquisa Júnior", area:""},
+  {title:"PcD EF1", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Fundamental"},
+  {title:"PcD EF2", school:"EEEP Jose Vidal Alves", category:"PcD", area:"Ensino Fundamental"},
+  {title:"PcD EM1", school:"EEM Casemiro Bezerra de Araújo", category:"PcD", area:"Ensino Médio"},
+  {title:"PcD EM2", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Médio"},
+  {title:"PcD EM3", school:"EEEP Jose Vidal Alves", category:"PcD", area:"Ensino Médio"}
+];
+
+// Áreas por categoria
+const areas = {
+  "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+  "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+  "III": [],
+  "IV": ["Ensino Fundamental", "Ensino Médio"]
+};
+
+// Preencher área ao escolher categoria
+$('#categoryFilter').on('change', function(){
+  const cat = $(this).val();
+  const areaSelect = $('#areaFilter');
+  areaSelect.html('<option value="">Selecione a Área</option>');
+  if(areas[cat]){
+    areas[cat].forEach(a => {
+      areaSelect.append(`<option value="${a}">${a}</option>`);
+    });
+  }
+  filterWorks();
+});
+
+// Filtrar ao alterar filtros
+$('#schoolFilter, #areaFilter').on('change', filterWorks);
+
+function filterWorks(){
+  const school = $('#schoolFilter').val();
+  const categoryVal = $('#categoryFilter').val();
+  const categoryName = $('#categoryFilter option:selected').text();
+  const area = $('#areaFilter').val();
+
+  const filtered = works.filter(w=>{
+    return (!school || w.school===school) &&
+           (!categoryVal || w.category===categoryName) &&
+           (!area || w.area===area);
+  });
+
+  const tbody = $('#workTable tbody');
+  tbody.empty();
+  filtered.forEach(w=>{
+    tbody.append(`
+      <tr>
+        <td>${w.title}</td>
+        <td>${w.school}</td>
+        <td>${w.category}</td>
+        <td>${w.area || '-'}</td>
+        <td><span class="download-icon"><i class="bi bi-download"></i></span></td>
+      </tr>
+    `);
+  });
+}
+
+// Inicializa tabela
+filterWorks();
+</script>
 </body>
 </html>
