@@ -123,13 +123,11 @@ b {
 h2 {
   font-size: 20px;
 }
-button a p{
+ a {
     text-decoration: none !important;
   color: #fff !important;
 }
 #link_enviar{
   text-decoration: none !important;
-  color: #fff !important;
-  background-color: #4C8F5A !important;
-  
+  color: #fff ;
 }
