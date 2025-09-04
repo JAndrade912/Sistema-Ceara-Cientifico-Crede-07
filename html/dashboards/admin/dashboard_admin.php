@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])){
+  header('Location: ../../html/login_adm.php');
+  exit();
+}
+
+$userName = $_SESSION['usuario']; 
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

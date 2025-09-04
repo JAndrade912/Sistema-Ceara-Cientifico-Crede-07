@@ -1,5 +1,11 @@
 <?php
- session_start();
+session_start();
+$error = '';
+
+if (isset($_SESSION['login_error'])) {
+  $error = $_SESSION['login_error'];
+  unset($_SESSION['login_error']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,25 +35,24 @@
             <br>
             <br>
           </header>
-          <form method="POST" action="php/auth/adm.php" id="loginForm">
+          <form method="POST" action="../php/adm.php" id="loginForm">
             <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="email" name="usuario" id="email" required placeholder="exemplo@dominio.com" />
+              <label for="usuario">Email:</label>
+              <input type="text" name="usuario" id="usuario" required placeholder="Digite seu usuário" />
             </div>
             <br>
             <div class="form-group">
-              <label for="password">Senha:</label>
-              <input type="password" name="password" id="password" required placeholder="Digite sua senha" />
+              <label for="senha">Senha:</label>
+              <input type="password" name="senha" id="senha" required placeholder="Digite sua senha" />
             </div>
             <button type="submit">Entrar</button>
-
-            <?php
-              if(isset($_SESSION['erro_login'])){
-                echo "<p class = 'text-danger'> " . $_SESSION['erro_login'] . "</p>";
-                unset($_SESSION['erro_login']);
-              }
-            ?>
           </form>
+          <?php if (!empty($error)) : ?>
+            <div style="color: red; margin-top: 10px; text-align: center;">
+              <?= htmlspecialchars($error) ?>
+            </div>
+          <?php endif; ?>
+
         </div>
       </div>
     </div>
