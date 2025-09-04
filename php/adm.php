@@ -14,12 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([':usuario' => $usuario]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($senha, $user['senha'])) {
-            $_SESSION['id_admin'] = $user['id'];
+        if ($user && $senha == $user['senha']) {
+            $_SESSION['id_admin'] = $user['id_admin'];
             $_SESSION['usuario'] = $user['usuario'];
             $_SESSION['senha'] = $user['senha'];
 
-            header('Location: ../html/dashboard_admin.php');
+            header('Location: ../html/admin-dashboard.php');
             exit();
         } else {
             $_SESSION['login_error'] = 'Email e/ou senha errados!';
