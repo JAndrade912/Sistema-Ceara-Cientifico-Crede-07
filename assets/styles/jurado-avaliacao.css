@@ -88,3 +88,10 @@ button {
 .crit {
     width: 60%;
 }
+
+
+#img-sacc {
+  width: 200px;
+  text-align: center;
+  align-items: center;
+}
