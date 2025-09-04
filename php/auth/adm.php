@@ -1,34 +1,32 @@
 <?php
 
 session_start();
-
 require_once 'php/db/connect.php';    
 
-$usuario = $_POST['usuario'] ?? '';
-$password = $_POST['password'] ?? '';
+$error = '';
 
-$sql = "SELECT id, senha FROM Administracao WHERE usuario = :usuario LIMIT 1";
-$stmt = $pdo -> prepare($sql);
-$stmt -> bindParam(":usuario", $usuario);
-$stmt -> execute();
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-if($stmt -> rowCount() > 0){
-    $dados = $stmt -> fetch(PDO::FETCH_ASSOC);
+    $usuario = $_POST['usuario'];
+    $senha = $_POST['senha'];
 
-    if(password_verify($senha, $dados["senha"])){
-        $_SESSION['usuario_id'] = $dados['id'];
-        $_SESSION['usuario_nome'] = $usuario;
-        header('Location: html/dashboards/admin/dashboard_admin.html');
-        exit();
-    }else{
-       $_SESSION['erro_login'] = 'Senha incorreta!';
-       header('Location: php/auth/adm.php');
-       exit(); 
+    try{
+        $stmt = $pdo -> prepare("SELECT * FROM Administracao WHERE usuario = :usuario LIMIT 1");
+        $stmt -> execute([':usuario' => $usuario]);
+        $user = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+        if($user && password_verify($senha,$user['senha'])){
+            $_SESSION['id_admin'] = $user['id'];
+            $_SESSION['usuario'] = $user['usuario'];
+            $_SESSION['senha'] = $user['senha'];
+
+            header('Location: html/dashboards/admin/dashboard_admin.html');
+            exit();
+        }else{
+            $error = 'Email e/ou senha errados!';    
+        }
+
+    }catch(PDOException $e){
+        $error = 'Erro ao tentar fazer login' . $e -> getMessage();
     }
-}else{
-    $_SESSION['erro_login'] = "Usuário não encontrado!";
-    header('Location: php/auth/adm.php');
-    exit();
 }
-
-?>
