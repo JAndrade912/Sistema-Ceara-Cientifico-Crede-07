@@ -47,7 +47,7 @@ $userName = $_SESSION['usuario'];
     </ul>
   </div>
   <ul class="nav bottom-nav">
-    <li><a href="#"><i class="bi bi-box-arrow-right"></i> <span class="label-text">Sair</span></a></li>
+    <li><a href="../php/admLogout.php"><i class="bi bi-box-arrow-right"></i> <span class="label-text">Sair</span></a></li>
   </ul>
 </div>
 
