@@ -67,17 +67,17 @@ button {
 }
 
 .draft {
-    background-color: #FF8C42;
+    background-color: #4C8F5A;
     color: white;
 }
 
 .submit {
-    background-color: #4CAF50;
+    background-color: #4C8F5A;
    color: white;
 }
 
 .title {
-    background-color: #FF8C42;
+    background-color: #4C8F5A;
     color: white;
 }
 
@@ -87,19 +87,4 @@ button {
 
 .crit {
     width: 60%;
-}
-
-
-#img-sacc {
-  width: 200px;
-  text-align: center;
-  align-items: center;
-}
-
-nav {
-  padding: 25px !important;
-  text-align: center;
-  display: flex;
-  justify-content: center !important;
-  flex-direction: row;
 }
