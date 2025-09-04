@@ -123,3 +123,7 @@ b {
 h2 {
   font-size: 20px;
 }
+#link_enviar{
+  text-decoration: none !important;
+  color: #fff !important;
+}

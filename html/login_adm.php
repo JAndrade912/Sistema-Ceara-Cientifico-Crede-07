@@ -9,17 +9,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Ceará Científico</title>
-  <link rel="stylesheet" href="/assets/styles/login_adm.css">
+  <link rel="stylesheet" href="../assets/styles/login_adm.css">
 
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
-  <script src="boostrap/JS/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
+  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
   <div class="fundo-arredondado"></div>
   <div class="container">
     <div class="left">
-      <div class="logo"><img src="/assets/img/SACC.png"></div>
+      <div class="logo"><img src="../assets/img/SACC.png"></div>
     </div>
     <div class="right">
       <div class="login-box">
