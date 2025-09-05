@@ -30,6 +30,7 @@ CREATE TABLE Contatos (
 -- Jurados
 CREATE TABLE Jurados (
     id_jurados INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(45) NOT NULL,
     usuario VARCHAR(45) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     cpf VARCHAR(14) NOT NULL,

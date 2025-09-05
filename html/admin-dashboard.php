@@ -118,46 +118,53 @@ $userName = $_SESSION['usuario'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
-         <form action="/php/Cadjurado.php" method="POST" >
-              <label>Nome</label>
-              <input type="text" class="form-control" placeholder="Digite seu nome" required>
-              <label>Apelido</label>
-              <input type="text" class="form-control" placeholder="Digite seu nome" required>
-              <label>Telefone</label>
-              <input type="text" class="form-control" placeholder="Digite seu telefone" required>
-              <label>CPF</label>
-              <input type="text" class="form-control" placeholder="Digite seu CPF" required>
-              <label>E-mail SIC-CED</label>
-              <input type="text" class="form-control" placeholder="Digite seu e-mail" required>
-              <label for="jurado-categoria">Categoria</label>
-              <select id="jurado-categoria" class="form-control" required>
+         <form action="/php/Cadjurado.php" method="POST" id="idCadJurado">
+              <label for="nome">Nome</label>
+              <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
+              <label for="usuario">Apelido</label>
+              <input type="text" class="form-control" name="usuario" placeholder="Digite seu nome de usuario" required>
+              <label for="telefone">Telefone</label>
+              <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
+              <label for="cpf">CPF</label>
+              <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
+              <label for="email">E-mail SIC-CED</label>
+              <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
+              <!--  ANALISAR A QUESTÃO DAS CATEGORIAS NO BD (ESTUDAR) -->
+              <label for="id_categoria">Categoria</label>
+              <select id="jurado-categoria" class="form-control" name="" required>
                 <option selected disabled>Selecione...</option>
                 <option value="1">I - Ensino Médio</option>
                 <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
                 <option value="3">III - Pesquisa Júnior</option>
                 <option value="4">IV - PcD</option>
               </select>
-
+              <!--  ANALISAR A QUESTÃO DAS CATEGORIAS NO BD (ESTUDAR) -->
               <div id="jurado-area" style="display:none;">
-                <label>Área</label>
-                <select class="form-control">
-                  <option selected disabled>Selecione...</option>
-                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                  <option value="2">Matemática e suas Tecnologias - MT</option>
-                  <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                  <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
-                </select>
-              </div>
 
-              <div id="jurado-area2" style="display:none;">
-                <label>Área</label>
-                <select class="form-control">
-                  <option selected disabled>Selecione...</option>
-                  <option value="1">Ensino Fundamental</option>
-                  <option value="2">Ensino Médio</option>
-                </select>
-              </div>
+              <!--  ANALISAR A QUESTÃO DAS AREAS NO BD (ESTUDAR) -->
+                  <label for="id_areas">Área</label>
+                  <select class="form-control">
+                    <option selected disabled>Selecione...</option>
+                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2">Matemática e suas Tecnologias - MT</option>
+                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                  </select>
+                </div>
+              <!--  ANALISAR A QUESTÃO DAS AREAS NO BD (ESTUDAR) -->
+
+              <!--  AREA ACESSADA PELA CATEGORIA PcD  -->
+                <div id="jurado-area2" style="display:none;">
+                  <label>Área</label>
+                  <select class="form-control">
+                    <option selected disabled>Selecione...</option>
+                    <option value="1">Ensino Fundamental</option>
+                    <option value="2">Ensino Médio</option>
+                  </select>
+                </div>
+              <!--  AREA ACESSADA PELA CATEGORIA PcD  -->
+
               <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
             </form>
       </div>
@@ -220,8 +227,6 @@ $userName = $_SESSION['usuario'];
     </div>
   </div>
 </div>
-
-
     <div class="row stat-row">
       <div class="col-sm-4">
         <div class="stat-box stat-primary">
@@ -245,8 +250,6 @@ $userName = $_SESSION['usuario'];
         </div>
       </div>
     </div>
-
-
     <div class="row">
       <div class="col-12">
         <div class="ranking-box mt-4">
@@ -293,10 +296,8 @@ $userName = $_SESSION['usuario'];
         </div>
       </div>
     </div>
-
   </div>
 </main>
-
 
 <script>
   // Sidebar
