@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario'] = $user['usuario'];
             $_SESSION['senha'] = $user['senha'];
 
-            header('Location: ../html/jurado-real.php');
+            header('Location: ../html/jurado-dashboard.php');
             exit();
         } else {
             $_SESSION['login_error'] = 'Email e/ou senha errados!';

@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['id_jurados']) || !isset($_SESSION['usuario'])){
+  header('Location: ../html/login_jurado.php');
+  exit();
+}
+
+$userName = $_SESSION['usuario']; 
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
