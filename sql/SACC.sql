@@ -67,7 +67,7 @@ CREATE TABLE Trabalhos (
 -- Notas
 CREATE TABLE Notas (
     id_notas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    notas FLOAT(4) NOT NULL,
+    notas DECIMAL(4,2) NOT NULL,
     id_trabalhos INT NULL,
     id_jurados INT NULL,
     id_escolas INT NULL
