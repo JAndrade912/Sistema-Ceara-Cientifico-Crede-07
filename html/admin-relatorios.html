@@ -12,12 +12,10 @@
 <link rel="stylesheet" href="../assets/styles/relatorios.css">
 </head>
 <body>
-
 <div id="overlay" onclick="closeMobileSidebar()"></div>
 <button id="mobile-toggle" onclick="toggleSidebar()">
   <i class="bi bi-list"></i>
 </button>
-
 <div id="sidebar" style="background-color: #4C8F5A;">
   <div>
     <button class="toggle-btn" onclick="toggleSidebar()">
@@ -36,12 +34,10 @@
     <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
   </ul>
 </div>
-
 <main id="main">
   <h2>Relatórios de Trabalhos</h2>
   <br>
   <hr><br>
-
   <!-- Filtros -->
   <div class="filter-group">
     <select id="schoolFilter">
@@ -50,7 +46,6 @@
       <option value="EEEP Jose Vidal Alves">EEEP Jose Vidal Alves</option>
       <option value="EEM Casemiro Bezerra de Araújo">EEM Casemiro Bezerra de Araújo</option>
     </select>
-
     <select id="categoryFilter">
       <option value="">Selecione a Categoria</option>
       <option value="I">Ensino Médio</option>
@@ -58,12 +53,10 @@
       <option value="III">Pesquisa Júnior</option>
       <option value="IV">PcD</option>
     </select>
-
     <select id="areaFilter">
       <option value="">Selecione a Área</option>
     </select>
   </div>
-
 <!-- Botões de relatórios -->
   <div class="report-buttons">
     <button id="byJurado">Por Jurado</button>
@@ -85,10 +78,7 @@
     </thead>
     <tbody></tbody>
   </table>
-
-  
 </main>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 // SIDEBAR

@@ -23,13 +23,10 @@ $userName = $_SESSION['usuario'];
   
 </head>
 <body>
-
-
 <div id="overlay" onclick="closeMobileSidebar()"></div>
 <button id="mobile-toggle" onclick="toggleSidebar()">
   <i class="bi bi-list"></i>
 </button>
-
 <div id="sidebar" style="background-color: #4C8F5A;">
   <div>
     <button class="toggle-btn" onclick="toggleSidebar()">
@@ -48,13 +45,10 @@ $userName = $_SESSION['usuario'];
     <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
   </ul>
 </div>
-
 <main id="main">
   <div class="container-fluid">
     <h2>Dashboard Administrativo</h2>
     <p class="text-muted">Escolha uma das opções abaixo para realizar cadastros:</p>
-
-
     <div class="row text-center mb-4">
       <div class="col">
         <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalInstituicao" style="background-color: #4C8F5A;">Cadastrar Instituição</button>
@@ -62,8 +56,6 @@ $userName = $_SESSION['usuario'];
         <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalTrabalho" style="background-color: #4C8F5A;">Cadastrar Trabalho</button>
       </div>
     </div>
-
-    
     <div class="modal fade" id="modalInstituicao" tabindex="-1" aria-labelledby="modalInstituicaoLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -75,7 +67,7 @@ $userName = $_SESSION['usuario'];
             <form method="POST" action="../php/Cadescola.php" id="idCadEscola">
               <label for="instituicao-nome" class="form-label">Nome da Instituição</label>
               <input type="text" id="instituicao-nome" class="form-control" name="nome" placeholder="Digite o nome da instituição" required>
-
+              
               <label for="instituicao-localidade" class="form-label mt-2">Localidade</label>
               <select id="instituicao-localidade" class="form-control" name="municipio">
                 <option selected disabled>Selecione...</option>
