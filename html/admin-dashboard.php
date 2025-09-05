@@ -236,14 +236,14 @@ $userName = $_SESSION['usuario'];
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="stat-box stat-success">
+        <div class="stat-box stat-primary">
           <i><img src="../assets/img/trabalho.png" class="trabalho"></i>
           <h2 id="total-trabalhos">350</h2>
           <p>Trabalhos Cadastrados</p>
         </div>
       </div>
       <div class="col-sm-4">
-        <div class="stat-box stat-info">
+        <div class="stat-box stat-primary">
           <i><img src="../assets/img/Jurados.png" class="jurado"></i>
           <h2 id="total-jurados">50</h2>
           <p>Jurados Cadastrados</p>
