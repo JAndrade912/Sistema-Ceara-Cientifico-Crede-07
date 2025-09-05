@@ -72,7 +72,7 @@ $userName = $_SESSION['usuario'];
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
           </div>
           <div class="modal-body">
-            <form method="POST" action="" id="idCadEscola">
+            <form method="POST" action="../php/Cadescola.php" id="idCadEscola">
               <label for="instituicao-nome" class="form-label">Nome da Instituição</label>
               <input type="text" id="instituicao-nome" class="form-control" name="nome" placeholder="Digite o nome da instituição" required>
 

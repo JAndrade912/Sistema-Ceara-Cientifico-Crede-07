@@ -49,7 +49,7 @@ CREATE TABLE Escolas (
     id_escolas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL,
     focalizada TINYINT(1) NOT NULL,
-    ide VARCHAR(45) NOT NULL,
+    ide VARCHAR(45) NULL,
     municipio VARCHAR(45) NOT NULL
 );
 
