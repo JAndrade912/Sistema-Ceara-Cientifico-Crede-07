@@ -230,21 +230,21 @@ $userName = $_SESSION['usuario'];
     <div class="row stat-row">
       <div class="col-sm-4">
         <div class="stat-box stat-primary">
-          <i class="bi bi-mortarboard-fill ico"></i>
+          <i><img src="../assets/img/escola.png" class="escola"></i>
           <h2 id="total-escolas">120</h2>
           <p>Escolas Cadastradas</p>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="stat-box stat-success">
-          <i class="bi bi-file-earmark-text-fill ico"></i>
+          <i><img src="../assets/img/trabalho.png" class="trabalho"></i>
           <h2 id="total-trabalhos">350</h2>
           <p>Trabalhos Cadastrados</p>
         </div>
       </div>
       <div class="col-sm-4">
         <div class="stat-box stat-info">
-          <i class="bi bi-person-fill ico"></i>
+          <i><img src="../assets/img/Jurados.png" class="jurado"></i>
           <h2 id="total-jurados">50</h2>
           <p>Jurados Cadastrados</p>
         </div>

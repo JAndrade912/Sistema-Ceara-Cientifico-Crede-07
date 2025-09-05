@@ -9,53 +9,49 @@ if (isset($_SESSION['login_error'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Ceará Científico</title>
-  <link rel="stylesheet" href="../assets/styles/login_adm.css">
-
-  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
-  <script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
+  <title>SACC - Home</title>
+  <link rel="stylesheet" href="../assets/styles/index.css">
+  <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
+  <link rel="alternate" href="../assets/img/SIMBOLO.png" type="application/atom+xml" title="Atom">
+  <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
+  <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
-
 <body>
-  <div class="fundo-arredondado"></div>
-  <div class="container">
-    <div class="left">
-      <div class="logo"><img src="../assets/img/SACC.png"></div>
-    </div>
-    <div class="right">
-      <div class="login-box">
-        <div class="login-cont">
-          <header>
-            <b>Admin</b>
-            <br>
-            <br>
-          </header>
-          <form method="POST" action="../php/adm.php" id="loginForm">
-            <div class="form-group">
-              <label for="usuario">Email:</label>
-              <input type="text" name="usuario" id="usuario" required placeholder="Digite seu usuário" />
-            </div>
-            <br>
-            <div class="form-group">
-              <label for="senha">Senha:</label>
-              <input type="password" name="senha" id="senha" required placeholder="Digite sua senha" />
-            </div>
-            <button type="submit">Entrar</button>
-          </form>
-          <?php if (!empty($error)) : ?>
-            <div style="color: red; margin-top: 10px; text-align: center;">
-              <?= htmlspecialchars($error) ?>
-            </div>
-          <?php endif; ?>
-
+  <nav class="navbar bg-body-tertiary">
+    <div class="d-flex">
+      <a class="navbar-brand" href="#">
+        <div id="corpo-img"> 
+          <img src="../assets/img/SACC.png" alt="Logo" id="img-sacc" class="d-inline-block align-text-top">
         </div>
-      </div>
+      </a>
     </div>
+  </nav>
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="container-fluid" id="login-box">
+      <h1 class="h1" id="tit">Admin</h1>
+      <div class="row d-flex justify-content-center align-items-center" id="coluna">
+        <form method="POST" action="../php/adm.php" id="loginForm">
+           <div class="form-group">
+             <label for="usuario">Email:</label>
+             <input type="text" name="usuario" id="usuario" required placeholder="Digite seu usuário" />
+           </div>
+           <br>
+           <div class="form-group">
+             <label for="senha">Senha:</label>
+             <input type="password" name="senha" id="senha" required placeholder="Digite sua senha" />
+           </div>
+           <button type="submit">Entrar</button>
+         </form>
+         <?php if (!empty($error)) : ?>
+           <div style="color: red; margin-top: 10px; text-align: center;">
+             <?= htmlspecialchars($error) ?>
+           </div>
+         <?php endif; ?>
+<img src="../assets/img/crede7.png" style="width: 25%;">
   </div>
 </body>
 
