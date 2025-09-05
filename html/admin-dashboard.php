@@ -72,12 +72,12 @@ $userName = $_SESSION['usuario'];
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form method="POST" action="" id="idCadEscola">
               <label for="instituicao-nome" class="form-label">Nome da Instituição</label>
-              <input type="text" id="instituicao-nome" class="form-control" placeholder="Digite o nome da instituição" required>
+              <input type="text" id="instituicao-nome" class="form-control" name="nome" placeholder="Digite o nome da instituição" required>
 
               <label for="instituicao-localidade" class="form-label mt-2">Localidade</label>
-              <select id="instituicao-localidade" class="form-control">
+              <select id="instituicao-localidade" class="form-control" name="municipio">
                 <option selected disabled>Selecione...</option>
                 <option value="1">Caridade</option>
                 <option value="2">Canindé</option>
@@ -88,14 +88,15 @@ $userName = $_SESSION['usuario'];
               </select>
 
               <label for="instituicao-tipo" class="form-label mt-2">Tipo</label>
-              <select id="instituicao-tipo" class="form-control">
+              <select id="instituicao-tipo" class="form-control" name="focalizada">
                 <option selected disabled>Selecione...</option>
                 <option value="1">Focalizado</option>
+                <option value="0">Não Focalizado</option>
               </select>
 
               <div id="campo-ide" style="display:none;">
                 <label for="instituicao-ide" class="form-label mt-2">IDE Médio da Escola</label>
-                <input type="number" id="instituicao-ide" class="form-control" placeholder="Digite o IDE médio">
+                <input type="number" id="instituicao-ide" class="form-control" placeholder="Digite o IDE médio" name="ide">
               </div>
 
               <input type="submit" value="Enviar" class="btn btn-success mt-3">
