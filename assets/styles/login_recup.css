@@ -50,11 +50,6 @@ body {
   color: black;
 }
 
-.login-box h2 {
-  margin-bottom: 10px;
-  font-size: 20px;
-}
-
 .login-box label {
   display: block;
   font-size: 14px;
@@ -72,17 +67,17 @@ body {
 
 .login-box button {
   width: 50%;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 12%;
+  margin-top: 20%;
   background: #3c3c3c;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 16%;
   margin-right: 25%;
   margin-left: 25%;
-  margin-bottom: 20px;
+  margin-bottom: 20%;
 }
 
 .fundo-arredondado {
@@ -111,40 +106,24 @@ body {
   z-index: 10;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  margin-left: 20%;
-  margin-right: 30%;
-}
-
-input[type="email"],
-input[type="password"] {
-  width: 60%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-left: 20%;
-  margin-right: 30%;
-}
-/*    TRANSFUSÃO DE CSS EMBUTIDO      */
 .logo img {
   float: right;
   margin-top: 15%;
   margin-bottom: 50%;
-  margin-left: 15%;
+  margin-left: 10%;
   margin-right: 10%;
   width: 80%;
 }
-#login-text {
-  margin-bottom: 50px;
+
+#red-senha {
+
+  font-size: 45%;
 }
 
-p {
+b{
   font-size: 15px;
+}
+a{
+  text-decoration: none !important;
+
 }
