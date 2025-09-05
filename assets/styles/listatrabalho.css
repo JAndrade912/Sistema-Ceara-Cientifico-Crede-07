@@ -4,7 +4,8 @@ body {
   margin:0; }
 
 h2 { 
-  margin-bottom:20px; }
+  margin-bottom:20px; 
+}
 
 /* Filtros */
 .filter-group { 
@@ -20,7 +21,8 @@ h2 {
 .filter-group select { 
   padding:3px 6px; 
   border-radius:100px;
-  border:1px solid #ccc; }
+  border:1px solid #ccc;
+ }
 
 /* Tabela */
 .table { 
@@ -33,7 +35,8 @@ h2 {
 .table th{ 
   text-align:center; 
   vertical-align:middle;
-  height: 30px;}
+  height: 30px;
+}
 
   .table td{
   text-align:center; 
@@ -46,8 +49,8 @@ h2 {
 
 .table thead { 
   background:#4C8F5A; 
-  color:white; }
-
+  color:white; 
+}
 
 .download-btn { 
   background:#2c7a3e; 
@@ -55,10 +58,12 @@ h2 {
   border:none;
   padding:6px 10px; 
   border-radius:4px; 
-  cursor:pointer; }
+  cursor:pointer;
+ }
 
 .download-btn:hover { 
-  background:#1e5e2b; }
+  background:#1e5e2b; 
+}
 
 /* Botões de relatório */
 .report-buttons { 
@@ -78,7 +83,8 @@ h2 {
  }
 
 .report-buttons button:hover { 
-  background:#6aa347; }
+  background:#6aa347;
+ }
 
 /* Ícone download individual */
 .download-icon { 

@@ -55,7 +55,6 @@ a {
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  
 }
 
 #login-box button {
@@ -70,7 +69,6 @@ a {
   margin-right: 25%;
   margin-left: 25%;
   margin-bottom: 20px;
-
 }
 
 #coluna {
@@ -97,7 +95,6 @@ a {
   align-items: center;
   text-align: center;
 }
-
 
 .logos {
   margin-top: 20px;
