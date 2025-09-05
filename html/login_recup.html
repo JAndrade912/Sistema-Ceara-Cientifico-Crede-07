@@ -1,48 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SACC - Home</title>
-  <link rel="stylesheet" href="assets/styles/index.css">
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
-  <link rel="alternate" href="assets/img/SIMBOLO.png" type="application/atom+xml" title="Atom">
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
-  <script src="boostrap/JS/bootstrap.bundle.min.js"></script>
+  <title>Login - Ceará Científico</title>
+  <!--  ANTIGO REDEFINIR.HTML-->
+  <link rel="stylesheet" href="../assets/styles/login_redef.css">
+  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
+<script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <nav class="navbar bg-body-tertiary">
-    <div class="d-flex">
-      <a class="navbar-brand" href="#">
-        <div id="corpo-img"> 
-          <img src="assets/img/SACC.png" alt="Logo" id="img-sacc" class="d-inline-block align-text-top">
-        </div>
-      </a>
-    </div>
-  </nav>
-  <div class="container d-flex justify-content-center align-items-center">
-    <div class="container-fluid" id="login-box">
-      <h1 class="h1" id="tit">Redefinição de senha</h1>
-        <div class="col">
-          <div class="card text-bg-light mb-3" style="max-width: 10rem;" id="card-pai">
-            <div class="card-body" id="card-corpo">
-              <br><br>
-              <p>Informe um e-mail para enviar o código de redefinição.</p>
-            <form method="POST" id="loginForm">
-              <div class="form-group">
-              <br>
-              <label for="email">Email:</label>
-              <input type="email" name="email" id="email" required placeholder="exemplo@dominio.com"/>
-              </div>
-              <button type="submit"><a href="codigo_log.html"></a>Enviar</button>
-            </form>
-            </div>
-          </div>
-        </div>
-      <div class="logos">
-        <img src="assets/img/crede7.png" alt="Crede 7 Canindé">
+  <div class="fundo-arredondado"></div>
+  <div class="container">
+    <div class="left">
+      <div class="logo">
+        <img src="../assets/img/SACC.png" alt="Ceará Científico">
       </div>
-       </div>
+    </div>
+    <div class="right">
+      <div class="login-box">
+        <div class="login-cont">
+          <h2 id="red-senha">Redefinição de senha</h2>
+          <form method="POST" id="loginForm">
+            <div class="form-group">
+              <label for="number"><b>Código:</b></label>
+              <input type="text" name="codigo" id="codigo"/>
+            </div>
+            <button type="submit"><a href="nova_senha.html"></a>Enviar</button>
+          </form>
         </div>
+      </div>
+    </div>
+    <!-- CAMINHOS PRONTOS = CAMILLE -->
+  </div>
 </body>
 </html>
