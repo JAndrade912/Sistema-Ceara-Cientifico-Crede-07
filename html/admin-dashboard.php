@@ -5,7 +5,6 @@ if(!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])){
   header('Location: ../html/login_adm.php');
   exit();
 }
-
 $userName = $_SESSION['usuario']; 
 ?>
 
@@ -109,7 +108,7 @@ $userName = $_SESSION['usuario'];
       </div>
     </div>
 
-
+<!--      MODAL DO JURADO  INICIO  -->
 <div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -118,7 +117,7 @@ $userName = $_SESSION['usuario'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
-         <form>
+         <form action="">
               <label>Nome</label>
               <input type="text" class="form-control" placeholder="Digite seu nome" required>
               <label>Apelido</label>
@@ -167,7 +166,7 @@ $userName = $_SESSION['usuario'];
     </div>
   </div>
 </div>
-
+<!--     MODAL DO JURADO  FIM  -->
 
 <div class="modal fade" id="modalTrabalho" tabindex="-1" aria-labelledby="modalTrabalhoLabel" aria-hidden="true">
   <div class="modal-dialog">
