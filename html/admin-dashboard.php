@@ -118,7 +118,7 @@ $userName = $_SESSION['usuario'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
-         <form action="">
+         <form action="/php/Cadjurado.php" method="POST" >
               <label>Nome</label>
               <input type="text" class="form-control" placeholder="Digite seu nome" required>
               <label>Apelido</label>
