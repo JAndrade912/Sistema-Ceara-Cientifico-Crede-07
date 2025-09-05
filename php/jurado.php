@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && $senha == $user['senha']) {
-            $_SESSION['id_admin'] = $user['id_jurados'];
+            $_SESSION['id_jurados'] = $user['id_jurados'];
             $_SESSION['usuario'] = $user['usuario'];
             $_SESSION['senha'] = $user['senha'];
 
