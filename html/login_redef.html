@@ -1,41 +1,41 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Ceará Científico</title>
-  <!--  ANTIGO REDEFINIR.HTML-->
+  <title>Redefinição de senha</title>
   <link rel="stylesheet" href="../assets/styles/login_redef.css">
-  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
-<script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
+  <link rel="alternate" href="../assets/img/SIMBOLO.png" type="application/atom+xml" title="Atom">
+  <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
+  <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <div class="fundo-arredondado"></div>
-  <div class="container">
-    <div class="left">
-      <div class="logo">
-        <img src="../assets/img/SACC.png" alt="Ceará Científico">
-      </div>
-    </div>
-
-    <div class="right">
-      <div class="login-box">
-        <div class="login-cont">
-          <h2 id="cont2-tit">Redefinição de senha</h2>
-          <br>
-          <p>Insira um e-mail para enviar o código de verificação</p>
-          <form method="POST" id="loginForm">
-            <div class="form-group">
-              <br>
-              <label for="e-mail" class="title"><b>E-mail:</b></label>
-              <input type="email" name="e-mail" id="e-mail"/>
-              <br>
-            <button type="submit" class="btn btn-dark" id="link_enviar">Enviar</button>
-          </form>
+  <nav class="navbar bg-body-tertiary">
+    <div class="d-flex">
+      <a class="navbar-brand" href="#">
+        <div id="corpo-img"> 
+          <img src="../assets/img/SACC.png" alt="Logo" id="img-sacc" class="d-inline-block align-text-top">
         </div>
-      </div>
+      </a>
     </div>
-    <!-- CAMINHOS PRONTOS = CAMILLE -->
+  </nav>
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="container-fluid" id="login-box">
+     <p> <h1 class="h1" id="tit">Redefinição de senha</h1>
+      <p><b>Insira um e-mail para enviar o código de verificação</b></p></p>
+      
+      <div class="row d-flex justify-content-center align-items-center" id="coluna">
+        <form method="POST" action="../php/adm.php" id="loginForm">
+           <div class="form-group">
+             <label for="usuario"><b>Email:</b></label><br>
+             <input type="text" name="usuario" id="usuario" required placeholder="Digite seu usuário" />
+           </div>
+           <button type="submit">Entrar</button>
+         </form>
+<img src="../assets/img/crede7.png" style="width: 25%;">
   </div>
 </body>
+
 </html>

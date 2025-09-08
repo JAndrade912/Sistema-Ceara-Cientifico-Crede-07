@@ -14,7 +14,7 @@ if (isset($_SESSION['login_error'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SACC - Home</title>
-  <link rel="stylesheet" href="../assets/styles/index.css">
+  <link rel="stylesheet" href="../assets/styles/login_adm.css">
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
   <link rel="alternate" href="../assets/img/SIMBOLO.png" type="application/atom+xml" title="Atom">
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
@@ -36,12 +36,12 @@ if (isset($_SESSION['login_error'])) {
       <div class="row d-flex justify-content-center align-items-center" id="coluna">
         <form method="POST" action="../php/adm.php" id="loginForm">
            <div class="form-group">
-             <label for="usuario">Email:</label>
+             <label for="usuario">Email:</label><br>
              <input type="text" name="usuario" id="usuario" required placeholder="Digite seu usuário" />
            </div>
            <br>
            <div class="form-group">
-             <label for="senha">Senha:</label>
+             <label for="senha">Senha:</label><br>
              <input type="password" name="senha" id="senha" placeholder="Digite sua senha" />
            </div>
            <button type="submit">Entrar</button>

@@ -15,7 +15,7 @@ if (isset($_SESSION['login_error'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SACC - Home</title>
-  <link rel="stylesheet" href="../assets/styles/index.css">
+  <link rel="stylesheet" href="../assets/styles/login_jurado.css">
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
   <link rel="alternate" href="../assets/img/SIMBOLO.png" type="application/atom+xml" title="Atom">
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
