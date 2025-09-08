@@ -34,20 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $pdo->prepare("INSERT INTO Jurados(nome, usuario, senha, cpf, id_contatos, id_categoria, id_area) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$nome, $usuario, $senha_hash,  $cpf, $id_contato, $id_categoria, $id_area]);
         $pdo->commit();
-        /*
+        header('Location: ../html/admin-dashboard.php?msg=sucesso');
+        exit();
 
-CREATE TABLE Jurados (
-    id_jurados INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(45) NOT NULL,
-    usuario VARCHAR(45) NOT NULL,
-    senha VARCHAR(255) NOT NULL,
-    cpf VARCHAR(14) NOT NULL,
-    id_contatos INT NULL,
-    id_categoria INT NULL
-);
-
-*/
-        echo "Cadastro realizado com Sucesso!";
     } catch (PDOException $e) {
         $pdo->rollBack();
         die("Erro ao cadastrar jurado: " . $e->getMessage());
