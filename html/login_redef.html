@@ -17,16 +17,20 @@
         <img src="../assets/img/SACC.png" alt="Ceará Científico">
       </div>
     </div>
+
     <div class="right">
       <div class="login-box">
         <div class="login-cont">
-          <h2 id="red-senha">Redefinição de senha</h2>
+          <h2 id="cont2-tit">Redefinição de senha</h2>
+          <br>
+          <p>Insira um e-mail para enviar o código de verificação</p>
           <form method="POST" id="loginForm">
             <div class="form-group">
-              <label for="number"><b>Código:</b></label>
-              <input type="text" name="codigo" id="codigo"/>
-            </div>
-            <button type="submit"><a href="nova_senha.html"></a>Enviar</button>
+              <br>
+              <label for="e-mail" class="title"><b>E-mail:</b></label>
+              <input type="email" name="e-mail" id="e-mail"/>
+              <br>
+            <button type="submit" class="btn btn-dark" id="link_enviar">Enviar</button>
           </form>
         </div>
       </div>

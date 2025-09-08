@@ -122,7 +122,25 @@ body {
 b{
   font-size: 15px;
 }
+
 a{
   text-decoration: none !important;
 
 }
+
+   input[type="email"] {
+     width: 60%;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     margin-left: 20%;
+     margin-right: 30%;
+   }
+
+   .title{
+    margin-left: 20%;
+   }
+
+   h2{
+    font-size: 20px;
+   }
