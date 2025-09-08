@@ -4,17 +4,18 @@ require_once '../php/connect.php';
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     
     $nome = $_POST['nome'] ?? '';
-    $focalizado = isset($_POST['focalizada']) ? (int)$_POST['focalizada'] : 0;
-    $ide = $_POST['ide'] ?? null;
+    $focalizado = ['1' => 'Focalizada'];
+    $idFocalizado = $_POST['focalizada'] ?? null;
+    $focalizado = $focalizado[$idFocalizado] ?? null;
+    $ide = ['1' => 'Sim'];
+    $idIde = $_POST['ide'] ?? null;
+    $ide = $ide[$idIde] ?? null;
     $municipio = ['1' => 'Caridade', '2' => 'Canindé', '3' => 'Paramoti', '4' => 'General Sampaio', '5' => 'Santa Quitéria', '6' => 'Itatira'];
     $idMunicipio = $_POST['municipio'] ?? null;
     $municipio = $municipio[$idMunicipio] ?? 'Desconhecido';
 
     if(empty($nome)){
         die('Nome da escola é obrigatório!');
-    }
-    if ($focalizado === 1 && ($ide === null || $ide === '')) {
-        die('O IDE é obrigatório para escolas focalizadas.');
     }
 
     $stmt = $pdo -> prepare("INSERT INTO Escolas (nome, focalizada, ide, municipio) VALUES (?, ?, ?, ?)");

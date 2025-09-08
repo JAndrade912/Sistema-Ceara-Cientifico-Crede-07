@@ -1,3 +1,17 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+include_once("../php/connect.php");
+
+$sql = "SELECT * FROM Escolas ORDER BY id_escolas DESC";
+$result = $pdo -> query($sql);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,7 +39,7 @@
    </button>
    <ul class="nav flex-column">
       <li><a href="admin-dashboard.php"><i><img src="../assets/img/dashboard.png" class="dashboard"></i> <span class="label-text">Dashboard</span></a></li>
-     <li><a href="admin-escolas.html"><i><img src="../assets/img/escola.png" class="escola"></i> <span class="label-text">Escolas</span></a></li>
+     <li><a href="admin-escolas.php"><i><img src="../assets/img/escola.png" class="escola"></i> <span class="label-text">Escolas</span></a></li>
      <li><a href="admin-trabalhos.html"><i><img src="../assets/img/trabalho.png" class="trabalho"></i> <span class="label-text">Trabalhos</span></a></li>
      <li><a href="admin-jurados.html"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span class="label-text">Jurados</span></a></li>
      <li><a href="admin-relatorios.html"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span class="label-text">Relatórios</span></a></li>
@@ -51,6 +65,15 @@
    </thead>
    <br>
    <tbody>
+    <?php
+      while($user_data = $result -> fetch(PDO::FETCH_ASSOC)){
+        echo '<tr>';
+        echo '<td>' . $user_data['nome'] . '</td>';
+        echo '<td>' . $user_data['municipio'] . '</td>';
+        echo '<td>' . $user_data['focalizada'] . '</td>';
+        echo '<td>' . $user_data['ide'] . '</td>';
+      }
+    ?>
    </tbody>
  </table>
  </main>
