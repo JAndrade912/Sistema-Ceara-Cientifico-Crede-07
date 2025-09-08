@@ -61,6 +61,7 @@ $result = $pdo -> query($sql);
        <th>Município</th>
        <th>Tipo</th>
        <th>IDE Médio</th>
+       <th>Ações</th>
      </tr>
    </thead>
    <br>
@@ -72,6 +73,12 @@ $result = $pdo -> query($sql);
         echo '<td>' . $user_data['municipio'] . '</td>';
         echo '<td>' . $user_data['focalizada'] . '</td>';
         echo '<td>' . $user_data['ide'] . '</td>';
+        echo '<td>'; 
+        echo '<a><img src="../assets/img/editar.png" alt="Editar"></a>';
+        echo '<a><img src="../assets/img/deletar.png" alt="Deletar"></a>';
+        echo '</td>';
+        echo '</tr>';
+
       }
     ?>
    </tbody>
