@@ -1,37 +1,43 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Ceará Científico</title>
-  <!--  ANTIGO REDEFINIR.HTML-->
-  <link rel="stylesheet" href="../assets/styles/login_redef.css">
-  <link rel="stylesheet" href="./boostrap/CSS/bootstrap.min.css">
-<script src="./boostrap/JS/bootstrap.bundle.min.js"></script>
+  <title>SACC - Home</title>
+  <link rel="stylesheet" href="../assets/styles/login_recup.css">
+  <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
+  <link rel="alternate" href="../assets/img/SIMBOLO.png" type="application/atom+xml" title="Atom">
+  <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
+  <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <div class="fundo-arredondado"></div>
-  <div class="container">
-    <div class="left">
-      <div class="logo">
-        <img src="../assets/img/SACC.png" alt="Ceará Científico">
-      </div>
-    </div>
-    <div class="right">
-      <div class="login-box">
-        <div class="login-cont">
-          <h2 id="red-senha">Redefinição de senha</h2>
-          <form method="POST" id="loginForm">
-            <div class="form-group">
-              <label for="number"><b>Código:</b></label>
-              <input type="text" name="codigo" id="codigo"/>
-            </div>
-            <button type="submit"><a href="nova_senha.html"></a>Enviar</button>
-          </form>
+  <nav class="navbar bg-body-tertiary">
+    <div class="d-flex">
+      <a class="navbar-brand" href="#">
+        <div id="corpo-img"> 
+          <img src="../assets/img/SACC.png" alt="Logo" id="img-sacc" class="d-inline-block align-text-top">
         </div>
-      </div>
+      </a>
     </div>
-    <!-- CAMINHOS PRONTOS = CAMILLE -->
+  </nav>
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="container-fluid" id="login-box">
+      <div class="row d-flex justify-content-center align-items-center" id="coluna">
+        <h2>Redefinição de Senha</h2>
+        
+        <form method="POST" action="../php/adm.php" id="loginForm">
+           <div class="form-group">
+            <br>
+             <label for="usuario" class="cod"><b>Código:</b></label>
+             <br>
+             <input type="text" name="codigo" id="codigo" />
+           </div>
+           <br>
+           <button type="submit">Enviar</button>
+         </form>
+<img src="../assets/img/crede7.png" style="width: 25%;">
   </div>
 </body>
+
 </html>
