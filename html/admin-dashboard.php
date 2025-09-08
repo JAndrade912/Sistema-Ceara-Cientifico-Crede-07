@@ -110,7 +110,7 @@ $userName = $_SESSION['usuario'];
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
-         <form action="/php/Cadjurado.php" method="POST" id="idCadJurado">
+         <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
               <label for="nome">Nome</label>
               <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
               <label for="usuario">Apelido</label>
@@ -123,7 +123,7 @@ $userName = $_SESSION['usuario'];
               <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
               <!--  ANALISAR A QUESTÃO DAS CATEGORIAS NO BD (ESTUDAR) -->
               <label for="id_categoria">Categoria</label>
-              <select id="jurado-categoria" class="form-control" name="" required>
+              <select id="jurado-categoria" class="form-control" name="categoria" required>
                 <option selected disabled>Selecione...</option>
                 <option value="1">I - Ensino Médio</option>
                 <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>

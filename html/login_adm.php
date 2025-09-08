@@ -42,7 +42,7 @@ if (isset($_SESSION['login_error'])) {
            <br>
            <div class="form-group">
              <label for="senha">Senha:</label>
-             <input type="password" name="senha" id="senha" required placeholder="Digite sua senha" />
+             <input type="password" name="senha" id="senha" placeholder="Digite sua senha" />
            </div>
            <button type="submit">Entrar</button>
          </form>
