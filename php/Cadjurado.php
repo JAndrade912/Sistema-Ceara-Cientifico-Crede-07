@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         '6' => 'Ensino Fundamental',
         '7' => 'Ensino Médio'
     ];
-    $id_area = $_POST['area'] ?? null;
-    $area = $area[$id_area] ?? 'Não informada';
+    $id_area = $_POST['area'] ?? 'Não informada';
+    $area = $area[$id_area] ?? '0';
     try {
         $pdo->beginTransaction();
 

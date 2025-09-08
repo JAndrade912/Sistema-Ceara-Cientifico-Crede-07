@@ -139,7 +139,7 @@ $userName = $_SESSION['usuario'];
 
               <!--  ANALISAR A QUESTÃO DAS AREAS NO BD (ESTUDAR) -->
                   <label for="id_areas">Área</label>
-                  <select class="form-control">
+                  <select class="form-control" name="area">
                     <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
