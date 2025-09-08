@@ -48,7 +48,7 @@ tr:nth-child(odd) {
 }
 
 .criterio{
-    font-size: 15px;
+    font-size: 20px;
     background-color: rgb(207, 205, 205);
 }
 
@@ -67,4 +67,16 @@ tr:nth-child(odd) {
 h1{
     font-size: 20px;
     text-align: center;
+}
+
+img{
+   margin-left: 45%;
+    width: 20%;
+  
+}
+
+.logo{
+    width: 90%;
+    border: 1px solid #404040;
+    margin-left: 5%;
 }

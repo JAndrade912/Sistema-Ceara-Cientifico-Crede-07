@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
+
 body {
   height: 100vh;
   display: flex;
@@ -11,16 +12,18 @@ body {
   align-items: center;
   background: #f2f2f2;
 }
+
 .container {
   width: 100%;
   height: 100%;
   display: flex;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   background: white;
 }
+
 .left {
   flex: 1;
-  background:#4C8F5A; 
+  background: #4C8F5A;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,32 +43,18 @@ body {
 .login-box {
   width: 34%;
   height: 30%;
-  background: white; 
+  background: white;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
-  color: black;
-}
-
-.login-box label {
-  display: block;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-.login-box input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: none;
-  border-bottom: 1px solid #aaa;
-  outline: none;
+  text-align: left;
+  font-size: 85%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .login-box button {
   width: 50%;
   padding: 12px;
-  margin-top: 5px;
+  margin-top: 20px;
   background: #3c3c3c;
   color: white;
   border: none;
@@ -75,6 +64,15 @@ body {
   margin-right: 25%;
   margin-left: 25%;
   margin-bottom: 20px;
+}
+
+.logo img {
+  float: right;
+  margin-top: 15%;
+  margin-bottom: 50%;
+  margin-left: 15%;
+  margin-right: 10%;
+  width: 80%;
 }
 
 .fundo-arredondado {
@@ -89,8 +87,13 @@ body {
 }
 
 .imagem-container {
-    position: relative; 
-    z-index: 10; 
+  position: relative;
+  z-index: 10;
+}
+
+.imagem-frente {
+  width: 300px;
+  height: auto;
 }
 
 .logo {
@@ -98,36 +101,39 @@ body {
   z-index: 10;
 }
 
-.form-group {
-     margin-bottom: 15px;
-   }
-   
-   input[type="password"],
-   input[type="password"] {
-     width: 60%;
-     padding: 10px;
-     border: 1px solid #ccc;
-     border-radius: 5px;
-     margin-left: 20%;
-     margin-right: 30%;
-   }
-/*    TRANSFUSÃO DE CSS EMBUTIDO      */
-.logo img{
-  float: right; margin-top: 15%; margin-bottom: 50%; margin-left: 15%;margin-right: 10%; width: 80%;
+.login-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  float: right;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  margin-left: 20%;
+  margin-right: 30%;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-right: 30%;
+  background-color: #ccc;
+}
+
+.form-check input {
+  margin-right: 5px;
 }
 
 b {
- margin-left: 20%;
-}
-
-h2 {
   font-size: 20px;
-}
- a {
-    text-decoration: none !important;
-  color: #fff !important;
-}
-#link_enviar{
-  text-decoration: none !important;
-  color: #fff ;
 }
