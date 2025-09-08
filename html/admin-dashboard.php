@@ -134,8 +134,8 @@ $userName = $_SESSION['usuario'];
               <div id="jurado-area" style="display:none;">
 
               <!--  ANALISAR A QUESTÃO DAS AREAS NO BD (ESTUDAR) -->
-                  <label for="id_areas">Área</label>
-                  <select class="form-control">
+                  <label for="id_area">Área</label>
+                  <select class="form-control" name="area">
                     <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
@@ -148,11 +148,11 @@ $userName = $_SESSION['usuario'];
 
               <!--  AREA ACESSADA PELA CATEGORIA PcD  -->
                 <div id="jurado-area2" style="display:none;">
-                  <label>Área</label>
-                  <select class="form-control">
+                  <label for="id_area">Área</label>
+                  <select class="form-control" name="area">
                     <option selected disabled>Selecione...</option>
-                    <option value="1">Ensino Fundamental</option>
-                    <option value="2">Ensino Médio</option>
+                    <option value="6">Ensino Fundamental</option>
+                    <option value="7">Ensino Médio</option>
                   </select>
                 </div>
               <!--  AREA ACESSADA PELA CATEGORIA PcD  -->

@@ -9,7 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email']; // tabela Contatos
     $categoria = ['1' => 'Ensino Médio', '2' => 'Ensino Médio - Ações Afirmativas e CEJAs EM', '3' => 'Pesquisa Júnior', '4' => 'PcD'];
     $id_categoria = $_POST['categoria'] ?? null;
-    $categoria = $categoria[$id_categoria] ?? 'Descohecida';
+    $categoria = $categoria[$id_categoria] ?? 'Desconhecida';
+    $area = [
+        '1' => 'Linguagens, Códigos e suas Tecnologias - LC',
+        '2' => 'Matemática e suas Tecnologias - MT',
+        '3' => 'Ciências da Natureza, Educação Ambiental e Engenharias - CN',
+        '4' => 'Ciências Humanas e Sociais Aplicadas - CH',
+        '5' => 'Robótica, Automação e Aplicação das TIC',
+        '6' => 'Ensino Fundamental',
+        '7' => 'Ensino Médio'
+    ];
+    $id_area = $_POST['area'] ?? null;
+    $area = $area[$id_area] ?? 'Não informada';
     try {
         $pdo->beginTransaction();
 
@@ -20,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $senha_padrao  = '123456';
         $senha_hash = password_hash($senha_padrao, PASSWORD_DEFAULT);
 
-        $stmt = $pdo->prepare("INSERT INTO Jurados(nome, usuario, senha, cpf, id_contatos, id_categoria) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$nome, $usuario, $senha_hash,  $cpf, $id_contato, $id_categoria]);
+        $stmt = $pdo->prepare("INSERT INTO Jurados(nome, usuario, senha, cpf, id_contatos, id_categoria, id_area) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$nome, $usuario, $senha_hash,  $cpf, $id_contato, $id_categoria, $id_area]);
         $pdo->commit();
-/*
+        /*
 
 CREATE TABLE Jurados (
     id_jurados INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -37,10 +48,8 @@ CREATE TABLE Jurados (
 
 */
         echo "Cadastro realizado com Sucesso!";
-
     } catch (PDOException $e) {
         $pdo->rollBack();
         die("Erro ao cadastrar jurado: " . $e->getMessage());
     }
 }
-?>

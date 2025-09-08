@@ -23,7 +23,8 @@ CREATE TABLE Jurados (
     senha VARCHAR(255) NOT NULL,
     cpf VARCHAR(14) NOT NULL,
     id_contatos INT NULL,
-    id_categoria INT NULL
+    id_categoria VARCHAR(45),
+    id_area VARCHAR(45)
 );
 
 -- Escolas
