@@ -17,10 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_contato = $pdo->lastInsertId();
 
         $senha_padrao  = '123456';
-        $senha_hash = password_hash($senha_padrao, PASSWORD_DEFAULT);
 
         $stmt = $pdo->prepare("INSERT INTO Jurados(nome, usuario, senha, cpf, id_contatos, id_categoria, id_area) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$nome, $usuario, $senha_hash,  $cpf, $id_contato, $id_categoria, $id_area]);
+        $stmt->execute([$nome, $usuario, $senha_padrao,  $cpf, $id_contato, $id_categoria, $id_area]);
         $pdo->commit();
         header('Location: ../html/admin-dashboard.php?msg=sucesso');
         exit();
