@@ -6,7 +6,18 @@ error_reporting(E_ALL);
 session_start();
 include_once("../php/connect.php");
 
-$sql = "SELECT j.usuario, j.cpf, j.id_categoria, j.id_area, c.telefone, c.email FROM Jurados j LEFT JOIN Contatos c ON c.id_contatos";
+$sql = "SELECT 
+    j.nome,
+    j.usuario,
+    j.cpf,
+    c.nome_categoria,
+    a.nome_area,
+    co.telefone,
+    co.email
+FROM Jurados j
+LEFT JOIN Contatos co ON j.id_contatos = co.id_contatos
+LEFT JOIN Categorias c ON j.id_categoria = c.id_categoria
+LEFT JOIN Areas a ON j.id_area = a.id_area;";
 $result = $pdo->query($sql);
 ?>
 <!DOCTYPE html>
@@ -73,8 +84,8 @@ $result = $pdo->query($sql);
         echo '<td>' . $user_data['cpf'] . '</td>';
         echo '<td>' . $user_data['email'] . '</td>';
         echo '<td>' . $user_data['telefone'] . '</td>';
-        echo '<td>' . $user_data['id_categoria'] . '</td>';
-        echo '<td>' . $user_data['id_area'] . '</td>';
+        echo '<td>' . $user_data['nome_categoria'] . '</td>';
+        echo '<td>' . $user_data['nome_area'] . '</td>';
         echo '<td>'; 
         echo '<a href="../php/Editaescolas.php?id=$user_data[id_escolas]"><img src="../assets/img/editar.png" alt="Editar"></a>';
         echo '<a><img src="../assets/img/deletar.png" alt="Deletar"></a>';

@@ -2,25 +2,13 @@
 require_once '../php/connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nome = $_POST['nome']; // tabela Jurados
-    $usuario = $_POST['usuario']; // tabela Jurados
-    $telefone = $_POST['telefone']; // tabela Contatos
-    $cpf = $_POST['cpf']; // tabela Jurados
-    $email = $_POST['email']; // tabela Contatos
-    $categoria = ['1' => 'Ensino Médio', '2' => 'Ensino Médio - Ações Afirmativas e CEJAs EM', '3' => 'Pesquisa Júnior', '4' => 'PcD'];
+    $nome = $_POST['nome'];
+    $usuario = $_POST['usuario'];
+    $telefone = $_POST['telefone'];
+    $cpf = $_POST['cpf'];
+    $email = $_POST['email'];
     $id_categoria = $_POST['categoria'] ?? null;
-    $categoria = $categoria[$id_categoria] ?? 'Desconhecida';
-    $area = [
-        '1' => 'Linguagens, Códigos e suas Tecnologias - LC',
-        '2' => 'Matemática e suas Tecnologias - MT',
-        '3' => 'Ciências da Natureza, Educação Ambiental e Engenharias - CN',
-        '4' => 'Ciências Humanas e Sociais Aplicadas - CH',
-        '5' => 'Robótica, Automação e Aplicação das TIC',
-        '6' => 'Ensino Fundamental',
-        '7' => 'Ensino Médio'
-    ];
-    $id_area = $_POST['area'] ?? 'Não informada';
-    $area = $area[$id_area] ?? '0';
+    $id_area = $_POST['area'] ?? null;
     try {
         $pdo->beginTransaction();
 
@@ -36,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $pdo->commit();
         header('Location: ../html/admin-dashboard.php?msg=sucesso');
         exit();
-
     } catch (PDOException $e) {
         $pdo->rollBack();
         die("Erro ao cadastrar jurado: " . $e->getMessage());

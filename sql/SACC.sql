@@ -55,6 +55,33 @@ CREATE TABLE Notas (
     id_jurados INT NULL,
     id_escolas INT NULL
 );
+-- Categorias
+CREATE TABLE Categorias (
+    id_categoria INT PRIMARY KEY,
+    nome_categoria VARCHAR(100) NOT NULL
+);
+-- Areas
+CREATE TABLE Areas (
+    id_area INT PRIMARY KEY,
+    nome_area VARCHAR(100) NOT NULL
+);
+
+-- Inserindo valores fixos
+INSERT INTO Categorias (id_categoria, nome_categoria) VALUES
+(1, 'Ensino Médio'),
+(2, 'Ensino Médio - Ações Afirmativas e CEJAs EM'),
+(3, 'Pesquisa Júnior'),
+(4, 'PcD');
+
+INSERT INTO Areas (id_area, nome_area) VALUES
+(1, 'Linguagens, Códigos e suas Tecnologias - LC'),
+(2, 'Matemática e suas Tecnologias - MT'),
+(3, 'Ciências da Natureza, Educação Ambiental e Engenharias - CN'),
+(4, 'Ciências Humanas e Sociais Aplicadas - CH'),
+(5, 'Robótica, Automação e Aplicação das TIC'),
+(6, 'Ensino Fundamental'),
+(7, 'Ensino Médio');
+
 
 -- Relacionamentos
 ALTER TABLE Jurados 
@@ -99,3 +126,19 @@ FOREIGN KEY (id_escolas)
 REFERENCES Escolas(id_escolas)
 ON DELETE SET NULL
 ON UPDATE CASCADE;
+
+ALTER TABLE Jurados
+MODIFY COLUMN id_categoria INT,
+ADD CONSTRAINT fk_categoria
+    FOREIGN KEY (id_categoria)
+    REFERENCES Categorias(id_categoria)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
+ALTER TABLE Jurados
+MODIFY COLUMN id_area INT,
+ADD CONSTRAINT fk_area
+    FOREIGN KEY (id_area)
+    REFERENCES Areas(id_area)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
