@@ -1,0 +1,67 @@
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-left: 5%;
+  }
+
+th, td {
+    border: 1px solid #404040;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #4C8F5A;
+    font-size: 14px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.criterio1{
+    font-size: 17px;
+    background-color: rgb(207, 205, 205);
+    width: 5%;
+}
+
+.criterio{
+    font-size: 17px;
+    background-color: rgb(207, 205, 205);
+    width: 18%;
+}
+
+.d-flex{
+    background-color: #4C8F5A;
+    width: 90%;
+    margin-left: 5%;
+}
+
+h1{
+    font-size: 20px;
+    text-align: center;
+}
+
+
+img{
+   margin-left: 45%;
+    width: 20%;
+  
+}
+
+.logo{
+    width: 90%;
+    border: 1px solid #404040;
+    margin-left: 5%;
+    background-color: rgb(207, 205, 205);
+}
+
+.t1{
+    font-size: 28px;
+}
+
+.t2{
+    font-size: 20px;
+}
