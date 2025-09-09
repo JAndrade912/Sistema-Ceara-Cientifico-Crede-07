@@ -111,7 +111,6 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
 
-      <!--      MODAL DO JURADO  INICIO  -->
       <div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -131,7 +130,6 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                 <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
                 <label for="email">E-mail SIC-CED</label>
                 <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
-                <!--  ANALISAR A QUESTÃO DAS CATEGORIAS NO BD (ESTUDAR) -->
                 <label for="id_categoria">Categoria</label>
                 <select id="jurado-categoria" class="form-control" name="categoria" required>
                   <option selected disabled>Selecione...</option>
@@ -140,10 +138,8 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                   <option value="3">III - Pesquisa Júnior</option>
                   <option value="4">IV - PcD</option>
                 </select>
-                <!--  ANALISAR A QUESTÃO DAS CATEGORIAS NO BD (ESTUDAR) -->
                 <div id="jurado-area" style="display:none;">
 
-              <!--  ANALISAR A QUESTÃO DAS AREAS NO BD (ESTUDAR) -->
                   <label for="id_areas">Área</label>
                   <select class="form-control" name="area">
                     <option selected disabled>Selecione...</option>
@@ -154,9 +150,7 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                     <option value="5">Robótica, Automação e Aplicação das TIC</option>
                   </select>
                 </div>
-                <!--  ANALISAR A QUESTÃO DAS AREAS NO BD (ESTUDAR) -->
 
-                <!--  AREA ACESSADA PELA CATEGORIA PcD  -->
                 <div id="jurado-area2" style="display:none;">
                   <label for="id_area">Área</label>
                   <select class="form-control" name="area">
@@ -165,7 +159,6 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                     <option value="7">Ensino Médio</option>
                   </select>
                 </div>
-                <!--  AREA ACESSADA PELA CATEGORIA PcD  -->
 
                 <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
               </form>
@@ -176,7 +169,6 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
           </div>
         </div>
       </div>
-      <!--     MODAL DO JURADO  FIM  -->
 
       <div class="modal fade" id="modalTrabalho" tabindex="-1" aria-labelledby="modalTrabalhoLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -187,8 +179,8 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="modal-body">
               <form>
-                <label>Título do Trabalho</label>
-                <input type="text" class="form-control" placeholder="Digite o nome do Trabalho" required>
+                <label for="titulo">Título do Trabalho</label>
+                <input type="text" class="form-control" name="titulo" placeholder="Digite o nome do Trabalho" required>
                 <label for = "escola">Escola</label>
                 <select name="escola" id="escola" class="form-control" required>
                   <option value="">Selecione a Escola</option>
