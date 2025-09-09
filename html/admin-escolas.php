@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 session_start();
 include_once("../php/connect.php");
@@ -74,7 +71,7 @@ $result = $pdo -> query($sql);
         echo '<td>' . $user_data['focalizada'] . '</td>';
         echo '<td>' . $user_data['ide'] . '</td>';
         echo '<td>'; 
-        echo '<a href="../php/Editaescolas.php?id=$user_data[id_escolas]"><img src="../assets/img/editar.png" alt="Editar"></a>';
+        echo '<a href="../php/Editaescolas.php?id=' . $user_data['id_escolas'] . '"><img src="../assets/img/editar.png" alt="Editar"></a>';
         echo '<a><img src="../assets/img/deletar.png" alt="Deletar"></a>';
         echo '</td>';
         echo '</tr>';
