@@ -142,3 +142,17 @@ ADD CONSTRAINT fk_area
     REFERENCES Areas(id_area)
     ON UPDATE CASCADE
     ON DELETE SET NULL;
+
+ALTER TABLE Trabalhos
+ADD CONSTRAINT fk_trabalhos_area
+FOREIGN KEY (id_areas)
+REFERENCES Areas(id_area)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+ALTER TABLE Trabalhos
+ADD CONSTRAINT fk_trabalhos_categoria
+FOREIGN KEY (id_categoria)
+REFERENCES Categorias(id_categoria)
+ON DELETE SET NULL
+ON UPDATE CASCADE;
