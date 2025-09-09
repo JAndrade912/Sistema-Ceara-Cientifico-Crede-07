@@ -1,51 +1,74 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once '../php/connect.php';
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    echo 'ID não fornecido';
+}
+
+$stmt = $pdo->prepare("SELECT * FROM Escolas WHERE id_escolas = ?");
+$stmt->execute([$id]);
+$escola = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$escola) {
+    echo 'Escola não encontrada';
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Escolas</title>
+    <title>Editar Escola</title>
     <link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
-    <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
-    <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
-    <script src="../boostrap/JS/jquery.min.js"></script>
-    <link rel="stylesheet" href="../assets/styles/dashboard-admin.css">
 </head>
 
-<body>
-    <div class="modal-body">
-        <form method="POST" action="../php/Cadescola.php" id="idCadEscola">
-            <label for="instituicao-nome" class="form-label">Nome da Instituição</label>
-            <input type="text" id="instituicao-nome" class="form-control" name="nome" placeholder="Digite o nome da instituição" required>
+<body class="container mt-4">
+    <h2>Editar Escola</h2>
 
-            <label for="instituicao-localidade" class="form-label mt-2">Localidade</label>
-            <select id="instituicao-localidade" class="form-control" name="municipio">
-                <option selected disabled>Selecione...</option>
-                <option value="1">Caridade</option>
-                <option value="2">Canindé</option>
-                <option value="3">Paramoti</option>
-                <option value="4">General Sampaio</option>
-                <option value="5">Santa Quitéria</option>
-                <option value="6">Itatira</option>
-            </select>
+    <form method="POST" action="Atualizaescolas.php">
+        <input type="hidden" name="id" value="<?= $escola['id_escolas'] ?>">
 
-            <label for="instituicao-tipo" class="form-label mt-2">Tipo</label>
-            <select id="instituicao-tipo" class="form-control" name="focalizada">
-                <option selected disabled>Selecione...</option>
-                <option value="1">Focalizado</option>
-            </select>
+        <label for="nome" class="form-label">Nome da Instituição</label>
+        <input type="text" name="nome" id="nome" class="form-control" value="<?= htmlspecialchars($escola['nome']) ?>" required>
 
-            <div id="campo-ide" style="display:none;">
-                <label for="instituicao-ide" class="form-label mt-2">IDE Médio da Escola</label>
-                <select id="instituicao-ide" class="form-control" name="ide">
-                    <option selected disabled>Selecione...</option>
-                    <option value="1">Sim</option>
-                </select>
-            </div>
+        <label class="form-label mt-2">Município</label>
+        <select name="municipio" class="form-control">
+            <?php
+            $municipios = [
+                '1' => 'Caridade',
+                '2' => 'Canindé',
+                '3' => 'Paramoti',
+                '4' => 'General Sampaio',
+                '5' => 'Santa Quitéria',
+                '6' => 'Itatira'
+            ];
+            foreach ($municipios as $key => $value) {
+                $selected = ($escola['municipio'] === $value) ? 'selected' : '';
+                echo "<option value='$key' $selected>$value</option>";
+            }
+            ?>
+        </select>
 
-            <input type="submit" value="Enviar" class="btn btn-success mt-3">
-        </form>
-    </div>
+        <label class="form-label mt-2">Tipo</label>
+        <select name="focalizada" class="form-control">
+            <option value="" selected> Selecione... </option>
+            <option value="1">Focalizada</option>
+        </select>
+
+        <label class="form-label mt-2">IDE Médio</label>
+        <select name="ide" class="form-control">
+            <option value="" selected> Selecione... </option>
+            <option value="1">Sim</option>
+        </select>
+
+        <input type="submit" value="Atualizar" class="btn btn-success mt-3">
+        <a href="../html/admin-escolas.php" class="btn btn-secondary mt-3">Cancelar</a>
+    </form>
 </body>
 
 </html>
