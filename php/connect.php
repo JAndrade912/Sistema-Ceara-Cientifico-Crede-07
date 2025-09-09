@@ -7,7 +7,6 @@ try {
     $pdo -> exec("SET NAMES utf8");
 } catch (PDOException $e) {
     echo "Não foi possível se conectar ao banco de dados: ". $e->getMessage() ."";
-    ahfjdhfidh
 }
 
 ?>
