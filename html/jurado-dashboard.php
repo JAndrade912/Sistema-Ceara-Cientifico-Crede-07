@@ -22,12 +22,16 @@ $userName = $_SESSION['usuario'];
   <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <header class="menu-superior">
-    <h2>Jurado</h2>
+  <header class="menu-superior" >
+    <div style="display: flex;align-items: center;">
+      <a href="../html/login_jurado.php" style="float: left;"><img src="../assets/img/sair.png" ></a>
+      <img src="../assets/img/cearacientifico.png"style="width: 25%; margin-left: 77%">
+    </div>
   </header>
 
   <main class="conteudo">
-    <h1>Lista de Trabalhos</h1>
+    <div style="text-align: center; width: 100%;"><h2>Lista de Trabalhos</h2></div>
+    <br>
     <table>
       <thead>
         <tr>
