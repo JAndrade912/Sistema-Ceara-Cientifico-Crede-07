@@ -17,25 +17,10 @@ th {
     font-size: 14px;
 }
 
-thead {
-    background-color: #a38bbd;
-}
-
-input[readonly] {
-    background-color: #f0f0f0;
-}
-
 h2 {
     text-align: center;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:nth-child(odd) {
-    background-color: #fafafa;
-}
 .criterio2{
     font-size: 11px;
     width: 1%;
@@ -72,7 +57,6 @@ h1{
 img{
     margin-left: 45%;
     width: 20%;
-  
 }
 
 .logo{

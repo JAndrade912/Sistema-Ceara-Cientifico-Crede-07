@@ -35,14 +35,9 @@ a {
   text-decoration: none;
   color: black;
 }
-
-#tit {
-  background-color: #fff;
-  border-radius: 2px;
-  font-weight: 100;
-  padding: 15px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+ .tit{
+  font-size: 28px;
+ }
 
 /*REPOSIÇÃO*/
 #login-box {

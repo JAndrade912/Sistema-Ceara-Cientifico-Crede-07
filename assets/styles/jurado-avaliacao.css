@@ -102,3 +102,46 @@ button a{
     background-color: #4C8F5A;
     color: white;
 }
+
+.he{
+   width: 100%;
+   background-color: white;
+   flex-direction: column; 
+}
+
+.img{
+    width: 15%;
+}
+
+.p2{
+    float: right;
+    margin-right: 10%;
+}
+
+.p1{
+    float: left;
+}
+
+.p3{
+    float: right;
+}
+
+.p4{
+    width: 40%;
+    margin-left: 30%;
+    text-align: center;
+}
+
+.logos{
+    margin-left: 32%;
+}
+
+.log1{
+    width: 15%;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.log2{
+    width: 15%;
+}
