@@ -1,11 +1,17 @@
 <?php
-session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+session_start();
+require_once '../php/connect.php';
 if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
   header('Location: ../html/login_adm.php');
   exit();
 }
-$userName = $_SESSION['usuario'];
+
+$stmt = $pdo -> query("SELECT id_escolas,nome FROM Escolas ORDER BY nome ASC");
+$escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -183,8 +189,15 @@ $userName = $_SESSION['usuario'];
               <form>
                 <label>Título do Trabalho</label>
                 <input type="text" class="form-control" placeholder="Digite o nome do Trabalho" required>
-                <label>Escola</label>
-                <input type="text" class="form-control" placeholder="Digite o nome da Escola" required>
+                <label for = "escola">Escola</label>
+                <select name="escola" id="escola" class="form-control" required>
+                  <option value="">Selecione a Escola</option>
+                  <?php foreach($escolas as $escola): ?>
+                    <option value="<?=htmlspecialchars($escola['id_escolas'])?>">
+                      <?= htmlspecialchars($escola['nome']) ?>
+                    </option>
+                  <?php endforeach;?>
+                </select>
                 <label for="trabalho-categoria">Categoria</label>
                 <select id="trabalho-categoria" class="form-control" required>
                   <option selected disabled>Selecione...</option>
