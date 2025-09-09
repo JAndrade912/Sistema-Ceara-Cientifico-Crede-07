@@ -78,7 +78,6 @@ $result = $pdo -> query($sql);
         echo '<a><img src="../assets/img/deletar.png" alt="Deletar"></a>';
         echo '</td>';
         echo '</tr>';
-
       }
     ?>
    </tbody>

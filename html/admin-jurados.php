@@ -62,6 +62,7 @@ $result = $pdo->query($sql);
           <th>Contato</th>
           <th>Categoria</th>
           <th>Área</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -70,10 +71,10 @@ $result = $pdo->query($sql);
         echo '<tr>';
         echo '<td>' . $user_data['usuario'] . '</td>';
         echo '<td>' . $user_data['cpf'] . '</td>';
+        echo '<td>' . $user_data['email'] . '</td>';
+        echo '<td>' . $user_data['telefone'] . '</td>';
         echo '<td>' . $user_data['id_categoria'] . '</td>';
         echo '<td>' . $user_data['id_area'] . '</td>';
-        echo '<td>' . $user_data['telefone'] . '</td>';
-        echo '<td>' . $user_data['email'] . '</td>';
         echo '<td>'; 
         echo '<a href="../php/Editaescolas.php?id=$user_data[id_escolas]"><img src="../assets/img/editar.png" alt="Editar"></a>';
         echo '<a><img src="../assets/img/deletar.png" alt="Deletar"></a>';
