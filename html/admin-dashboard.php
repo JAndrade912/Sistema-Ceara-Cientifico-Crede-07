@@ -68,6 +68,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
           <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalInstituicao" style="background-color: #4C8F5A;">Cadastrar Instituição</button>
           <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado" style="background-color: #4C8F5A;">Cadastrar Jurado</button>
           <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalTrabalho" style="background-color: #4C8F5A;">Cadastrar Trabalho</button>
+          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAssociacao" style="background-color: #4C8F5A;">Associar Jurado</button>
         </div>
       </div>
       <div class="modal fade" id="modalInstituicao" tabindex="-1" aria-labelledby="modalInstituicaoLabel" aria-hidden="true">
@@ -238,6 +239,79 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
           </div>
         </div>
       </div>
+
+        <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAssociacaoLabel">Associar Jurado a Trabalho</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form action="#" method="POST" id="idCadAssociacao">
+          
+          <div class="mb-3">
+            <label for="jurado" class="form-label">Jurado</label>
+            <select name="jurado" id="jurado" class="form-control" required>
+              <option selected disabled>Selecione o Jurado</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select name="categoria" id="associar-categoria" class="form-control" required>
+              <option selected disabled>Selecione...</option>
+                  <option value="1">I - Ensino Médio</option>
+                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                  <option value="3">III - Pesquisa Júnior</option>
+                  <option value="4">IV - PcD</option>
+            </select>
+          </div>
+
+          <div class="mb-3" id="areajurado" style="display:none;">
+            <label for="area" class="form-label">Área</label>
+            <select name="area" id="area1" class="form-control" required>
+              <option selected disabled>Selecione...</option>
+                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2">Matemática e suas Tecnologias - MT</option>
+                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
+            </select>
+          </div>
+
+          <div class="mb-3" id="area2jurado" style="display:none;">
+            <label for="area" class="form-label">Área</label>
+            <select name="area" id="area2" class="form-control" required>
+              <option selected disabled>Selecione...</option>
+                    <option value="6">Ensino Fundamental</option>
+                    <option value="7">Ensino Médio</option>
+            </select>
+          </div>
+
+          <div class="mb-3" id="trabalhojurado" style="display:none;">
+            <label for="trabalho" class="form-label">Trabalho</label>
+            <select name="trabalho" id="trabalho" class="form-control" required>
+              <option selected disabled>Selecione o Trabalho</option>
+            </select>
+          </div>
+
+          <input type="submit" value="Enviar" class="btn btn-success mt-3">
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+      
       <div class="row stat-row">
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
@@ -361,6 +435,25 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
         $('#trabalho-area, #trabalho-area2').slideUp();
       }
     });
+
+$('#associar-categoria').change(function() {
+  var categoria = $(this).val();
+  if (categoria === '1' || categoria === '2') {
+    $('#areajurado').slideDown();
+    $('#area2jurado').slideUp();
+  } else if (categoria === '4') {
+    $('#area2jurado').slideDown();
+    $('#areajurado').slideUp();
+  } else if (categoria === '3') {
+    $('#trabalhojurado').slideDown();
+    $('#areajurado, #area2jurado').slideUp();
+  }
+});
+$('#area1, #area2').change(function () {
+  $('#trabalhojurado').slideDown();
+});
+
+
 
     // Ranking dinâmica
     const rankingAreas = {
