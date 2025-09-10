@@ -446,7 +446,7 @@ $('#associar-categoria').change(function() {
     $('#areajurado').slideUp();
   } else if (categoria === '3') {
     $('#trabalhojurado').slideDown();
-    $('#areajurado, #area2jurado').slideUp();
+    $('#areajurado, #area2jurado').slideUp(); 
   }
 });
 $('#area1, #area2').change(function () {
