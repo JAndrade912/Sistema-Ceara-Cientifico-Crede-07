@@ -197,10 +197,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                   <?php endforeach;?>
                 </select>
                 <label for="trabalho-categoria">Categoria</label>
-
-                <select id="trabalho-categoria" name="area" class="form-control" required>
-
-                <select name="categoria" id="trabalho-categoria" class="form-control" required>
+                <select id="trabalho-categoria" name="categoria" class="form-control" required>
 
                   <option selected disabled>Selecione...</option>
                   <?php foreach ($categorias as $categoria):?>
