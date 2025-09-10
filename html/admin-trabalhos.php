@@ -6,7 +6,21 @@ error_reporting(E_ALL);
 session_start();
 include_once("../php/connect.php");
 
-$sql = "SELECT ";
+$sql = "SELECT 
+    t.id_trabalhos,
+    t.titulo,
+    e.nome AS escola,
+    c.nome_categoria,
+    a.nome_area
+FROM Trabalhos t
+LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
+LEFT JOIN Jurados j ON t.id_jurados = j.id_jurados
+LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
+LEFT JOIN Areas a ON t.id_areas = a.id_area
+ORDER BY t.id_trabalhos DESC";
+
+$result = $pdo->query($sql);
+    
 ?>
 
 
@@ -63,16 +77,20 @@ $sql = "SELECT ";
      </tr>
    </thead>
    <tbody>
-    <tr>
-      <th>Os Freudianos</th>
-      <th>EEEP Jose Vidal Alves</th>
-      <th>I</th>
-      <th>TIC</th>
-      <th>
-        <a><img src="../assets/img/editar.png"></a> 
-        <a><img src="../assets/img/deletar.png"></a>
-      </th>
-    </tr>
+    <?php
+      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo '<tr>';
+        echo '<td>' . $row['titulo'] . '</td>';
+        echo '<td>' . $row['escola'] . '</td>';
+        echo '<td>'. $row['nome_categoria'] . '</td>';
+        echo '<td>'. $row['nome_area'] . '</td>';
+        echo '<td>'; 
+        echo '<a href="../php/Editaescolas.php?id=' .$row['id_trabalhos'] . '"><img src="../assets/img/editar.png" alt="Editar"></a>';
+        echo '<a href="../php/Excluirescolas.php?id=' .$row['id_trabalhos'] . '"><img src="../assets/img/deletar.png" alt="Deletar"></a>';
+        echo '</td>';
+        echo '</tr>';
+      }
+      ?>
    </tbody>
  </table>
  </main>
@@ -97,8 +115,6 @@ $sql = "SELECT ";
       $('#overlay').removeClass('show');
     }
   });
-
-
  </script>
 </body>
 </html>

@@ -123,3 +123,18 @@ $result = $pdo->query($sql);
 </body>
 
 </html>
+  <!--
+    t.id_trabalhos,
+    t.titulo,
+    t.observacoes
+    e.nome AS escola,
+    j.nome AS jurado,
+    c.nome_categoria AS categoria,
+    a.nome_area AS area,
+    FROM Trabalhos t
+    LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas,
+    LEFT JOIN Jurados j ON t.id_jurados = j.id_jurados,
+    LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria,
+    LEFT JOIN Areas a ON t.id_areas = a.id_areas;
+
+  -->
