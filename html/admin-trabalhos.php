@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 session_start();
 include_once("../php/connect.php");
 
+$sql = "SELECT ";
 ?>
 
 

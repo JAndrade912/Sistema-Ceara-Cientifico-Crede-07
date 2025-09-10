@@ -191,7 +191,7 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                   <?php endforeach;?>
                 </select>
                 <label for="trabalho-categoria">Categoria</label>
-                <select id="trabalho-categoria" class="form-control" required>
+                <select id="trabalho-categoria" name="area" class="form-control" required>
                   <option selected disabled>Selecione...</option>
                   <option value="1">I - Ensino Médio</option>
                   <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
@@ -201,7 +201,7 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 
                 <div id="trabalho-area" style="display:none;">
                   <label>Área</label>
-                  <select class="form-control">
+                  <select class="form-control" name="area">
                     <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
