@@ -130,18 +130,18 @@ ON UPDATE CASCADE;
 ALTER TABLE Jurados
 MODIFY COLUMN id_categoria INT,
 ADD CONSTRAINT fk_categoria
-    FOREIGN KEY (id_categoria)
-    REFERENCES Categorias(id_categoria)
-    ON UPDATE CASCADE
-    ON DELETE SET NULL;
+FOREIGN KEY (id_categoria)
+REFERENCES Categorias(id_categoria)
+ON UPDATE CASCADE
+ON DELETE SET NULL;
 
 ALTER TABLE Jurados
 MODIFY COLUMN id_area INT,
 ADD CONSTRAINT fk_area
-    FOREIGN KEY (id_area)
-    REFERENCES Areas(id_area)
-    ON UPDATE CASCADE
-    ON DELETE SET NULL;
+FOREIGN KEY (id_area)
+REFERENCES Areas(id_area)
+ON UPDATE CASCADE
+ON DELETE SET NULL;
 
 ALTER TABLE Trabalhos
 ADD CONSTRAINT fk_trabalhos_area
