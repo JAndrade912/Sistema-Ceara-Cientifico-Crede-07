@@ -210,8 +210,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                 <div id="trabalho-area" style="display:none;">
                   <label>Área</label>
 
-                  <select class="form-control" name="area">
-
+                 
                   <select name="area" class="form-control">
                     <option selected disabled>Selecione...</option>
                     <?php foreach ($areas as $area): ?>
