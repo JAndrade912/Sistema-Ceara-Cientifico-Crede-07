@@ -12,6 +12,12 @@ if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
 
 $stmt = $pdo -> query("SELECT id_escolas,nome FROM Escolas ORDER BY nome ASC");
 $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo -> query("SELECT id_categoria,nome_categoria FROM Categorias ORDER BY nome_categoria ASC");
+$categorias = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo -> query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
+$areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -178,7 +184,7 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form action="../php/Cadtrabalho.php" method="POST" id="idCadTrabalho">
                 <label for="titulo">Título do Trabalho</label>
                 <input type="text" class="form-control" name="titulo" placeholder="Digite o nome do Trabalho" required>
                 <label for = "escola">Escola</label>
@@ -191,23 +197,24 @@ $escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                   <?php endforeach;?>
                 </select>
                 <label for="trabalho-categoria">Categoria</label>
-                <select id="trabalho-categoria" class="form-control" required>
+                <select name="categoria" id="trabalho-categoria" class="form-control" required>
                   <option selected disabled>Selecione...</option>
-                  <option value="1">I - Ensino Médio</option>
-                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                  <option value="3">III - Pesquisa Júnior</option>
-                  <option value="4">IV - PcD</option>
+                  <?php foreach ($categorias as $categoria):?>
+                    <option value="<?=htmlspecialchars($categoria['id_categoria'])?>">
+                      <?= htmlspecialchars($categoria['nome_categoria'])?>
+                    </option>
+                    <?php endforeach;?>
                 </select>
 
                 <div id="trabalho-area" style="display:none;">
                   <label>Área</label>
-                  <select class="form-control">
+                  <select name="area" class="form-control">
                     <option selected disabled>Selecione...</option>
-                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                    <option value="2">Matemática e suas Tecnologias - MT</option>
-                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                    <?php foreach ($areas as $area): ?>
+                      <option value="<?=htmlspecialchars($area['id_area'])?>">
+                        <?= htmlspecialchars($area['nome_area'])?>
+                      </option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
 
