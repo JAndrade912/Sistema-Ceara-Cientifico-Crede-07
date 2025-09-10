@@ -387,9 +387,9 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 
     $('#ranking-area').on('change', function() {
       $('#ranking-tbody').html(
-        '<tr><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td></tr>' +
-        '<tr><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td></tr>' +
-        '<tr><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td></tr>'
+        '<tr><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
+        '<tr><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
+        '<tr><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
       );
     });
   </script>
