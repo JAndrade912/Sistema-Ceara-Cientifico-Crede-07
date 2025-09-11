@@ -31,7 +31,7 @@ CREATE TABLE Jurados (
 CREATE TABLE Escolas (
     id_escolas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(45) NOT NULL,
-    focalizada TINYINT(1) NULL,
+    focalizada VARCHAR(45) NULL,
     ide VARCHAR(45) NULL,
     municipio VARCHAR(45) NOT NULL
 );
