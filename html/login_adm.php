@@ -9,7 +9,7 @@ if (isset($_SESSION['login_error'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-bt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
