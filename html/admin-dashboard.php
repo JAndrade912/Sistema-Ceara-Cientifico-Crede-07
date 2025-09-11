@@ -268,6 +268,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                   <option value="3">III - Pesquisa Júnior</option>
                   <option value="4">IV - PcD</option>
             </select>
+            
           </div>
 
           <div class="mb-3" id="areajurado" style="display:none;">

@@ -59,12 +59,12 @@
   </div>
 <!-- Botões de relatórios -->
   <div class="report-buttons">
-    <button id="byJurado">Por Jurado</button>
-    <button id="bothJurado">Ambos os Jurados</button>
-    <button id="bySchool">Por Escola</button>
-    <button id="ranking">Ranking</button>
+    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Jurado" style="background-color: #4C8F5A;">Por Jurado</button>
+    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbos-Jurados" style="background-color: #4C8F5A;">Ambos os Jurados</button>
+    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Escola" style="background-color: #4C8F5A;">Por Escola</button>
+    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking" style="background-color: #4C8F5A;">Ranking</button>
   </div>
-  <br>
+      <br>
   <!-- Tabela de trabalhos -->
   <table class="table table-bordered" id="workTable">
     <thead>
@@ -78,6 +78,87 @@
     </thead>
     <tbody></tbody>
   </table>
+  <div class="modal fade" id="modalPor-Jurado" tabindex="-1" aria-labelledby="modalPor-JuradoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalPor-JuradoLabel">Relatório por Jurado</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <p>Gerar relatório dos trabalhos avaliados por um jurado específico.</p>
+              <select id="juradoSelect" class="form-select">
+                <option value="">Selecione o Jurado</option>
+                <option value="Jurado 1">Jurado 1</option>
+                <option value="Jurado 2">Jurado 2</option>
+                <option value="Jurado 3">Jurado 3</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary">Gerar Relatório</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modalAmbos-Jurados" tabindex="-1" aria-labelledby="modalAmbos-JuradosLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalAmbos-JuradosLabel">Relatório por Ambos os Jurados</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <p>Gerar relatório dos trabalhos avaliados por ambos os jurados.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary">Gerar Relatório</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modalPor-Escola" tabindex="-1" aria-labelledby="modalPor-EscolaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalPor-EscolaLabel">Relatório por Escola</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <p>Gerar relatório dos trabalhos submetidos por uma escola específica.</p>
+              <select id="escolaSelect" class="form-select">
+                <option value="">Selecione a Escola</option>
+                <option value="EEEP Francisco Paiva Tavares">EEEP Francisco Paiva Tavares</option>
+                <option value="EEEP Jose Vidal Alves">EEEP Jose Vidal Alves</option>
+                <option value="EEM Casemiro Bezerra de Araújo">EEM Casemiro Bezerra de Araújo</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary">Gerar Relatório</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="modalRanking" tabindex="-1" aria-labelledby="modalRankingLabel" aria-hidden="true"></div>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalRankingLabel">Ranking de Trabalhos</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <p>Gerar relatório de classificação dos trabalhos.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-primary">Gerar Relatório</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
