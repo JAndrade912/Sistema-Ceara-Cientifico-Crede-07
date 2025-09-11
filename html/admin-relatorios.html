@@ -5,177 +5,298 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard Relatórios</title>
 
+
 <link href="../bootstrap/CSS/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../bootstrap/CSS/bootstrap-icons.css">
 <script src="../bootstrap/JS/bootstrap.bundle.min.js"></script>
-<script src="../boostrap/JS/jquery.min.js"></script>
+<script src="../bootstrap/JS/jquery.min.js"></script>
 <link rel="stylesheet" href="../assets/styles/relatorios.css">
 </head>
 <body>
 <div id="overlay" onclick="closeMobileSidebar()"></div>
 <button id="mobile-toggle" onclick="toggleSidebar()">
-  <i class="bi bi-list"></i>
+ <i class="bi bi-list"></i>
 </button>
 <div id="sidebar" style="background-color: #4C8F5A;">
-  <div>
-    <button class="toggle-btn" onclick="toggleSidebar()">
-      <img src="../assets/img/SIMBOLO.png" alt="SACC">
-      <span class="brand-text">SACC</span>
-    </button>
-    <ul class="nav flex-column">
-      <li><a href="admin-dashboard.php"><i><img src="../assets/img/dashboard.png" class="dashboard"></i> <span class="label-text">Dashboard</span></a></li>
-     <li><a href="admin-escolas.php"><i><img src="../assets/img/escola.png" class="escola"></i> <span class="label-text">Escolas</span></a></li>
-     <li><a href="admin-trabalhos.php"><i><img src="../assets/img/trabalho.png" class="trabalho"></i> <span class="label-text">Trabalhos</span></a></li>
-     <li><a href="admin-jurados.php"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span class="label-text">Jurados</span></a></li>
-     <li><a href="admin-relatorios.html"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span class="label-text">Relatórios</span></a></li>
-    </ul>
-  </div>
-  <ul class="nav flex-column bottom-nav">
-    <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
-  </ul>
+ <div>
+   <button class="toggle-btn" onclick="toggleSidebar()">
+     <img src="../assets/img/SIMBOLO.png" alt="SACC">
+     <span class="brand-text">SACC</span>
+   </button>
+   <ul class="nav flex-column">
+     <li><a href="admin-dashboard.php"><i><img src="../assets/img/dashboard.png" class="dashboard"></i> <span class="label-text">Dashboard</span></a></li>
+    <li><a href="admin-escolas.php"><i><img src="../assets/img/escola.png" class="escola"></i> <span class="label-text">Escolas</span></a></li>
+    <li><a href="admin-trabalhos.php"><i><img src="../assets/img/trabalho.png" class="trabalho"></i> <span class="label-text">Trabalhos</span></a></li>
+    <li><a href="admin-jurados.php"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span class="label-text">Jurados</span></a></li>
+    <li><a href="admin-relatorios.html"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span class="label-text">Relatórios</span></a></li>
+   </ul>
+ </div>
+ <ul class="nav flex-column bottom-nav">
+   <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
+ </ul>
 </div>
 <main id="main">
-  <h2>Relatórios de Trabalhos</h2>
-  <br>
-  <hr><br>
-  <!-- Filtros -->
-  <div class="filter-group">
-    <select id="schoolFilter">
-      <option value="">Selecione a Escola</option>
-      <option value="EEEP Francisco Paiva Tavares">EEEP Francisco Paiva Tavares</option>
-      <option value="EEEP Jose Vidal Alves">EEEP Jose Vidal Alves</option>
-      <option value="EEM Casemiro Bezerra de Araújo">EEM Casemiro Bezerra de Araújo</option>
-    </select>
-    <select id="categoryFilter">
-      <option value="">Selecione a Categoria</option>
-      <option value="I">Ensino Médio</option>
-      <option value="II">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-      <option value="III">Pesquisa Júnior</option>
-      <option value="IV">PcD</option>
-    </select>
-    <select id="areaFilter">
-      <option value="">Selecione a Área</option>
-    </select>
+ <h2>Relatórios de Trabalhos</h2>
+ <br>
+ <hr><br>
+ 
+ <div class="filter-group">
+   <select id="schoolFilter">
+     <option value="">Selecione a Escola</option>
+     <option value="EEEP Francisco Paiva Tavares">EEEP Francisco Paiva Tavares</option>
+     <option value="EEEP Jose Vidal Alves">EEEP Jose Vidal Alves</option>
+     <option value="EEM Casemiro Bezerra de Araújo">EEM Casemiro Bezerra de Araújo</option>
+   </select>
+   <select id="categoryFilter">
+     <option value="">Selecione a Categoria</option>
+     <option value="I">Ensino Médio</option>
+     <option value="II">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+     <option value="III">Pesquisa Júnior</option>
+     <option value="IV">PcD</option>
+   </select>
+   <select id="areaFilter">
+     <option value="">Selecione a Área</option>
+   </select>
+ </div>
+
+ <div class="report-buttons">
+   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Jurado" style="background-color: #4C8F5A;">Por Jurado</button>
+   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbos-Jurados" style="background-color: #4C8F5A;">Ambos os Jurados</button>
+   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Escola" style="background-color: #4C8F5A;">Por Escola</button>
+   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking" style="background-color: #4C8F5A;">Ranking</button>
+ </div>
+     <br>
+ <!-- Tabela de trabalhos -->
+ <table class="table table-bordered" id="workTable">
+   <thead>
+     <tr>
+       <th>Título do Trabalho</th>
+       <th>Escola</th>
+       <th>Categoria</th>
+       <th>Área</th>
+       <th>Download</th>
+     </tr>
+   </thead>
+   <tbody></tbody>
+ </table>
+
+<div class="modal fade" id="modalPor-Jurado" tabindex="-1" aria-labelledby="modalPor-JuradoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalPor-JuradoLabel">Relatório por Jurado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p>Gerar relatório dos trabalhos avaliados por um jurado específico.</p>
+        <select id="juradoSelect" class="form-select">
+          <option value="">Selecione o Jurado</option>
+          <option value="Jurado 1">Jurado 1</option>
+          <option value="Jurado 2">Jurado 2</option>
+          <option value="Jurado 3">Jurado 3</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Gerar Relatório</button>
+      </div>
+    </div>
   </div>
-<!-- Botões de relatórios -->
-  <div class="report-buttons">
-    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Jurado" style="background-color: #4C8F5A;">Por Jurado</button>
-    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbos-Jurados" style="background-color: #4C8F5A;">Ambos os Jurados</button>
-    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Escola" style="background-color: #4C8F5A;">Por Escola</button>
-    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking" style="background-color: #4C8F5A;">Ranking</button>
+</div>
+
+
+<!-- Modal Ambos os Jurados - ADICIONADO SELECT DE CATEGORIA E ÁREA -->
+<div class="modal fade" id="modalAmbos-Jurados" tabindex="-1" aria-labelledby="modalAmbos-JuradosLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAmbos-JuradosLabel">Relatório por Ambos os Jurados</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p>Gerar relatório dos trabalhos avaliados por ambos os jurados.</p>
+        <select id="categoriaAmbosSelect" class="form-select mb-2">
+          <option value="">Selecione a Categoria</option>
+          <option value="I">Ensino Médio</option>
+          <option value="II">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+          <option value="III">Pesquisa Júnior</option>
+          <option value="IV">PcD</option>
+        </select>
+        <select id="areaAmbosSelect" class="form-select">
+          <option value="">Selecione a Área</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Gerar Relatório</button>
+      </div>
+    </div>
   </div>
-      <br>
-  <!-- Tabela de trabalhos -->
-  <table class="table table-bordered" id="workTable">
-    <thead>
-      <tr>
-        <th>Título do Trabalho</th>
-        <th>Escola</th>
-        <th>Categoria</th>
-        <th>Área</th>
-        <th>Download</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+</div>
+
+
+<!-- Modal Por Escola - Já estava correto -->
+<div class="modal fade" id="modalPor-Escola" tabindex="-1" aria-labelledby="modalPor-EscolaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalPor-EscolaLabel">Relatório por Escola</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p>Gerar relatório dos trabalhos submetidos por uma escola específica.</p>
+        <select id="escolaSelect" class="form-select">
+          <option value="">Selecione a Escola</option>
+          <option value="EEEP Francisco Paiva Tavares">EEEP Francisco Paiva Tavares</option>
+          <option value="EEEP Jose Vidal Alves">EEEP Jose Vidal Alves</option>
+          <option value="EEM Casemiro Bezerra de Araújo">EEM Casemiro Bezerra de Araújo</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Gerar Relatório</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Ranking - CORRIGIDO E ADICIONADO SELECTS -->
+<div class="modal fade" id="modalRanking" tabindex="-1" aria-labelledby="modalRankingLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRankingLabel">Ranking de Trabalhos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <p>Gerar relatório de classificação dos trabalhos.</p>
+        <select id="categoriaRankingSelect" class="form-select mb-2">
+          <option value="">Selecione a Categoria</option>
+          <option value="I">Ensino Médio</option>
+          <option value="II">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+          <option value="III">Pesquisa Júnior</option>
+          <option value="IV">PcD</option>
+        </select>
+        <select id="areaRankingSelect" class="form-select">
+          <option value="">Selecione a Área</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Gerar Relatório</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
 // SIDEBAR
 function toggleSidebar(){
-  if(window.innerWidth <= 768){
-    $('#sidebar').toggleClass('mobile-open');
-    $('#overlay').toggleClass('show');
-  } else {
-    $('#sidebar').toggleClass('collapsed');
-    $('#main').toggleClass('collapsed');
-  }
+ if(window.innerWidth <= 768){
+   $('#sidebar').toggleClass('mobile-open');
+   $('#overlay').toggleClass('show');
+ } else {
+   $('#sidebar').toggleClass('collapsed');
+   $('#main').toggleClass('collapsed');
+ }
 }
 function closeMobileSidebar(){
-  $('#sidebar').removeClass('mobile-open');
-  $('#overlay').removeClass('show');
+ $('#sidebar').removeClass('mobile-open');
+ $('#overlay').removeClass('show');
 }
 $(window).on('resize', function(){
-  if(window.innerWidth > 768){
-    $('#sidebar').removeClass('mobile-open');
-    $('#overlay').removeClass('show');
-  }
+ if(window.innerWidth > 768){
+   $('#sidebar').removeClass('mobile-open');
+   $('#overlay').removeClass('show');
+ }
 });
+
 
 // Dados de exemplo
 const works = [
-  {title:"Trabalho LM", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Linguagens, Códigos e suas Tecnologias - LC"},
-  {title:"Trabalho MT1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Matemática e suas Tecnologias - MT"},
-  {title:"Trabalho CN1", school:"EEEP José Vidal Alves", category:"Ensino Médio", area:"Ciências da Natureza - CN"},
-  {title:"Trabalho CH1", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio", area:"Educação Ambiental e Engenharias - CH"},
-  {title:"Trabalho ROB1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Robótica, Automação e Aplicação das TIC"},
-  {title:"Trabalho LM2", school:"EEEP José Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Linguagens, Códigos e suas Tecnologias - LC"},
-  {title:"Trabalho MT2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Matemática e suas Tecnologias - MT"},
-  {title:"Trabalho CN2", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Ciências da Natureza - CN"},
-  {title:"Trabalho CH2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Educação Ambiental e Engenharias - CH"},
-  {title:"Trabalho ROB2", school:"EEEP José Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Robótica, Automação e Aplicação das TIC"},
-  {title:"Pesquisa Jr1", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
-  {title:"Pesquisa Jr2", school:"EEEP José Vidal Alves", category:"Pesquisa Júnior", area:""},
-  {title:"Pesquisa Jr3", school:"EEM Casemiro Bezerra de Araújo", category:"Pesquisa Júnior", area:""},
-  {title:"Pesquisa Jr4", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
-  {title:"Pesquisa Jr5", school:"EEEP José Vidal Alves", category:"Pesquisa Júnior", area:""},
-  {title:"PcD EF1", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Fundamental"},
-  {title:"PcD EF2", school:"EEEP Jose Vidal Alves", category:"PcD", area:"Ensino Fundamental"},
-  {title:"PcD EM1", school:"EEM Casemiro Bezerra de Araújo", category:"PcD", area:"Ensino Médio"},
-  {title:"PcD EM2", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Médio"},
-  {title:"PcD EM3", school:"EEEP José Vidal Alves", category:"PcD", area:"Ensino Médio"}
+ {title:"Trabalho LM", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Linguagens, Códigos e suas Tecnologias - LC"},
+ {title:"Trabalho MT1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Matemática e suas Tecnologias - MT"},
+ {title:"Trabalho CN1", school:"EEEP José Vidal Alves", category:"Ensino Médio", area:"Ciências da Natureza - CN"},
+ {title:"Trabalho CH1", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio", area:"Educação Ambiental e Engenharias - CH"},
+ {title:"Trabalho ROB1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Robótica, Automação e Aplicação das TIC"},
+ {title:"Trabalho LM2", school:"EEEP José Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Linguagens, Códigos e suas Tecnologias - LC"},
+ {title:"Trabalho MT2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Matemática e suas Tecnologias - MT"},
+ {title:"Trabalho CN2", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Ciências da Natureza - CN"},
+ {title:"Trabalho CH2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Educação Ambiental e Engenharias - CH"},
+ {title:"Trabalho ROB2", school:"EEEP José Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Robótica, Automação e Aplicação das TIC"},
+ {title:"Pesquisa Jr1", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
+ {title:"Pesquisa Jr2", school:"EEEP José Vidal Alves", category:"Pesquisa Júnior", area:""},
+ {title:"Pesquisa Jr3", school:"EEM Casemiro Bezerra de Araújo", category:"Pesquisa Júnior", area:""},
+ {title:"Pesquisa Jr4", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
+ {title:"Pesquisa Jr5", school:"EEEP José Vidal Alves", category:"Pesquisa Júnior", area:""},
+ {title:"PcD EF1", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Fundamental"},
+ {title:"PcD EF2", school:"EEEP Jose Vidal Alves", category:"PcD", area:"Ensino Fundamental"},
+ {title:"PcD EM1", school:"EEM Casemiro Bezerra de Araújo", category:"PcD", area:"Ensino Médio"},
+ {title:"PcD EM2", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Médio"},
+ {title:"PcD EM3", school:"EEEP José Vidal Alves", category:"PcD", area:"Ensino Médio"}
 ];
+
 
 // Áreas por categoria
 const areas = {
-  "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-  "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-  "III": [],
-  "IV": ["Ensino Fundamental", "Ensino Médio"]
+ "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+ "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+ "III": [],
+ "IV": ["Ensino Fundamental", "Ensino Médio"]
 };
+
 
 // Preencher área ao escolher categoria
 $('#categoryFilter').on('change', function(){
-  const cat = $(this).val();
-  const areaSelect = $('#areaFilter');
-  areaSelect.html('<option value="">Selecione a Área</option>');
-  if(areas[cat]){
-    areas[cat].forEach(a => {
-      areaSelect.append(`<option value="${a}">${a}</option>`);
-    });
-  }
-  filterWorks();
+ const cat = $(this).val();
+ const areaSelect = $('#areaFilter');
+ areaSelect.html('<option value="">Selecione a Área</option>');
+ if(areas[cat]){
+   areas[cat].forEach(a => {
+     areaSelect.append(`<option value="${a}">${a}</option>`);
+   });
+ }
+ filterWorks();
 });
+
 
 // Filtrar ao alterar filtros
 $('#schoolFilter, #areaFilter').on('change', filterWorks);
 
+
 function filterWorks(){
-  const school = $('#schoolFilter').val();
-  const categoryVal = $('#categoryFilter').val();
-  const categoryName = $('#categoryFilter option:selected').text();
-  const area = $('#areaFilter').val();
+ const school = $('#schoolFilter').val();
+ const categoryVal = $('#categoryFilter').val();
+ const categoryName = $('#categoryFilter option:selected').text();
+ const area = $('#areaFilter').val();
 
-  const filtered = works.filter(w=>{
-    return (!school || w.school===school) &&
-           (!categoryVal || w.category===categoryName) &&
-           (!area || w.area===area);
-  });
 
-  const tbody = $('#workTable tbody');
-  tbody.empty();
-  filtered.forEach(w=>{
-    tbody.append(`
-      <tr>
-        <td>${w.title}</td>
-        <td>${w.school}</td>
-        <td>${w.category}</td>
-        <td>${w.area || '-'}</td>
-        <td><span ><i><img src="../assets/img/dowload.svg"></i></span></td>
-      </tr>
-    `);
-  });
+ const filtered = works.filter(w=>{
+   return (!school || w.school===school) &&
+          (!categoryVal || w.category===categoryName) &&
+          (!area || w.area===area);
+ });
+
+
+ const tbody = $('#workTable tbody');
+ tbody.empty();
+ filtered.forEach(w=>{
+   tbody.append(`
+     <tr>
+       <td>${w.title}</td>
+       <td>${w.school}</td>
+       <td>${w.category}</td>
+       <td>${w.area || '-'}</td>
+       <td><span ><i><img src="../assets/img/dowload.svg"></i></span></td>
+     </tr>
+   `);
+ });
 }
+
 
 // Inicializa tabela
 filterWorks();

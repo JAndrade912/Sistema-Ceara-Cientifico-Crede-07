@@ -168,6 +168,9 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
+                <div id="adicionar-categorias">
+                  <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAdicionarCategoria" style="background-color: #2071b4ff; width: 50%;float:right;">Adicionar Categoria</button>
+                </div>
               </form>
             </div>
             <div class="modal-footer">
@@ -251,13 +254,6 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 
       <div class="modal-body">
         <form action="#" method="POST" id="idCadAssociacao">
-          
-          <div class="mb-3">
-            <label for="jurado" class="form-label">Jurado</label>
-            <select name="jurado" id="jurado" class="form-control" required>
-              <option selected disabled>Selecione o Jurado</option>
-            </select>
-          </div>
 
           <div class="mb-3">
             <label for="categoria" class="form-label">Categoria</label>
@@ -292,10 +288,77 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
             </select>
           </div>
 
+          <div class="mb-3" style="display: none;" id="atribuir-jurado">
+            <label for="jurado" class="form-label" >Jurado</label>
+            <select name="jurado" id="jurado" class="form-control" required>
+              <option selected disabled>Selecione o Jurado</option>
+              <option value="1">Jurado 1</option>
+            </select>
+          </div>
+
           <div class="mb-3" id="trabalhojurado" style="display:none;">
             <label for="trabalho" class="form-label">Trabalho</label>
             <select name="trabalho" id="trabalho" class="form-control" required>
               <option selected disabled>Selecione o Trabalho</option>
+            </select>
+          </div>
+
+          <input type="submit" value="Enviar" class="btn btn-success mt-3">
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalAdicionarCategoria" tabindex="-1" aria-labelledby="modalAdicionarCategoriaLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAdicionarCategoriaLabel">Adicionar Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form action="#" method="POST" id="idAdicionarCategoria">
+
+
+          <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select name="categoria" id="Adicionar-sec-categoria" class="form-control" required>
+              <option selected disabled>Selecione...</option>
+                  <option value="1">I - Ensino Médio</option>
+                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                  <option value="3">III - Pesquisa Júnior</option>
+                  <option value="4">IV - PcD</option>
+            </select>
+            
+          </div>
+
+          <div class="mb-3" id="areajuradosec" style="display: none;" >
+            <label for="area" class="form-label">Área</label>
+            <select name="area" id="area1" class="form-control" >
+              <option selected disabled>Selecione...</option>
+                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2">Matemática e suas Tecnologias - MT</option>
+                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
+            </select>
+          </div>
+
+          <div class="mb-3" id="area2juradosec" style="display: none;">
+            <label for="area" class="form-label">Área</label>
+            <select name="area" id="area2" class="form-control" >
+              <option selected disabled>Selecione...</option>
+                    <option value="6">Ensino Fundamental</option>
+                    <option value="7">Ensino Médio</option>
             </select>
           </div>
 
@@ -437,6 +500,19 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
       }
     });
 
+$('#Adicionar-sec-categoria').change(function() {
+  var categoria = $(this).val();
+  if (categoria === '1' || categoria === '2') {
+    $('#areajuradosec').slideDown();
+    $('#area2juradosec').slideUp();
+  } else if (categoria === '4') {
+    $('#area2juradosec').slideDown();
+    $('#areajuradosec').slideUp();
+  } else if (categoria === '3') {
+    $('#areajuradosec, #area2juradosec').slideUp();
+  }
+});
+
 $('#associar-categoria').change(function() {
   var categoria = $(this).val();
   if (categoria === '1' || categoria === '2') {
@@ -451,6 +527,10 @@ $('#associar-categoria').change(function() {
   }
 });
 $('#area1, #area2').change(function () {
+  $('#atribuir-jurado').slideDown();
+});
+
+$('#atribuir-jurado').change(function () {
   $('#trabalhojurado').slideDown();
 });
 
