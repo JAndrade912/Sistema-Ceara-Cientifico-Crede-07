@@ -60,57 +60,46 @@
  </div>
 
  <div class="report-buttons">
-   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Jurado" style="background-color: #4C8F5A;">Por Jurado</button>
-   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbos-Jurados" style="background-color: #4C8F5A;">Ambos os Jurados</button>
-   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPor-Escola" style="background-color: #4C8F5A;">Por Escola</button>
+   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado" style="background-color: #4C8F5A;">Por Jurado</button>
+   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbosJurados" style="background-color: #4C8F5A;">Ambos os Jurados</button>
+   <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPorEscola" style="background-color: #4C8F5A;">Por Escola</button>
    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking" style="background-color: #4C8F5A;">Ranking</button>
  </div>
-     <br>
- <!-- Tabela de trabalhos -->
- <table class="table table-bordered" id="workTable">
-   <thead>
-     <tr>
-       <th>Título do Trabalho</th>
-       <th>Escola</th>
-       <th>Categoria</th>
-       <th>Área</th>
-       <th>Download</th>
-     </tr>
-   </thead>
-   <tbody></tbody>
- </table>
 
-<div class="modal fade" id="modalPor-Jurado" tabindex="-1" aria-labelledby="modalPor-JuradoLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalPor-JuradoLabel">Relatório por Jurado</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+ <div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalJuradoLabel">Cadastrar Instituição</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="#" id="idSelJurado">
+                <label for="jurado-nome" class="form-label">Nome do Jurado</label>
+                <select id="jurado-nome" class="form-control" name="nome" required>
+                  <option value="">Selecione o Jurado</option>
+                  <option value="jurado1">Jurado 1</option>
+                  <option value="jurado2">Jurado 2</option>
+                  <option value="jurado3">Jurado 3</option>
+                </select>
+
+                <input type="submit" value="Enviar" class="btn btn-success mt-3">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <p>Gerar relatório dos trabalhos avaliados por um jurado específico.</p>
-        <select id="juradoSelect" class="form-select">
-          <option value="">Selecione o Jurado</option>
-          <option value="Jurado 1">Jurado 1</option>
-          <option value="Jurado 2">Jurado 2</option>
-          <option value="Jurado 3">Jurado 3</option>
-        </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Gerar Relatório</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <!-- Modal Ambos os Jurados - ADICIONADO SELECT DE CATEGORIA E ÁREA -->
-<div class="modal fade" id="modalAmbos-Jurados" tabindex="-1" aria-labelledby="modalAmbos-JuradosLabel" aria-hidden="true">
+<div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalAmbos-JuradosLabel">Relatório por Ambos os Jurados</h5>
+        <h5 class="modal-title" id="modalAmbosJuradosLabel">Relatório por Ambos os Jurados</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
@@ -136,11 +125,11 @@
 
 
 <!-- Modal Por Escola - Já estava correto -->
-<div class="modal fade" id="modalPor-Escola" tabindex="-1" aria-labelledby="modalPor-EscolaLabel" aria-hidden="true">
+<div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalPor-EscolaLabel">Relatório por Escola</h5>
+        <h5 class="modal-title" id="modalPorEscolaLabel">Relatório por Escola</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
@@ -189,8 +178,20 @@
     </div>
   </div>
 </div>
-
-
+     <br>
+ <!-- Tabela de trabalhos -->
+ <table class="table table-bordered" id="workTable">
+   <thead>
+     <tr>
+       <th>Título do Trabalho</th>
+       <th>Escola</th>
+       <th>Categoria</th>
+       <th>Área</th>
+       <th>Download</th>
+     </tr>
+   </thead>
+   <tbody></tbody>
+ </table>
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>

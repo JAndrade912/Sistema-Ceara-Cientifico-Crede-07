@@ -118,67 +118,107 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
 
-      <div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalJuradoLabel">Cadastrar Jurado</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-              <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
-                <label for="usuario">Apelido</label>
-                <input type="text" class="form-control" name="usuario" placeholder="Digite seu nome de usuario" required>
-                <label for="telefone">Telefone</label>
-                <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
-                <label for="cpf">CPF</label>
-                <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
-                <label for="email">E-mail SIC-CED</label>
-                <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
-                <label for="id_categoria">Categoria</label>
-                <select id="jurado-categoria" class="form-control" name="categoria" required>
-                  <option selected disabled>Selecione...</option>
-                  <option value="1">I - Ensino Médio</option>
-                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                  <option value="3">III - Pesquisa Júnior</option>
-                  <option value="4">IV - PcD</option>
-                </select>
-                <div id="jurado-area" style="display:none;">
-
-                  <label for="id_areas">Área</label>
-                  <select class="form-control" name="area">
-                    <option selected disabled>Selecione...</option>
-                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                    <option value="2">Matemática e suas Tecnologias - MT</option>
-                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
-                  </select>
-                </div>
-
-                <div id="jurado-area2" style="display:none;">
-                  <label for="id_area">Área</label>
-                  <select class="form-control" name="area">
-                    <option selected disabled>Selecione...</option>
-                    <option value="6">Ensino Fundamental</option>
-                    <option value="7">Ensino Médio</option>
-                  </select>
-                </div>
-
-                <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
-                <div id="adicionar-categorias">
-                  <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAdicionarCategoria" style="background-color: #2071b4ff; width: 50%;float:right;">Adicionar Categoria</button>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
-          </div>
-        </div>
+      <!-- MODAL -->
+<div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalJuradoLabel">Cadastrar Jurado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
+      <div class="modal-body">
+        <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
+          
+          <label for="nome">Nome</label>
+          <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
+
+          <label for="telefone">Telefone</label>
+          <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
+          
+          <label for="cpf">CPF</label>
+          <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
+          
+          <label for="email">E-mail SIC-CED</label>
+          <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
+
+          <label for="id_categoria">Categoria</label>
+          <select id="jurado-categoria" class="form-control" name="categoria" required>
+            <option selected disabled>Selecione...</option>
+            <option value="1">I - Ensino Médio</option>
+            <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+            <option value="3">III - Pesquisa Júnior</option>
+            <option value="4">IV - PcD</option>
+          </select>
+
+          <!-- Área principal -->
+          <div id="jurado-area" style="display:none;">
+            <label for="id_areas">Área</label>
+            <select class="form-control" name="area">
+              <option selected disabled>Selecione...</option>
+              <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+              <option value="2">Matemática e suas Tecnologias - MT</option>
+              <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+              <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+              <option value="5">Robótica, Automação e Aplicação das TIC</option>
+            </select>
+          </div>
+
+          <!-- Área para PcD -->
+          <div id="jurado-area2" style="display:none;">
+            <label for="id_area">Área</label>
+            <select class="form-control" name="area">
+              <option selected disabled>Selecione...</option>
+              <option value="6">Ensino Fundamental</option>
+              <option value="7">Ensino Médio</option>
+            </select>
+          </div>
+
+          <!-- Segunda categoria -->
+          <div class="mb-3" style="display: none;">
+            <label for="categoria_sec" class="form-label">Categoria</label>
+            <select name="categoria_sec" id="Adicionar-sec-categoria" class="form-control">
+              <option selected disabled>Selecione...</option>
+              <option value="1">I - Ensino Médio</option>
+              <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+              <option value="3">III - Pesquisa Júnior</option>
+              <option value="4">IV - PcD</option>
+            </select>
+          </div>
+
+          <!-- Segunda área para categoria -->
+          <div class="mb-3" id="areajuradosec" style="display: none;">
+            <label for="area_sec" class="form-label">Área</label>
+            <select name="area_sec" id="area1" class="form-control">
+              <option selected disabled>Selecione...</option>
+              <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+              <option value="2">Matemática e suas Tecnologias - MT</option>
+              <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+              <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+              <option value="5">Robótica, Automação e Aplicação das TIC</option>
+            </select>
+          </div>
+
+          <!-- Segunda área para PcD -->
+          <div class="mb-3" id="area2juradosec" style="display: none;">
+            <label for="area_sec2" class="form-label">Área</label>
+            <select name="area_sec2" id="area2" class="form-control">
+              <option selected disabled>Selecione...</option>
+              <option value="6">Ensino Fundamental</option>
+              <option value="7">Ensino Médio</option>
+            </select>
+          </div>
+
+          <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px; float: left;">
+          <button type="button" class="btn btn-success" id="adicionar-categoria-btn" style="background-color: #2071b4ff; float:right; margin-top:10px;">Adicionar Categoria</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       <div class="modal fade" id="modalTrabalho" tabindex="-1" aria-labelledby="modalTrabalhoLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -288,7 +328,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
             </select>
           </div>
 
-          <div class="mb-3" style="display: none;" id="atribuir-jurado">
+          <div class="mb-3" id="atribuir-jurado" style="display: none;" >
             <label for="jurado" class="form-label" >Jurado</label>
             <select name="jurado" id="jurado" class="form-control" required>
               <option selected disabled>Selecione o Jurado</option>
@@ -315,66 +355,6 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="modalAdicionarCategoria" tabindex="-1" aria-labelledby="modalAdicionarCategoriaLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalAdicionarCategoriaLabel">Adicionar Categoria</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body">
-        <form action="#" method="POST" id="idAdicionarCategoria">
-
-
-          <div class="mb-3">
-            <label for="categoria" class="form-label">Categoria</label>
-            <select name="categoria" id="Adicionar-sec-categoria" class="form-control" required>
-              <option selected disabled>Selecione...</option>
-                  <option value="1">I - Ensino Médio</option>
-                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                  <option value="3">III - Pesquisa Júnior</option>
-                  <option value="4">IV - PcD</option>
-            </select>
-            
-          </div>
-
-          <div class="mb-3" id="areajuradosec" style="display: none;" >
-            <label for="area" class="form-label">Área</label>
-            <select name="area" id="area1" class="form-control" >
-              <option selected disabled>Selecione...</option>
-                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                    <option value="2">Matemática e suas Tecnologias - MT</option>
-                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
-            </select>
-          </div>
-
-          <div class="mb-3" id="area2juradosec" style="display: none;">
-            <label for="area" class="form-label">Área</label>
-            <select name="area" id="area2" class="form-control" >
-              <option selected disabled>Selecione...</option>
-                    <option value="6">Ensino Fundamental</option>
-                    <option value="7">Ensino Médio</option>
-            </select>
-          </div>
-
-          <input type="submit" value="Enviar" class="btn btn-success mt-3">
-
-        </form>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-
       
       <div class="row stat-row">
         <div class="col-sm-4">
@@ -475,18 +455,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
     $('#instituicao-tipo').change(function() {
       ($(this).val() === '1') ? $('#campo-ide').slideDown(): $('#campo-ide').slideUp();
     });
-    $('#jurado-categoria').change(function() {
-      var categoria = $(this).val();
-      if (categoria === '1' || categoria === '2') {
-        $('#jurado-area').slideDown();
-        $('#jurado-area2').slideUp();
-      } else if (categoria === '4') {
-        $('#jurado-area').slideUp();
-        $('#jurado-area2').slideDown();
-      } else {
-        $('#jurado-area, #jurado-area2').slideUp();
-      }
-    });
+    
     $('#trabalho-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
@@ -500,18 +469,54 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
       }
     });
 
-$('#Adicionar-sec-categoria').change(function() {
+// Exibe as áreas de acordo com a categoria principal selecionada
+$('#jurado-categoria').change(function () {
   var categoria = $(this).val();
+  if (categoria === '1' || categoria === '2') {
+    $('#jurado-area').slideDown();
+    $('#jurado-area2').slideUp();
+  } else if (categoria === '4') {
+    $('#jurado-area').slideUp();
+    $('#jurado-area2').slideDown();
+  } else {
+    $('#jurado-area, #jurado-area2').slideUp();
+  }
+});
+
+// Mostra o segundo seletor de categoria
+$('#adicionar-categoria-btn').click(function (event) {
+  event.preventDefault();
+
+  var container = $('#Adicionar-sec-categoria').parent();
+
+  // Alterna visibilidade
+  if (container.is(':visible')) {
+    container.slideUp();
+
+    // Resetar seleção e esconder áreas secundárias
+    $('#Adicionar-sec-categoria').val('');
+    $('#areajuradosec, #area2juradosec').slideUp();
+  } else {
+    container.slideDown();
+  }
+});
+
+// Exibe as áreas secundárias de acordo com a segunda categoria
+$('#Adicionar-sec-categoria').change(function () {
+  var categoria = $(this).val();
+
   if (categoria === '1' || categoria === '2') {
     $('#areajuradosec').slideDown();
     $('#area2juradosec').slideUp();
   } else if (categoria === '4') {
     $('#area2juradosec').slideDown();
     $('#areajuradosec').slideUp();
-  } else if (categoria === '3') {
+  } else {
     $('#areajuradosec, #area2juradosec').slideUp();
   }
 });
+
+
 
 $('#associar-categoria').change(function() {
   var categoria = $(this).val();
