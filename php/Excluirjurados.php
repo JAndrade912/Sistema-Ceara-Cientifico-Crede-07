@@ -1,0 +1,13 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if(!empty($_GET['id'])){
+    require_once '../php/connect.php';
+    $id = $_GET['id'] ?? null;
+    
+    $stmt = $pdo -> prepare("DELETE FROM Jurados WHERE id_jurados = ?");
+    $stmt -> execute([$id]);
+    header("Location: ../html/admin-jurados.php"); 
+}
