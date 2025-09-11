@@ -268,6 +268,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
                   <option value="3">III - Pesquisa Júnior</option>
                   <option value="4">IV - PcD</option>
             </select>
+            
           </div>
 
           <div class="mb-3" id="areajurado" style="display:none;">
@@ -446,7 +447,7 @@ $('#associar-categoria').change(function() {
     $('#areajurado').slideUp();
   } else if (categoria === '3') {
     $('#trabalhojurado').slideDown();
-    $('#areajurado, #area2jurado').slideUp();
+    $('#areajurado, #area2jurado').slideUp(); 
   }
 });
 $('#area1, #area2').change(function () {
