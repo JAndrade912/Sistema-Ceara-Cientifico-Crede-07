@@ -28,7 +28,7 @@ $userName = $_SESSION['usuario'];
       <img src="../assets/img/cearacientifico.png"style="width: 25%; margin-left: 77%">
     </div>
   </header>
-
+  
   <main class="conteudo">
     <div style="text-align: center; width: 100%;"><h2>Lista de Trabalhos</h2></div>
     <br>
@@ -54,7 +54,6 @@ $userName = $_SESSION['usuario'];
     </table>
     <br>
     <br>
-    <button type="submit" class="btn btn-success" style="float: right;">Finalizar</button>
   </main>
 
   <!-- Modal -->
