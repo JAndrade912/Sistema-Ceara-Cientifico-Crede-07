@@ -129,8 +129,6 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
               <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
                 <label for="nome">Nome</label>
                 <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
-                <label for="usuario">Apelido</label>
-                <input type="text" class="form-control" name="usuario" placeholder="Digite seu nome de usuario" required>
                 <label for="telefone">Telefone</label>
                 <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
                 <label for="cpf">CPF</label>
