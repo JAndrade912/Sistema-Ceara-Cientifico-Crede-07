@@ -87,8 +87,8 @@ $result = $pdo->query($sql);
         echo '<td>' . $user_data['nome_categoria'] . '</td>';
         echo '<td>' . $user_data['nome_area'] . '</td>';
         echo '<td>'; 
-        echo '<a href="../php/Editaescolas.php?id=$user_data[id_escolas]"><img src="../assets/img/editar.png" alt="Editar"></a>';
-        echo '<a><img src="../assets/img/deletar.png" alt="Deletar"></a>';
+        echo '<a href="../php/Editajurados.php?id=$user_data[id_jurados]"><img src="../assets/img/editar.png" alt="Editar"></a>';
+        echo '<a href="../php/Excluirjurados.php?id=$user_data[id_jurados]"><img src="../assets/img/deletar.png" alt="Deletar"></a>';
         echo '</td>';
         echo '</tr>';
 
