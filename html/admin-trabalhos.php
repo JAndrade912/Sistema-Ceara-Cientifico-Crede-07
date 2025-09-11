@@ -73,7 +73,6 @@ $result = $pdo->query($sql);
        <th>Escola</th>
        <th>Categoria</th>
        <th>Área</th>
-       <th>Ações</th>
      </tr>
    </thead>
    <tbody>
@@ -84,9 +83,6 @@ $result = $pdo->query($sql);
         echo '<td>' . $row['escola'] . '</td>';
         echo '<td>'. $row['nome_categoria'] . '</td>';
         echo '<td>'. $row['nome_area'] . '</td>';
-        echo '<td>'; 
-        echo '<a href="../php/Editatrabalhos.php?id=' .$row['id_trabalhos'] . '"><img src="../assets/img/editar.png" alt="Editar"></a>';
-        echo '<a href="../php/Excluirtrabalhos.php?id=' .$row['id_trabalhos'] . '"><img src="../assets/img/deletar.png" alt="Deletar"></a>';
         echo '</td>';
         echo '</tr>';
       }
