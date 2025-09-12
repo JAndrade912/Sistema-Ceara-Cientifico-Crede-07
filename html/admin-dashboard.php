@@ -330,10 +330,26 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
           </div>
 
           <div class="mb-3" id="trabalhojurado" style="display:none;">
-            <label for="trabalho" class="form-label">Trabalho</label>
-            <select name="trabalho" id="trabalho" class="form-control" required>
-              <option selected disabled>Selecione o Trabalho</option>
-            </select>
+            <label for="trabalho" class="form-label">Trabalhos</label>
+            <table class="table table-hover">
+              <tbody id="trabalho-tbody">
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td>Ecosync</td>
+                    <td>E.E.E.P. JOSÉ VIDAL ALVES</td>
+                  </tr>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td>Ecosync</td>
+                    <td>E.E.E.P. JOSÉ VIDAL ALVES</td>
+                  </tr>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td>Ecosync</td>
+                    <td>E.E.E.P. JOSÉ VIDAL ALVES</td>
+                  </tr>
+                </tbody>
+            </table>
           </div>
 
           <input type="submit" value="Enviar" class="btn btn-success mt-3">
