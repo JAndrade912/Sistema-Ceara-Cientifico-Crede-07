@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-require_once '../php/connect.php';
+require_once '../php/Connect.php';
 if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
   header('Location: ../html/login_adm.php');
   exit();
@@ -56,7 +56,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
       </ul>
     </div>
     <ul class="nav flex-column bottom-nav">
-      <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
+      <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
     </ul>
   </div>
   <main id="main">

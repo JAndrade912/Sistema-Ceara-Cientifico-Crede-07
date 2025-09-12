@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once("../php/connect.php");
+include_once("../php/Connect.php");
 
 $sql = "SELECT * FROM Escolas ORDER BY id_escolas DESC";
 $result = $pdo -> query($sql);
@@ -43,7 +43,7 @@ $result = $pdo -> query($sql);
     </ul>
   </div>
   <ul class="nav flex-column bottom-nav">
-    <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
+    <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
   </ul>
 </div>
 <main id="main">

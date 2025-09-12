@@ -34,7 +34,7 @@ if (isset($_SESSION['login_error'])) {
     <div class="container-fluid" id="login-box">
       <h1 class="h1" id="tit">Admin</h1>
       <div class="row d-flex justify-content-center align-items-center" id="coluna">
-        <form method="POST" action="../php/adm.php" id="loginForm">
+        <form method="POST" action="../php/Adm.php" id="loginForm">
            <div class="form-group">
              <label for="usuario">Email:</label><br>
              <input type="text" name="usuario" id="usuario" required placeholder="Digite seu usuário" />

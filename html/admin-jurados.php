@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-include_once("../php/connect.php");
+include_once("../php/Connect.php");
 
 $sql = "SELECT 
     j.id_jurados,
@@ -57,7 +57,7 @@ $result = $pdo->query($sql);
       </ul>
     </div>
     <ul class="nav flex-column bottom-nav">
-      <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
+      <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
     </ul>
   </div>
   <main id="main">
