@@ -1,3 +1,18 @@
+<?php
+require_once '../php/connect.php';
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    echo 'ID não fornecido';
+}
+
+$stmt = $pdo->prepare("SELECT * FROM Jurados WHERE id_jurados = ?");
+$stmt->execute([$id]);
+$escola = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$escola) {
+    echo 'Jurado não encontrado!';
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,9 +36,9 @@
             <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
         <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
+            <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" value="<?= htmlspecialchars($nome['nome']) ?>" required>
             <label for="telefone">Telefone</label>
-            <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
+            <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" value="<?= htmlspecialchars($telefone['telefone']) ?>" required>
             <label for="cpf">CPF</label>
             <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
             <label for="email">E-mail SIC-CED</label>
