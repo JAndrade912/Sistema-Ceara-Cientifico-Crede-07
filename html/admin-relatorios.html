@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard Relatórios</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Relatórios</title>
 
-
-<link href="../bootstrap/CSS/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../bootstrap/CSS/bootstrap-icons.css">
-<script src="../bootstrap/JS/bootstrap.bundle.min.js"></script>
-<script src="../bootstrap/JS/jquery.min.js"></script>
-<link rel="stylesheet" href="../assets/styles/relatorios.css">
+  <<link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
+  <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
+  <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
+  <script src="../boostrap/JS/jquery.min.js"></script>
+  <link rel="stylesheet" href="../assets/styles/relatorios.css">
 </head>
+
 <body>
 <div id="overlay" onclick="closeMobileSidebar()"></div>
 <button id="mobile-toggle" onclick="toggleSidebar()">
@@ -66,11 +66,27 @@
    <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking" style="background-color: #4C8F5A;">Ranking</button>
  </div>
 
- <div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
+ 
+     <br>
+ <!-- Tabela de trabalhos -->
+ <table class="table table-bordered" id="workTable">
+   <thead>
+     <tr>
+       <th>Título do Trabalho</th>
+       <th>Escola</th>
+       <th>Categoria</th>
+       <th>Área</th>
+       <th>Download</th>
+     </tr>
+   </thead>
+   <tbody></tbody>
+ </table>
+
+<div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="modalJuradoLabel">Cadastrar Instituição</h5>
+              <h5 class="modal-title" id="modalJuradoLabel">Relatório Por Jurado</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
@@ -82,19 +98,18 @@
                   <option value="jurado2">Jurado 2</option>
                   <option value="jurado3">Jurado 3</option>
                 </select>
-
-                <input type="submit" value="Enviar" class="btn btn-success mt-3">
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
+              <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
             </div>
           </div>
         </div>
       </div>
 
 
-<!-- Modal Ambos os Jurados - ADICIONADO SELECT DE CATEGORIA E ÁREA -->
+
 <div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -104,27 +119,45 @@
       </div>
       <div class="modal-body">
         <p>Gerar relatório dos trabalhos avaliados por ambos os jurados.</p>
-        <select id="categoriaAmbosSelect" class="form-select mb-2">
+
+        <label for="categoria-Ambos" class="form-label">Categoria</label>
+        <select id="categoria-Ambos" class="form-select mb-2" name="categoria">
           <option value="">Selecione a Categoria</option>
-          <option value="I">Ensino Médio</option>
-          <option value="II">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-          <option value="III">Pesquisa Júnior</option>
-          <option value="IV">PcD</option>
+          <option value="1">Ensino Médio</option>
+          <option value="2">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+          <option value="3">Pesquisa Júnior</option>
+          <option value="4">PcD</option>
         </select>
-        <select id="areaAmbosSelect" class="form-select">
+        <div id="area-Ambos" style="display: none;">
+          <label for="area-Ambos" class="form-label">Área</label>
+        <select class="form-select">
           <option value="">Selecione a Área</option>
+          <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+          <option value="2">Matemática e suas Tecnologias - MT</option>
+          <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+          <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+          <option value="5">Robótica, Automação e Aplicação das TIC</option>
         </select>
+        </div>
+        <div id="area-Ambos2" style="display: none;">
+          <label for="area-Ambos2" class="form-label">Área</label>
+        <select class="form-select" >
+          <option value="">Selecione a Área</option>
+          <option value="1">Ensino Fundamental</option>
+          <option value="2">Ensino Médio</option>
+        </select>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Gerar Relatório</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
+        <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
       </div>
     </div>
   </div>
 </div>
 
 
-<!-- Modal Por Escola - Já estava correto -->
+
 <div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -134,6 +167,8 @@
       </div>
       <div class="modal-body">
         <p>Gerar relatório dos trabalhos submetidos por uma escola específica.</p>
+
+        <label for="escolaSelect" class="form-label">Escola</label>
         <select id="escolaSelect" class="form-select">
           <option value="">Selecione a Escola</option>
           <option value="EEEP Francisco Paiva Tavares">EEEP Francisco Paiva Tavares</option>
@@ -142,8 +177,8 @@
         </select>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Gerar Relatório</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
+        <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
       </div>
     </div>
   </div>
@@ -160,41 +195,74 @@
       </div>
       <div class="modal-body">
         <p>Gerar relatório de classificação dos trabalhos.</p>
-        <select id="categoriaRankingSelect" class="form-select mb-2">
+
+        <label for="categoria-Ranking" class="form-label">Categoria</label>
+        <select id="categoria-Ranking" class="form-select mb-2">
           <option value="">Selecione a Categoria</option>
-          <option value="I">Ensino Médio</option>
-          <option value="II">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-          <option value="III">Pesquisa Júnior</option>
-          <option value="IV">PcD</option>
+          <option value="1">Ensino Médio</option>
+          <option value="2">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+          <option value="3">Pesquisa Júnior</option>
+          <option value="4">PcD</option>
         </select>
-        <select id="areaRankingSelect" class="form-select">
-          <option value="">Selecione a Área</option>
+  
+        <div id="area-Ranking" style="display: none;">
+          <label for="area-Ranking" class="form-label">Área</label>
+          <select class="form-select">
+            <option value="">Selecione a Área</option>
+            <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+            <option value="2">Matemática e suas Tecnologias - MT</option>
+            <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+            <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+            <option value="5">Robótica, Automação e Aplicação das TIC</option>
         </select>
+        </div>
+        <div id="area-Ranking2" style="display: none;">
+          <label for="area-Ranking2" class="form-label">Área</label>
+          <select class="form-select">
+            <option value="">Selecione a Área</option>
+            <option value="1">Ensino Fundamental</option>
+            <option value="2">Ensino Médio</option>
+          </select>
+      </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Gerar Relatório</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
+        <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
       </div>
     </div>
   </div>
 </div>
-     <br>
- <!-- Tabela de trabalhos -->
- <table class="table table-bordered" id="workTable">
-   <thead>
-     <tr>
-       <th>Título do Trabalho</th>
-       <th>Escola</th>
-       <th>Categoria</th>
-       <th>Área</th>
-       <th>Download</th>
-     </tr>
-   </thead>
-   <tbody></tbody>
- </table>
+
 </main>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="../bootstrap/JS/jquery.min.js"></script>
 <script>
+
+$('#categoria-Ambos').change(function () {
+  var categoria = $(this).val();
+  if (categoria === '1' || categoria === '2') {
+    $('#area-Ambos').slideDown();
+    $('#area-Ambos2').slideUp();
+  } else if (categoria === '4') {
+    $('#area-Ambos').slideUp();
+    $('#area-Ambos2').slideDown();
+  } else if (categoria === '3') {
+    $('#area-Ambos, #area-Ambos2').slideUp();
+  }
+});
+
+$('#categoria-Ranking').change(function () {
+  var categoria = $(this).val();
+  if (categoria === '1' || categoria === '2') {
+    $ ('#area-Ranking').slideDown();
+    $('#area-Ranking2').slideUp();
+  } else if (categoria === '4') {
+    $('#area-Ranking').slideUp();
+    $('#area-Ranking2').slideDown();
+  } else if (categoria === '3') {
+    $('#area-Ranking, #area-Ranking2').slideUp();
+  }
+});
+
 // SIDEBAR
 function toggleSidebar(){
  if(window.innerWidth <= 768){

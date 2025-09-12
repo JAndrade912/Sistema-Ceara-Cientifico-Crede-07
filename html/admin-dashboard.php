@@ -444,7 +444,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
       }
     });
 
-    // Lógica dos modais e exibição de áreas
+
     $('#instituicao-tipo').change(function() {
       ($(this).val() === '1') ? $('#campo-ide').slideDown(): $('#campo-ide').slideUp();
     });
@@ -462,7 +462,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
       }
     });
 
-// Exibe as áreas de acordo com a categoria principal selecionada
+
 $('#jurado-categoria').change(function () {
   var categoria = $(this).val();
   if (categoria === '1' || categoria === '2') {
@@ -476,17 +476,17 @@ $('#jurado-categoria').change(function () {
   }
 });
 
-// Mostra o segundo seletor de categoria
+
 $('#adicionar-categoria-btn').click(function (event) {
   event.preventDefault();
 
   var container = $('#Adicionar-sec-categoria').parent();
 
-  // Alterna visibilidade
+
   if (container.is(':visible')) {
     container.slideUp();
 
-    // Resetar seleção e esconder áreas secundárias
+
     $('#Adicionar-sec-categoria').val('');
     $('#areajuradosec, #area2juradosec').slideUp();
   } else {
@@ -494,7 +494,6 @@ $('#adicionar-categoria-btn').click(function (event) {
   }
 });
 
-// Exibe as áreas secundárias de acordo com a segunda categoria
 $('#Adicionar-sec-categoria').change(function () {
   var categoria = $(this).val();
 
