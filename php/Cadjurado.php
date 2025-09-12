@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_categoria = $_POST['categoria'] ?? null;
     $id_area = $_POST['area'] ?? null;
     try {
+        $pdo->beginTransaction();
+
         $stmt = $pdo->prepare("INSERT INTO Contatos (telefone, email) VALUES (?, ?)");
         $stmt->execute([$telefone, $email]);
         $id_contato = $pdo->lastInsertId();
