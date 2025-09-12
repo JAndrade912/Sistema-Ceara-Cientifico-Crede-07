@@ -40,7 +40,7 @@ $result = $pdo->query($sql);
   ?>
   <div id="overlay" onclick="closeMobileSidebar()"></div>
   <button id="mobile-toggle" onclick="toggleSidebar()">
-    <i class="bi bi-list"></i>
+   <i><img src="../assets/img/menu.png"></i>
   </button>
   <div id="sidebar" style="background-color: #4C8F5A;">
     <div>
@@ -65,11 +65,12 @@ $result = $pdo->query($sql);
     <br>
     <hr><br>
     <!-- Tabela de trabalhos -->
-    <table class="table table-bordered" id="workTable">
-      <thead>
+    <table class="table table-bordered table-striped" id="workTable">
+      <thead class="table-success">
         <tr>
           <th>Nome</th>
           <th>Usuario</th>
+          <th>Senha</th>
           <th>CPF</th>
           <th>E-mail</th>
           <th>Contato</th>
@@ -83,7 +84,8 @@ $result = $pdo->query($sql);
         while($user_data = $result -> fetch(PDO::FETCH_ASSOC)){
         echo '<tr>';
         echo '<td>' . $user_data['nome'] . '</td>';
-        echo '<td>' . $user_data['usuario'] . '</td>';
+        echo '<td>' . $user_data['usuario'] . '</td>'; 
+        echo '<td>'. $user_data[''] . '</td>';
         echo '<td>' . $user_data['cpf'] . '</td>';
         echo '<td>' . $user_data['email'] . '</td>';
         echo '<td>' . $user_data['telefone'] . '</td>';

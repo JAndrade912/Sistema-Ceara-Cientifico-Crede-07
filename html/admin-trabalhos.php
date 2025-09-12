@@ -41,7 +41,7 @@ $result = $pdo->query($sql);
 <body>
 <div id="overlay" onclick="closeMobileSidebar()"></div>
 <button id="mobile-toggle" onclick="toggleSidebar()">
- <i class="bi bi-list"></i>
+<i><img src="../assets/img/menu.png"></i>
 </button>
 <div id="sidebar" style="background-color: #4C8F5A;">
  <div>

@@ -39,7 +39,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 <body>
   <div id="overlay" onclick="closeMobileSidebar()"></div>
   <button id="mobile-toggle" onclick="toggleSidebar()">
-    <i class="bi bi-list"></i>
+    <i><img src="../assets/img/menu.png"></i>
   </button>
   <div id="sidebar" style="background-color: #4C8F5A;">
     <div>
@@ -333,21 +333,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
             <label for="trabalho" class="form-label">Trabalhos</label>
             <table class="table table-hover">
               <tbody id="trabalho-tbody">
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Ecosync</td>
-                    <td>E.E.E.P. JOSÉ VIDAL ALVES</td>
-                  </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Ecosync</td>
-                    <td>E.E.E.P. JOSÉ VIDAL ALVES</td>
-                  </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>Ecosync</td>
-                    <td>E.E.E.P. JOSÉ VIDAL ALVES</td>
-                  </tr>
+
                 </tbody>
             </table>
           </div>
@@ -535,7 +521,7 @@ $('#associar-categoria').change(function() {
     $('#area2jurado').slideDown();
     $('#areajurado').slideUp();
   } else if (categoria === '3') {
-    $('#trabalhojurado').slideDown();
+    $('#atribuir-jurado').slideDown();
     $('#areajurado, #area2jurado').slideUp(); 
   }
 });
@@ -577,6 +563,14 @@ $('#atribuir-jurado').change(function () {
         '<tr style="text-align: center;"><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
         '<tr style="text-align: center;"><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
         '<tr style="text-align: center;"><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
+      );
+    });
+
+    $('#atribuir-jurado').on('change', function() {
+      $('#trabalho-tbody').html(
+        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
+        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
+        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>'
       );
     });
   </script>
