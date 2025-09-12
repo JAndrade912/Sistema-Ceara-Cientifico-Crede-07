@@ -1,10 +1,23 @@
 <?php
 require_once '../php/Connect.php';
 $id = $_GET['id'] ?? null;
-$sql = 'SELECT * FROM Jurados WHERE id_jurados = ? ';
 if (!$id) {
     echo 'ID não fornecido';
 }
+$sql = "SELECT 
+    j.id_jurados,
+    j.nome,
+    j.usuario,
+    j.cpf,
+    c.nome_categoria,
+    a.nome_area,
+    co.telefone,
+    co.email
+FROM Jurados j
+LEFT JOIN Contatos co ON j.id_contatos = co.id_contatos
+LEFT JOIN Categorias c ON j.id_categoria = c.id_categoria
+LEFT JOIN Areas a ON j.id_area = a.id_area;";
+$result = $pdo->query($sql);
 
 $stmt = $pdo->prepare("SELECT * FROM Jurados WHERE id_jurados = ?");
 $stmt->execute([$id]);
@@ -42,12 +55,7 @@ if (!$jurado) {
         <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
         <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
             <?php
-            $nome = $_POST['nome'] ?? null;
-            $telefone = $_POST['co.telefone'] ?? null;
-            $cpf = $_POST['cpf'] ?? null;
-            $email = $_POST['email'] ?? null;
-            $id_categoria = $_POST['categoria'] ?? null;
-            $id_area = $_POST['area'] ?? null;
+
 
             ?>
             <label for="nome">Nome</label>
@@ -58,7 +66,7 @@ if (!$jurado) {
             <label for="telefone">Telefone</label>
             <input type="text" class="form-control" name="telefone"
                 placeholder="Digite seu telefone"
-                value="<?= htmlspecialchars($jurado['telefone'] ?? '') ?>" required>
+                value="<?= htmlspecialchars($jurado['co.telefone'] ?? '') ?>" required>
 
             <label for="cpf">CPF</label>
             <input type="text" class="form-control" name="cpf"

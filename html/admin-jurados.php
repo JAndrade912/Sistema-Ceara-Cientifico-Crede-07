@@ -1,10 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 include_once("../php/Connect.php");
+
 
 $sql = "SELECT 
     j.id_jurados,
@@ -38,6 +35,9 @@ $result = $pdo->query($sql);
 </head>
 
 <body>
+  <?PHP
+  
+  ?>
   <div id="overlay" onclick="closeMobileSidebar()"></div>
   <button id="mobile-toggle" onclick="toggleSidebar()">
     <i class="bi bi-list"></i>
