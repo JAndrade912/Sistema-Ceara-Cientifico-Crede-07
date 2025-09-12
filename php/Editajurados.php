@@ -13,16 +13,16 @@
 </head>
 <body>
     <style>
-        .modal-body{
+        .modal-body {
             margin: 40px;
         }
     </style>
     <div class="modal-header">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
+    </div>
+    <div class="modal-body">
         <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
-        <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
+        <form action="../php/Atualizajurado" method="POST" id="idCadJurado">
             <label for="nome">Nome</label>
             <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
             <label for="telefone">Telefone</label>
@@ -175,4 +175,5 @@
                     });
                 </script>
 </body>
+
 </html>
