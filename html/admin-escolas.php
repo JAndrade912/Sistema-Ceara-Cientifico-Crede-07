@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include_once("../php/connect.php");
+include_once("../php/Connect.php");
 
 $sql = "SELECT * FROM Escolas ORDER BY id_escolas DESC";
 $result = $pdo -> query($sql);

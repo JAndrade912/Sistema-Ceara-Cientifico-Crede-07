@@ -1,5 +1,5 @@
 <?php
-require_once '../php/connect.php';
+require_once '../php/Connect.php';
 $id = $_GET['id'] ?? null;
 if (!$id) {
     echo 'ID não fornecido';

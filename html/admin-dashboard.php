@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
-require_once '../php/connect.php';
+require_once '../php/Connect.php';
 if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
   header('Location: ../html/login_adm.php');
   exit();

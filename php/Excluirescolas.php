@@ -1,6 +1,6 @@
 <?php
 if(!empty($_GET['id'])){
-    require_once '../php/connect.php';
+    require_once '../php/Connect.php';
     $id = $_GET['id'] ?? null;
     
     $stmt = $pdo -> prepare("DELETE FROM Escolas WHERE id_escolas = ?");
