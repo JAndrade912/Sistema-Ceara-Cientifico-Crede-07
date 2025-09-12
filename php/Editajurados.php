@@ -1,20 +1,22 @@
 <?php
 require_once '../php/connect.php';
 $id = $_GET['id'] ?? null;
+$sql = 'SELECT * FROM Jurados WHERE id_jurados = ? ';
 if (!$id) {
     echo 'ID não fornecido';
 }
 
 $stmt = $pdo->prepare("SELECT * FROM Jurados WHERE id_jurados = ?");
 $stmt->execute([$id]);
-$escola = $stmt->fetch(PDO::FETCH_ASSOC);
+$jurado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$escola) {
+if (!$jurado) {
     echo 'Jurado não encontrado!';
 }
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,6 +28,7 @@ if (!$escola) {
     <link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
     <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
 </head>
+
 <body>
     <style>
         .modal-body {
@@ -34,26 +37,47 @@ if (!$escola) {
     </style>
     <div class="modal-header">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
+    </div>
+    <div class="modal-body">
         <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
         <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
+            <?php
+            $nome = $_POST['nome'] ?? null;
+            $telefone = $_POST['co.telefone'] ?? null;
+            $cpf = $_POST['cpf'] ?? null;
+            $email = $_POST['email'] ?? null;
+            $id_categoria = $_POST['categoria'] ?? null;
+            $id_area = $_POST['area'] ?? null;
+
+            ?>
             <label for="nome">Nome</label>
-            <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" value="<?= htmlspecialchars($nome['nome']) ?>" required>
+            <input type="text" class="form-control" name="nome"
+                placeholder="Digite seu nome"
+                value="<?= htmlspecialchars($jurado['nome'] ?? '') ?>" required>
+
             <label for="telefone">Telefone</label>
-            <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" value="<?= htmlspecialchars($telefone['telefone']) ?>" required>
+            <input type="text" class="form-control" name="telefone"
+                placeholder="Digite seu telefone"
+                value="<?= htmlspecialchars($jurado['telefone'] ?? '') ?>" required>
+
             <label for="cpf">CPF</label>
-            <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
+            <input type="text" class="form-control" name="cpf"
+                placeholder="Digite seu CPF"
+                value="<?= htmlspecialchars($jurado['cpf'] ?? '') ?>" required>
+
             <label for="email">E-mail SIC-CED</label>
-            <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
+            <input type="text" class="form-control" name="email"
+                placeholder="Digite seu e-mail"
+                value="<?= htmlspecialchars($jurado['email'] ?? '') ?>" required>
             <label for="id_categoria">Categoria</label>
             <select id="jurado-categoria" class="form-control" name="categoria" required>
-                <option selected disabled>Selecione...</option>
-                <option value="1">I - Ensino Médio</option>
-                <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                <option value="3">III - Pesquisa Júnior</option>
-                <option value="4">IV - PcD</option>
+                <option disabled <?= !isset($escola['id_categoria']) ? 'selected' : '' ?>>Selecione...</option>
+                <option value="1" <?= ($escola['id_categoria'] ?? '') == 1 ? 'selected' : '' ?>>I - Ensino Médio</option>
+                <option value="2" <?= ($escola['id_categoria'] ?? '') == 2 ? 'selected' : '' ?>>II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="3" <?= ($escola['id_categoria'] ?? '') == 3 ? 'selected' : '' ?>>III - Pesquisa Júnior</option>
+                <option value="4" <?= ($escola['id_categoria'] ?? '') == 4 ? 'selected' : '' ?>>IV - PcD</option>
             </select>
+
             <div id="jurado-area" style="display:none;">
 
                 <label for="id_areas">Área</label>
@@ -80,59 +104,59 @@ if (!$escola) {
         </form>
     </div>
     <div class="modal-footer">
-        
+
     </div>
     </div>
     </div>
     </div>
 
-                <script>
-                    // Lógica dos modais e exibição de áreas
-                    $('#instituicao-tipo').change(function() {
-                        ($(this).val() === '1') ? $('#campo-ide').slideDown(): $('#campo-ide').slideUp();
-                    });
-                    $('#jurado-categoria').change(function() {
-                        var categoria = $(this).val();
-                        if (categoria === '1' || categoria === '2') {
-                            $('#jurado-area').slideDown();
-                            $('#jurado-area2').slideUp();
-                        } else if (categoria === '4') {
-                            $('#jurado-area').slideUp();
-                            $('#jurado-area2').slideDown();
-                        } else {
-                            $('#jurado-area, #jurado-area2').slideUp();
-                        }
-                    });
-                    $('#trabalho-categoria').change(function() {
-                        var categoria = $(this).val();
-                        if (categoria === '1' || categoria === '2') {
-                            $('#trabalho-area').slideDown();
-                            $('#trabalho-area2').slideUp();
-                        } else if (categoria === '4') {
-                            $('#trabalho-area').slideUp();
-                            $('#trabalho-area2').slideDown();
-                        } else {
-                            $('#trabalho-area, #trabalho-area2').slideUp();
-                        }
-                    });
+    <script>
+        // Lógica dos modais e exibição de áreas
+        $('#instituicao-tipo').change(function() {
+            ($(this).val() === '1') ? $('#campo-ide').slideDown(): $('#campo-ide').slideUp();
+        });
+        $('#jurado-categoria').change(function() {
+            var categoria = $(this).val();
+            if (categoria === '1' || categoria === '2') {
+                $('#jurado-area').slideDown();
+                $('#jurado-area2').slideUp();
+            } else if (categoria === '4') {
+                $('#jurado-area').slideUp();
+                $('#jurado-area2').slideDown();
+            } else {
+                $('#jurado-area, #jurado-area2').slideUp();
+            }
+        });
+        $('#trabalho-categoria').change(function() {
+            var categoria = $(this).val();
+            if (categoria === '1' || categoria === '2') {
+                $('#trabalho-area').slideDown();
+                $('#trabalho-area2').slideUp();
+            } else if (categoria === '4') {
+                $('#trabalho-area').slideUp();
+                $('#trabalho-area2').slideDown();
+            } else {
+                $('#trabalho-area, #trabalho-area2').slideUp();
+            }
+        });
 
-                    $('#associar-categoria').change(function() {
-                        var categoria = $(this).val();
-                        if (categoria === '1' || categoria === '2') {
-                            $('#areajurado').slideDown();
-                            $('#area2jurado').slideUp();
-                        } else if (categoria === '4') {
-                            $('#area2jurado').slideDown();
-                            $('#areajurado').slideUp();
-                        } else if (categoria === '3') {
-                            $('#trabalhojurado').slideDown();
-                            $('#areajurado, #area2jurado').slideUp();
-                        }
-                    });
-                    $('#area1, #area2').change(function() {
-                        $('#trabalhojurado').slideDown();
-                    });
-                </script>
+        $('#associar-categoria').change(function() {
+            var categoria = $(this).val();
+            if (categoria === '1' || categoria === '2') {
+                $('#areajurado').slideDown();
+                $('#area2jurado').slideUp();
+            } else if (categoria === '4') {
+                $('#area2jurado').slideDown();
+                $('#areajurado').slideUp();
+            } else if (categoria === '3') {
+                $('#trabalhojurado').slideDown();
+                $('#areajurado, #area2jurado').slideUp();
+            }
+        });
+        $('#area1, #area2').change(function() {
+            $('#trabalhojurado').slideDown();
+        });
+    </script>
 </body>
 
 </html>
