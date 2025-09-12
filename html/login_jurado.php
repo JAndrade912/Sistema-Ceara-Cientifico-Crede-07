@@ -40,7 +40,7 @@ if (isset($_SESSION['login_error'])) {
           <div class="login-box">
             <div class="login-cont">
               <h2><b>Jurado</b></h2><br>
-              <form method="POST" action="../php/jurado.php" id="loginForm">
+              <form method="POST" action="../php/Jurado.php" id="loginForm">
                 <div class="form-group">
                   <label for="usuario"><b>Usuário:</b></label>
                   <br>

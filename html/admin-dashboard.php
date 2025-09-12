@@ -56,7 +56,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
       </ul>
     </div>
     <ul class="nav flex-column bottom-nav">
-      <li><a href="../php/admLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
+      <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
     </ul>
   </div>
   <main id="main">
