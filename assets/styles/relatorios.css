@@ -23,18 +23,18 @@ h2 {
   border:1px solid #ccc; }
 
 /* Tabela */
-.table { 
+#workTable { 
   border-radius:5px; 
   box-shadow:0 4px 10px rgba(0,0,0,0.1); 
   width: 100%;
 }
 
-.table th{ 
+#workTable .th{ 
   text-align:center; 
   vertical-align:middle;
   height: 30px;}
 
-  .table td{
+  #workTable .td{
   text-align:center; 
   vertical-align:middle;
   font-size: 13px;
@@ -42,12 +42,12 @@ h2 {
   height: 25px;
   }
 
-.table thead { 
+#workTable .thead { 
   background:#4C8F5A; 
   color:white; }
 
 
-.download-btn { 
+ #workTable .download-btn { 
   background:#2c7a3e; 
   color:white; 
   border:none;
@@ -55,7 +55,7 @@ h2 {
   border-radius:4px; 
   cursor:pointer; }
 
-.download-btn:hover { 
+ #workTable .download-btn:hover { 
   background:#1e5e2b; }
 
 /* Botões de relatório */
