@@ -415,12 +415,12 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>Classificação</th>
-                    <th>Trabalho</th>
-                    <th>Escola</th>
-                    <th>-</th>
-                    <th>-</th>
-                    <th>Nota Final</th>
+                    <th style="text-align: center;">Classificação</th>
+                    <th style="text-align: center;">Trabalho</th>
+                    <th style="text-align: center;">Escola</th>
+                    <th style="text-align: center;">-</th>
+                    <th style="text-align: center;">-</th>
+                    <th style="text-align: center;">Nota Final</th>
                   </tr>
                 </thead>
                 <tbody id="ranking-tbody">
@@ -574,9 +574,9 @@ $('#atribuir-jurado').change(function () {
 
     $('#ranking-area').on('change', function() {
       $('#ranking-tbody').html(
-        '<tr><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
-        '<tr><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
-        '<tr><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
+        '<tr style="text-align: center;"><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
+        '<tr style="text-align: center;"><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
+        '<tr style="text-align: center;"><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
       );
     });
   </script>
