@@ -17,11 +17,8 @@
             margin: 40px;
         }
     </style>
-    <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
         <div class="modal-body">
-        <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
+            <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
         <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
             <label for="nome">Nome</label>
             <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
@@ -65,68 +62,12 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        
     </div>
     </div>
     </div>
     </div>
 
-    <div class="modal fade" id="modalTrabalho" tabindex="-1" aria-labelledby="modalTrabalhoLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalJuradoLabel">Cadastrar Trabalho</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="../php/Cadtrabalho.php" method="POST" id="idCadTrabalho">
-                        <label for="titulo">Título do Trabalho</label>
-                        <input type="text" class="form-control" name="titulo" placeholder="Digite o nome do Trabalho" required>
-                        <label for="escola">Escola</label>
-                        <select name="escola" id="escola" class="form-control" required>
-                            <option value="">Selecione a Escola</option>
-                            <?php foreach ($escolas as $escola): ?>
-                                <option value="<?= htmlspecialchars($escola['id_escolas']) ?>">
-                                    <?= htmlspecialchars($escola['nome']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <label for="trabalho-categoria">Categoria</label>
-                        <select id="trabalho-categoria" name="categoria" class="form-control" required>
-
-                            <option selected disabled>Selecione...</option>
-                            <?php foreach ($categorias as $categoria): ?>
-                                <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
-                                    <?= htmlspecialchars($categoria['nome_categoria']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-
-                        <div id="trabalho-area" style="display:none;">
-                            <label>Área</label>
-
-
-                            <select name="area" class="form-control">
-                                <option selected disabled>Selecione...</option>
-                                <?php foreach ($areas as $area): ?>
-                                    <option value="<?= htmlspecialchars($area['id_area']) ?>">
-                                        <?= htmlspecialchars($area['nome_area']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                        <div id="trabalho-area2" style="display:none;">
-                            <label>Área</label>
-                            <select class="form-control">
-                                <option selected disabled>Selecione...</option>
-                                <option value="1">Ensino Fundamental</option>
-                                <option value="2">Ensino Médio</option>
-                            </select>
-                        </div>
-                        <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
-                    </form>
-                </div>
                 <script>
                     // Lógica dos modais e exibição de áreas
                     $('#instituicao-tipo').change(function() {
