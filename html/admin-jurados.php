@@ -36,9 +36,6 @@ $result = $pdo->query($sql);
 </head>
 
 <body>
-  <?PHP
-  
-  ?>
   <div id="overlay" onclick="closeMobileSidebar()"></div>
   <button id="mobile-toggle" onclick="toggleSidebar()">
    <i><img src="../assets/img/menu.png"></i>
