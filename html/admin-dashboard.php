@@ -153,7 +153,7 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
 
                 <label for="id_categoria">Categoria</label>
-                <select id="jurado-categoria" class="form-control" name="categoria[]" required>
+                <select id="jurado-categoria" class="form-control" name="categoria" required>
                   <option selected disabled>Selecione...</option>
                   <option value="1">I - Ensino Médio</option>
                   <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
@@ -164,7 +164,7 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <div id="jurado-area" style="display:none;">
 
                   <label for="id_areas">Área</label>
-                  <select class="form-control" name="area[]">
+                  <select class="form-control" name="area">
                     <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
@@ -177,7 +177,7 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
           <!-- Área para PcD -->
           <div id="jurado-area2" style="display:none;">
             <label for="id_area">Área</label>
-            <select class="form-control" name="area[]">
+            <select class="form-control" name="area">
               <option selected disabled>Selecione...</option>
               <option value="6">Ensino Fundamental</option>
               <option value="7">Ensino Médio</option>
