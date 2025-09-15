@@ -100,6 +100,34 @@
                   <option value="jurado2">Jurado 2</option>
                   <option value="jurado3">Jurado 3</option>
                 </select>
+                <label for="id_categoria">Categoria</label>
+                <select id="jurado-categoria" class="form-control" name="categoria" required>
+                  <option selected disabled>Selecione...</option>
+                  <option value="1">I - Ensino Médio</option>
+                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                  <option value="3">III - Pesquisa Júnior</option>
+                  <option value="4">IV - PcD</option>
+                </select>
+                <div id="jurado-area" style="display:none;">
+                  <label for="id_areas">Área</label>
+                  <select class="form-control" name="area">
+                    <option selected disabled>Selecione...</option>
+                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2">Matemática e suas Tecnologias - MT</option>
+                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                  </select>
+                </div>
+                <!-- Área para PcD -->
+                <div id="jurado-area2" style="display:none;">
+                  <label for="id_area">Área</label>
+                  <select class="form-control" name="area">
+                    <option selected disabled>Selecione...</option>
+                    <option value="6">Ensino Fundamental</option>
+                    <option value="7">Ensino Médio</option>
+                  </select>
+                </div>
               </form>
             </div>
             <div class="modal-footer">
@@ -264,6 +292,29 @@ $('#categoria-Ranking').change(function () {
     $('#area-Ranking, #area-Ranking2').slideUp();
   }
 });
+
+$('#jurado-nome').change(function() {
+      var nome = $(this).val();
+      if (nome) {
+        $('#jurado-categoria').prop('disabled', false);
+      } else {
+        $('#jurado-categoria').prop('disabled', true);
+        $('#jurado-area, #jurado-area2').slideUp();
+      }
+    });
+
+$('#jurado-categoria').change(function() {
+      var categoria = $(this).val();
+      if (categoria === '1' || categoria === '2') {
+        $('#jurado-area').slideDown();
+        $('#jurado-area2').slideUp();
+      } else if (categoria === '4') {
+        $('#jurado-area').slideUp();
+        $('#jurado-area2').slideDown();
+      } else {
+        $('#jurado-area, #jurado-area2').slideUp();
+      }
+    });
 
 // SIDEBAR
 function toggleSidebar(){
