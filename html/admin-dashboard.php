@@ -368,7 +368,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
               <div class="col-sm-6">
                 <label>Categoria</label>
                 <select id="ranking-categoria" class="form-control">
-                  <option selected disabled>-- Selecione a Categoria --</option>
+                  <option selected>-- Selecione a Categoria --</option>
                   <option value="I">I - Ensino Médio</option>
                   <option value="II">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
                   <option value="III">III - Pesquisa Júnior</option>
@@ -396,7 +396,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 </thead>
                 <tbody id="ranking-tbody">
                   <tr>
-                    <td colspan="4" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td>
+                    <td colspan="6" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td>
                   </tr>
                   
                 </tbody>
@@ -502,34 +502,52 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     });
     // Ranking dinâmica
     const rankingAreas = {
-      "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-      "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-      "III": [],
-      "IV": ["Ensino Fundamental", "Ensino Médio"]
+     "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+     "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+     "III": [],
+    "IV": ["Ensino Fundamental", "Ensino Médio"]
     };
+
     $('#ranking-categoria').on('change', function() {
-      const cat = $(this).val();
-      const areaSel = $('#ranking-area');
-      areaSel.empty();
-      if (cat && rankingAreas[cat].length > 0) {
-        areaSel.append('<option selected disabled>-- Selecione a Área --</option>');
-        rankingAreas[cat].forEach(a => areaSel.append('<option>' + a + '</option>'));
-        areaSel.prop('disabled', false);
-      } else {
-        areaSel.append('<option selected>-- Sem área --</option>');
+     const cat = $(this).val();
+     const areaSel = $('#ranking-area');
+    
+      // Limpa a tabela e o menu de área se a opção padrão for selecionada
+      if (cat === "-- Selecione a Categoria --") {
+        areaSel.empty();
+        areaSel.append('<option selected disabled>-- Primeiro selecione a categoria --</option>');
         areaSel.prop('disabled', true);
+        $('#ranking-tbody').html('<tr><td colspan="6" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td></tr>');
+        return; // Sai da função para não executar o restante do código
       }
-      $('#ranking-tbody').html('<tr><td colspan="4" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td></tr>');
-    });
-    $('#ranking-area').on('change', function() {
-      $('#ranking-tbody').html(
+
+    // A partir daqui, o código que você já tinha
+       areaSel.empty();
+        if (cat && rankingAreas[cat].length > 0) {
+         areaSel.append('<option selected disabled>-- Selecione a Área --</option>');
+         rankingAreas[cat].forEach(a => areaSel.append('<option>' + a + '</option>'));
+         areaSel.prop('disabled', false);
+        $('#ranking-tbody').html('<tr><td colspan="6" class="text-center text-muted">Selecione a Área para visualizar o ranking</td></tr>');
+        } else {
+         areaSel.append('<option selected>-- Sem área --</option>');
+         areaSel.prop('disabled', true);
+        $('#ranking-tbody').html(  
+            '<tr style="text-align: center;"><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
+            '<tr style="text-align: center;"><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
+            '<tr style="text-align: center;"><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
+        );
+       }
+     });
+
+        $('#ranking-area').on('change', function() {
+        $('#ranking-tbody').html(  
         '<tr style="text-align: center;"><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
         '<tr style="text-align: center;"><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
         '<tr style="text-align: center;"><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
-      );
-    });
-    $('#atribuir-jurado').on('change', function() {
-      $('#trabalho-tbody').html(
+       );
+      });
+      $('#atribuir-jurado').on('change', function() {
+       $('#trabalho-tbody').html(
         '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
         '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
         '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
@@ -539,18 +557,18 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     });
 
     // Selecionar todos os checkboxes ao clicar no botão
- $('#selecionar-todos').click(function() {
-  const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
-  const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
+    $('#selecionar-todos').click(function() {
+    const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
+    const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
 
-  if (todosSelecionados) {
+    if (todosSelecionados) {
     checkboxes.prop('checked', false);
     $(this).text('Selecionar Todos');
-  } else {
+    } else {
     checkboxes.prop('checked', true);
     $(this).text('Desmarcar Todos');
-  }
-});
+   }
+  });
   </script>
 </body>
 </html>
