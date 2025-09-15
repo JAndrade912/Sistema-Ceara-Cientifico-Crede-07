@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
-        // Buscar o id_contatos correspondente ao jurado
         $stmtContato = $pdo->prepare("SELECT id_contatos FROM Jurados WHERE id_jurados = ?");
         $stmtContato->execute([$id]);
         $jurado = $stmtContato->fetch(PDO::FETCH_ASSOC);
@@ -38,11 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $id_contato = $jurado['id_contatos'];
 
-        // Atualizar tabela Contatos
         $stmtUpdateContato = $pdo->prepare("UPDATE Contatos SET telefone = ?, email = ? WHERE id_contatos = ?");
         $stmtUpdateContato->execute([$telefone, $email, $id_contato]);
 
-        // Atualizar tabela Jurados
         $stmtUpdateJurado = $pdo->prepare("UPDATE Jurados SET nome = ?, cpf = ?, id_categoria = ?, id_area = ? WHERE id_jurados = ?");
         $stmtUpdateJurado->execute([$nome, $cpf, $categoria, $area, $id]);
 

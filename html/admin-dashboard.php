@@ -127,26 +127,32 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="modal-body">
               <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
+
                 <label for="nome">Nome</label>
                 <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
+
                 <label for="telefone">Telefone</label>
                 <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
+
                 <label for="cpf">CPF</label>
                 <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
+
                 <label for="email">E-mail SIC-CED</label>
                 <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
+
                 <label for="id_categoria">Categoria</label>
-                <select id="jurado-categoria" class="form-control" name="categoria" required>
+                <select id="jurado-categoria" class="form-control" name="categoria[]" required>
                   <option selected disabled>Selecione...</option>
                   <option value="1">I - Ensino Médio</option>
                   <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
                   <option value="3">III - Pesquisa Júnior</option>
                   <option value="4">IV - PcD</option>
                 </select>
+
                 <div id="jurado-area" style="display:none;">
 
                   <label for="id_areas">Área</label>
-                  <select class="form-control" name="area">
+                  <select class="form-control" name="area[]">
                     <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
@@ -159,7 +165,7 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
           <!-- Área para PcD -->
           <div id="jurado-area2" style="display:none;">
             <label for="id_area">Área</label>
-            <select class="form-control" name="area">
+            <select class="form-control" name="area[]">
               <option selected disabled>Selecione...</option>
               <option value="6">Ensino Fundamental</option>
               <option value="7">Ensino Médio</option>

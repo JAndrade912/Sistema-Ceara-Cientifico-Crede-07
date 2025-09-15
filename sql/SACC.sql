@@ -66,6 +66,17 @@ CREATE TABLE Areas (
     nome_area VARCHAR(100) NOT NULL
 );
 
+-- Relacionamento de Jurados com Categorias e Áreas
+CREATE TABLE Jurados_Categorias_Areas (
+    id_jurados INT,
+    id_categoria INT,
+    id_area INT,
+    PRIMARY KEY (id_jurados, id_categoria, id_area),
+    FOREIGN KEY (id_jurados) REFERENCES Jurados(id_jurados) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_area) REFERENCES Areas(id_area) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 -- Inserindo valores fixos
 INSERT INTO Categorias (id_categoria, nome_categoria) VALUES
 (1, 'Ensino Médio'),
