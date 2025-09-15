@@ -44,7 +44,10 @@ h2 {
   font-size: 13px;
   padding: 10px;
   height: 25px;
-  background-color: gray;
+  }
+
+  tbody tr {
+    background-color: #f9f9f9;
   }
 
 .table thead { 
