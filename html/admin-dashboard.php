@@ -18,6 +18,18 @@ $categorias = $stmt -> fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $pdo -> query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
 $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+// area destinada as consultas de estado dos cards em tempo real do dashboard do admin
+$stmt = $pdo -> query("SELECT COUNT(*) AS total_escolas FROM Escolas");
+$total_escolas = $stmt -> fetch(PDO::FETCH_ASSOC)['total_escolas'];
+
+$stmt = $pdo -> query("SELECT COUNT(*) AS total_trabalhos FROM Trabalhos");
+$total_trabalhos = $stmt -> fetch(PDO::FETCH_ASSOC)['total_trabalhos'];
+
+$stmt = $pdo -> query("SELECT COUNT(*) AS total_jurados FROM Jurados");
+$total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -361,21 +373,21 @@ $areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
             <i><img src="../assets/img/escola.png" class="escola" style="width: 25px;"></i>
-            <h2 id="total-escolas">120</h2>
+            <h2 id="total-escolas"><?php echo $total_escolas;?></h2>
             <p>Escolas Cadastradas</p>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
             <i><img src="../assets/img/trabalho.png" class="trabalho" style="width: 25px;"></i>
-            <h2 id="total-trabalhos">350</h2>
+            <h2 id="total-trabalhos"><?php echo $total_trabalhos; ?></h2>
             <p>Trabalhos Cadastrados</p>
           </div>
         </div>
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
             <i><img src="../assets/img/Jurados.png" class="jurado" style="width: 25px;"></i>
-            <h2 id="total-jurados">50</h2>
+            <h2 id="total-jurados"><?php echo $total_jurados; ?></h2>
             <p>Jurados Cadastrados</p>
           </div>
         </div>
