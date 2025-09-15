@@ -7,6 +7,7 @@ $sql = "SELECT
     j.id_jurados,
     j.nome,
     j.usuario,
+    j.senha,
     j.cpf,
     c.nome_categoria,
     a.nome_area,
@@ -85,7 +86,7 @@ $result = $pdo->query($sql);
         echo '<tr>';
         echo '<td>' . $user_data['nome'] . '</td>';
         echo '<td>' . $user_data['usuario'] . '</td>'; 
-        echo '<td>'. $user_data[''] . '</td>';
+        echo '<td>'. $user_data['senha'] . '</td>';
         echo '<td>' . $user_data['cpf'] . '</td>';
         echo '<td>' . $user_data['email'] . '</td>';
         echo '<td>' . $user_data['telefone'] . '</td>';

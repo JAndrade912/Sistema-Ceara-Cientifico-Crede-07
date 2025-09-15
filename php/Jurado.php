@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['id_jurados'] = $user['id_jurados'];
             $_SESSION['usuario'] = $user['usuario'];
             $_SESSION['senha'] = $user['senha'];
+            
 
             header('Location: ../html/jurado-dashboard.php');
             exit();
