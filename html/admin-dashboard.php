@@ -530,12 +530,27 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     });
     $('#atribuir-jurado').on('change', function() {
       $('#trabalho-tbody').html(
-        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
-        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
-        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
-        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>'
+        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
+        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
+        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
+        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
+        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>'
       );
     });
+
+    // Selecionar todos os checkboxes ao clicar no botão
+ $('#selecionar-todos').click(function() {
+  const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
+  const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
+
+  if (todosSelecionados) {
+    checkboxes.prop('checked', false);
+    $(this).text('Selecionar Todos');
+  } else {
+    checkboxes.prop('checked', true);
+    $(this).text('Desmarcar Todos');
+  }
+});
   </script>
 </body>
 </html>
