@@ -32,8 +32,7 @@ h2 {
 .table th{ 
   text-align:center; 
   vertical-align:middle;
-  height: 30px;
-}
+  height: 30px;}
 
   .table td{
   text-align:center; 
@@ -45,8 +44,8 @@ h2 {
 
 .table thead { 
   background:#4C8F5A; 
-  color:white; 
-}
+  color:white; }
+
 
 .download-btn { 
   background:#2c7a3e; 
@@ -54,12 +53,10 @@ h2 {
   border:none;
   padding:6px 10px; 
   border-radius:4px; 
-  cursor:pointer;
- }
+  cursor:pointer; }
 
 .download-btn:hover { 
-  background:#1e5e2b; 
-}
+  background:#1e5e2b; }
 
 /* Botões de relatório */
 .report-buttons { 
@@ -79,8 +76,7 @@ h2 {
  }
 
 .report-buttons button:hover { 
-  background:#6aa347; 
-}
+  background:#6aa347; }
 
 /* Ícone download individual */
 .download-icon { 
@@ -93,8 +89,7 @@ h2 {
   text-align:center; 
   line-height:24px; 
   cursor:pointer; }
-.download-icon:hover { background:#1e5e2b; 
-}
+.download-icon:hover { background:#1e5e2b; }
 
 /* Sidebar e main layout */
 :root {

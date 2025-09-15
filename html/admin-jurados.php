@@ -67,7 +67,7 @@ $result = $pdo->query($sql);
     <br>
     <hr><br>
     <!-- Tabela de trabalhos -->
-    <table class="table table-bordered table-striped" id="workTable">
+    <table class="table" id="workTable">
       <thead class="table-success">
         <tr>
           <th>Nome</th>

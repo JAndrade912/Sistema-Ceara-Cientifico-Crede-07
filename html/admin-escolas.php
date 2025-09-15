@@ -51,14 +51,14 @@ $result = $pdo -> query($sql);
  <br>
  <hr><br>
  <!-- Tabela de trabalhos -->
- <table class="table table-bordered" id="workTable">
-   <thead>
-     <tr>
-       <th>Nome</th>
-       <th>Município</th>
-       <th>Tipo</th>
-       <th>IDE Médio</th>
-       <th>Ações</th>
+ <table class="table table-striped table-bordered" id="workTable">
+   <thead class=" table-success">
+     <tr class="tr">
+       <th class="th">Nome</th>
+       <th class="th">Município</th>
+       <th class="th">Tipo</th>
+       <th class="th">IDE Médio</th>
+       <th class="th">Ações</th>
      </tr>
    </thead>
    <br>
