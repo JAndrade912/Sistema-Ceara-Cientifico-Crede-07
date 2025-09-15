@@ -6,8 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $telefone = $_POST['telefone'];
     $cpf = $_POST['cpf'];
     $email = $_POST['email'];
-    $id_categoria = $_POST['categoria'] ?? [];
-    $id_area = $_POST['area'] ?? [];
+    $id_categoria = $_POST['categoria'] ?? '';
+    $id_area = $_POST['area'] ?? '';
     try {
         $pdo->beginTransaction();
 
