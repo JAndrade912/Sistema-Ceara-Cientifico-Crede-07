@@ -324,7 +324,9 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <table class="table table-hover">
                     <tbody id="trabalho-tbody">
                     </tbody>
+                    
                   </table>
+                  <button type="button" class="btn btn-sm btn-primary mb-2" id="selecionar-todos">Selecionar Todos</button>
                 </div>
                 <input type="submit" value="Enviar" class="btn btn-success mt-3">
               </form>
@@ -396,7 +398,9 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <tr>
                     <td colspan="4" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td>
                   </tr>
+                  
                 </tbody>
+                
               </table>
             </div>
           </div>
@@ -526,6 +530,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     });
     $('#atribuir-jurado').on('change', function() {
       $('#trabalho-tbody').html(
+        '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
         '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
         '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
         '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>'
