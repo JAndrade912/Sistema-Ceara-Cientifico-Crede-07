@@ -10,24 +10,24 @@ if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
   exit();
 }
 
-$stmt = $pdo -> query("SELECT id_escolas,nome FROM Escolas ORDER BY nome ASC");
-$escolas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->query("SELECT id_escolas,nome FROM Escolas ORDER BY nome ASC");
+$escolas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $pdo -> query("SELECT id_categoria,nome_categoria FROM Categorias ORDER BY nome_categoria ASC");
-$categorias = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->query("SELECT id_categoria,nome_categoria FROM Categorias ORDER BY nome_categoria ASC");
+$categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $pdo -> query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
-$areas = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
+$areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // area destinada as consultas de estado dos cards em tempo real do dashboard do admin
-$stmt = $pdo -> query("SELECT COUNT(*) AS total_escolas FROM Escolas");
-$total_escolas = $stmt -> fetch(PDO::FETCH_ASSOC)['total_escolas'];
+$stmt = $pdo->query("SELECT COUNT(*) AS total_escolas FROM Escolas");
+$total_escolas = $stmt->fetch(PDO::FETCH_ASSOC)['total_escolas'];
 
-$stmt = $pdo -> query("SELECT COUNT(*) AS total_trabalhos FROM Trabalhos");
-$total_trabalhos = $stmt -> fetch(PDO::FETCH_ASSOC)['total_trabalhos'];
+$stmt = $pdo->query("SELECT COUNT(*) AS total_trabalhos FROM Trabalhos");
+$total_trabalhos = $stmt->fetch(PDO::FETCH_ASSOC)['total_trabalhos'];
 
-$stmt = $pdo -> query("SELECT COUNT(*) AS total_jurados FROM Jurados");
-$total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
+$stmt = $pdo->query("SELECT COUNT(*) AS total_jurados FROM Jurados");
+$total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 
 
 ?>
@@ -139,19 +139,14 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
             </div>
             <div class="modal-body">
               <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
-
                 <label for="nome">Nome</label>
                 <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
-
                 <label for="telefone">Telefone</label>
                 <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
-
                 <label for="cpf">CPF</label>
                 <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
-
                 <label for="email">E-mail SIC-CED</label>
                 <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
-
                 <label for="id_categoria">Categoria</label>
                 <select id="jurado-categoria" class="form-control" name="categoria" required>
                   <option selected disabled>Selecione...</option>
@@ -160,9 +155,7 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <option value="3">III - Pesquisa Júnior</option>
                   <option value="4">IV - PcD</option>
                 </select>
-
                 <div id="jurado-area" style="display:none;">
-
                   <label for="id_areas">Área</label>
                   <select class="form-control" name="area">
                     <option selected disabled>Selecione...</option>
@@ -173,64 +166,57 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     <option value="5">Robótica, Automação e Aplicação das TIC</option>
                   </select>
                 </div>
-
-          <!-- Área para PcD -->
-          <div id="jurado-area2" style="display:none;">
-            <label for="id_area">Área</label>
-            <select class="form-control" name="area">
-              <option selected disabled>Selecione...</option>
-              <option value="6">Ensino Fundamental</option>
-              <option value="7">Ensino Médio</option>
-            </select>
+                <!-- Área para PcD -->
+                <div id="jurado-area2" style="display:none;">
+                  <label for="id_area">Área</label>
+                  <select class="form-control" name="area">
+                    <option selected disabled>Selecione...</option>
+                    <option value="6">Ensino Fundamental</option>
+                    <option value="7">Ensino Médio</option>
+                  </select>
+                </div>
+                <!-- Segunda categoria -->
+                <div class="mb-3" style="display: none;">
+                  <label for="categoria_sec" class="form-label">Categoria</label>
+                  <select name="categoria_sec" id="Adicionar-sec-categoria" class="form-control">
+                    <option selected disabled>Selecione...</option>
+                    <option value="1">I - Ensino Médio</option>
+                    <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                    <option value="3">III - Pesquisa Júnior</option>
+                    <option value="4">IV - PcD</option>
+                  </select>
+                </div>
+                <!-- Segunda área para categoria -->
+                <div class="mb-3" id="areajuradosec" style="display: none;">
+                  <label for="area_sec" class="form-label">Área</label>
+                  <select name="area_sec" id="area1" class="form-control">
+                    <option selected disabled>Selecione...</option>
+                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2">Matemática e suas Tecnologias - MT</option>
+                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                  </select>
+                </div>
+                <!-- Segunda área para PcD -->
+                <div class="mb-3" id="area2juradosec" style="display: none;">
+                  <label for="area_sec2" class="form-label">Área</label>
+                  <select name="area_sec2" id="area2" class="form-control">
+                    <option selected disabled>Selecione...</option>
+                    <option value="6">Ensino Fundamental</option>
+                    <option value="7">Ensino Médio</option>
+                  </select>
+                </div>
+                <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px; float: left;">
+                <button type="button" class="btn btn-success" id="adicionar-categoria-btn" style="background-color: #2071b4ff; float:right; margin-top:10px;">Adicionar Categoria</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
           </div>
-
-          <!-- Segunda categoria -->
-          <div class="mb-3" style="display: none;">
-            <label for="categoria_sec" class="form-label">Categoria</label>
-            <select name="categoria_sec" id="Adicionar-sec-categoria" class="form-control">
-              <option selected disabled>Selecione...</option>
-              <option value="1">I - Ensino Médio</option>
-              <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-              <option value="3">III - Pesquisa Júnior</option>
-              <option value="4">IV - PcD</option>
-            </select>
-          </div>
-
-          <!-- Segunda área para categoria -->
-          <div class="mb-3" id="areajuradosec" style="display: none;">
-            <label for="area_sec" class="form-label">Área</label>
-            <select name="area_sec" id="area1" class="form-control">
-              <option selected disabled>Selecione...</option>
-              <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-              <option value="2">Matemática e suas Tecnologias - MT</option>
-              <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-              <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-              <option value="5">Robótica, Automação e Aplicação das TIC</option>
-            </select>
-          </div>
-
-          <!-- Segunda área para PcD -->
-          <div class="mb-3" id="area2juradosec" style="display: none;">
-            <label for="area_sec2" class="form-label">Área</label>
-            <select name="area_sec2" id="area2" class="form-control">
-              <option selected disabled>Selecione...</option>
-              <option value="6">Ensino Fundamental</option>
-              <option value="7">Ensino Médio</option>
-            </select>
-          </div>
-
-          <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px; float: left;">
-          <button type="button" class="btn btn-success" id="adicionar-categoria-btn" style="background-color: #2071b4ff; float:right; margin-top:10px;">Adicionar Categoria</button>
-        </form>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
       <div class="modal fade" id="modalTrabalho" tabindex="-1" aria-labelledby="modalTrabalhoLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -242,40 +228,35 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
               <form action="../php/Cadtrabalho.php" method="POST" id="idCadTrabalho">
                 <label for="titulo">Título do Trabalho</label>
                 <input type="text" class="form-control" name="titulo" placeholder="Digite o nome do Trabalho" required>
-                <label for = "escola">Escola</label>
+                <label for="escola">Escola</label>
                 <select name="escola" id="escola" class="form-control" required>
                   <option value="">Selecione a Escola</option>
-                  <?php foreach($escolas as $escola): ?>
-                    <option value="<?=htmlspecialchars($escola['id_escolas'])?>">
+                  <?php foreach ($escolas as $escola): ?>
+                    <option value="<?= htmlspecialchars($escola['id_escolas']) ?>">
                       <?= htmlspecialchars($escola['nome']) ?>
                     </option>
-                  <?php endforeach;?>
+                  <?php endforeach; ?>
                 </select>
                 <label for="trabalho-categoria">Categoria</label>
                 <select id="trabalho-categoria" name="categoria" class="form-control" required>
-
                   <option selected disabled>Selecione...</option>
-                  <?php foreach ($categorias as $categoria):?>
-                    <option value="<?=htmlspecialchars($categoria['id_categoria'])?>">
-                      <?= htmlspecialchars($categoria['nome_categoria'])?>
+                  <?php foreach ($categorias as $categoria): ?>
+                    <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
+                      <?= htmlspecialchars($categoria['nome_categoria']) ?>
                     </option>
-                    <?php endforeach;?>
+                  <?php endforeach; ?>
                 </select>
-
                 <div id="trabalho-area" style="display:none;">
                   <label>Área</label>
-
-                 
                   <select name="area" class="form-control">
                     <option selected disabled>Selecione...</option>
                     <?php foreach ($areas as $area): ?>
-                      <option value="<?=htmlspecialchars($area['id_area'])?>">
-                        <?= htmlspecialchars($area['nome_area'])?>
+                      <option value="<?= htmlspecialchars($area['id_area']) ?>">
+                        <?= htmlspecialchars($area['nome_area']) ?>
                       </option>
                     <?php endforeach; ?>
                   </select>
                 </div>
-
                 <div id="trabalho-area2" style="display:none;">
                   <label>Área</label>
                   <select class="form-control">
@@ -293,87 +274,72 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
-
-        <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalAssociacaoLabel">Associar Jurado a Trabalho</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-      </div>
-
-      <div class="modal-body">
-        <form action="#" method="POST" id="idCadAssociacao">
-
-          <div class="mb-3">
-            <label for="categoria" class="form-label">Categoria</label>
-            <select name="categoria" id="associar-categoria" class="form-control" required>
-              <option selected disabled>Selecione...</option>
-                  <option value="1">I - Ensino Médio</option>
-                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                  <option value="3">III - Pesquisa Júnior</option>
-                  <option value="4">IV - PcD</option>
-            </select>
-            
-          </div>
-
-          <div class="mb-3" id="areajurado" style="display:none;">
-            <label for="area" class="form-label">Área</label>
-            <select name="area" id="area1" class="form-control" required>
-              <option selected disabled>Selecione...</option>
+      <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalAssociacaoLabel">Associar Jurado a Trabalho</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+              <form action="#" method="POST" id="idCadAssociacao">
+                <div class="mb-3">
+                  <label for="categoria" class="form-label">Categoria</label>
+                  <select name="categoria" id="associar-categoria" class="form-control" required>
+                    <option selected disabled>Selecione...</option>
+                    <option value="1">I - Ensino Médio</option>
+                    <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                    <option value="3">III - Pesquisa Júnior</option>
+                    <option value="4">IV - PcD</option>
+                  </select>
+                </div>
+                <div class="mb-3" id="areajurado" style="display:none;">
+                  <label for="area" class="form-label">Área</label>
+                  <select name="area" id="area1" class="form-control" required>
+                    <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
                     <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
                     <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
                     <option value="5">Robótica, Automação e Aplicação das TIC</option>
-            </select>
-          </div>
-
-          <div class="mb-3" id="area2jurado" style="display:none;">
-            <label for="area" class="form-label">Área</label>
-            <select name="area" id="area2" class="form-control" required>
-              <option selected disabled>Selecione...</option>
+                  </select>
+                </div>
+                <div class="mb-3" id="area2jurado" style="display:none;">
+                  <label for="area" class="form-label">Área</label>
+                  <select name="area" id="area2" class="form-control" required>
+                    <option selected disabled>Selecione...</option>
                     <option value="6">Ensino Fundamental</option>
                     <option value="7">Ensino Médio</option>
-            </select>
+                  </select>
+                </div>
+                <div class="mb-3" id="atribuir-jurado" style="display: none;">
+                  <label for="jurado" class="form-label">Jurado</label>
+                  <select name="jurado" id="jurado" class="form-control" required>
+                    <option selected disabled>Selecione o Jurado</option>
+                    <option value="1">Jurado 1</option>
+                  </select>
+                </div>
+                <div class="mb-3" id="trabalhojurado" style="display:none;">
+                  <label for="trabalho" class="form-label">Trabalhos</label>
+                  <table class="table table-hover">
+                    <tbody id="trabalho-tbody">
+                    </tbody>
+                  </table>
+                </div>
+                <input type="submit" value="Enviar" class="btn btn-success mt-3">
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
           </div>
-
-          <div class="mb-3" id="atribuir-jurado" style="display: none;" >
-            <label for="jurado" class="form-label" >Jurado</label>
-            <select name="jurado" id="jurado" class="form-control" required>
-              <option selected disabled>Selecione o Jurado</option>
-              <option value="1">Jurado 1</option>
-            </select>
-          </div>
-
-          <div class="mb-3" id="trabalhojurado" style="display:none;">
-            <label for="trabalho" class="form-label">Trabalhos</label>
-            <table class="table table-hover">
-              <tbody id="trabalho-tbody">
-
-                </tbody>
-            </table>
-          </div>
-
-          <input type="submit" value="Enviar" class="btn btn-success mt-3">
-
-        </form>
+        </div>
       </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-      </div>
-
-    </div>
-  </div>
-</div>
-      
       <div class="row stat-row">
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
             <i><img src="../assets/img/escola.png" class="escola" style="width: 25px;"></i>
-            <h2 id="total-escolas"><?php echo $total_escolas;?></h2>
+            <h2 id="total-escolas"><?php echo $total_escolas; ?></h2>
             <p>Escolas Cadastradas</p>
           </div>
         </div>
@@ -414,7 +380,6 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 </select>
               </div>
             </div>
-
             <div class="table-responsive mt-3">
               <table class="table table-hover">
                 <thead>
@@ -434,13 +399,11 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 </tbody>
               </table>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </main>
-
   <script>
     // Sidebar
     function toggleSidebar() {
@@ -463,12 +426,10 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#overlay').removeClass('show');
       }
     });
-
-
     $('#instituicao-tipo').change(function() {
       ($(this).val() === '1') ? $('#campo-ide').slideDown(): $('#campo-ide').slideUp();
     });
-    
+
     $('#trabalho-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
@@ -481,78 +442,60 @@ $total_jurados = $stmt -> fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#trabalho-area, #trabalho-area2').slideUp();
       }
     });
-
-
-$('#jurado-categoria').change(function () {
-  var categoria = $(this).val();
-  if (categoria === '1' || categoria === '2') {
-    $('#jurado-area').slideDown();
-    $('#jurado-area2').slideUp();
-  } else if (categoria === '4') {
-    $('#jurado-area').slideUp();
-    $('#jurado-area2').slideDown();
-  } else {
-    $('#jurado-area, #jurado-area2').slideUp();
-  }
-});
-
-
-$('#adicionar-categoria-btn').click(function (event) {
-  event.preventDefault();
-
-  var container = $('#Adicionar-sec-categoria').parent();
-
-
-  if (container.is(':visible')) {
-    container.slideUp();
-
-
-    $('#Adicionar-sec-categoria').val('');
-    $('#areajuradosec, #area2juradosec').slideUp();
-  } else {
-    container.slideDown();
-  }
-});
-
-$('#Adicionar-sec-categoria').change(function () {
-  var categoria = $(this).val();
-
-  if (categoria === '1' || categoria === '2') {
-    $('#areajuradosec').slideDown();
-    $('#area2juradosec').slideUp();
-  } else if (categoria === '4') {
-    $('#area2juradosec').slideDown();
-    $('#areajuradosec').slideUp();
-  } else {
-    $('#areajuradosec, #area2juradosec').slideUp();
-  }
-});
-
-
-
-$('#associar-categoria').change(function() {
-  var categoria = $(this).val();
-  if (categoria === '1' || categoria === '2') {
-    $('#areajurado').slideDown();
-    $('#area2jurado').slideUp();
-  } else if (categoria === '4') {
-    $('#area2jurado').slideDown();
-    $('#areajurado').slideUp();
-  } else if (categoria === '3') {
-    $('#atribuir-jurado').slideDown();
-    $('#areajurado, #area2jurado').slideUp(); 
-  }
-});
-$('#area1, #area2').change(function () {
-  $('#atribuir-jurado').slideDown();
-});
-
-$('#atribuir-jurado').change(function () {
-  $('#trabalhojurado').slideDown();
-});
-
-
-
+    $('#jurado-categoria').change(function() {
+      var categoria = $(this).val();
+      if (categoria === '1' || categoria === '2') {
+        $('#jurado-area').slideDown();
+        $('#jurado-area2').slideUp();
+      } else if (categoria === '4') {
+        $('#jurado-area').slideUp();
+        $('#jurado-area2').slideDown();
+      } else {
+        $('#jurado-area, #jurado-area2').slideUp();
+      }
+    });
+    $('#adicionar-categoria-btn').click(function(event) {
+      event.preventDefault();
+      var container = $('#Adicionar-sec-categoria').parent();
+      if (container.is(':visible')) {
+        container.slideUp();
+        $('#Adicionar-sec-categoria').val('');
+        $('#areajuradosec, #area2juradosec').slideUp();
+      } else {
+        container.slideDown();
+      }
+    });
+    $('#Adicionar-sec-categoria').change(function() {
+      var categoria = $(this).val();
+      if (categoria === '1' || categoria === '2') {
+        $('#areajuradosec').slideDown();
+        $('#area2juradosec').slideUp();
+      } else if (categoria === '4') {
+        $('#area2juradosec').slideDown();
+        $('#areajuradosec').slideUp();
+      } else {
+        $('#areajuradosec, #area2juradosec').slideUp();
+      }
+    });
+    $('#associar-categoria').change(function() {
+      var categoria = $(this).val();
+      if (categoria === '1' || categoria === '2') {
+        $('#areajurado').slideDown();
+        $('#area2jurado').slideUp();
+      } else if (categoria === '4') {
+        $('#area2jurado').slideDown();
+        $('#areajurado').slideUp();
+      } else if (categoria === '3') {
+        $('#atribuir-jurado').slideDown();
+        $('#areajurado, #area2jurado').slideUp();
+      }
+    });
+    $('#area1, #area2').change(function() {
+      $('#atribuir-jurado').slideDown();
+    });
+    $('#atribuir-jurado').change(function() {
+      $('#trabalhojurado').slideDown();
+    });
     // Ranking dinâmica
     const rankingAreas = {
       "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
@@ -560,7 +503,6 @@ $('#atribuir-jurado').change(function () {
       "III": [],
       "IV": ["Ensino Fundamental", "Ensino Médio"]
     };
-
     $('#ranking-categoria').on('change', function() {
       const cat = $(this).val();
       const areaSel = $('#ranking-area');
@@ -575,7 +517,6 @@ $('#atribuir-jurado').change(function () {
       }
       $('#ranking-tbody').html('<tr><td colspan="4" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td></tr>');
     });
-
     $('#ranking-area').on('change', function() {
       $('#ranking-tbody').html(
         '<tr style="text-align: center;"><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
@@ -583,7 +524,6 @@ $('#atribuir-jurado').change(function () {
         '<tr style="text-align: center;"><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
       );
     });
-
     $('#atribuir-jurado').on('change', function() {
       $('#trabalho-tbody').html(
         '<tr style="text-align: center;"><td><input type="checkbox"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
@@ -592,7 +532,5 @@ $('#atribuir-jurado').change(function () {
       );
     });
   </script>
-
 </body>
-
 </html>
