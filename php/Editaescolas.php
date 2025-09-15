@@ -52,14 +52,14 @@ if (!$escola) {
 
         <label class="form-label mt-2">Tipo</label>
         <select name="focalizada" class="form-control">
-            <option value="" selected> Selecione... </option>
-            <option value="1">Focalizada</option>
+            <option value="" <?= empty($escola['focalizada']) ? 'selected' : '' ?>>Selecione...</option>
+            <option value="1" <?= ($escola['focalizada'] === 'Focalizada') ? 'selected' : '' ?>>Focalizada</option>
         </select>
 
         <label class="form-label mt-2">IDE Médio</label>
         <select name="ide" class="form-control">
-            <option value="" selected> Selecione... </option>
-            <option value="1">Sim</option>
+            <option value="" <?= empty($escola['ide']) ? 'selected' : '' ?>>Selecione...</option>
+            <option value="1" <?= ($escola['ide'] === 'Sim') ? 'selected' : '' ?>>Sim</option>
         </select>
 
         <input type="submit" value="Atualizar" class="btn btn-success mt-3">
