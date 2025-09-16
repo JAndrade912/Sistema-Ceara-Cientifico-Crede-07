@@ -139,16 +139,21 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             </div>
             <div class="modal-body">
               <form action="../php/Cadjurado.php" method="POST" id="idCadJurado">
+
                 <label for="nome">Nome</label>
                 <input type="text" class="form-control" name="nome" placeholder="Digite seu nome" required>
+
                 <label for="telefone">Telefone</label>
                 <input type="text" class="form-control" name="telefone" placeholder="Digite seu telefone" required>
+
                 <label for="cpf">CPF</label>
                 <input type="text" class="form-control" name="cpf" placeholder="Digite seu CPF" required>
+
                 <label for="email">E-mail SIC-CED</label>
                 <input type="text" class="form-control" name="email" placeholder="Digite seu e-mail" required>
+
                 <label for="id_categoria">Categoria</label>
-                <select id="jurado-categoria" class="form-control" name="categoria" required>
+                <select id="jurado-categoria" class="form-control" name="categoria[]" required>
                   <option selected disabled>Selecione...</option>
                   <option value="1">I - Ensino Médio</option>
                   <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
@@ -157,7 +162,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 </select>
                 <div id="jurado-area" style="display:none;">
                   <label for="id_areas">Área</label>
-                  <select class="form-control" name="area">
+                  <select class="form-control" name="area[]">
                     <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
@@ -169,7 +174,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <!-- Área para PcD -->
                 <div id="jurado-area2" style="display:none;">
                   <label for="id_area">Área</label>
-                  <select class="form-control" name="area">
+                  <select class="form-control" name="area[]">
                     <option selected disabled>Selecione...</option>
                     <option value="6">Ensino Fundamental</option>
                     <option value="7">Ensino Médio</option>
@@ -178,7 +183,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <!-- Segunda categoria -->
                 <div class="mb-3" style="display: none;">
                   <label for="categoria_sec" class="form-label">Categoria</label>
-                  <select name="categoria_sec" id="Adicionar-sec-categoria" class="form-control">
+                  <select name="categoria[]" id="Adicionar-sec-categoria" class="form-control">
                     <option selected disabled>Selecione...</option>
                     <option value="1">I - Ensino Médio</option>
                     <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
@@ -189,7 +194,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <!-- Segunda área para categoria -->
                 <div class="mb-3" id="areajuradosec" style="display: none;">
                   <label for="area_sec" class="form-label">Área</label>
-                  <select name="area_sec" id="area1" class="form-control">
+                  <select name="area[]" id="area1" class="form-control">
                     <option selected disabled>Selecione...</option>
                     <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2">Matemática e suas Tecnologias - MT</option>
@@ -201,7 +206,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <!-- Segunda área para PcD -->
                 <div class="mb-3" id="area2juradosec" style="display: none;">
                   <label for="area_sec2" class="form-label">Área</label>
-                  <select name="area_sec2" id="area2" class="form-control">
+                  <select name="area[]" id="area2" class="form-control">
                     <option selected disabled>Selecione...</option>
                     <option value="6">Ensino Fundamental</option>
                     <option value="7">Ensino Médio</option>
@@ -217,6 +222,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
+      
       <div class="modal fade" id="modalTrabalho" tabindex="-1" aria-labelledby="modalTrabalhoLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -409,6 +415,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     </div>
   </main>
   <script>
+    
     // Sidebar
     function toggleSidebar() {
       if (window.innerWidth <= 768) {

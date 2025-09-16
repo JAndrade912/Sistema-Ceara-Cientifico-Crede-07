@@ -22,9 +22,7 @@ CREATE TABLE Jurados (
     usuario VARCHAR(45) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     cpf VARCHAR(14) NOT NULL,
-    id_contatos INT NULL,
-    id_categoria INT NULL,
-    id_area INT NULL
+    id_contatos INT NULL
 );
 
 -- Escolas
@@ -68,10 +66,10 @@ CREATE TABLE Areas (
 
 -- Relacionamento de Jurados com Categorias e Áreas
 CREATE TABLE Jurados_Categorias_Areas (
-    id_jurados INT,
-    id_categoria INT,
-    id_area INT,
-    PRIMARY KEY (id_jurados, id_categoria, id_area),
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_jurados INT NOT NULL,
+    id_categoria INT NULL,
+    id_area INT NULL,
     FOREIGN KEY (id_jurados) REFERENCES Jurados(id_jurados) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_area) REFERENCES Areas(id_area) ON DELETE CASCADE ON UPDATE CASCADE
@@ -138,22 +136,6 @@ REFERENCES Escolas(id_escolas)
 ON DELETE SET NULL
 ON UPDATE CASCADE;
 
-ALTER TABLE Jurados
-MODIFY COLUMN id_categoria INT,
-ADD CONSTRAINT fk_categoria
-FOREIGN KEY (id_categoria)
-REFERENCES Categorias(id_categoria)
-ON UPDATE CASCADE
-ON DELETE SET NULL;
-
-ALTER TABLE Jurados
-MODIFY COLUMN id_area INT,
-ADD CONSTRAINT fk_area
-FOREIGN KEY (id_area)
-REFERENCES Areas(id_area)
-ON UPDATE CASCADE
-ON DELETE SET NULL;
-
 ALTER TABLE Trabalhos
 ADD CONSTRAINT fk_trabalhos_area
 FOREIGN KEY (id_areas)
@@ -166,4 +148,25 @@ ADD CONSTRAINT fk_trabalhos_categoria
 FOREIGN KEY (id_categoria)
 REFERENCES Categorias(id_categoria)
 ON DELETE SET NULL
+ON UPDATE CASCADE;
+
+ALTER TABLE Jurados_Categorias_Areas
+ADD CONSTRAINT fk_jurados_categorias_areas_jurados
+FOREIGN KEY (id_jurados)
+REFERENCES Jurados(id_jurados)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE Jurados_Categorias_Areas
+ADD CONSTRAINT fk_jurados_categorias_areas_categorias
+FOREIGN KEY (id_categoria)
+REFERENCES Categorias(id_categoria)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE Jurados_Categorias_Areas
+ADD CONSTRAINT fk_jurados_categorias_areas_areas
+FOREIGN KEY (id_area)
+REFERENCES Areas(id_area)
+ON DELETE CASCADE
 ON UPDATE CASCADE;
