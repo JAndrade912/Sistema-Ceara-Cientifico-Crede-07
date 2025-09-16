@@ -47,22 +47,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($id_categoria) {
                 if ($id_categoria == $pesquisaJuniorId) {
-                    // Categoria é Pesquisa Júnior, área pode ser null
                     $stmtAssoc->execute([$id_jurado, $id_categoria, $id_area]);
                 } else {
-                    // Categoria diferente de Pesquisa Júnior, área obrigatória
                     if ($id_area) {
                         $stmtAssoc->execute([$id_jurado, $id_categoria, $id_area]);
                     } else {
-                        // Aqui pode lançar erro, ou ignorar, depende do que deseja
-                        // Exemplo de erro:
                         throw new Exception("Área é obrigatória para categoria diferente de Pesquisa Júnior.");
                     }
                 }
             }
         }
-
-
         $pdo->commit();
         header('Location: ../html/admin-dashboard.php?msg=sucesso');
         exit();

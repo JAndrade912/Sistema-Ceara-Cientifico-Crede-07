@@ -170,3 +170,10 @@ FOREIGN KEY (id_area)
 REFERENCES Areas(id_area)
 ON DELETE CASCADE
 ON UPDATE CASCADE;
+
+SELECT 
+id_jurados,
+GROUP_CONCAT(id_categoria ORDER BY id_categoria SEPARATOR ', ') AS categorias,
+GROUP_CONCAT(id_area ORDER BY id_area SEPARATOR ', ') AS areas
+FROM Jurados_Categorias_Areas
+GROUP BY id_jurados;
