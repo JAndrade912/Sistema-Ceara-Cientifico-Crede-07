@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $observacoes = $_POST['observacoes'] ?? '.';
     $id_escolas = $_POST['escola'] ?? null;
     $id_jurados = $_POST['id_jurados'] ?? null;
-    $id_area = $_POST['area'] ?? null;
+    $id_area = $_POST['area'];
     $id_categoria = $_POST['categoria'] ?? null;
     try {
         $pdo->beginTransaction();
