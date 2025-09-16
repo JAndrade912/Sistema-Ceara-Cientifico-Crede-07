@@ -8,19 +8,29 @@ include_once("../php/Connect.php");
 
 
 $sql = "SELECT 
-    j.id_jurados,
-    j.nome,
-    j.usuario,
-    j.senha,
-    j.cpf,
-    c.nome_categoria,
-    a.nome_area,
-    co.telefone,
-    co.email
+j.id_jurados, 
+j.nome, 
+j.usuario, 
+j.senha, 
+j.cpf,
+GROUP_CONCAT(DISTINCT c.nome_categoria ORDER BY c.nome_categoria SEPARATOR ', ') AS categorias,
+GROUP_CONCAT(DISTINCT a.nome_area ORDER BY a.nome_area SEPARATOR ', ') AS areas, 
+co.email, 
+co.telefone
 FROM Jurados j
 LEFT JOIN Contatos co ON j.id_contatos = co.id_contatos
-LEFT JOIN Categorias c ON j.id_categoria = c.id_categoria
-LEFT JOIN Areas a ON j.id_area = a.id_area;";
+LEFT JOIN Jurados_Categorias_Areas jca ON j.id_jurados = jca.id_jurados
+LEFT JOIN Categorias c ON jca.id_categoria = c.id_categoria
+LEFT JOIN Areas a ON jca.id_area = a.id_area
+GROUP BY 
+    j.id_jurados, 
+    j.nome, 
+    j.usuario, 
+    j.senha, 
+    j.cpf, 
+    co.email, 
+    co.telefone;
+";
 $result = $pdo->query($sql);
 ?>
 <!DOCTYPE html>
@@ -42,7 +52,7 @@ $result = $pdo->query($sql);
 <body>
   <div id="overlay" onclick="closeMobileSidebar()"></div>
   <button id="mobile-toggle" onclick="toggleSidebar()">
-   <i><img src="../assets/img/menu.png"></i>
+    <i><img src="../assets/img/menu.png"></i>
   </button>
   <div id="sidebar" style="background-color: #4C8F5A;">
     <div>
@@ -76,30 +86,49 @@ $result = $pdo->query($sql);
           <th>CPF</th>
           <th>E-mail</th>
           <th>Contato</th>
-          <th>Categoria</th>
-          <th>Área</th>
+          <th>Categoria 1</th>
+          <th>Categoria 2</th>
+          <th>Área 1</th>
+          <th>Área 2</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
         <?php
-        while($user_data = $result -> fetch(PDO::FETCH_ASSOC)){
-        echo '<tr>';
-        echo '<td>' . $user_data['nome'] . '</td>';
-        echo '<td>' . $user_data['usuario'] . '</td>'; 
-        echo '<td>'. $user_data['senha'] . '</td>';
-        echo '<td>' . $user_data['cpf'] . '</td>';
-        echo '<td>' . $user_data['email'] . '</td>';
-        echo '<td>' . $user_data['telefone'] . '</td>';
-        echo '<td>' . $user_data['nome_categoria'] . '</td>';
-        echo '<td>' . $user_data['nome_area'] . '</td>';
-        echo '<td>'; 
-        echo '<a href="../php/Editajurados.php?id=' . $user_data['id_jurados'] . '"><img src="../assets/img/editar.png" alt="Editar"></a>';
-        echo '<a href="../php/Excluirjurados.php?id=' . $user_data['id_jurados'] . '"><img src="../assets/img/deletar.png" alt="Deletar"></a>';
-        echo '</td>';
-        echo '</tr>';
+        while ($user_data = $result->fetch(PDO::FETCH_ASSOC)) {
+          $categorias = explode(', ', $user_data['categorias'] ?? '');
+          $areas = explode(', ', $user_data['areas'] ?? '');
 
-      }
+          echo '<tr>';
+          echo '<td>' . htmlspecialchars($user_data['nome']) . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['usuario']) . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['senha']) . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['cpf']) . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['email']) . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['telefone']) . '</td>';
+
+          // Categorias - duas linhas dentro da mesma célula
+          echo '<td>';
+          echo isset($categorias[0]) ? htmlspecialchars($categorias[0]) : '';
+          echo '</td>';
+          echo'<td>';
+          echo isset($categorias[1]) ? htmlspecialchars($categorias[1]) : '';
+          echo '</td>';
+
+          // Áreas - duas linhas dentro da mesma célula
+          echo '<td>';
+          echo isset($areas[0]) ? htmlspecialchars($areas[0]) : '';
+          echo '</td>';
+          echo '<td>';
+          echo isset($areas[1]) ? htmlspecialchars($areas[1]) : '';
+          echo '</td>';
+
+          echo '<td>';
+          echo '<a href="../php/Editajurados.php?id=' . urlencode($user_data['id_jurados']) . '"><img src="../assets/img/editar.png" alt="Editar"></a> ';
+          echo '<a href="../php/Excluirjurados.php?id=' . urlencode($user_data['id_jurados']) . '"><img src="../assets/img/deletar.png" alt="Deletar"></a>';
+          echo '</td>';
+          echo '</tr>';
+        }
         ?>
       </tbody>
     </table>
@@ -128,4 +157,5 @@ $result = $pdo->query($sql);
     });
   </script>
 </body>
+
 </html>
