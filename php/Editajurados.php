@@ -122,8 +122,6 @@ if (isset($categoriasAreas[1])) {
                 </select>
             </div>
 
-            <hr>
-
             <!-- Categoria 2 -->
             <label for="categoria2">Categoria 2</label>
             <select id="categoria2" class="form-control" name="categoria2">
