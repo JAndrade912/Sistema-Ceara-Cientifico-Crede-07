@@ -107,7 +107,6 @@ $result = $pdo->query($sql);
           echo '<td>' . htmlspecialchars($user_data['email']) . '</td>';
           echo '<td>' . htmlspecialchars($user_data['telefone']) . '</td>';
 
-          // Categorias - duas linhas dentro da mesma célula
           echo '<td>';
           echo isset($categorias[0]) ? htmlspecialchars($categorias[0]) : '';
           echo '</td>';
@@ -115,7 +114,6 @@ $result = $pdo->query($sql);
           echo isset($categorias[1]) ? htmlspecialchars($categorias[1]) : '';
           echo '</td>';
 
-          // Áreas - duas linhas dentro da mesma célula
           echo '<td>';
           echo isset($areas[0]) ? htmlspecialchars($areas[0]) : '';
           echo '</td>';

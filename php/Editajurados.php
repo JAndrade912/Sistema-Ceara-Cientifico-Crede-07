@@ -11,26 +11,44 @@ if (!$id) {
 $stmt = $pdo->prepare("SELECT 
     j.id_jurados,
     j.nome,
-    j.usuario,
     j.cpf,
-    j.id_categoria AS id_categoria,
-    j.id_area AS id_area,
-    c.nome_categoria,
-    a.nome_area,
     co.telefone,
     co.email
-FROM Jurados j
-LEFT JOIN Contatos co ON j.id_contatos = co.id_contatos
-LEFT JOIN Categorias c ON j.id_categoria = c.id_categoria
-LEFT JOIN Areas a ON j.id_area = a.id_area
-WHERE j.id_jurados = ?");
+    FROM Jurados j
+    LEFT JOIN Contatos co ON j.id_contatos = co.id_contatos
+    WHERE j.id_jurados = ?
+    ");
 
 $stmt->execute([$id]);
 $jurado = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$stmt2 = $pdo->prepare("SELECT 
+    id_categoria, 
+    id_area
+    FROM Jurados_Categorias_Areas
+    WHERE id_jurados = ?
+    ");
+
+$stmt2->execute([$id]);
+$categoriasAreas = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
 if (!$jurado) {
     echo 'Jurado não encontrado!';
 }
+
+$categoria1 = $categoria2 = null;
+$area1 = $area2 = null;
+
+if (isset($categoriasAreas[0])) {
+    $categoria1 = $categoriasAreas[0]['id_categoria'];
+    $area1 = $categoriasAreas[0]['id_area'];
+}
+
+if (isset($categoriasAreas[1])) {
+    $categoria2 = $categoriasAreas[1]['id_categoria'];
+    $area2 = $categoriasAreas[1]['id_area'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -79,45 +97,54 @@ if (!$jurado) {
             <input type="text" class="form-control" name="email"
                 placeholder="Digite seu e-mail"
                 value="<?= htmlspecialchars($jurado['email'] ?? '') ?>" required>
-            <label for="id_categoria">Categoria</label>
-            <select id="jurado-categoria" class="form-control" name="categoria" required>
-                <option disabled <?= !isset($jurado['id_categoria']) ? 'selected' : '' ?>>Selecione...</option>
-                <option value="1" <?= ($jurado['id_categoria'] ?? '') == 1 ? 'selected' : '' ?>>I - Ensino Médio</option>
-                <option value="2" <?= ($jurado['id_categoria'] ?? '') == 2 ? 'selected' : '' ?>>II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                <option value="3" <?= ($jurado['id_categoria'] ?? '') == 3 ? 'selected' : '' ?>>III - Pesquisa Júnior</option>
-                <option value="4" <?= ($jurado['id_categoria'] ?? '') == 4 ? 'selected' : '' ?>>IV - PcD</option>
+
+            <!-- Categoria 1 -->
+            <label for="categoria1">Categoria 1</label>
+            <select id="categoria1" class="form-control" name="categoria1" required>
+                <option disabled <?= !isset($categoria1) ? 'selected' : '' ?>>Selecione...</option>
+                <option value="1" <?= $categoria1 == 1 ? 'selected' : '' ?>>I - Ensino Médio</option>
+                <option value="2" <?= $categoria1 == 2 ? 'selected' : '' ?>>II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="3" <?= $categoria1 == 3 ? 'selected' : '' ?>>III - Pesquisa Júnior</option>
+                <option value="4" <?= $categoria1 == 4 ? 'selected' : '' ?>>IV - PcD</option>
             </select>
 
-            <div id="jurado-area" style="display:none;">
-                <label for="id_areas">Área</label>
+            <div id="area1-container" style="display:none;">
+                <label for="area1">Área 1</label>
                 <select class="form-control" name="area1">
-                    <option disabled <?= !isset($jurado['id_area']) || ($jurado['id_area'] < 1 || $jurado['id_area'] > 5) ? 'selected' : '' ?>>Selecione...</option>
-                    <option value="1" <?= ($jurado['id_area'] ?? '') == 1 ? 'selected' : '' ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
-                    <option value="2" <?= ($jurado['id_area'] ?? '') == 2 ? 'selected' : '' ?>>Matemática e suas Tecnologias - MT</option>
-                    <option value="3" <?= ($jurado['id_area'] ?? '') == 3 ? 'selected' : '' ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                    <option value="4" <?= ($jurado['id_area'] ?? '') == 4 ? 'selected' : '' ?>>Ciências Humanas e Sociais Aplicadas - CH</option>
-                    <option value="5" <?= ($jurado['id_area'] ?? '') == 5 ? 'selected' : '' ?>>Robótica, Automação e Aplicação das TIC</option>
+                    <option disabled <?= !isset($area1) ? 'selected' : '' ?>>Selecione...</option>
+                    <option value="1" <?= $area1 == 1 ? 'selected' : '' ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2" <?= $area1 == 2 ? 'selected' : '' ?>>Matemática e suas Tecnologias - MT</option>
+                    <option value="3" <?= $area1 == 3 ? 'selected' : '' ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4" <?= $area1 == 4 ? 'selected' : '' ?>>Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5" <?= $area1 == 5 ? 'selected' : '' ?>>Robótica, Automação e Aplicação das TIC</option>
+                    <option value="6" <?= $area1 == 6 ? 'selected' : '' ?>>Ensino Fundamental</option>
+                    <option value="7" <?= $area1 == 7 ? 'selected' : '' ?>>Ensino Médio</option>
                 </select>
             </div>
 
-            <div id="jurado-area" style="display:none;">
-                <label for="id_areas">Área</label>
-                <select class="form-control" name="area1">
-                    <option disabled <?= !isset($jurado['id_area']) || ($jurado['id_area'] < 1 || $jurado['id_area'] > 5) ? 'selected' : '' ?>>Selecione...</option>
-                    <option value="1" <?= ($jurado['id_area'] ?? '') == 1 ? 'selected' : '' ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
-                    <option value="2" <?= ($jurado['id_area'] ?? '') == 2 ? 'selected' : '' ?>>Matemática e suas Tecnologias - MT</option>
-                    <option value="3" <?= ($jurado['id_area'] ?? '') == 3 ? 'selected' : '' ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                    <option value="4" <?= ($jurado['id_area'] ?? '') == 4 ? 'selected' : '' ?>>Ciências Humanas e Sociais Aplicadas - CH</option>
-                    <option value="5" <?= ($jurado['id_area'] ?? '') == 5 ? 'selected' : '' ?>>Robótica, Automação e Aplicação das TIC</option>
-                </select>
-            </div>
+            <hr>
 
-            <div id="jurado-area2" style="display:none;">
-                <label for="id_area">Área</label>
+            <!-- Categoria 2 -->
+            <label for="categoria2">Categoria 2</label>
+            <select id="categoria2" class="form-control" name="categoria2">
+                <option value="" <?= !$categoria2 ? 'selected' : '' ?>>Nenhuma</option>
+                <option value="1" <?= $categoria2 == 1 ? 'selected' : '' ?>>I - Ensino Médio</option>
+                <option value="2" <?= $categoria2 == 2 ? 'selected' : '' ?>>II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                <option value="3" <?= $categoria2 == 3 ? 'selected' : '' ?>>III - Pesquisa Júnior</option>
+                <option value="4" <?= $categoria2 == 4 ? 'selected' : '' ?>>IV - PcD</option>
+            </select>
+
+            <div id="area2-container" style="display:none;">
+                <label for="area2">Área 2</label>
                 <select class="form-control" name="area2">
-                    <option disabled <?= !isset($jurado['id_area']) || ($jurado['id_area'] < 6 || $jurado['id_area'] > 7) ? 'selected' : '' ?>>Selecione...</option>
-                    <option value="6" <?= ($jurado['id_area'] ?? '') == 6 ? 'selected' : '' ?>>Ensino Fundamental</option>
-                    <option value="7" <?= ($jurado['id_area'] ?? '') == 7 ? 'selected' : '' ?>>Ensino Médio</option>
+                    <option disabled <?= !isset($area2) ? 'selected' : '' ?>>Selecione...</option>
+                    <option value="1" <?= $area2 == 1 ? 'selected' : '' ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2" <?= $area2 == 2 ? 'selected' : '' ?>>Matemática e suas Tecnologias - MT</option>
+                    <option value="3" <?= $area2 == 3 ? 'selected' : '' ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4" <?= $area2 == 4 ? 'selected' : '' ?>>Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5" <?= $area2 == 5 ? 'selected' : '' ?>>Robótica, Automação e Aplicação das TIC</option>
+                    <option value="6" <?= $area2 == 6 ? 'selected' : '' ?>>Ensino Fundamental</option>
+                    <option value="7" <?= $area2 == 7 ? 'selected' : '' ?>>Ensino Médio</option>
                 </select>
             </div>
 
@@ -179,36 +206,53 @@ if (!$jurado) {
             $('#trabalhojurado').slideDown();
         });
         $('#idCadJurado').submit(function(e) {
-    var categoria = $('#jurado-categoria').val();
-    var area = null;
+            var categoria = $('#jurado-categoria').val();
+            var area = null;
 
-    if (categoria === '1' || categoria === '2') {
-        area = $('select[name="area1"]').val();
-    } else if (categoria === '4') {
-        area = $('select[name="area2"]').val();
-    } else if (categoria === '3') {
-        // Pesquisa Júnior - não tem área, então area fica null
-        area = null;
-    }
+            if (categoria === '1' || categoria === '2') {
+                area = $('select[name="area1"]').val();
+            } else if (categoria === '4') {
+                area = $('select[name="area2"]').val();
+            } else if (categoria === '3') {
+                // Pesquisa Júnior - não tem área, então area fica null
+                area = null;
+            }
 
-    if ((categoria === '1' || categoria === '2' || categoria === '4') && !area) {
-        e.preventDefault();
-        alert('Por favor, selecione uma área para essa categoria.');
-        return false;
-    }
+            if ((categoria === '1' || categoria === '2' || categoria === '4') && !area) {
+                e.preventDefault();
+                alert('Por favor, selecione uma área para essa categoria.');
+                return false;
+            }
 
-    $('#area-hidden').remove();
+            $('#area-hidden').remove();
 
-    if (area !== null) {
-        $('<input>').attr({
-            type: 'hidden',
-            id: 'area-hidden',
-            name: 'area',
-            value: area
-        }).appendTo('#idCadJurado');
-    }
-});
+            if (area !== null) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    id: 'area-hidden',
+                    name: 'area',
+                    value: area
+                }).appendTo('#idCadJurado');
+            }
+        });
 
+        function toggleArea(categoriaId, areaContainerId) {
+            const categoria = $(`#${categoriaId}`).val();
+            // Usar == para comparar valor mesmo que tipo diferente
+            if (categoria == "1" || categoria == "2" || categoria == "4") {
+                $(`#${areaContainerId}`).slideDown();
+            } else {
+                $(`#${areaContainerId}`).slideUp();
+            }
+        }
+
+        $(document).ready(function() {
+            toggleArea("categoria1", "area1-container");
+            toggleArea("categoria2", "area2-container");
+
+            $("#categoria1").change(() => toggleArea("categoria1", "area1-container"));
+            $("#categoria2").change(() => toggleArea("categoria2", "area2-container"));
+        });
     </script>
 </body>
 
