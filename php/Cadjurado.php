@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         function gerarUsuario($tamanho = 6)
         {
-            $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $caracteres = '0123456789';
             return substr(str_shuffle(str_repeat($caracteres, $tamanho)), 0, $tamanho);
         }
 
