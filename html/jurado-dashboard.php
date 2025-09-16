@@ -90,47 +90,47 @@ $userName = $_SESSION['usuario'];
                 <tbody>
                   <tr>
                     <td><b>Criatividade e Inovação</b></td>
-                    <td><input type="number" class="form-control" min="0" max="10" step="0.1" required /></td>
+                    <td><input type="number" class="form-control" min="0" max="10"  required /></td>
                     <td><input type="text" class="form-control" name="comentario1" ></td>
                   </tr>
                   <tr>
                     <td><b>Relevância da pesquisa</b></td>
-                    <td><input type="number" class="form-control" name="criterio2" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio2" min="0" max="10"  required></td>
                     <td><input type="text" class="form-control" name="comentario2" ></td>
                   </tr>
                   <tr>
                     <td><b>Conhecimento científico fundamentado e contextualização do problema abordado</b></td>
-                    <td><input type="number" class="form-control" name="criterio3" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio3" min="0" max="10"  required></td>
                     <td><input type="text" class="form-control" name="comentario3" ></td>
                   </tr>
                   <tr>
                     <td><b>Impacto para a construção de uma sociedade que promova os saberes científicos em tempos de crise climática global</b></td>
-                    <td><input type="number" class="form-control" name="criterio4" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio4" min="0" max="10"  required></td>
                     <td><input type="text" class="form-control" name="comentario4" ></td>
                   </tr>
                   <tr>
                     <td><b>Metodologia científica conectada com os objetivos, resultados e conclusões</b></td>
-                    <td><input type="number" class="form-control" name="criterio5" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio5" min="0" max="10"  required></td>
                     <td><input type="text" class="form-control" name="comentario5" ></td>
                   </tr>
                   <tr>
                     <td><b>Clareza e objetividade na linguagem apresentada</b></td>
-                    <td><input type="number" class="form-control" name="criterio6" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio6" min="0" max="10"required></td>
                     <td><input type="text" class="form-control" name="comentario6" ></td>
                   </tr>
                   <tr>
                     <td><b>Banner</b></td>
-                    <td><input type="number" class="form-control" name="criterio7" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio7" min="0" max="10" required></td>
                     <td><input type="text" class="form-control" name="comentario7" ></td>
                   </tr>
                   <tr>
                     <td><b>Caderno de campo</b></td>
-                    <td><input type="number" class="form-control" name="criterio8" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio8" min="0" max="10" required></td>
                     <td><input type="text" class="form-control" name="comentario8" ></td>
                   </tr>
                   <tr>
                     <td><b>Processo participativo e solidário</b></td>
-                    <td><input type="number" class="form-control" name="criterio9" min="0" max="10" step="0.1" required></td>
+                    <td><input type="number" class="form-control" name="criterio9" min="0" max="10" required></td>
                     <td><input type="text" class="form-control" name="comentario9" ></td>
                   </tr>
                 </tbody>
@@ -161,11 +161,16 @@ $userName = $_SESSION['usuario'];
         let numero = parseFloat(valor);
 
         if (!isNaN(numero)) {
-          if (numero > 10) numero = 10;
-          if (numero < 0) numero = 0;
+          if (numero > 10) {
+            alert('Nota máxima é 10')
+          }
+
+          if (numero < 0) {
+            alert('Nota mínima é 0')
+          }
 
           // Formata para 1 casa decimal
-          input.value = numero.toFixed(1);
+          input.value = numero.toFixed(2);
         } else {
           input.value = '';
         }

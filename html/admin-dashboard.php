@@ -449,16 +449,18 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             <!-- TABELA DO RANKING PRELIMINAR QUE EXIBE OS TRABALHOS POR FILTRO -->
             <div class="table-responsive mt-3">
               <table class="table table-hover">
-                <thead>
+                <thead class="text-center">
                   <tr>
                     <th>Título</th>
                     <th>Escola</th>
                     <th>Categoria</th>
                     <th>Área</th>
-                    <th>Nota</th>
+                    <th>Jurado 1</th>
+                    <th>Jurado 2</th>
+                    <th>Nota Final</th>
                   </tr>
                 </thead>
-                <tbody id="ranking-tbody">
+                <tbody id="ranking-tbody" class="text-center">
                   <?php
                   if ($stmt->rowCount() > 0) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -468,10 +470,12 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                       echo '<td>' . htmlspecialchars($row['nome_categoria']) . '</td>';
                       echo '<td>' . htmlspecialchars($row['nome_area'] ?? '') . '</td>';
                       echo '<td>-</td>';
+                      echo '<td>-</td>';
+                      echo '<td>-</td>';
                       echo '</tr>';
                     }
                   } else {
-                    echo '<tr><td colspan="5" class="text-center">Nenhum resultado encontrado</td></tr>';
+                    echo '<tr><td colspan="7" class="text-center">Nenhum resultado encontrado</td></tr>';
                   }
                   ?>
                 </tbody>
@@ -576,8 +580,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
       $('#trabalhojurado').slideDown();
     });
 
-
-    // Selecionar todos os checkboxes ao clicar no botão
     $('#selecionar-todos').click(function () {
       const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
       const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
