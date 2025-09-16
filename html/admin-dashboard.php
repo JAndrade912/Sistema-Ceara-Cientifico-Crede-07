@@ -31,7 +31,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -60,15 +59,21 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         <span class="brand-text">SACC</span>
       </button>
       <ul class="nav flex-column">
-        <li><a href="admin-dashboard.php"><i><img src="../assets/img/dashboard.png" class="dashboard"></i> <span class="label-text">Dashboard</span></a></li>
-        <li><a href="admin-escolas.php"><i><img src="../assets/img/escola.png" class="escola"></i> <span class="label-text">Escolas</span></a></li>
-        <li><a href="admin-trabalhos.php"><i><img src="../assets/img/trabalho.png" class="trabalho"></i> <span class="label-text">Trabalhos</span></a></li>
-        <li><a href="admin-jurados.php"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span class="label-text">Jurados</span></a></li>
-        <li><a href="admin-relatorios.html"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span class="label-text">Relatórios</span></a></li>
+        <li><a href="admin-dashboard.php"><i><img src="../assets/img/dashboard.png" class="dashboard"></i> <span
+              class="label-text">Dashboard</span></a></li>
+        <li><a href="admin-escolas.php"><i><img src="../assets/img/escola.png" class="escola"></i> <span
+              class="label-text">Escolas</span></a></li>
+        <li><a href="admin-trabalhos.php"><i><img src="../assets/img/trabalho.png" class="trabalho"></i> <span
+              class="label-text">Trabalhos</span></a></li>
+        <li><a href="admin-jurados.php"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span
+              class="label-text">Jurados</span></a></li>
+        <li><a href="admin-relatorios.html"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span
+              class="label-text">Relatórios</span></a></li>
       </ul>
     </div>
     <ul class="nav flex-column bottom-nav">
-      <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
+      <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span
+            class="label-text">Sair</span></a></li>
     </ul>
   </div>
   <main id="main">
@@ -77,13 +82,18 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
       <p class="text-muted">Escolha uma das opções abaixo para realizar cadastros:</p>
       <div class="row text-center mb-4">
         <div class="col">
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalInstituicao" style="background-color: #4C8F5A;">Cadastrar Instituição</button>
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado" style="background-color: #4C8F5A;">Cadastrar Jurado</button>
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalTrabalho" style="background-color: #4C8F5A;">Cadastrar Trabalho</button>
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAssociacao" style="background-color: #4C8F5A;">Associar Jurado</button>
+          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalInstituicao"
+            style="background-color: #4C8F5A;">Cadastrar Instituição</button>
+          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado"
+            style="background-color: #4C8F5A;">Cadastrar Jurado</button>
+          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalTrabalho"
+            style="background-color: #4C8F5A;">Cadastrar Trabalho</button>
+          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAssociacao"
+            style="background-color: #4C8F5A;">Associar Jurado</button>
         </div>
       </div>
-      <div class="modal fade" id="modalInstituicao" tabindex="-1" aria-labelledby="modalInstituicaoLabel" aria-hidden="true">
+      <div class="modal fade" id="modalInstituicao" tabindex="-1" aria-labelledby="modalInstituicaoLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -93,7 +103,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             <div class="modal-body">
               <form method="POST" action="../php/Cadescola.php" id="idCadEscola">
                 <label for="instituicao-nome" class="form-label">Nome da Instituição</label>
-                <input type="text" id="instituicao-nome" class="form-control" name="nome" placeholder="Digite o nome da instituição" required>
+                <input type="text" id="instituicao-nome" class="form-control" name="nome"
+                  placeholder="Digite o nome da instituição" required>
 
                 <label for="instituicao-localidade" class="form-label mt-2">Localidade</label>
                 <select id="instituicao-localidade" class="form-control" name="municipio">
@@ -213,7 +224,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   </select>
                 </div>
                 <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px; float: left;">
-                <button type="button" class="btn btn-success" id="adicionar-categoria-btn" style="background-color: #2071b4ff; float:right; margin-top:10px;">Adicionar Categoria</button>
+                <button type="button" class="btn btn-success" id="adicionar-categoria-btn"
+                  style="background-color: #2071b4ff; float:right; margin-top:10px;">Adicionar Categoria</button>
               </form>
             </div>
             <div class="modal-footer">
@@ -253,6 +265,10 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <?php endforeach; ?>
                 </select>
                 <div id="trabalho-area" style="display:none;">
+                  <?php
+                  require_once '../php/Connect.php';
+                  $stmt = $pdo->query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
+                  ?>
                   <label>Área</label>
                   <select name="area" class="form-control">
                     <option selected disabled>Selecione...</option>
@@ -280,7 +296,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
-      <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel" aria-hidden="true">
+      <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -330,9 +347,10 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <table class="table table-hover">
                     <tbody id="trabalho-tbody">
                     </tbody>
-                    
+
                   </table>
-                  <button type="button" class="btn btn-sm btn-primary mb-2" id="selecionar-todos">Selecionar Todos</button>
+                  <button type="button" class="btn btn-sm btn-primary mb-2" id="selecionar-todos">Selecionar
+                    Todos</button>
                 </div>
                 <input type="submit" value="Enviar" class="btn btn-success mt-3">
               </form>
@@ -366,6 +384,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
+      <!-- RANKING PRELIMINAR ÁREA -->
       <div class="row">
         <div class="col-12">
           <div class="ranking-box mt-4">
@@ -373,40 +392,89 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             <div class="row mt-3">
               <div class="col-sm-6">
                 <label>Categoria</label>
-                <select id="ranking-categoria" class="form-control">
-                  <option selected>-- Selecione a Categoria --</option>
-                  <option value="I">I - Ensino Médio</option>
-                  <option value="II">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                  <option value="III">III - Pesquisa Júnior</option>
-                  <option value="IV">IV - PcD</option>
+                <select id="ranking-categoria" class="form-control" name="categoria">
+                  <option selected value="">-- Selecione a Categoria --</option>
+                  <option value="1">I - Ensino Médio</option>
+                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                  <option value="3">III - Pesquisa Júnior</option>
+                  <option value="4">IV - PcD</option>
                 </select>
+                <?php
+                require_once '../php/Connect.php';
+
+                $categoria = $_POST['categoria'] ?? null;
+                $area = $_POST['area'] ?? null;
+
+                $sql = "SELECT 
+            t.titulo, 
+            e.nome AS escola, 
+            c.nome_categoria, 
+            a.nome_area
+        FROM Trabalhos t
+        LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
+        LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
+        LEFT JOIN Areas a ON t.id_areas = a.id_area
+        WHERE 1=1 
+        ORDER BY t.id_trabalhos DESC";
+
+
+                $params = [];
+
+                if (!empty($categoria)) {
+                  $sql .= " AND t.id_categoria = :categoria";
+                  $params[':categoria'] = $categoria;
+                }
+                if (!empty($area)) {
+                  $sql .= " AND t.id_areas = :area";
+                  $params[':area'] = $area;
+                }
+
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute($params);
+
+                ?>
               </div>
               <div class="col-sm-6">
                 <label>Área</label>
-                <select id="ranking-area" class="form-control" disabled>
-                  <option selected>-- Primeiro selecione a categoria --</option>
+                <select id="ranking-area" class="form-control">
+                  <option value="">-- Selecione a Área --</option>
+                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
+                  <option value="2">Matemática e suas Tecnologias - MT</option>
+                  <option value="3">Ciências da Natureza - CN</option>
+                  <option value="4">Educação Ambiental e Engenharias - CH</option>
+                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
                 </select>
               </div>
             </div>
+            <!-- TABELA DO RANKING PRELIMINAR QUE EXIBE OS TRABALHOS POR FILTRO -->
             <div class="table-responsive mt-3">
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th style="text-align: center;">Classificação</th>
-                    <th style="text-align: center;">Trabalho</th>
-                    <th style="text-align: center;">Escola</th>
-                    <th style="text-align: center;">-</th>
-                    <th style="text-align: center;">-</th>
-                    <th style="text-align: center;">Nota Final</th>
+                    <th>Título</th>
+                    <th>Escola</th>
+                    <th>Categoria</th>
+                    <th>Área</th>
+                    <th>Nota</th>
                   </tr>
                 </thead>
                 <tbody id="ranking-tbody">
-                  <tr>
-                    <td colspan="6" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td>
-                  </tr>
-                  
+                  <?php
+                  if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                      echo '<tr>';
+                      echo '<td>' . htmlspecialchars($row['titulo'] ?? '') . '</td>';
+                      echo '<td>' . htmlspecialchars($row['escola'] ?? '') . '</td>';
+                      echo '<td>' . htmlspecialchars($row['nome_categoria']) . '</td>';
+                      echo '<td>' . htmlspecialchars($row['nome_area'] ?? '') . '</td>';
+                      echo '<td>-</td>';
+                      echo '</tr>';
+                    }
+                  } else {
+                    echo '<tr><td colspan="5" class="text-center">Nenhum resultado encontrado</td></tr>';
+                  }
+                  ?>
                 </tbody>
-                
               </table>
             </div>
           </div>
@@ -431,17 +499,17 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
       $('#sidebar').removeClass('mobile-open');
       $('#overlay').removeClass('show');
     }
-    $(window).on('resize', function() {
+    $(window).on('resize', function () {
       if (window.innerWidth > 768) {
         $('#sidebar').removeClass('mobile-open');
         $('#overlay').removeClass('show');
       }
     });
-    $('#instituicao-tipo').change(function() {
-      ($(this).val() === '1') ? $('#campo-ide').slideDown(): $('#campo-ide').slideUp();
+    $('#instituicao-tipo').change(function () {
+      ($(this).val() === '1') ? $('#campo-ide').slideDown() : $('#campo-ide').slideUp();
     });
 
-    $('#trabalho-categoria').change(function() {
+    $('#trabalho-categoria').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#trabalho-area').slideDown();
@@ -453,7 +521,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#trabalho-area, #trabalho-area2').slideUp();
       }
     });
-    $('#jurado-categoria').change(function() {
+    $('#jurado-categoria').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#jurado-area').slideDown();
@@ -465,7 +533,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#jurado-area, #jurado-area2').slideUp();
       }
     });
-    $('#adicionar-categoria-btn').click(function(event) {
+    $('#adicionar-categoria-btn').click(function (event) {
       event.preventDefault();
       var container = $('#Adicionar-sec-categoria').parent();
       if (container.is(':visible')) {
@@ -476,7 +544,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         container.slideDown();
       }
     });
-    $('#Adicionar-sec-categoria').change(function() {
+    $('#Adicionar-sec-categoria').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#areajuradosec').slideDown();
@@ -488,7 +556,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#areajuradosec, #area2juradosec').slideUp();
       }
     });
-    $('#associar-categoria').change(function() {
+    $('#associar-categoria').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#areajurado').slideDown();
@@ -501,81 +569,28 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#areajurado, #area2jurado').slideUp();
       }
     });
-    $('#area1, #area2').change(function() {
+    $('#area1, #area2').change(function () {
       $('#atribuir-jurado').slideDown();
     });
-    $('#atribuir-jurado').change(function() {
+    $('#atribuir-jurado').change(function () {
       $('#trabalhojurado').slideDown();
     });
-    // Ranking dinâmica
-    const rankingAreas = {
-     "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-     "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-     "III": [],
-    "IV": ["Ensino Fundamental", "Ensino Médio"]
-    };
 
-    $('#ranking-categoria').on('change', function() {
-     const cat = $(this).val();
-     const areaSel = $('#ranking-area');
-    
-      // Limpa a tabela e o menu de área se a opção padrão for selecionada
-      if (cat === "-- Selecione a Categoria --") {
-        areaSel.empty();
-        areaSel.append('<option selected disabled>-- Primeiro selecione a categoria --</option>');
-        areaSel.prop('disabled', true);
-        $('#ranking-tbody').html('<tr><td colspan="6" class="text-center text-muted">Selecione Categoria e Área para visualizar o ranking</td></tr>');
-        return; // Sai da função para não executar o restante do código
-      }
-
-    // A partir daqui, o código que você já tinha
-       areaSel.empty();
-        if (cat && rankingAreas[cat].length > 0) {
-         areaSel.append('<option selected disabled>-- Selecione a Área --</option>');
-         rankingAreas[cat].forEach(a => areaSel.append('<option>' + a + '</option>'));
-         areaSel.prop('disabled', false);
-        $('#ranking-tbody').html('<tr><td colspan="6" class="text-center text-muted">Selecione a Área para visualizar o ranking</td></tr>');
-        } else {
-         areaSel.append('<option selected>-- Sem área --</option>');
-         areaSel.prop('disabled', true);
-        $('#ranking-tbody').html(  
-            '<tr style="text-align: center;"><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
-            '<tr style="text-align: center;"><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
-            '<tr style="text-align: center;"><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
-        );
-       }
-     });
-
-        $('#ranking-area').on('change', function() {
-        $('#ranking-tbody').html(  
-        '<tr style="text-align: center;"><td>1º</td><td>Trabalho A</td><td>Escola X</td><td>95</td><td>95</td><td>95</td></tr>' +
-        '<tr style="text-align: center;"><td>2º</td><td>Trabalho B</td><td>Escola Y</td><td>92</td><td>95</td><td>95</td></tr>' +
-        '<tr style="text-align: center;"><td>3º</td><td>Trabalho C</td><td>Escola Z</td><td>90</td><td>95</td><td>95</td></tr>'
-       );
-      });
-      $('#atribuir-jurado').on('change', function() {
-       $('#trabalho-tbody').html(
-        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
-        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
-        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
-        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>' +
-        '<tr style="text-align: center;"><td><input type="checkbox" class="check-trabalho"></td><td>Ecosync</td><td>E.E.E.P. JOSÉ VIDAL ALVES</td>'
-      );
-    });
 
     // Selecionar todos os checkboxes ao clicar no botão
-    $('#selecionar-todos').click(function() {
-    const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
-    const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
+    $('#selecionar-todos').click(function () {
+      const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
+      const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
 
-    if (todosSelecionados) {
-    checkboxes.prop('checked', false);
-    $(this).text('Selecionar Todos');
-    } else {
-    checkboxes.prop('checked', true);
-    $(this).text('Desmarcar Todos');
-   }
-  });
+      if (todosSelecionados) {
+        checkboxes.prop('checked', false);
+        $(this).text('Selecionar Todos');
+      } else {
+        checkboxes.prop('checked', true);
+        $(this).text('Desmarcar Todos');
+      }
+    });
   </script>
 </body>
+
 </html>
