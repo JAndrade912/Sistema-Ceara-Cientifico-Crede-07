@@ -281,10 +281,10 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 </div>
                 <div id="trabalho-area2" style="display:none;">
                   <label>Área</label>
-                  <select class="form-control">
+                  <select name="area" class="form-control">
                     <option selected disabled>Selecione...</option>
-                    <option value="1">Ensino Fundamental</option>
-                    <option value="2">Ensino Médio</option>
+                    <option value="6">Ensino Fundamental</option>
+                    <option value="7">Ensino Médio</option>
                   </select>
                 </div>
                 <input type="submit" value="Enviar" class="btn btn-success" style="margin-top:10px;">
