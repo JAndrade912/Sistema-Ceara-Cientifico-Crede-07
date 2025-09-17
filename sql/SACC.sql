@@ -75,6 +75,16 @@ CREATE TABLE Jurados_Categorias_Areas (
     FOREIGN KEY (id_area) REFERENCES Areas(id_area) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE Jurado_Trabalho (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_jurado INT NOT NULL,
+    id_trabalho INT NOT NULL,
+    UNIQUE KEY unq_jurado_trabalho (id_jurado, id_trabalho),
+    FOREIGN KEY (id_jurado) REFERENCES Jurados(id_jurados) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_trabalho) REFERENCES Trabalhos(id_trabalhos) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
 -- Inserindo valores fixos
 INSERT INTO Categorias (id_categoria, nome_categoria) VALUES
 (1, 'Ensino Médio'),
