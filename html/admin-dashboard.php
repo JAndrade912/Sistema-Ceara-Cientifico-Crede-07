@@ -13,7 +13,13 @@ $categorias = $pdo->query("SELECT id_categoria, nome_categoria FROM Categorias")
 
 $areas = [];
 if (!empty($_POST['categoria'])) {
-  $stmt = $pdo->prepare("SELECT id_area, nome_area FROM Areas WHERE id_categoria = ?");
+  $stmt = $pdo->prepare("
+      SELECT DISTINCT a.id_area, a.nome_area
+      FROM Trabalhos t
+      INNER JOIN Areas a ON t.id_areas = a.id_area
+      WHERE t.id_categoria = ?
+      ORDER BY a.nome_area
+  ");
   $stmt->execute([$_POST['categoria']]);
   $areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -487,6 +493,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             </form>
             <?php
             require_once '../php/Connect.php';
+            
             $categoria = $_POST['categoria'] ?? null;
             $area = $_POST['area'] ?? null;
 
