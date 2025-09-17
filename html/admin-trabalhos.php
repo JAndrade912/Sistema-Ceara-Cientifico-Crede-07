@@ -88,8 +88,8 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
           echo '<td>' . $row['nome_categoria'] . '</td>';
           echo '<td>' . $row['nome_area'] . '</td>';
           echo '<td>';
-          echo '<a href="#' . '"><img src="../assets/img/editar.png" alt="Editar"></a> ';
-          echo '<a href="#' . '"><img src="../assets/img/deletar.png" alt="Deletar"></a>';
+          echo '<a href="../php/ExcluirTrabalhos.php?id=' . $row['id_trabalhos'] . '"><img src="../assets/img/editar.png" alt="Editar"></a> ';
+          echo '<a href="../php/ExcluirTrabalhos.php?id=' . $row['id_trabalhos'] . '"><img src="../assets/img/deletar.png" alt="Deletar"></a>';
           echo '</td>';
           echo '</tr>';
         }
