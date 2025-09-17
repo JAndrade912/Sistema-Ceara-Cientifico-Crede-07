@@ -455,7 +455,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             $categoria = $_POST['categoria'] ?? null;
             $area = $_POST['area'] ?? null;
 
-            $sql = "SELECT t.titulo, e.nome AS escola, c.nome_categoria, a.nome_area 
+            $sql = "SELECT 
+            t.id_trabalhos, t.titulo, e.nome AS escola, c.nome_categoria, a.nome_area 
                 FROM Trabalhos t
                   LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
                   LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria

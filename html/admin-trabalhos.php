@@ -14,16 +14,13 @@ $sql = "SELECT
     a.nome_area
 FROM Trabalhos t
 LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
-LEFT JOIN Jurados j ON t.id_jurados = j.id_jurados
 LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
 LEFT JOIN Areas a ON t.id_areas = a.id_area
-ORDER BY t.id_trabalhos DESC";
+WHERE 1=1";
 
 $result = $pdo->query($sql);
-$row = $result->fetch(PDO::FETCH_ASSOC);
-
+$sql .= " ORDER BY t.id_trabalhos DESC";
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
