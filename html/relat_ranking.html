@@ -1,50 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <title>Relatório Ranking Geral</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
- <link rel="stylesheet" href="../assets/styles/relat_ranking.css">
-  <link rel="stylesheet" href="boostrap/CSS/bootstrap.min.css">
-<script src="boostrap/JS/bootstrap.bundle.min.js"></script>
+ <title>Relatório Ranking Geral</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
+ <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-  <div class="logo">
-    <img src="../assets/img/cearacientifico.png" alt="Ceará Científico">
-  </div>
-  <nav class="navbar bg-body-tertiary">
-    <div class="d-flex" style="text-align: center;">
-      <p class="t1"><b>Resultado Final</b></p>
-        <h1 class="t2"><b>Categoria:</b></h1>
-        <h1 class="t2"><b>Área:</b></h1>
-        <br>
-    </div>
-  </nav>
 
-<div class="container mt-3">
-  <p></p>            
-  <table class="table table-bordered">
-    <thead>
+
+ <div class="text-center my-4">
+ <p><img src="../assets/img/cearacientifico.png" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;"> <B>2025</B></p>
+   <p><b>ETAPA REGIONAL</b></p>
+ </div>
+
+
+ <nav class="d-flex flex-column align-items-center bg-success mb-4 ">
+   <div style="font-size: 18px;">
+     <p><b>RESULTADO FINAL</b></p>
+   </div>
+   <div class="align-items-center flex-column d-flex" style="font-size: 12px;">
+     <p><b>Categoria: I - Ensino Médio</b></p>
+     <p><b>Área: Ciências Humanas e Sociais Aplicadas</b></p>
+   </div>
+ </nav>
+
+
+ <!-- Tabela -->
+ <div class="container-fluid mb-5" >
+   <div class="table-responsive">
+     <table class="table table-bordered table-striped">
+       <thead class="table-secondary text-center align-middle" style="font-size: 10px;">
       <tr>
-        <th rowspan="2" class="criterio1">Classificação</th>
-        <th rowspan="2" class="criterio">Escola</th>
-        <th rowspan="2" class="criterio">Título</th>
-        <th rowspan="2" class="criterio1">Nota final</th>
+       <th rowspan="1" >Classificação</th>
+       <th rowspan="3">Escola</th>
+       <th rowspan="3">Título</th>
+       <th rowspan="1" >Nota final</th>
       </tr>
-    </thead>
-    <tbody>
-
-      <form>
+       </thead>
+       <tbody class="text-center align-middle" style="font-size: 10px;">
       <tr>
-        <td class="tb"></td>
-        <td class="tb"></td>
-        <td class="tb"></td>
-        <td class="tb"></td>
+       <td>1º</td>
+       <td>EEEP José Vidal Alves</td>
+       <td>ESCRAVIDÃO, MULHERES NEGRAS, CORPO E REPRODUÇÃO: RESGATANDO A HISTÓRIA DE NEGRA PAULA, DA FAZENDA MALHADA GRANDE, ZONA RURAL DE SANTA QUITÉRIA – CE, NA EEMTI JOÃO DE MESQUITA BRAGA</td>
+       <td>100</td>
       </tr>
-      </form>
+       </tbody>
+     </table>
+   </div>
+ </div>
 
-    </tbody>
-  </table>
-</div>
+
 </body>
 </html>
