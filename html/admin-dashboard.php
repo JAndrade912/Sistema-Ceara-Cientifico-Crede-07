@@ -401,7 +401,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <table class="table table-hover">
                     <tbody id="trabalho-tbody"></tbody>
                   </table>
-                  <button type="button" class="btn btn-sm btn-primary mb-2" onclick="selecionarTodos()">Selecionar Todos</button>
+                  <button type="button" class="btn btn-sm btn-primary mb-2" onclick="selecionar-todos">Selecionar Todos</button>
                 </div>
 
               </div>
@@ -762,18 +762,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           }
         });
       });
-    });
-    $('#selecionar-todos').click(function() {
-      const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
-      const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
-
-      if (todosSelecionados) {
-        checkboxes.prop('checked', false);
-        $(this).text('Selecionar Todos');
-      } else {
-        checkboxes.prop('checked', true);
-        $(this).text('Desmarcar Todos');
-      }
     });
   </script>
 </body>
