@@ -9,6 +9,46 @@ if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
   header('Location: ../html/login_adm.php');
   exit();
 }
+$categorias = $pdo->query("SELECT id_categoria, nome_categoria FROM Categorias")->fetchAll(PDO::FETCH_ASSOC);
+
+$areas = [];
+if (!empty($_POST['categoria'])) {
+  $stmt = $pdo->prepare("
+      SELECT DISTINCT a.id_area, a.nome_area
+      FROM Trabalhos t
+      INNER JOIN Areas a ON t.id_areas = a.id_area
+      WHERE t.id_categoria = ?
+      ORDER BY a.nome_area
+  ");
+  $stmt->execute([$_POST['categoria']]);
+  $areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$jurados = [];
+if (!empty($_POST['categoria']) && !empty($_POST['area'])) {
+  $stmt = $pdo->prepare("SELECT id_jurados, nome FROM Jurados WHERE id_categoria = ? AND id_area = ?");
+  $stmt->execute([$_POST['categoria'], $_POST['area']]);
+  $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$trabalhos = [];
+if (!empty($_POST['jurado']) && !empty($_POST['categoria']) && !empty($_POST['area'])) {
+  $stmt = $pdo->prepare("SELECT t.id_trabalhos, t.titulo, a.nome_area 
+                         FROM trabalhos t
+                         JOIN areas a ON t.id_area = a.id_area
+                         WHERE t.id_categoria = ? AND t.id_area = ?");
+  $stmt->execute([$_POST['categoria'], $_POST['area']]);
+  $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Salvar associação (se enviou trabalhos)
+if (!empty($_POST['trabalhos']) && !empty($_POST['jurado'])) {
+  foreach ($_POST['trabalhos'] as $id_trabalho) {
+    $stmt = $pdo->prepare("INSERT INTO jurado_trabalho (id_jurado, id_trabalho) VALUES (?, ?)");
+    $stmt->execute([$_POST['jurado'], $id_trabalho]);
+  }
+  $mensagem_sucesso = "Associação realizada com sucesso!";
+}
 
 $sql = "SELECT 
     t.id_trabalhos,
@@ -436,6 +476,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             </form>
             <?php
             require_once '../php/Connect.php';
+            
             $categoria = $_POST['categoria'] ?? null;
             $area = $_POST['area'] ?? null;
 
