@@ -420,63 +420,65 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         <div class="col-12">
           <div class="ranking-box mt-4">
             <h3 class="text-center">Ranking Preliminar</h3>
-            <div class="row mt-3">
-              <div class="col-sm-6">
-                <label>Categoria</label>
-                <select id="ranking-categoria" class="form-control" name="categoria">
-                  <option selected value="">-- Selecione a Categoria --</option>
-                  <option value="1">I - Ensino Médio</option>
-                  <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                  <option value="3">III - Pesquisa Júnior</option>
-                  <option value="4">IV - PcD</option>
-                </select>
-                <?php
-                require_once '../php/Connect.php';
-
-                $categoria = $_POST['categoria'] ?? null;
-                $area = $_POST['area'] ?? null;
-
-                $sql = "SELECT 
-            t.titulo, 
-            e.nome AS escola, 
-            c.nome_categoria, 
-            a.nome_area
-        FROM Trabalhos t
-        LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
-        LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
-        LEFT JOIN Areas a ON t.id_areas = a.id_area
-        WHERE 1=1 
-        ORDER BY t.id_trabalhos DESC";
-
-
-                $params = [];
-
-                if (!empty($categoria)) {
-                  $sql .= " AND t.id_categoria = :categoria";
-                  $params[':categoria'] = $categoria;
-                }
-                if (!empty($area)) {
-                  $sql .= " AND t.id_areas = :area";
-                  $params[':area'] = $area;
-                }
-
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute($params);
-
-                ?>
+            <form action="" method="POST">
+              <div class="row mt-3 flex">
+                <div class="col-sm-6">
+                  <label>Categoria</label>
+                  <select id="ranking-categoria" class="form-control" name="categoria">
+                    <option value="">-- Selecione a Categoria --</option>
+                    <option value="1" <?= $categoria == "1" ? "selected" : "" ?>>I - Ensino Médio</option>
+                    <option value="2" <?= $categoria == "2" ? "selected" : "" ?>>II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+                    <option value="3" <?= $categoria == "3" ? "selected" : "" ?>>III - Pesquisa Júnior</option>
+                    <option value="4" <?= $categoria == "4" ? "selected" : "" ?>>IV - PcD</option>
+                  </select>
+                </div>
+                <div class="col-sm-6">
+                  <label>Área</label>
+                  <select id="ranking-area" class="form-control">
+                    <option value="">-- Selecione a Área --</option>
+                    <option value="1" <?= $area == "1" ? "selected" : "" ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
+                    <option value="2" <?= $area == "2" ? "selected" : "" ?>>Matemática e suas Tecnologias - MT</option>
+                    <option value="3" <?= $area == "3" ? "selected" : "" ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+                    <option value="4" <?= $area == "4" ? "selected" : "" ?>>Ciências Humanas e Sociais Aplicadas - CH</option>
+                    <option value="5" <?= $area == "5" ? "selected" : "" ?>>Robótica, Automação e Aplicação das TIC</option>
+                    <option value="6" <?= $area == "6" ? "selected" : "" ?>>Ensino Fundamental</option>
+                    <option value="7" <?= $area == "7" ? "selected" : "" ?>>Ensino Médio</option>
+                  </select>
+                </div>
               </div>
-              <div class="col-sm-6">
-                <label>Área</label>
-                <select id="ranking-area" class="form-control">
-                  <option value="">-- Selecione a Área --</option>
-                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                  <option value="2">Matemática e suas Tecnologias - MT</option>
-                  <option value="3">Ciências da Natureza - CN</option>
-                  <option value="4">Educação Ambiental e Engenharias - CH</option>
-                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
-                </select>
+              <div class="mt-3 text-right">
+                <input type="submit" value="Filtrar" class="btn btn-success">
               </div>
-            </div>
+            </form>
+            <?php
+            require_once '../php/Connect.php';
+            $categoria = $_POST['categoria'] ?? null;
+            $area = $_POST['area'] ?? null;
+
+            $sql = "SELECT t.titulo, e.nome AS escola, c.nome_categoria, a.nome_area 
+                FROM Trabalhos t
+                  LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
+                  LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
+                  LEFT JOIN Areas a ON t.id_areas = a.id_area
+                  WHERE 1=1";
+
+            $params = [];
+
+            if (!empty($categoria)) {
+              $sql .= " AND t.id_categoria = :categoria";
+              $params[':categoria'] = $categoria;
+            }
+            if (!empty($area)) {
+              $sql .= " AND t.id_areas = :area";
+              $params[':area'] = $area;
+            }
+
+            $sql .= " ORDER BY t.id_trabalhos DESC";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+
+            ?>
             <!-- TABELA DO RANKING PRELIMINAR QUE EXIBE OS TRABALHOS POR FILTRO -->
             <div class="table-responsive mt-3">
               <table class="table table-hover">
