@@ -10,6 +10,22 @@ if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
   exit();
 }
 
+$sql = "SELECT 
+    t.id_trabalhos,
+    t.titulo,
+    e.nome AS escola,
+    c.nome_categoria,
+    a.nome_area
+FROM Trabalhos t
+LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
+LEFT JOIN Jurados j ON t.id_jurados = j.id_jurados
+LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
+LEFT JOIN Areas a ON t.id_areas = a.id_area
+ORDER BY t.id_trabalhos DESC";
+
+$result = $pdo->query($sql);
+$row = $result->fetch(PDO::FETCH_ASSOC);
+
 $stmt = $pdo->query("SELECT id_escolas,nome FROM Escolas ORDER BY nome ASC");
 $escolas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -18,6 +34,9 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $pdo->query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
 $areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $pdo->query("SELECT id_jurados,nome FROM Jurados ORDER BY nome ASC");
+$jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // area destinada as consultas de estado dos cards em tempo real do dashboard do admin
 $stmt = $pdo->query("SELECT COUNT(*) AS total_escolas FROM Escolas");
@@ -234,7 +253,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
-      
+
       <div class="modal fade" id="modalTrabalho" tabindex="-1" aria-labelledby="modalTrabalhoLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -265,10 +284,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <?php endforeach; ?>
                 </select>
                 <div id="trabalho-area" style="display:none;">
-                  <?php
-                  require_once '../php/Connect.php';
-                  $stmt = $pdo->query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
-                  ?>
                   <label>Área</label>
                   <select name="area" class="form-control">
                     <option selected disabled>Selecione...</option>
@@ -296,6 +311,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
+
       <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -305,26 +321,27 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
-              <form action="#" method="POST" id="idCadAssociacao">
+              <form action="../php/Associartrabalho.php" method="POST" id="idCadAssociacao">
                 <div class="mb-3">
                   <label for="categoria" class="form-label">Categoria</label>
                   <select name="categoria" id="associar-categoria" class="form-control" required>
                     <option selected disabled>Selecione...</option>
-                    <option value="1">I - Ensino Médio</option>
-                    <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                    <option value="3">III - Pesquisa Júnior</option>
-                    <option value="4">IV - PcD</option>
+                    <?php foreach ($categorias as $categoria): ?>
+                      <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
+                        <?= htmlspecialchars($categoria['nome_categoria']) ?>
+                      </option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
                 <div class="mb-3" id="areajurado" style="display:none;">
                   <label for="area" class="form-label">Área</label>
                   <select name="area" id="area1" class="form-control" required>
                     <option selected disabled>Selecione...</option>
-                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                    <option value="2">Matemática e suas Tecnologias - MT</option>
-                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                    <?php foreach ($areas as $area): ?>
+                      <option value="<?= htmlspecialchars($area['id_area']) ?>">
+                        <?= htmlspecialchars($area['nome_area']) ?>
+                      </option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
                 <div class="mb-3" id="area2jurado" style="display:none;">
@@ -335,19 +352,32 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     <option value="7">Ensino Médio</option>
                   </select>
                 </div>
+
                 <div class="mb-3" id="atribuir-jurado" style="display: none;">
                   <label for="jurado" class="form-label">Jurado</label>
                   <select name="jurado" id="jurado" class="form-control" required>
                     <option selected disabled>Selecione o Jurado</option>
-                    <option value="1">Jurado 1</option>
+                    <?php foreach ($jurados as $jurado): ?>
+                      <option value="<?= htmlspecialchars($jurado['id_jurados']) ?>">
+                        <?= htmlspecialchars($jurado['nome']) ?>
+                      </option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
+
                 <div class="mb-3" id="trabalhojurado" style="display:none;">
                   <label for="trabalho" class="form-label">Trabalhos</label>
                   <table class="table table-hover">
                     <tbody id="trabalho-tbody">
+                      <?php
+                      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                        echo '<tr>';
+                        echo '<td>' .'<input type="checkbox" name="trabalhos[]" value="'. $row['id_trabalhos'] .'">'. '</td>';
+                        echo '<td>' . $row['nome_area'] . '</td>';
+                        echo '</tr>';
+                      }
+                      ?>
                     </tbody>
-
                   </table>
                   <button type="button" class="btn btn-sm btn-primary mb-2" id="selecionar-todos">Selecionar
                     Todos</button>
@@ -384,6 +414,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
+
       <!-- RANKING PRELIMINAR ÁREA -->
       <div class="row">
         <div class="col-12">
@@ -487,7 +518,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     </div>
   </main>
   <script>
-    
     // Sidebar
     function toggleSidebar() {
       if (window.innerWidth <= 768) {
@@ -503,17 +533,17 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
       $('#sidebar').removeClass('mobile-open');
       $('#overlay').removeClass('show');
     }
-    $(window).on('resize', function () {
+    $(window).on('resize', function() {
       if (window.innerWidth > 768) {
         $('#sidebar').removeClass('mobile-open');
         $('#overlay').removeClass('show');
       }
     });
-    $('#instituicao-tipo').change(function () {
-      ($(this).val() === '1') ? $('#campo-ide').slideDown() : $('#campo-ide').slideUp();
+    $('#instituicao-tipo').change(function() {
+      ($(this).val() === '1') ? $('#campo-ide').slideDown(): $('#campo-ide').slideUp();
     });
 
-    $('#trabalho-categoria').change(function () {
+    $('#trabalho-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#trabalho-area').slideDown();
@@ -525,7 +555,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#trabalho-area, #trabalho-area2').slideUp();
       }
     });
-    $('#jurado-categoria').change(function () {
+    $('#jurado-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#jurado-area').slideDown();
@@ -537,7 +567,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#jurado-area, #jurado-area2').slideUp();
       }
     });
-    $('#adicionar-categoria-btn').click(function (event) {
+    $('#adicionar-categoria-btn').click(function(event) {
       event.preventDefault();
       var container = $('#Adicionar-sec-categoria').parent();
       if (container.is(':visible')) {
@@ -548,7 +578,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         container.slideDown();
       }
     });
-    $('#Adicionar-sec-categoria').change(function () {
+    $('#Adicionar-sec-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#areajuradosec').slideDown();
@@ -560,7 +590,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#areajuradosec, #area2juradosec').slideUp();
       }
     });
-    $('#associar-categoria').change(function () {
+    $('#associar-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#areajurado').slideDown();
@@ -573,14 +603,14 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         $('#areajurado, #area2jurado').slideUp();
       }
     });
-    $('#area1, #area2').change(function () {
+    $('#area1, #area2').change(function() {
       $('#atribuir-jurado').slideDown();
     });
-    $('#atribuir-jurado').change(function () {
+    $('#atribuir-jurado').change(function() {
       $('#trabalhojurado').slideDown();
     });
 
-    $('#selecionar-todos').click(function () {
+    $('#selecionar-todos').click(function() {
       const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
       const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
 
