@@ -9,40 +9,6 @@ if (!isset($_SESSION['id_admin']) || !isset($_SESSION['usuario'])) {
   header('Location: ../html/login_adm.php');
   exit();
 }
-$categorias = $pdo->query("SELECT id_categoria, nome_categoria FROM Categorias")->fetchAll(PDO::FETCH_ASSOC);
-
-$areas = [];
-if (!empty($_POST['categoria'])) {
-  $stmt = $pdo->prepare("SELECT id_area, nome_area FROM Areas WHERE id_categoria = ?");
-  $stmt->execute([$_POST['categoria']]);
-  $areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-$jurados = [];
-if (!empty($_POST['categoria']) && !empty($_POST['area'])) {
-  $stmt = $pdo->prepare("SELECT id_jurados, nome FROM Jurados WHERE id_categoria = ? AND id_area = ?");
-  $stmt->execute([$_POST['categoria'], $_POST['area']]);
-  $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-$trabalhos = [];
-if (!empty($_POST['jurado']) && !empty($_POST['categoria']) && !empty($_POST['area'])) {
-  $stmt = $pdo->prepare("SELECT t.id_trabalhos, t.titulo, a.nome_area 
-                         FROM trabalhos t
-                         JOIN areas a ON t.id_area = a.id_area
-                         WHERE t.id_categoria = ? AND t.id_area = ?");
-  $stmt->execute([$_POST['categoria'], $_POST['area']]);
-  $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Salvar associação (se enviou trabalhos)
-if (!empty($_POST['trabalhos']) && !empty($_POST['jurado'])) {
-  foreach ($_POST['trabalhos'] as $id_trabalho) {
-    $stmt = $pdo->prepare("INSERT INTO jurado_trabalho (id_jurado, id_trabalho) VALUES (?, ?)");
-    $stmt->execute([$_POST['jurado'], $id_trabalho]);
-  }
-  $mensagem_sucesso = "Associação realizada com sucesso!";
-}
 
 $sql = "SELECT 
     t.id_trabalhos,
@@ -81,7 +47,6 @@ $total_trabalhos = $stmt->fetch(PDO::FETCH_ASSOC)['total_trabalhos'];
 
 $stmt = $pdo->query("SELECT COUNT(*) AS total_jurados FROM Jurados");
 $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
-
 
 ?>
 <!DOCTYPE html>
@@ -346,86 +311,70 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         </div>
       </div>
 
-      <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel"
-        aria-hidden="true">
+      <div class="modal fade" id="modalAssociacao" tabindex="-1" aria-labelledby="modalAssociacaoLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalAssociacaoLabel">Associar Jurado a Trabalho</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-            </div>
-            <div class="modal-body">
-              <form action="../php/Associartrabalho.php" method="POST" id="idCadAssociacao">
+            <form method="POST" id="idCadAssociacao" action="../php/AssociarJuradoTrabalho.php">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalAssociacaoLabel">Associar Jurado a Trabalho</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+              </div>
+              <div class="modal-body">
+
+                <!-- Mensagem -->
+                <?php if (!empty($mensagem_sucesso)): ?>
+                  <div class="alert alert-success"><?= $mensagem_sucesso ?></div>
+                <?php endif; ?>
+
+                <!-- Categoria -->
                 <div class="mb-3">
                   <label for="categoria" class="form-label">Categoria</label>
-                  <select name="categoria" id="associar-categoria" class="form-control" required>
-                    <option selected disabled>Selecione...</option>
-                    <?php foreach ($categorias as $categoria): ?>
-                      <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
-                        <?= htmlspecialchars($categoria['nome_categoria']) ?>
+                  <select name="categoria" class="form-control" id="associar-categoria" required>
+                    <option disabled selected>Selecione...</option>
+                    <?php foreach ($categorias as $cat): ?>
+                      <option value="<?= $cat['id_categoria'] ?>">
+                        <?= htmlspecialchars($cat['nome_categoria']) ?>
                       </option>
                     <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="mb-3" id="areajurado" style="display:none;">
-                  <label for="area" class="form-label">Área</label>
-                  <select name="area" id="area1" class="form-control" required>
-                    <option selected disabled>Selecione...</option>
-                    <?php foreach ($areas as $area): ?>
-                      <option value="<?= htmlspecialchars($area['id_area']) ?>">
-                        <?= htmlspecialchars($area['nome_area']) ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="mb-3" id="area2jurado" style="display:none;">
-                  <label for="area" class="form-label">Área</label>
-                  <select name="area" id="area2" class="form-control" required>
-                    <option selected disabled>Selecione...</option>
-                    <option value="6">Ensino Fundamental</option>
-                    <option value="7">Ensino Médio</option>
                   </select>
                 </div>
 
-                <div class="mb-3" id="atribuir-jurado" style="display: none;">
+                <!-- Área -->
+                <div class="mb-3" id="area-div" style="display:none;">
+                  <label for="area" class="form-label">Área</label>
+                  <select name="area" class="form-control" id="area-select">
+                    <option disabled selected>Selecione...</option>
+                  </select>
+                </div>
+
+                <!-- Jurado -->
+                <div class="mb-3" id="jurado-div" style="display:none;">
                   <label for="jurado" class="form-label">Jurado</label>
-                  <select name="jurado" id="jurado" class="form-control" required>
-                    <option selected disabled>Selecione o Jurado</option>
-                    <?php foreach ($jurados as $jurado): ?>
-                      <option value="<?= htmlspecialchars($jurado['id_jurados']) ?>">
-                        <?= htmlspecialchars($jurado['nome']) ?>
-                      </option>
-                    <?php endforeach; ?>
+                  <select name="jurado" class="form-control" id="jurado-select">
+                    <option disabled selected>Selecione o Jurado</option>
                   </select>
                 </div>
 
-                <div class="mb-3" id="trabalhojurado" style="display:none;">
+                <!-- Trabalhos -->
+                <div class="mb-3" id="trabalho-div" style="display:none;">
                   <label for="trabalho" class="form-label">Trabalhos</label>
                   <table class="table table-hover">
-                    <tbody id="trabalho-tbody">
-                      <?php
-                      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                        echo '<tr>';
-                        echo '<td>' . '<input type="checkbox" name="trabalhos[]" value="' . $row['id_trabalhos'] . '">' . '</td>';
-                        echo '<td>' . $row['nome_area'] . '</td>';
-                        echo '</tr>';
-                      }
-                      ?>
-                    </tbody>
+                    <tbody id="trabalho-tbody"></tbody>
                   </table>
-                  <button type="button" class="btn btn-sm btn-primary mb-2" id="selecionar-todos">Selecionar
-                    Todos</button>
+                  <button type="button" class="btn btn-sm btn-primary mb-2" onclick="selecionarTodos()">Selecionar Todos</button>
                 </div>
-                <input type="submit" value="Enviar" class="btn btn-success mt-3">
-              </form>
-            </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
+              </div>
+              <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Enviar">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
+
+
       <div class="row stat-row">
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
@@ -555,6 +504,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
       </div>
     </div>
   </main>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // Sidebar
     function toggleSidebar() {
@@ -648,6 +598,130 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
       $('#trabalhojurado').slideDown();
     });
 
+    $('#selecionar-todos').click(function() {
+      const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
+      const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;
+
+      if (todosSelecionados) {
+        checkboxes.prop('checked', false);
+        $(this).text('Selecionar Todos');
+      } else {
+        checkboxes.prop('checked', true);
+        $(this).text('Desmarcar Todos');
+      }
+    });
+
+    $(document).ready(function() {
+      $('#associar-categoria').on('change', function() {
+        let categoriaId = $(this).val();
+        if (!categoriaId) {
+          $('#area-div, #jurado-div, #trabalho-div').hide();
+          $('#area-select, #jurado-select').empty().append('<option disabled selected>Selecione...</option>');
+          $('#trabalho-tbody').empty();
+          return;
+        }
+
+        $('#area-div').show();
+        $('#jurado-div, #trabalho-div').hide();
+        $('#jurado-select').empty().append('<option disabled selected>Selecione o Jurado</option>');
+        $('#trabalho-tbody').empty();
+
+        $.ajax({
+          url: '../php/BuscarAreas.php',
+          method: 'GET',
+          data: {
+            categoria: categoriaId
+          },
+          dataType: 'json',
+          success: function(data) {
+            let options = '<option disabled selected>Selecione...</option>';
+            data.forEach(area => {
+              options += `<option value="${area.id_area}">${area.nome_area}</option>`;
+            });
+            $('#area-select').html(options);
+          },
+          error: function() {
+            alert('Erro ao carregar áreas.');
+          }
+        });
+      });
+
+      $('#area-select').on('change', function() {
+        let categoriaId = $('#associar-categoria').val();
+        let areaId = $(this).val();
+
+        if (!areaId) {
+          $('#jurado-div, #trabalho-div').hide();
+          $('#jurado-select').empty().append('<option disabled selected>Selecione o Jurado</option>');
+          $('#trabalho-tbody').empty();
+          return;
+        }
+
+        $('#jurado-div').show();
+        $('#trabalho-div').hide();
+        $('#trabalho-tbody').empty();
+
+        $.ajax({
+          url: '../php/BuscarJurados.php',
+          method: 'GET',
+          data: {
+            categoria: categoriaId,
+            area: areaId
+          },
+          dataType: 'json',
+          success: function(data) {
+            let options = '<option disabled selected>Selecione o Jurado</option>';
+            data.forEach(jurado => {
+              options += `<option value="${jurado.id_jurados}">${jurado.nome}</option>`;
+            });
+            $('#jurado-select').html(options);
+          },
+          error: function() {
+            alert('Erro ao carregar jurados.');
+          }
+        });
+      });
+
+      $('#jurado-select').on('change', function() {
+        let categoriaId = $('#associar-categoria').val();
+        let areaId = $('#area-select').val();
+        let juradoId = $(this).val();
+
+        if (!juradoId) {
+          $('#trabalho-div').hide();
+          $('#trabalho-tbody').empty();
+          return;
+        }
+
+        $('#trabalho-div').show();
+
+        $.ajax({
+          url: '../php/BuscarTrabalhos.php',
+          method: 'GET',
+          data: {
+            categoria: categoriaId,
+            area: areaId,
+            jurado: juradoId
+          },
+          dataType: 'json',
+          success: function(data) {
+            let rows = '';
+            data.forEach(trabalho => {
+              rows += `
+            <tr>
+              <td><input type="checkbox" name="trabalhos[]" value="${trabalho.id_trabalhos}"></td>
+              <td>${trabalho.titulo}</td>
+              <td>${trabalho.nome_area}</td>
+            </tr>`;
+            });
+            $('#trabalho-tbody').html(rows);
+          },
+          error: function() {
+            alert('Erro ao carregar trabalhos.');
+          }
+        });
+      });
+    });
     $('#selecionar-todos').click(function() {
       const checkboxes = $('#trabalho-tbody input[type="checkbox"]');
       const todosSelecionados = checkboxes.length === checkboxes.filter(':checked').length;

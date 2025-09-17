@@ -66,7 +66,7 @@ CREATE TABLE Areas (
 
 -- Relacionamento de Jurados com Categorias e Áreas
 CREATE TABLE Jurados_Categorias_Areas (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_jurados_categorias_areas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_jurados INT NOT NULL,
     id_categoria INT NULL,
     id_area INT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE Jurados_Categorias_Areas (
 );
 
 CREATE TABLE Jurado_Trabalho (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_jurado_trabalho INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_jurado INT NOT NULL,
     id_trabalho INT NOT NULL,
     UNIQUE KEY unq_jurado_trabalho (id_jurado, id_trabalho),
@@ -84,6 +84,13 @@ CREATE TABLE Jurado_Trabalho (
     FOREIGN KEY (id_trabalho) REFERENCES Trabalhos(id_trabalhos) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE Categorias_Areas (
+    id_categorias_areas INT AUTO_INCREMENT PRIMARY KEY,
+    id_categoria INT NOT NULL,
+    id_area INT NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_area) REFERENCES Areas(id_area) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 -- Inserindo valores fixos
 INSERT INTO Categorias (id_categoria, nome_categoria) VALUES
@@ -100,6 +107,27 @@ INSERT INTO Areas (id_area, nome_area) VALUES
 (5, 'Robótica, Automação e Aplicação das TIC'),
 (6, 'Ensino Fundamental'),
 (7, 'Ensino Médio');
+
+-- Inserindo relacionamento Categorias x Áreas
+-- Para categorias 1 e 2 (Ensino Médio e Ações Afirmativas), vinculamos áreas 1 a 5
+INSERT INTO Categorias_Areas (id_categoria, id_area) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5);
+
+-- Pesquisa Júnior (3) não recebe nenhuma área (nenhuma linha inserida)
+
+-- PcD (4) recebe só as áreas Ensino Fundamental (6) e Ensino Médio (7)
+INSERT INTO Categorias_Areas (id_categoria, id_area) VALUES
+(4, 6),
+(4, 7);
 
 
 -- Relacionamentos
