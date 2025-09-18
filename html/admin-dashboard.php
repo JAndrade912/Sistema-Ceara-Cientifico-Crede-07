@@ -26,10 +26,18 @@ if (!empty($_POST['categoria'])) {
 
 $jurados = [];
 if (!empty($_POST['categoria']) && !empty($_POST['area'])) {
-  $stmt = $pdo->prepare("SELECT id_jurados, nome FROM Jurados WHERE id_categoria = ? AND id_area = ?");
-  $stmt->execute([$_POST['categoria'], $_POST['area']]);
-  $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $pdo->prepare("
+        SELECT j.id_jurados, j.nome
+        FROM Jurados j
+        INNER JOIN Jurados_Categorias_Areas jca 
+            ON j.id_jurados = jca.id_jurados
+        WHERE jca.id_categoria = ? 
+          AND jca.id_area = ?
+    ");
+    $stmt->execute([$_POST['categoria'], $_POST['area']]);
+    $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 $trabalhos = [];
 if (!empty($_POST['jurado']) && !empty($_POST['categoria']) && !empty($_POST['area'])) {
@@ -66,18 +74,19 @@ ORDER BY t.id_trabalhos DESC";
 $result = $pdo->query($sql);
 $row = $result->fetch(PDO::FETCH_ASSOC);
 
+$stmt = $pdo->query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
+$areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 $stmt = $pdo->query("SELECT id_escolas,nome FROM Escolas ORDER BY nome ASC");
 $escolas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $pdo->query("SELECT id_categoria,nome_categoria FROM Categorias ORDER BY nome_categoria ASC");
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $pdo->query("SELECT id_area,nome_area FROM Areas ORDER BY nome_area ASC");
-$areas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $pdo->query("SELECT id_jurados,nome FROM Jurados ORDER BY nome ASC");
 $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+  
 // area destinada as consultas de estado dos cards em tempo real do dashboard do admin
 $stmt = $pdo->query("SELECT COUNT(*) AS total_escolas FROM Escolas");
 $total_escolas = $stmt->fetch(PDO::FETCH_ASSOC)['total_escolas'];
@@ -91,20 +100,16 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard Administrativo</title>
-
   <link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
   <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
   <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
   <script src="../boostrap/JS/jquery.min.js"></script>
   <link rel="stylesheet" href="../assets/styles/dashboard-admin.css">
-
 </head>
-
 <body>
   <div id="overlay" onclick="closeMobileSidebar()"></div>
   <button id="mobile-toggle" onclick="toggleSidebar()">
@@ -413,8 +418,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
-
-
+      <!-- CARDS DE ESTATÍSTICAS -->
       <div class="row stat-row">
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
@@ -458,8 +462,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 </div>
                 <div class="col-sm-6">
                   <label>Área</label>
-                  <select id="ranking-area" class="form-control">
-                    <option value="">-- Selecione a Área --</option>
+                  <select id="ranking-area" class="form-control" name="area">
+                    <option value="" >-- Selecione a Área --</option>
                     <option value="1" <?= $area == "1" ? "selected" : "" ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2" <?= $area == "2" ? "selected" : "" ?>>Matemática e suas Tecnologias - MT</option>
                     <option value="3" <?= $area == "3" ? "selected" : "" ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
@@ -765,5 +769,4 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     });
   </script>
 </body>
-
 </html>
