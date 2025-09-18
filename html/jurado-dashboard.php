@@ -151,32 +151,41 @@ $userName = $_SESSION['usuario'];
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const inputsNotas = document.querySelectorAll('input[type="number"]');
+  const inputsNotas = document.querySelectorAll('input[type="number"]');
 
-    inputsNotas.forEach(input => {
-      input.addEventListener('blur', () => {
-        
-        let valor = input.value.replace(',', '.');
+  inputsNotas.forEach(input => {
+    input.addEventListener('blur', () => {
+      let valor = input.value.trim(); // Remove espaços extras
 
-        let numero = parseFloat(valor);
+      // Substituir vírgula por ponto
+      valor = valor.replace(',', '.');
 
-        if (!isNaN(numero)) {
-          if (numero > 10) {
-            alert('Nota máxima é 10')
-          }
+      let numero = parseFloat(valor);
 
-          if (numero < 0) {
-            alert('Nota mínima é 0')
-          }
-
-          // Formata para 1 casa decimal
-          input.value = numero.toFixed(2);
-        } else {
-          input.value = '';
+      if (!isNaN(numero)) {
+        // Se o número tem mais de 3 dígitos (ex: 875), transformar em nota de 2 casas decimais
+        if (numero >= 100) {
+          numero = parseFloat((numero / 100).toFixed(2));
         }
-      });
+
+        // Garantir que o número não seja maior que 10 ou menor que 0
+        if (numero > 10) {
+          numero = 10; // Limita a 10 caso o número ultrapasse
+        } else if (numero < 0) {
+          numero = 0; // Limita a 0 caso o número seja menor
+        }
+
+        // Formatar para 2 casas decimais
+        input.value = numero.toFixed(2);
+      } else {
+        input.value = ''; // Se não for um número válido, limpa o campo
+      }
     });
   });
+});
+
+
+
 </script>
 
 
