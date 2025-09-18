@@ -17,7 +17,7 @@ try {
     }
 
     echo "Associação feita com sucesso!";
-    header('Location: ../html.admin-dashboard.php');
+    header('Location: ../html/admin-dashboard.php');
 } catch (PDOException $e) {
     echo "Erro ao associar: " . $e->getMessage();
 }
