@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 if (!isset($_SESSION['id_jurados']) || !isset($_SESSION['usuario'])) {
@@ -9,7 +13,11 @@ if (!isset($_SESSION['id_jurados']) || !isset($_SESSION['usuario'])) {
 require_once '../php/Connect.php';
 
 $idJurado = $_SESSION['id_jurados'];
-$userName = $_SESSION['usuario'];
+
+$stmtUser = $pdo->prepare("SELECT nome FROM Jurados WHERE id_jurados = ?");
+$stmtUser->execute([$idJurado]);
+$result = $stmtUser->fetch(PDO::FETCH_ASSOC);
+$userName = $result ? $result['nome'] : 'Usuário';
 
 $stmt = $pdo->prepare("
   SELECT 
