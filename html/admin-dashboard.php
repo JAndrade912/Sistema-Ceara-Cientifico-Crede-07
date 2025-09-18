@@ -406,7 +406,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <table class="table table-hover">
                     <tbody id="trabalho-tbody"></tbody>
                   </table>
-                  <button type="button" class="btn btn-sm btn-primary mb-2" onclick="selecionar-todos">Selecionar Todos</button>
+                  <button type="button" class="btn btn-sm btn-primary mb-2" onclick="">Selecionar Todos</button>
                 </div>
 
               </div>
