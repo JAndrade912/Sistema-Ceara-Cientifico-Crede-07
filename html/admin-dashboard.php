@@ -26,7 +26,7 @@ if (!empty($_POST['categoria'])) {
 
 $jurados = [];
 if (!empty($_POST['categoria']) && !empty($_POST['area'])) {
-    $stmt = $pdo->prepare("
+  $stmt = $pdo->prepare("
         SELECT j.id_jurados, j.nome
         FROM Jurados j
         INNER JOIN Jurados_Categorias_Areas jca 
@@ -34,8 +34,8 @@ if (!empty($_POST['categoria']) && !empty($_POST['area'])) {
         WHERE jca.id_categoria = ? 
           AND jca.id_area = ?
     ");
-    $stmt->execute([$_POST['categoria'], $_POST['area']]);
-    $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $stmt->execute([$_POST['categoria'], $_POST['area']]);
+  $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
@@ -86,7 +86,7 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $pdo->query("SELECT id_jurados,nome FROM Jurados ORDER BY nome ASC");
 $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-  
+
 // area destinada as consultas de estado dos cards em tempo real do dashboard do admin
 $stmt = $pdo->query("SELECT COUNT(*) AS total_escolas FROM Escolas");
 $total_escolas = $stmt->fetch(PDO::FETCH_ASSOC)['total_escolas'];
@@ -100,6 +100,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,6 +111,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
   <script src="../boostrap/JS/jquery.min.js"></script>
   <link rel="stylesheet" href="../assets/styles/dashboard-admin.css">
 </head>
+
 <body>
   <div id="overlay" onclick="closeMobileSidebar()"></div>
   <button id="mobile-toggle" onclick="toggleSidebar()">
@@ -395,7 +397,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <!-- Jurado -->
                 <div class="mb-3" id="jurado-div" style="display:none;">
                   <label for="jurado" class="form-label">Jurado</label>
-                  <select name="jurado" class="form-control" id="jurado-select">
+                  <select name="jurado" class="form-control" id="jurado-select" required>
                     <option disabled selected>Selecione o Jurado</option>
                   </select>
                 </div>
@@ -406,7 +408,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <table class="table table-hover">
                     <tbody id="trabalho-tbody"></tbody>
                   </table>
-                  <button type="button" class="btn btn-sm btn-primary mb-2" onclick="">Selecionar Todos</button>
+                  <button type="button" class="btn btn-sm btn-primary mb-2" id="selecionar-todos">Selecionar Todos</button>
                 </div>
 
               </div>
@@ -418,6 +420,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           </div>
         </div>
       </div>
+
+
       <!-- CARDS DE ESTATÍSTICAS -->
       <div class="row stat-row">
         <div class="col-sm-4">
@@ -463,7 +467,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <div class="col-sm-6">
                   <label>Área</label>
                   <select id="ranking-area" class="form-control" name="area">
-                    <option value="" >-- Selecione a Área --</option>
+                    <option value="">-- Selecione a Área --</option>
                     <option value="1" <?= $area == "1" ? "selected" : "" ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
                     <option value="2" <?= $area == "2" ? "selected" : "" ?>>Matemática e suas Tecnologias - MT</option>
                     <option value="3" <?= $area == "3" ? "selected" : "" ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
@@ -480,7 +484,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             </form>
             <?php
             require_once '../php/Connect.php';
-            
+
             $categoria = $_POST['categoria'] ?? null;
             $area = $_POST['area'] ?? null;
 
@@ -666,29 +670,58 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           return;
         }
 
-        $('#area-div').show();
-        $('#jurado-div, #trabalho-div').hide();
-        $('#jurado-select').empty().append('<option disabled selected>Selecione o Jurado</option>');
-        $('#trabalho-tbody').empty();
+        if (categoriaId === '3') {
+          $('#area-div').hide();
+          $('#jurado-div').show();
+          $('#trabalho-div').hide();
+          $('#area-select').empty().append('<option disabled selected>Não aplicável</option>');
 
-        $.ajax({
-          url: '../php/BuscarAreas.php',
-          method: 'GET',
-          data: {
-            categoria: categoriaId
-          },
-          dataType: 'json',
-          success: function(data) {
-            let options = '<option disabled selected>Selecione...</option>';
-            data.forEach(area => {
-              options += `<option value="${area.id_area}">${area.nome_area}</option>`;
-            });
-            $('#area-select').html(options);
-          },
-          error: function() {
-            alert('Erro ao carregar áreas.');
-          }
-        });
+          $.ajax({
+            url: '../php/BuscarJurados.php',
+            method: 'GET',
+            data: {
+              categoria: categoriaId
+            },
+            dataType: 'json',
+            success: function(data) {
+              let options = '<option disabled selected>Selecione o Jurado</option>';
+              data.forEach(jurado => {
+                options += `<option value="${jurado.id_jurados}">${jurado.nome}</option>`;
+              });
+              $('#jurado-select').html(options);
+            },
+            error: function() {
+              alert('Erro ao carregar jurados.');
+            }
+          });
+
+          $('#trabalho-tbody').empty();
+
+        } else {
+          $('#area-div').show();
+          $('#jurado-div, #trabalho-div').hide();
+          $('#jurado-select').empty().append('<option disabled selected>Selecione o Jurado</option>');
+          $('#trabalho-tbody').empty();
+
+          $.ajax({
+            url: '../php/BuscarAreas.php',
+            method: 'GET',
+            data: {
+              categoria: categoriaId
+            },
+            dataType: 'json',
+            success: function(data) {
+              let options = '<option disabled selected>Selecione...</option>';
+              data.forEach(area => {
+                options += `<option value="${area.id_area}">${area.nome_area}</option>`;
+              });
+              $('#area-select').html(options);
+            },
+            error: function() {
+              alert('Erro ao carregar áreas.');
+            }
+          });
+        }
       });
 
       $('#area-select').on('change', function() {
@@ -740,14 +773,18 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 
         $('#trabalho-div').show();
 
+        let dataAjax = {
+          categoria: categoriaId,
+          jurado: juradoId
+        };
+        if (categoriaId !== '3') {
+          dataAjax.area = areaId;
+        }
+
         $.ajax({
           url: '../php/BuscarTrabalhos.php',
           method: 'GET',
-          data: {
-            categoria: categoriaId,
-            area: areaId,
-            jurado: juradoId
-          },
+          data: dataAjax,
           dataType: 'json',
           success: function(data) {
             let rows = '';
@@ -769,4 +806,5 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
     });
   </script>
 </body>
+
 </html>

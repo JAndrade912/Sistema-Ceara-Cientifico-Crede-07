@@ -4,6 +4,10 @@ session_start();
 if(!isset($_SESSION['id_jurados']) || !isset($_SESSION['usuario'])){
   header('Location: ../html/login_jurado.php');
   exit();
+
+  $sql = "SELECT
+  
+  ";
 }
 
 $userName = $_SESSION['usuario']; 
