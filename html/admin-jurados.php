@@ -13,7 +13,7 @@ j.nome,
 j.usuario, 
 j.senha, 
 j.cpf,
-GROUP_CONCAT(DISTINCT CONCAT(c.nome_categoria, ':::', a.nome_area) ORDER BY c.id_categoria SEPARATOR '|||') AS categoria_area_pares,
+GROUP_CONCAT(DISTINCT CONCAT(c.nome_categoria, ':::', IFNULL(a.nome_area, '')) ORDER BY c.id_categoria SEPARATOR '|||') AS categoria_area_pares,
 co.email, 
 co.telefone
 FROM Jurados j
@@ -101,31 +101,29 @@ $result = $pdo->query($sql);
           $area1 = $area2 = '';
 
           if (isset($pares[0])) {
-            [$categoria1, $area1] = explode(':::', $pares[0]) + [null, null];
-            if (trim($categoria1) === 'Pesquisa Júnior') {
-              $area1 = '';
-            }
+            $split = explode(':::', $pares[0]);
+            $categoria1 = $split[0] ?? '';
+            $area1 = $split[1] ?? '';
           }
 
           if (isset($pares[1])) {
-            [$categoria2, $area2] = explode(':::', $pares[1]) + [null, null];
-            if (trim($categoria2) === 'Pesquisa Júnior') {
-              $area2 = '';
-            }
+            $split = explode(':::', $pares[1]);
+            $categoria2 = $split[0] ?? '';
+            $area2 = $split[1] ?? '';
           }
-
+          
           echo '<tr>';
-          echo '<td>' . htmlspecialchars($user_data['nome']) . '</td>';
-          echo '<td>' . htmlspecialchars($user_data['usuario']) . '</td>';
-          echo '<td>' . htmlspecialchars($user_data['senha']) . '</td>';
-          echo '<td>' . htmlspecialchars($user_data['cpf']) . '</td>';
-          echo '<td>' . htmlspecialchars($user_data['email']) . '</td>';
-          echo '<td>' . htmlspecialchars($user_data['telefone']) . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['nome'] ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['usuario'] ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['senha'] ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['cpf'] ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['email'] ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($user_data['telefone'] ?? '') . '</td>';
 
-          echo '<td>' . htmlspecialchars($categoria1) . '</td>';
-          echo '<td>' . htmlspecialchars($area1) . '</td>';
-          echo '<td>' . htmlspecialchars($categoria2) . '</td>';
-          echo '<td>' . htmlspecialchars($area2) . '</td>';
+          echo '<td>' . htmlspecialchars($categoria1 ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($area1 ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($categoria2 ?? '') . '</td>';
+          echo '<td>' . htmlspecialchars($area2 ?? '') . '</td>';
 
           echo '<td>';
           echo '<a href="../php/Editajurados.php?id=' . urlencode($user_data['id_jurados']) . '"><img src="../assets/img/editar.png" alt="Editar"></a> ';

@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once '../php/Connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -41,22 +45,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $pesquisaJuniorId = 3; // id da categoria Pesquisa Júnior
 
-        for ($i = 0; $i < 2; $i++) {
-            $id_categoria = $categorias[$i] ?? null;
-            $id_area = $areas[$i] ?? null;
+        $areaIndex = 0;
 
-            if ($id_categoria) {
-                if ($id_categoria == $pesquisaJuniorId) {
+        foreach ($categorias as $id_categoria) {
+            // Se for Pesquisa Júnior, insere com área NULL
+            if ($id_categoria == $pesquisaJuniorId) {
+                $stmtAssoc->execute([$id_jurado, $id_categoria, null]);
+            } else {
+                // Outras categorias exigem área
+                $id_area = $areas[$areaIndex] ?? null;
+
+                if ($id_area) {
                     $stmtAssoc->execute([$id_jurado, $id_categoria, $id_area]);
+                    $areaIndex++; // só incrementa se usou uma área
                 } else {
-                    if ($id_area) {
-                        $stmtAssoc->execute([$id_jurado, $id_categoria, $id_area]);
-                    } else {
-                        throw new Exception("Área é obrigatória para categoria diferente de Pesquisa Júnior.");
-                    }
+                    throw new Exception("Área é obrigatória para categoria diferente de Pesquisa Júnior.");
                 }
             }
         }
+
         $pdo->commit();
         header('Location: ../html/admin-dashboard.php?msg=sucesso');
         exit();
