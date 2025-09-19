@@ -62,22 +62,22 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-  <header class="menu-superior">
-    <div style="display: flex; align-items: center;">
-      <a href="../html/login_jurado.php" style="float: left;">
-        <img src="../assets/img/sair.png" alt="Sair" />
-      </a>
-      <img src="../assets/img/cearacientifico.png" style="width: 25%; margin-left: 77%" alt="Logo Ceará Científico" />
-    </div>
-  </header>
+ 
+    <header class="menu-superior">
+  <div class="container-fluid" style="width: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
+    <a href="../html/login_jurado.php" class="left-item" style="position: absolute; left: 15px;"><img src="../assets/img/sair.png" alt="Sair" /></a>
+    <img src="../assets/img/cearacientifico.png" class="center-item" style="max-width: 150px;" alt="Logo Ceará Científico" />
+  </div>
+</header>
+ 
 
   <main class="conteudo">
     <div style="text-align: center; width: 100%;">
       <h2>Lista de Trabalhos para <?= htmlspecialchars($userName) ?></h2>
     </div>
     <br />
-    <table class="table table-striped table-bordered">
-      <thead class="table-light">
+    <table class="table table-striped table-bordered ">
+      <thead class="table-success" style="border: 1px solid;">
         <tr>
           <th>Título</th>
           <th>Escola</th>
@@ -86,10 +86,10 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style="border: 1px solid;">
         <?php if (count($trabalhos) === 0): ?>
           <tr>
-            <td colspan="6" style="text-align:center;">Nenhum trabalho associado.</td>
+            <td colspan="6">Nenhum trabalho associado.</td>
           </tr>
         <?php else: ?>
           <?php foreach ($trabalhos as $trabalho): ?>
@@ -153,60 +153,60 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <form id="formAvaliacao" action="../php/SalvarAvaliacao.php" method="post">
               <input type="hidden" name="id_trabalho" id="id_trabalho" value="" />
-              <table class="table table-bordered">
-                <thead class="table-light">
+              <table class="table table-bordered" >
+                <thead class="table-success" style="border: 1px solid;">
                   <tr>
                     <th>Critério</th>
-                    <th>Avaliação</th>
+                    <th style="width: 100px;">Nota</th>
                     <th>Comentário</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style="border: 1px solid;">
                   <tr>
                     <td><b>Criatividade e Inovação</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio1" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario1" /></td>
+                    <td style="width: 100px;" ><input type="text" class="form-control nota-auto" name="criterio1" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario1" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
 
                   <tr>
                     <td><b>Relevância da pesquisa</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio2" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario2" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio2" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario2" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Conhecimento científico fundamentado e contextualização do problema abordado</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio3" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario3" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio3" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario3" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Impacto para a construção de uma sociedade que promova os saberes científicos em tempos de crise climática global</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio4" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario4" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio4" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario4" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Metodologia científica conectada com os objetivos, resultados e conclusões</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio5" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario5" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio5" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario5" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Clareza e objetividade na linguagem apresentada</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio6" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario6" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio6" maxlength="5"  style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario6" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Banner</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio7" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario7" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio7" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario7" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Caderno de campo</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio8" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario8" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio8" maxlength="5"  style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario8" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Processo participativo e solidário</b></td>
-                    <td><input type="text" class="form-control nota-auto" name="criterio9" maxlength="5" required /></td>
-                    <td><input type="text" class="form-control" name="comentario9" /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio9" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td><textarea class="form-control" name="comentario9" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                 </tbody>
               </table>
