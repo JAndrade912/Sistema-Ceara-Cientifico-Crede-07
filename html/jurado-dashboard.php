@@ -25,7 +25,13 @@ $stmt = $pdo->prepare("
     t.titulo, 
     e.nome AS nome_escola, 
     c.nome_categoria, 
-    a.nome_area
+    a.nome_area,
+    (
+      SELECT COUNT(*) 
+      FROM Avaliacoes av 
+      WHERE av.id_trabalho = t.id_trabalhos 
+        AND av.id_jurado = jt.id_jurado
+    ) AS avaliacao_existente
   FROM Jurado_Trabalho jt
   INNER JOIN Trabalhos t ON jt.id_trabalho = t.id_trabalhos
   LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
@@ -93,18 +99,21 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <td><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></td>
               <td><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></td>
               <td>
-                <button
-                  class="btn btn-success abrir-modal-avaliacao"
-                  data-bs-toggle="modal"
-                  data-bs-target="#avaliarModal"
-                  data-id_trabalho="<?= $trabalho['id_trabalhos'] ?>"
-                  data-titulo="<?= htmlspecialchars($trabalho['titulo']) ?>"
-                  data-escola="<?= htmlspecialchars($trabalho['nome_escola']) ?>"
-                  data-categoria="<?= htmlspecialchars($trabalho['nome_categoria']) ?>"
-                  data-area="<?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?>">
-                  Avaliar
-                </button>
-
+                <?php if ($trabalho['avaliacao_existente'] == 0): ?>
+                  <button
+                    class="btn btn-success abrir-modal-avaliacao"
+                    data-bs-toggle="modal"
+                    data-bs-target="#avaliarModal"
+                    data-titulo="<?= htmlspecialchars($trabalho['titulo']) ?>"
+                    data-escola="<?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?>"
+                    data-categoria="<?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?>"
+                    data-area="<?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?>"
+                    data-id="<?= $trabalho['id_trabalhos'] ?>">
+                    Avaliar
+                  </button>
+                <?php else: ?>
+                  <span class="text-success">Avaliado</span>
+                <?php endif; ?>
               </td>
             </tr>
           <?php endforeach; ?>
