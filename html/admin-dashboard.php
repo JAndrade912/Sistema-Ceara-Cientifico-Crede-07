@@ -49,7 +49,6 @@ if (!empty($_POST['jurado']) && !empty($_POST['categoria']) && !empty($_POST['ar
   $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Salvar associação (se enviou trabalhos)
 if (!empty($_POST['trabalhos']) && !empty($_POST['jurado'])) {
   foreach ($_POST['trabalhos'] as $id_trabalho) {
     $stmt = $pdo->prepare("INSERT INTO jurado_trabalho (id_jurado, id_trabalho) VALUES (?, ?)");
@@ -789,13 +788,15 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
           success: function(data) {
             let rows = '';
             data.forEach(trabalho => {
+              const nomeArea = trabalho.nome_area ?? ''; // se for null, mostra string vazia
               rows += `
-            <tr>
-              <td><input type="checkbox" name="trabalhos[]" value="${trabalho.id_trabalhos}"></td>
-              <td>${trabalho.titulo}</td>
-              <td>${trabalho.nome_area}</td>
-            </tr>`;
+              <tr>
+                <td><input type="checkbox" name="trabalhos[]" value="${trabalho.id_trabalhos}"></td>
+                <td>${trabalho.titulo}</td>
+                <td>${nomeArea}</td>
+              </tr>`;
             });
+
             $('#trabalho-tbody').html(rows);
           },
           error: function() {

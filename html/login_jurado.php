@@ -44,7 +44,7 @@ if (isset($_SESSION['login_error'])) {
                 <div class="form-group">
                   <label for="usuario"><b>Usuário:</b></label>
                   <br>
-                  <input type="text" name="usuario" id="usuario" />
+                  <input type="text" name="usuario" id="usuario" placeholder="Digite seu usuário"/>
                 </div>
                 <br>
                 <div class="form-group">

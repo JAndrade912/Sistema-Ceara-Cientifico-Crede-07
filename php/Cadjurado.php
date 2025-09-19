@@ -43,21 +43,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $stmtAssoc = $pdo->prepare("INSERT INTO Jurados_Categorias_Areas (id_jurados, id_categoria, id_area) VALUES (?, ?, ?)");
 
-        $pesquisaJuniorId = 3; // id da categoria Pesquisa Júnior
+        $pesquisaJuniorId = 3;
 
         $areaIndex = 0;
 
         foreach ($categorias as $id_categoria) {
-            // Se for Pesquisa Júnior, insere com área NULL
             if ($id_categoria == $pesquisaJuniorId) {
                 $stmtAssoc->execute([$id_jurado, $id_categoria, null]);
             } else {
-                // Outras categorias exigem área
                 $id_area = $areas[$areaIndex] ?? null;
 
                 if ($id_area) {
                     $stmtAssoc->execute([$id_jurado, $id_categoria, $id_area]);
-                    $areaIndex++; // só incrementa se usou uma área
+                    $areaIndex++;
                 } else {
                     throw new Exception("Área é obrigatória para categoria diferente de Pesquisa Júnior.");
                 }
