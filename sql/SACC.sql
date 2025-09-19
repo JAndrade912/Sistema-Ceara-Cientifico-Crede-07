@@ -46,13 +46,19 @@ CREATE TABLE Trabalhos (
 );
 
 -- Notas
-CREATE TABLE Notas (
-    id_notas INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    notas DECIMAL(4,2) NOT NULL,
-    id_trabalhos INT NULL,
-    id_jurados INT NULL,
-    id_escolas INT NULL
+CREATE TABLE Avaliacoes (
+    id_avaliacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_trabalho INT NOT NULL,
+    id_jurado INT NOT NULL,
+    criterio INT NOT NULL,
+    nota DECIMAL(4,2) NOT NULL,
+    comentario TEXT,
+    data_avaliacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (id_trabalho) REFERENCES Trabalhos(id_trabalhos),
+    FOREIGN KEY (id_jurado) REFERENCES Jurados(id_jurados)
 );
+
 -- Categorias
 CREATE TABLE Categorias (
     id_categoria INT PRIMARY KEY,

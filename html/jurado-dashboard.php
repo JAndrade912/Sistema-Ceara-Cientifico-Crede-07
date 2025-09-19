@@ -90,17 +90,18 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <tr>
               <td><?= htmlspecialchars($trabalho['titulo']) ?></td>
               <td><?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?></td>
-               <td><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></td>
+              <td><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></td>
               <td><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></td>
               <td>
                 <button
                   class="btn btn-success abrir-modal-avaliacao"
                   data-bs-toggle="modal"
                   data-bs-target="#avaliarModal"
+                  data-id_trabalho="<?= $trabalho['id_trabalhos'] ?>"
                   data-titulo="<?= htmlspecialchars($trabalho['titulo']) ?>"
                   data-escola="<?= htmlspecialchars($trabalho['nome_escola']) ?>"
                   data-categoria="<?= htmlspecialchars($trabalho['nome_categoria']) ?>"
-                  data-area="<?= htmlspecialchars($trabalho['nome_area']) ?>">
+                  data-area="<?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?>">
                   Avaliar
                 </button>
 
@@ -141,7 +142,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <div style="clear: both;"></div>
             </div>
 
-            <form id="formAvaliacao" action="../php/salvar_avaliacao.php" method="post">
+            <form id="formAvaliacao" action="../php/SalvarAvaliacao.php" method="post">
               <input type="hidden" name="id_trabalho" id="id_trabalho" value="" />
               <table class="table table-bordered">
                 <thead class="table-light">
@@ -272,6 +273,15 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           alert("Corrija as notas inválidas (valores entre 0,00 e 10,00)");
         }
       });
+    });
+    $('.abrir-modal-avaliacao').on('click', function() {
+      $('#modalTitulo').text($(this).data('titulo'));
+      $('#modalEscola').text($(this).data('escola'));
+      $('#modalCategoria').text($(this).data('categoria'));
+      $('#modalArea').text($(this).data('area'));
+
+      const trabalhoId = $(this).data('id_trabalho');
+      $('#id_trabalho').val(trabalhoId);
     });
   </script>
 </body>
