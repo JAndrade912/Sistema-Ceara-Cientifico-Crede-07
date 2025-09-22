@@ -481,20 +481,17 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <input type="submit" value="Filtrar" class="btn btn-success">
               </div>
             </form>
+
             <?php
             require_once '../php/Connect.php';
 
             $categoria = $_POST['categoria'] ?? null;
             $area = $_POST['area'] ?? null;
 
-            $sql = "SELECT 
-            t.id_trabalhos, t.titulo, e.nome AS escola, c.nome_categoria, a.nome_area 
-                FROM Trabalhos t
-                  LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
-                  LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
-                  LEFT JOIN Areas a ON t.id_areas = a.id_area
-                  WHERE 1=1";
+            $pesos = [1, 1, 1.5, 1, 2, 1, 1, 1, 0.5];
+            $criteriosDesempate = [3, 2, 5, 1, 4, 6, 7];
 
+            $sql = "SELECT t.id_trabalhos, t.titulo, e.nome AS escola, e.focalizada, e.ide, c.nome_categoria AS categoria, a.nome_area AS area FROM Trabalhos t LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria LEFT JOIN Areas a ON t.id_areas = a.id_area WHERE 1=1";
             $params = [];
 
             if (!empty($categoria)) {
@@ -507,12 +504,159 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             }
 
             $sql .= " ORDER BY t.id_trabalhos DESC";
-
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
 
+            $dados = [];
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+              $id_trabalho = $row['id_trabalhos'];
+
+              $sql_avaliacoes = "SELECT id_jurado, criterio, nota FROM Avaliacoes WHERE id_trabalho = :id_trabalho";
+              $stmt_av = $pdo->prepare($sql_avaliacoes);
+              $stmt_av->execute([':id_trabalho' => $id_trabalho]);
+              $avaliacoes = $stmt_av->fetchAll(PDO::FETCH_ASSOC);
+
+              $notasPorJurado = [];
+              foreach ($avaliacoes as $av) {
+                $jurado = $av['id_jurado'];
+                $crit = (int)$av['criterio'];
+                $nota = (float)$av['nota'];
+                if (!isset($notasPorJurado[$jurado])) {
+                  $notasPorJurado[$jurado] = [];
+                }
+                $notasPorJurado[$jurado][$crit] = $nota;
+              }
+
+              $calculaMediaPonderada = function ($notas, $pesos) {
+                $somaNotas = 0;
+                $somaPesos = 0;
+                foreach ($pesos as $idx => $peso) {
+                  $crit = $idx + 1;
+                  $nota = $notas[$crit] ?? null;
+                  if ($nota !== null) {
+                    $somaNotas += $nota * $peso;
+                    $somaPesos += $peso;
+                  }
+                }
+                return $somaPesos > 0 ? $somaNotas / $somaPesos : null;
+              };
+
+              $jurados = array_keys($notasPorJurado);
+              sort($jurados);
+
+              $mediaJurado1 = isset($jurados[0]) ? $calculaMediaPonderada($notasPorJurado[$jurados[0]], $pesos) : null;
+              $mediaJurado2 = isset($jurados[1]) ? $calculaMediaPonderada($notasPorJurado[$jurados[1]], $pesos) : null;
+
+              if ($mediaJurado1 !== null && $mediaJurado2 !== null) {
+                $notaFinal = ($mediaJurado1 + $mediaJurado2) / 2;
+              } elseif ($mediaJurado1 !== null) {
+                $notaFinal = $mediaJurado1;
+              } elseif ($mediaJurado2 !== null) {
+                $notaFinal = $mediaJurado2;
+              } else {
+                $notaFinal = null;
+              }
+
+              $dados[] = [
+                'id_trabalho' => $id_trabalho,
+                'titulo' => $row['titulo'],
+                'escola' => $row['escola'],
+                'focalizada' => (bool)$row['focalizada'],
+                'ide' => $row['ide'] !== null ? (float)$row['ide'] : null,
+                'categoria' => $row['categoria'],
+                'area' => $row['area'],
+                'jurados' => [
+                  1 => ['id' => $jurados[0] ?? null, 'media_ponderada' => $mediaJurado1, 'criterios' => $notasPorJurado[$jurados[0]] ?? []],
+                  2 => ['id' => $jurados[1] ?? null, 'media_ponderada' => $mediaJurado2, 'criterios' => $notasPorJurado[$jurados[1]] ?? []],
+                ],
+                'criterios' => [],
+                'nota_final' => $notaFinal,
+                'criterio_desempate' => null,
+              ];
+
+              foreach ($pesos as $idx => $_) {
+                $crit = $idx + 1;
+                $nota1 = $notasPorJurado[$jurados[0]][$crit] ?? null;
+                $nota2 = $notasPorJurado[$jurados[1]][$crit] ?? null;
+
+                if ($nota1 !== null && $nota2 !== null) {
+                  $dados[count($dados) - 1]['criterios'][$crit] = ($nota1 + $nota2) / 2;
+                } elseif ($nota1 !== null) {
+                  $dados[count($dados) - 1]['criterios'][$crit] = $nota1;
+                } elseif ($nota2 !== null) {
+                  $dados[count($dados) - 1]['criterios'][$crit] = $nota2;
+                } else {
+                  $dados[count($dados) - 1]['criterios'][$crit] = null;
+                }
+              }
+            }
+
+            function comparaTrabalhos($a, $b, $criteriosDesempate)
+            {
+              if ($a['nota_final'] > $b['nota_final']) return -1;
+              if ($a['nota_final'] < $b['nota_final']) return 1;
+
+              foreach ($criteriosDesempate as $crit) {
+                $notaA = $a['criterios'][$crit] ?? 0;
+                $notaB = $b['criterios'][$crit] ?? 0;
+                if ($notaA > $notaB) return -1;
+                if ($notaA < $notaB) return 1;
+              }
+
+              if ($a['focalizada'] && !$b['focalizada']) return -1;
+              if (!$a['focalizada'] && $b['focalizada']) return 1;
+
+              if ($a['focalizada'] && $b['focalizada'] && $a['ide'] !== null && $b['ide'] !== null) {
+                if ($a['ide'] < $b['ide']) return -1;
+                if ($a['ide'] > $b['ide']) return 1;
+              }
+
+              return 0;
+            }
+
+            function criterioDesempateUsado($a, $b, $criteriosDesempate)
+            {
+              foreach ($criteriosDesempate as $index => $crit) {
+                $notaA = $a['criterios'][$crit] ?? 0;
+                $notaB = $b['criterios'][$crit] ?? 0;
+                if ($notaA != $notaB) {
+                  return [
+                    'indice' => $index + 1,
+                    'criterio' => "Critério #" . ($index + 1),
+                  ];
+                }
+              }
+
+              if ($a['focalizada'] != $b['focalizada']) {
+                return ['indice' => 'Focalizada', 'criterio' => 'Escola focalizada'];
+              }
+
+              if ($a['focalizada'] && $b['focalizada'] && $a['ide'] !== null && $b['ide'] !== null && $a['ide'] != $b['ide']) {
+                return ['indice' => 'IDE', 'criterio' => 'Menor IDE (entre focalizadas)'];
+              }
+
+              return null;
+            }
+
+            usort($dados, function ($a, $b) use ($criteriosDesempate) {
+              return comparaTrabalhos($a, $b, $criteriosDesempate);
+            });
+
+            for ($i = 0; $i < count($dados) - 1; $i++) {
+              $atual = $dados[$i];
+              $proximo = $dados[$i + 1];
+
+              if ($atual['nota_final'] === $proximo['nota_final']) {
+                $criterioUsado = criterioDesempateUsado($atual, $proximo, $criteriosDesempate);
+                if ($criterioUsado !== null) {
+                  $dados[$i]['criterio_desempate'] = $criterioUsado;
+                  $dados[$i + 1]['criterio_desempate'] = $criterioUsado;
+                }
+              }
+            }
             ?>
-            <!-- TABELA DO RANKING PRELIMINAR QUE EXIBE OS TRABALHOS POR FILTRO -->
+
             <div class="table-responsive mt-3">
               <table class="table table-hover">
                 <thead class="text-center">
@@ -524,26 +668,31 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     <th>Jurado 1</th>
                     <th>Jurado 2</th>
                     <th>Nota Final</th>
+                    <th>Critério de Desempate</th>
                   </tr>
                 </thead>
                 <tbody id="ranking-tbody" class="text-center">
-                  <?php
-                  if ($stmt->rowCount() > 0) {
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                  <?php if (count($dados) > 0) {
+                    foreach ($dados as $trab) {
                       echo '<tr>';
-                      echo '<td>' . htmlspecialchars($row['titulo'] ?? '') . '</td>';
-                      echo '<td>' . htmlspecialchars($row['escola'] ?? '') . '</td>';
-                      echo '<td>' . htmlspecialchars($row['nome_categoria']) . '</td>';
-                      echo '<td>' . htmlspecialchars($row['nome_area'] ?? '') . '</td>';
-                      echo '<td>-</td>';
-                      echo '<td>-</td>';
-                      echo '<td>-</td>';
+                      echo '<td>' . htmlspecialchars($trab['titulo']) . '</td>';
+                      echo '<td>' . htmlspecialchars($trab['escola']) . '</td>';
+                      echo '<td>' . htmlspecialchars($trab['categoria']) . '</td>';
+                      echo '<td>' . htmlspecialchars($trab['area']) . '</td>';
+                      echo '<td>' . (isset($trab['jurados'][1]['media_ponderada']) && $trab['jurados'][1]['media_ponderada'] !== null ? number_format($trab['jurados'][1]['media_ponderada'], 2) : '-') . '</td>';
+                      echo '<td>' . (isset($trab['jurados'][2]['media_ponderada']) && $trab['jurados'][2]['media_ponderada'] !== null ? number_format($trab['jurados'][2]['media_ponderada'], 2) : '-') . '</td>';
+                      echo '<td>' . ($trab['nota_final'] !== null ? number_format($trab['nota_final'], 2) : '-') . '</td>';
+                      if (isset($trab['criterio_desempate'])) {
+                        $crit = $trab['criterio_desempate'];
+                        echo '<td>' . htmlspecialchars($crit['criterio']) . '</td>';
+                      } else {
+                        echo '<td>-</td>';
+                      }
                       echo '</tr>';
                     }
                   } else {
-                    echo '<tr><td colspan="7" class="text-center">Nenhum resultado encontrado</td></tr>';
-                  }
-                  ?>
+                    echo '<tr><td colspan="8" class="text-center">Nenhum resultado encontrado</td></tr>';
+                  } ?>
                 </tbody>
               </table>
             </div>
