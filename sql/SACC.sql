@@ -158,28 +158,6 @@ REFERENCES Jurados(id_jurados)
 ON DELETE SET NULL
 ON UPDATE CASCADE;
 
-
-ALTER TABLE Notas
-ADD CONSTRAINT fk_notas_trabalhos
-FOREIGN KEY (id_trabalhos)
-REFERENCES Trabalhos(id_trabalhos)
-ON DELETE SET NULL
-ON UPDATE CASCADE;
-
-ALTER TABLE Notas
-ADD CONSTRAINT fk_notas_jurados
-FOREIGN KEY (id_jurados)
-REFERENCES Jurados(id_jurados)
-ON DELETE SET NULL 
-ON UPDATE CASCADE;
-
-ALTER TABLE Notas
-ADD CONSTRAINT fk_notas_escolas
-FOREIGN KEY (id_escolas)
-REFERENCES Escolas(id_escolas)
-ON DELETE SET NULL
-ON UPDATE CASCADE;
-
 ALTER TABLE Trabalhos
 ADD CONSTRAINT fk_trabalhos_area
 FOREIGN KEY (id_areas)
