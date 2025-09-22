@@ -665,7 +665,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 $criterioUsado = criterioDesempateUsado($atual, $proximo, $criteriosDesempate);
                 if ($criterioUsado !== null) {
                   $dados[$i]['criterio_desempate'] = $criterioUsado;
-                  $dados[$i + 1]['criterio_desempate'] = $criterioUsado;
+                  $dados[$i + 1]['criterio_desempate'] = null;
                 }
               }
             }
