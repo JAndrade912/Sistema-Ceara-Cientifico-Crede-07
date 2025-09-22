@@ -131,7 +131,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
               class="label-text">Trabalhos</span></a></li>
         <li><a href="admin-jurados.php"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span
               class="label-text">Jurados</span></a></li>
-        <li><a href="admin-relatorios.html"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span
+        <li><a href="admin-relatorios.php"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span
               class="label-text">Relatórios</span></a></li>
       </ul>
     </div>
