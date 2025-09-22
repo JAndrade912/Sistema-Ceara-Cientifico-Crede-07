@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -349,30 +349,6 @@ $(window).on('resize', function(){
  }
 });
 
-
-// Dados de exemplo
-const works = [
- {title:"Trabalho LM", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Linguagens, Códigos e suas Tecnologias - LC"},
- {title:"Trabalho MT1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Matemática e suas Tecnologias - MT"},
- {title:"Trabalho CN1", school:"EEEP José Vidal Alves", category:"Ensino Médio", area:"Ciências da Natureza - CN"},
- {title:"Trabalho CH1", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio", area:"Educação Ambiental e Engenharias - CH"},
- {title:"Trabalho ROB1", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio", area:"Robótica, Automação e Aplicação das TIC"},
- {title:"Trabalho LM2", school:"EEEP José Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Linguagens, Códigos e suas Tecnologias - LC"},
- {title:"Trabalho MT2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Matemática e suas Tecnologias - MT"},
- {title:"Trabalho CN2", school:"EEM Casemiro Bezerra de Araújo", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Ciências da Natureza - CN"},
- {title:"Trabalho CH2", school:"EEEP Francisco Paiva Tavares", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Educação Ambiental e Engenharias - CH"},
- {title:"Trabalho ROB2", school:"EEEP José Vidal Alves", category:"Ensino Médio - Ações Afirmativas e CEJAs EM", area:"Robótica, Automação e Aplicação das TIC"},
- {title:"Pesquisa Jr1", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
- {title:"Pesquisa Jr2", school:"EEEP José Vidal Alves", category:"Pesquisa Júnior", area:""},
- {title:"Pesquisa Jr3", school:"EEM Casemiro Bezerra de Araújo", category:"Pesquisa Júnior", area:""},
- {title:"Pesquisa Jr4", school:"EEEP Francisco Paiva Tavares", category:"Pesquisa Júnior", area:""},
- {title:"Pesquisa Jr5", school:"EEEP José Vidal Alves", category:"Pesquisa Júnior", area:""},
- {title:"PcD EF1", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Fundamental"},
- {title:"PcD EF2", school:"EEEP Jose Vidal Alves", category:"PcD", area:"Ensino Fundamental"},
- {title:"PcD EM1", school:"EEM Casemiro Bezerra de Araújo", category:"PcD", area:"Ensino Médio"},
- {title:"PcD EM2", school:"EEEP Francisco Paiva Tavares", category:"PcD", area:"Ensino Médio"},
- {title:"PcD EM3", school:"EEEP José Vidal Alves", category:"PcD", area:"Ensino Médio"}
-];
 
 
 // Áreas por categoria
