@@ -491,7 +491,12 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             $pesos = [1, 1, 1.5, 1, 2, 1, 1, 1, 0.5];
             $criteriosDesempate = [3, 2, 5, 1, 4, 6, 7];
 
-            $sql = "SELECT t.id_trabalhos, t.titulo, e.nome AS escola, e.focalizada, e.ide, c.nome_categoria AS categoria, a.nome_area AS area FROM Trabalhos t LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria LEFT JOIN Areas a ON t.id_areas = a.id_area WHERE 1=1";
+            $sql = "SELECT t.id_trabalhos, t.titulo, e.nome AS escola, e.focalizada, e.ide, c.nome_categoria AS categoria, a.nome_area AS area 
+        FROM Trabalhos t 
+        LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas 
+        LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria 
+        LEFT JOIN Areas a ON t.id_areas = a.id_area 
+        WHERE 1=1";
             $params = [];
 
             if (!empty($categoria)) {
@@ -558,17 +563,28 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 $notaFinal = null;
               }
 
+              $focalizada = strtolower($row['focalizada'] ?? '') === 'focalizada' ? true : false;
+              $ide = strtolower($row['ide'] ?? '') === 'sim' ? true : false;
+
               $dados[] = [
                 'id_trabalho' => $id_trabalho,
                 'titulo' => $row['titulo'],
                 'escola' => $row['escola'],
-                'focalizada' => (bool)$row['focalizada'],
-                'ide' => $row['ide'] !== null ? (float)$row['ide'] : null,
+                'focalizada' => $focalizada,
+                'ide' => $ide,
                 'categoria' => $row['categoria'],
                 'area' => $row['area'],
                 'jurados' => [
-                  1 => ['id' => $jurados[0] ?? null, 'media_ponderada' => $mediaJurado1, 'criterios' => $notasPorJurado[$jurados[0]] ?? []],
-                  2 => ['id' => $jurados[1] ?? null, 'media_ponderada' => $mediaJurado2, 'criterios' => $notasPorJurado[$jurados[1]] ?? []],
+                  1 => [
+                    'id' => $jurados[0] ?? null,
+                    'media_ponderada' => $mediaJurado1,
+                    'criterios' => isset($jurados[0]) ? ($notasPorJurado[$jurados[0]] ?? []) : []
+                  ],
+                  2 => [
+                    'id' => $jurados[1] ?? null,
+                    'media_ponderada' => $mediaJurado2,
+                    'criterios' => isset($jurados[1]) ? ($notasPorJurado[$jurados[1]] ?? []) : []
+                  ],
                 ],
                 'criterios' => [],
                 'nota_final' => $notaFinal,
@@ -577,8 +593,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 
               foreach ($pesos as $idx => $_) {
                 $crit = $idx + 1;
-                $nota1 = $notasPorJurado[$jurados[0]][$crit] ?? null;
-                $nota2 = $notasPorJurado[$jurados[1]][$crit] ?? null;
+                $nota1 = isset($jurados[0]) ? ($notasPorJurado[$jurados[0]][$crit] ?? null) : null;
+                $nota2 = isset($jurados[1]) ? ($notasPorJurado[$jurados[1]][$crit] ?? null) : null;
 
                 if ($nota1 !== null && $nota2 !== null) {
                   $dados[count($dados) - 1]['criterios'][$crit] = ($nota1 + $nota2) / 2;
@@ -607,10 +623,8 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
               if ($a['focalizada'] && !$b['focalizada']) return -1;
               if (!$a['focalizada'] && $b['focalizada']) return 1;
 
-              if ($a['focalizada'] && $b['focalizada'] && $a['ide'] !== null && $b['ide'] !== null) {
-                if ($a['ide'] < $b['ide']) return -1;
-                if ($a['ide'] > $b['ide']) return 1;
-              }
+              if ($a['ide'] && !$b['ide']) return -1;
+              if (!$a['ide'] && $b['ide']) return 1;
 
               return 0;
             }
@@ -628,12 +642,12 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 }
               }
 
-              if ($a['focalizada'] != $b['focalizada']) {
+              if ($a['focalizada'] !== $b['focalizada']) {
                 return ['indice' => 'Focalizada', 'criterio' => 'Escola focalizada'];
               }
 
-              if ($a['focalizada'] && $b['focalizada'] && $a['ide'] !== null && $b['ide'] !== null && $a['ide'] != $b['ide']) {
-                return ['indice' => 'IDE', 'criterio' => 'Menor IDE (entre focalizadas)'];
+              if ($a['ide'] !== $b['ide']) {
+                return ['indice' => 'IDE', 'criterio' => 'Escola com IDE'];
               }
 
               return null;
@@ -647,7 +661,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
               $atual = $dados[$i];
               $proximo = $dados[$i + 1];
 
-              if ($atual['nota_final'] === $proximo['nota_final']) {
+              if (abs($atual['nota_final'] - $proximo['nota_final']) < 0.0001) {
                 $criterioUsado = criterioDesempateUsado($atual, $proximo, $criteriosDesempate);
                 if ($criterioUsado !== null) {
                   $dados[$i]['criterio_desempate'] = $criterioUsado;
@@ -682,7 +696,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                       echo '<td>' . (isset($trab['jurados'][1]['media_ponderada']) && $trab['jurados'][1]['media_ponderada'] !== null ? number_format($trab['jurados'][1]['media_ponderada'], 2) : '-') . '</td>';
                       echo '<td>' . (isset($trab['jurados'][2]['media_ponderada']) && $trab['jurados'][2]['media_ponderada'] !== null ? number_format($trab['jurados'][2]['media_ponderada'], 2) : '-') . '</td>';
                       echo '<td>' . ($trab['nota_final'] !== null ? number_format($trab['nota_final'], 2) : '-') . '</td>';
-                      if (isset($trab['criterio_desempate'])) {
+                      if (isset($trab['criterio_desempate']) && $trab['criterio_desempate'] !== null) {
                         $crit = $trab['criterio_desempate'];
                         echo '<td>' . htmlspecialchars($crit['criterio']) . '</td>';
                       } else {
