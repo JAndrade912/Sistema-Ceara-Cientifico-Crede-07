@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/dompdf/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
@@ -16,7 +16,7 @@ $dompdf->setPaper('A4', 'portrait');
 
 $dompdf->render();
 
-$dompdf->stream('relatorio.pdf', ['Attachment' => false]);
+$dompdf->stream('document.pdf', ['Attachment' => false]);
 
 header('Content-type: application/pdf');
 
