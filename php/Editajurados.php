@@ -71,9 +71,7 @@ if (isset($categoriasAreas[1])) {
             margin: 40px;
         }
     </style>
-    <div class="modal-header" style="float: right;">
-        <a href="../html/admin-jurados.php"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></a>
-    </div>
+    
     <div class="modal-body">
         <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
         <form action="../php/Atualizajurados.php" method="POST" id="idCadJurado">
@@ -147,7 +145,8 @@ if (isset($categoriasAreas[1])) {
             </div>
 
 
-            <input type="submit" value="Atualizar" class="btn btn-success" style="margin-top:10px;">
+            <input type="submit" value="Atualizar" class="btn btn-success mt-3" style="margin-top:10px;">
+            <a href="../html/admin-escolas.php" class="btn btn-secondary mt-3">Cancelar</a>
         </form>
     </div>
     <div class="modal-footer">
