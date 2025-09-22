@@ -71,8 +71,8 @@ if (isset($categoriasAreas[1])) {
             margin: 40px;
         }
     </style>
-    <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+    <div class="modal-header" style="float: right;">
+        <a href="../html/admin-jurados.php"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></a>
     </div>
     <div class="modal-body">
         <h5 class="modal-title" id="modalJuradoLabel">Editar Jurado</h5>
