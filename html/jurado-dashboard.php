@@ -289,7 +289,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       $('#modalCategoria').text($(this).data('categoria'));
       $('#modalArea').text($(this).data('area'));
 
-      const trabalhoId = $(this).data('id_trabalho');
+      const trabalhoId = $(this).data('id');
       $('#id_trabalho').val(trabalhoId);
     });
   </script>
