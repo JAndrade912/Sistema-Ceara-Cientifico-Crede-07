@@ -62,14 +62,14 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
- 
-    <header class="menu-superior">
-  <div class="container-fluid" style="width: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
-    <a href="../html/login_jurado.php" class="left-item" style="position: absolute; left: 15px;"><img src="../assets/img/sair.png" alt="Sair" /></a>
-    <img src="../assets/img/cearacientifico.png" class="center-item" style="max-width: 150px;" alt="Logo Ceará Científico" />
-  </div>
-</header>
- 
+
+  <header class="menu-superior">
+    <div class="container-fluid" style="width: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
+      <a href="../html/login_jurado.php" class="left-item" style="position: absolute; left: 15px;"><img src="../assets/img/sair.png" alt="Sair" /></a>
+      <img src="../assets/img/cearacientifico.png" class="center-item" style="max-width: 150px;" alt="Logo Ceará Científico" />
+    </div>
+  </header>
+
 
   <main class="conteudo">
     <div style="text-align: center; width: 100%;">
@@ -153,7 +153,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <form id="formAvaliacao" action="../php/SalvarAvaliacao.php" method="post">
               <input type="hidden" name="id_trabalho" id="id_trabalho" value="" />
-              <table class="table table-bordered" >
+              <table class="table table-bordered">
                 <thead class="table-success" style="border: 1px solid;">
                   <tr>
                     <th>Critério</th>
@@ -164,7 +164,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tbody style="border: 1px solid;">
                   <tr>
                     <td><b>Criatividade e Inovação</b></td>
-                    <td style="width: 100px;" ><input type="text" class="form-control nota-auto" name="criterio1" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio1" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario1" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
 
@@ -190,7 +190,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   </tr>
                   <tr>
                     <td><b>Clareza e objetividade na linguagem apresentada</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio6" maxlength="5"  style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio6" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario6" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
@@ -200,7 +200,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   </tr>
                   <tr>
                     <td><b>Caderno de campo</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio8" maxlength="5"  style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio8" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario8" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
@@ -213,7 +213,28 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
               <div class="d-flex justify-content-between mt-4">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
-                <button type="submit" class="btn btn-success">Finalizar Avaliação</button>
+                <button type="button" class="btn btn-success" id="btnAbrirConfirmacao">Finalizar Avaliação</button>
+              </div>
+              <div class="modal fade" id="confirmarEnvioModal" tabindex="-1" aria-labelledby="confirmarEnvioModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmarEnvioModalLabel">Confirmar Avaliação</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                      Tem certeza que deseja finalizar a avaliação? Você não poderá alterar depois.
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-success" id="confirmarEnvioBtn">Sim, finalizar</button>
+                    </div>
+
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -224,75 +245,96 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const inputsNotas = document.querySelectorAll('.nota-auto');
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputsNotas = document.querySelectorAll('.nota-auto');
+    const form = document.getElementById('formAvaliacao');
+    const botaoAbrirConfirmacao = document.getElementById('btnAbrirConfirmacao');
+    const botaoConfirmarEnvio = document.getElementById('confirmarEnvioBtn');
+    let formValido = false;
 
-      inputsNotas.forEach(input => {
-        input.addEventListener('input', () => {
-          let valor = input.value.replace(/\D/g, '');
+    // Validação em tempo real
+    inputsNotas.forEach(input => {
+      input.addEventListener('input', () => {
+        let valor = input.value.replace(/\D/g, '');
 
-          if (valor.length > 4) {
-            valor = valor.slice(0, 4);
-          }
+        if (valor.length > 4) {
+          valor = valor.slice(0, 4);
+        }
 
-          valor = valor.padStart(3, '0');
+        valor = valor.padStart(3, '0');
 
-          let intParte = valor.slice(0, -2);
-          let decimalParte = valor.slice(-2);
-          let resultado = `${parseInt(intParte, 10)},${decimalParte}`;
+        let intParte = valor.slice(0, -2);
+        let decimalParte = valor.slice(-2);
+        let resultado = `${parseInt(intParte, 10)},${decimalParte}`;
 
-          let numero = parseFloat(resultado.replace(',', '.'));
-          if (numero > 10) {
-            resultado = '10,00';
-          }
+        let numero = parseFloat(resultado.replace(',', '.'));
 
-          input.value = resultado;
-        });
+        if (numero > 10) {
+          alert("Nota inválida! A nota máxima permitida é 10,00.");
+          input.value = '';
+          input.classList.add('is-invalid');
+          return;
+        }
 
-        input.addEventListener('blur', () => {
-          let numero = parseFloat(input.value.replace(',', '.'));
-
-          if (isNaN(numero) || numero < 0 || numero > 10) {
-            input.value = '0,00';
-            input.classList.add('is-invalid');
-          } else {
-            input.value = numero.toFixed(2).replace('.', ',');
-            input.classList.remove('is-invalid');
-          }
-        });
+        input.value = resultado;
+        input.classList.remove('is-invalid');
       });
 
-      const form = document.getElementById('formAvaliacao');
-      form.addEventListener('submit', (e) => {
-        let valido = true;
+      input.addEventListener('blur', () => {
+        let numero = parseFloat(input.value.replace(',', '.'));
 
-        inputsNotas.forEach(input => {
-          const valorNumerico = parseFloat(input.value.replace(',', '.'));
-          if (isNaN(valorNumerico) || valorNumerico < 0 || valorNumerico > 10) {
-            input.classList.add('is-invalid');
-            valido = false;
-          } else {
-            input.classList.remove('is-invalid');
-            input.value = valorNumerico.toFixed(2);
-          }
-        });
-
-        if (!valido) {
-          e.preventDefault();
-          alert("Corrija as notas inválidas (valores entre 0,00 e 10,00)");
+        if (isNaN(numero) || numero < 0 || numero > 10) {
+          input.value = '0,00';
+          input.classList.add('is-invalid');
+        } else {
+          input.value = numero.toFixed(2).replace('.', ',');
+          input.classList.remove('is-invalid');
         }
       });
     });
-    $('.abrir-modal-avaliacao').on('click', function() {
-      $('#modalTitulo').text($(this).data('titulo'));
-      $('#modalEscola').text($(this).data('escola'));
-      $('#modalCategoria').text($(this).data('categoria'));
-      $('#modalArea').text($(this).data('area'));
 
-      const trabalhoId = $(this).data('id');
-      $('#id_trabalho').val(trabalhoId);
+    // Abertura do modal de confirmação
+    botaoAbrirConfirmacao.addEventListener('click', () => {
+      let valido = true;
+
+      inputsNotas.forEach(input => {
+        const valorNumerico = parseFloat(input.value.replace(',', '.'));
+        if (isNaN(valorNumerico) || valorNumerico < 0 || valorNumerico > 10) {
+          input.classList.add('is-invalid');
+          valido = false;
+        } else {
+          input.classList.remove('is-invalid');
+          input.value = valorNumerico.toFixed(2).replace('.', ',');
+        }
+      });
+
+      if (!valido) {
+        alert("Corrija as notas inválidas (valores entre 0,00 e 10,00)");
+        return;
+      }
+
+      formValido = true;
+      const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarEnvioModal'));
+      confirmarModal.show();
     });
-  </script>
+
+    // Enviar form se confirmado
+    botaoConfirmarEnvio.addEventListener('click', () => {
+      if (formValido) {
+        form.submit();
+      }
+    });
+  });
+
+  // Preenche o modal com os dados do botão
+  $('.abrir-modal-avaliacao').on('click', function () {
+    $('#modalTitulo').text($(this).data('titulo'));
+    $('#modalEscola').text($(this).data('escola'));
+    $('#modalCategoria').text($(this).data('categoria'));
+    $('#modalArea').text($(this).data('area'));
+    $('#id_trabalho').val($(this).data('id'));
+  });
+</script>
 </body>
 
 </html>
