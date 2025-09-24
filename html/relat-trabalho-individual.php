@@ -189,7 +189,7 @@ ob_start();
 $html = ob_get_clean();
 
 $options = new Options();
-$options->set('isRemoteEnabled', true); // Para permitir imagens locais
+$options->set('isRemoteEnabled', true);
 
 $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
