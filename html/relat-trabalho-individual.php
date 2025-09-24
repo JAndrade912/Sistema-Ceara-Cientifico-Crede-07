@@ -139,10 +139,8 @@ ob_start();
 
         .footer-logos img {
             width: 140px;
-            /* aumenta um pouco o tamanho */
             margin: 0 25px;
             display: inline-block;
-            /* garante que fiquem lado a lado */
             vertical-align: middle;
         }
     </style>
