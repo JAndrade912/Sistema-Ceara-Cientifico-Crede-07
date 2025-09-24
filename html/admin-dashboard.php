@@ -303,13 +303,13 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="modalJuradoLabel">Cadastrar Trabalho</h5>
+              <h5 class="modal-title" id="modalTrabalhoLabel">Cadastrar Trabalho</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
             </div>
             <div class="modal-body">
               <form action="../php/Cadtrabalho.php" method="POST" id="idCadTrabalho">
                 <label for="titulo">Título do Trabalho</label>
-                <input type="text" class="form-control" name="titulo" placeholder="Digite o nome do Trabalho" required>
+                <input type="textarea" class="form-control" name="titulo" placeholder="Digite o nome do Trabalho" required>
                 <label for="escola">Escola</label>
                 <select name="escola" id="escola" class="form-control" required>
                   <option value="">Selecione a Escola</option>

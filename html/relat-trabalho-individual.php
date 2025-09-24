@@ -125,23 +125,15 @@ ob_start();
             margin-bottom: 20px;
         }
 
-        .logos {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 30px;
-        }
-
         .footer-logos {
-            text-align: center;
-            margin-top: 50px;
+         display: flex;
+         justify-content: center;
+         gap: 50px;
+         margin-top: 20px;
         }
 
         .footer-logos img {
-            width: 140px;
-            margin: 0 25px;
-            display: inline-block;
-            vertical-align: middle;
+            max-width: 100px;
         }
     </style>
 </head>

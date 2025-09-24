@@ -135,18 +135,24 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="modal-body">
           <div class="container">
             <div class="mb-4">
-              <p style="float: left;">
-                <?php
-                ?>
-                <!-- 
-                 modal de avaliação
-                -->
-                <strong class="text">Título: <span id="modalTitulo"><?= htmlspecialchars($trabalho['titulo']) ?></span></strong><br /><br />
-                <strong class="text">Escola: <span id="modalEscola"><?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?></span></strong>
-              </p>
-              <p style="float: right; margin-right: 10%;">
-                <strong class="text">Categoria: <span id="modalCategoria"><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></span></strong><br /><br />
-                <strong class="text">Área: <span id="modalArea"><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></span></strong>
+              <p style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+                <?php ?>
+                <div>
+                 <strong class="text">Titulo:</strong>
+                 <span id="modalTitulo"><?= htmlspecialchars($trabalho['titulo']) ?></span>
+              </div>
+              <div>
+                <strong class="text">Escola:</strong>
+                <span id="modalEscola"><?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?></span>
+              </div>
+              <div>
+                <strong class="text">Categoria:</strong>
+                <span id="modalCategoria"><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></span>
+              </div>
+              <div>
+                <strong class="text">Área:</strong>
+                <span id="modalArea"><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></span>
+              </div>
               </p>
               <div style="clear: both;"></div>
             </div>
