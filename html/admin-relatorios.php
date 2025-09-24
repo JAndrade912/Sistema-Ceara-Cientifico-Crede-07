@@ -367,9 +367,6 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
     });
 
-
-
-    // Áreas por categoria
     const areas = {
       "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
       "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
@@ -377,8 +374,6 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
       "IV": ["Ensino Fundamental", "Ensino Médio"]
     };
 
-
-    // Preencher área ao escolher categoria
     $('#categoryFilter').on('change', function() {
       const cat = $(this).val();
       const areaSelect = $('#areaFilter');
@@ -391,8 +386,6 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
       filterWorks();
     });
 
-
-    // Filtrar ao alterar filtros
     $('#schoolFilter, #areaFilter').on('change', filterWorks);
 
 
@@ -425,8 +418,6 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
       });
     }
 
-
-    // Inicializa tabela
     filterWorks();
   </script>
 </body>
