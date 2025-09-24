@@ -98,7 +98,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BRh">
 
 <head>
   <meta charset="UTF-8">

@@ -78,10 +78,7 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbosJurados" style="background-color: #4C8F5A;">Ambos os Jurados</button>
       <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPorEscola" style="background-color: #4C8F5A;">Por Escola</button>
       <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking" style="background-color: #4C8F5A;">Ranking</button>
-      <button class="btn btn-warning btn-lg" style="background-color: rgb(217, 217, 52);">Trabalhos Individuais</button>
     </div>
-
-
     <br>
     <!-- Tabela de trabalhos -->
     <table class="table table-striped table-bordered" id="workTable">
