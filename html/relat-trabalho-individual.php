@@ -146,28 +146,12 @@ ob_start();
         <b>ETAPA REGIONAL - 2025</b>
     </div>
 
-        <div class="mb-4">
-              <p style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-    
-           <div class="d-flex align-items-start" style="min-width: 100%;">
-              <strong class="me-2" style="min-width: 80px;">Titulo:</strong>
-              <span id="modalTitulo" class="text-break"><?= htmlspecialchars($trabalho['titulo']) ?></span>
-          </div>
-        <div class="d-flex align-items-start" style="min-width: 100%;">
-          <strong class="me-2" style="min-width: 80px;">Escola:</strong>
-          <span id="modalArea" class="text-break"><?= htmlspecialchars($trabalho['escola']) ?></span>
-        </div>
-          <div class="d-flex align-items-start" style="min-width: 100%;">
-            <strong class="me-2" style="min-width: 80px;">Categoria:</strong>
-            <span id="modalEscola" class="text-break"><?= htmlspecialchars($trabalho['categoria']) ?></span>
-          </div>
-
-          <div class="d-flex align-items-start" style="min-width: 100%;">
-            <strong class="me-2" style="min-width: 80px;">Área:</strong>
-            <span id="modalCategoria" class="text-break"><?= htmlspecialchars($trabalho['area']) ?></span>
-         </div>
-          </p>
-        </div>
+    <div class="info-header">
+        <div><strong>Título:</strong> <span></span><?= htmlspecialchars($trabalho['titulo']) ?></span></div>
+        <div><strong>Categoria:</strong> </span><?= htmlspecialchars($trabalho['categoria']) ?></span></div>
+        <div><strong>Escola:</strong> <span><?= htmlspecialchars($trabalho['escola']) ?></span></div>
+        <div><strong>Área:</strong> <span><?= htmlspecialchars($trabalho['area']) ?></span></div>
+    </div>
 
     <table>
         <thead>
