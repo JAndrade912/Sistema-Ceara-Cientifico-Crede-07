@@ -136,26 +136,30 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <div class="container">
             <div class="mb-4">
               <p style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-                <?php ?>
-                <div>
-                 <strong class="text">Titulo:</strong>
-                 <span id="modalTitulo"><?= htmlspecialchars($trabalho['titulo']) ?></span>
-              </div>
-              <div>
-                <strong class="text">Escola:</strong>
-                <span id="modalEscola"><?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?></span>
-              </div>
-              <div>
-                <strong class="text">Categoria:</strong>
-                <span id="modalCategoria"><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></span>
-              </div>
-              <div>
-                <strong class="text">Área:</strong>
-                <span id="modalArea"><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></span>
-              </div>
-              </p>
-              <div style="clear: both;"></div>
-            </div>
+    
+           <div class="d-flex align-items-start" style="min-width: 100%;">
+              <strong class="me-2" style="min-width: 80px;">Titulo:</strong>
+              <span id="modalTitulo" class="text-break"><?= htmlspecialchars($trabalho['titulo']) ?></span>
+          </div>
+
+          <div class="d-flex align-items-start" style="min-width: 100%;">
+            <strong class="me-2" style="min-width: 80px;">Escola:</strong>
+            <span id="modalEscola" class="text-break"><?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?></span>
+          </div>
+
+          <div class="d-flex align-items-start" style="min-width: 100%;">
+            <strong class="me-2" style="min-width: 80px;">Categoria:</strong>
+            <span id="modalCategoria" class="text-break"><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></span>
+         </div>
+
+        <div class="d-flex align-items-start" style="min-width: 100%;">
+          <strong class="me-2" style="min-width: 80px;">Área:</strong>
+          <span id="modalArea" class="text-break"><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></span>
+        </div>
+
+          </p>
+        </div>
+
 
             <form id="formAvaliacao" action="../php/SalvarAvaliacao.php" method="post">
               <input type="hidden" name="id_trabalho" id="id_trabalho" value="" />
