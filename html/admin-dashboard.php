@@ -489,7 +489,17 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             $area = $_POST['area'] ?? null;
 
             $pesos = [1, 1, 1.5, 1, 2, 1, 1, 1, 0.5];
-            $criteriosDesempate = [3, 2, 5, 1, 4, 6, 7];
+            $criteriosDesempate = [
+              1, 
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ];
 
             $sql = "SELECT t.id_trabalhos, t.titulo, e.nome AS escola, e.focalizada, e.ide, c.nome_categoria AS categoria, a.nome_area AS area 
         FROM Trabalhos t 
