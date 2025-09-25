@@ -65,6 +65,7 @@ foreach ($avaliacoes as $av) {
 
 function toBase64Image($path)
 {
+    if (!file_exists($path)) return '';
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
     if ($data === false) {
@@ -74,9 +75,9 @@ function toBase64Image($path)
     return "data:image/$type;base64,$base64";
 }
 
-$imgCearaCientifico = toBase64Image('/var/www/html/Sistema-Ceara-Cientifico-Crede-07/assets/img/cearacientifico.png');
-$imgCrede7 = toBase64Image('/var/www/html/Sistema-Ceara-Cientifico-Crede-07/assets/img/crede7.png');
-$imgCeara = toBase64Image('/var/www/html/Sistema-Ceara-Cientifico-Crede-07/assets/img/ceara.png');
+$imgCearaCientifico = toBase64Image(__DIR__.'/../assets/img/cearacientifico.png');
+$imgCrede7 = toBase64Image(__DIR__.'/../assets/img/crede7.png');
+$imgCeara = toBase64Image(__DIR__.'/../assets/img/ceara.png');
 
 ob_start();
 ?>
@@ -191,5 +192,5 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
-$dompdf->stream("avaliacao_trabalho_{$id_trabalho}_jurado_{$id_jurado}.pdf", ["Attachment" => false]);
+$dompdf->stream("avaliacao_trabalho_{$id_trabalho}_jurado_{$id_jurado}.pdf", ["Attachment" => true]);
 exit;

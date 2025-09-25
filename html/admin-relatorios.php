@@ -1,14 +1,23 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
 <?php
-// Conexão com o banco de dados
-session_start();
-require_once '../php/Connect.php'; 
-$stmt = $pdo->query("SELECT id_escolas,nome FROM Escolas ORDER BY nome ASC");
-$escolas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$stmt = $pdo->query("SELECT id_categoria,nome_categoria FROM Categorias ORDER BY nome_categoria ASC");
-$categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
+require_once '../php/Connect.php';
 
+$escolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
+$categorias = $pdo->query("SELECT id_categoria, nome_categoria FROM Categorias ORDER BY nome_categoria")->fetchAll(PDO::FETCH_ASSOC);
+$areas = $pdo->query("SELECT id_area, nome_area FROM Areas ORDER BY nome_area")->fetchAll(PDO::FETCH_ASSOC);
+
+$trabalhos = $pdo->query("
+  SELECT 
+    t.id_trabalhos,
+    t.titulo,
+    e.nome AS escola,
+    c.nome_categoria AS categoria,
+    a.nome_area AS area
+  FROM Trabalhos t
+  LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas
+  LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria
+  LEFT JOIN Areas a ON t.id_areas = a.id_area
+  ORDER BY t.titulo
+")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <head>
@@ -16,11 +25,11 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard Relatórios</title>
 
-  <<link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
-    <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
-    <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
-    <script src="../boostrap/JS/jquery.min.js"></script>
-    <link rel="stylesheet" href="../assets/styles/relatorios.css">
+  <link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
+  <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
+  <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
+  <script src="../boostrap/JS/jquery.min.js"></script>
+  <link rel="stylesheet" href="../assets/styles/relatorios.css">
 </head>
 
 <body>
@@ -58,7 +67,7 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <option value="<?= htmlspecialchars($escola['nome']) ?>">
             <?= htmlspecialchars($escola['nome']) ?>
           </option>
-          <?php endforeach; ?>
+        <?php endforeach; ?>
       </select>
       <select id="categoryFilter">
         <option value="">Selecione a Categoria</option>
@@ -66,7 +75,7 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
             <?= htmlspecialchars($categoria['nome_categoria']) ?>
           </option>
-          <?php endforeach; ?>
+        <?php endforeach; ?>
       </select>
       <select id="areaFilter">
         <option value="">Selecione a Área</option>
@@ -92,6 +101,30 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tr>
       </thead>
       <tbody class="table-striped text-center" id="workTbody" style="border: 1px solid">
+        <?php foreach ($trabalhos as $t): ?>
+          <?php
+          // Consulta para buscar o id de um jurado que avaliou esse trabalho
+          $stmt = $pdo->prepare("SELECT id_jurado FROM Avaliacoes WHERE id_trabalho = :id_trabalho LIMIT 1");
+          $stmt->execute(['id_trabalho' => $t['id_trabalhos']]);
+          $juradoRow = $stmt->fetch(PDO::FETCH_ASSOC);
+
+          $id_jurado = $juradoRow['id_jurado'] ?? null;
+          ?>
+          <tr>
+            <td><?= htmlspecialchars($t['titulo']) ?></td>
+            <td><?= htmlspecialchars($t['escola'] ?? '—') ?></td>
+            <td><?= htmlspecialchars($t['categoria'] ?? '—') ?></td>
+            <td><?= htmlspecialchars($t['area'] ?? '—') ?></td>
+            <td>
+              <?php if ($id_jurado): ?>
+                <a href="../html/relat-trabalho-individual.php?id_trabalho=<?= $t['id_trabalhos'] ?>&id_jurado=<?= $id_jurado ?>&type=pdf" class="btn btn-sm btn-danger me-1" target="_blank" download>PDF</a>
+                <a href="../html/relat-trabalho-individual-excel.php?id_trabalho=<?= $t['id_trabalhos'] ?>&id_jurado=<?= $id_jurado ?>" class="btn btn-sm btn-success" target="_blank" download>Excel</a>
+              <?php else: ?>
+                <span class="text-muted">Sem avaliação</span>
+              <?php endif; ?>
+            </td>
+          </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
 
@@ -226,7 +259,7 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <option value="<?= htmlspecialchars($escola['id_escolas']) ?>">
                   <?= htmlspecialchars($escola['nome']) ?>
                 </option>
-                <?php endforeach; ?>
+              <?php endforeach; ?>
             </select>
           </div>
           <div class="modal-footer">
