@@ -685,6 +685,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
               <table class="table table-hover">
                 <thead class="text-center">
                   <tr>
+                    <th>Classificação</th>
                     <th>Título</th>
                     <th>Escola</th>
                     <th>Categoria</th>
@@ -699,6 +700,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   <?php if (count($dados) > 0) {
                     foreach ($dados as $trab) {
                       echo '<tr>';
+                      echo '<td>'. '</td>';
                       echo '<td>' . htmlspecialchars($trab['titulo']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['escola']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['categoria']) . '</td>';
