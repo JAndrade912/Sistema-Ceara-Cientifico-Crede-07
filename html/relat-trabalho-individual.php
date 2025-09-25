@@ -146,13 +146,28 @@ ob_start();
         <b>ETAPA REGIONAL - 2025</b>
     </div>
 
-    <div class="info-header">
-        <div><strong>Título:</strong> <?= htmlspecialchars($trabalho['titulo']) ?></div>
-        <div><strong>Categoria:</strong> <?= htmlspecialchars($trabalho['categoria']) ?></div>
-        <div><strong>Escola:</strong> <?= htmlspecialchars($trabalho['escola']) ?></div>
-        <div><strong>Área:</strong> <?= htmlspecialchars($trabalho['area']) ?></div>
-        <div><strong>Jurado:</strong> <?= htmlspecialchars($jurado['nome']) ?></div>
-    </div>
+        <div class="mb-4">
+              <p style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+    
+           <div class="d-flex align-items-start" style="min-width: 100%;">
+              <strong class="me-2" style="min-width: 80px;">Titulo:</strong>
+              <span id="modalTitulo" class="text-break"><?= htmlspecialchars($trabalho['titulo']) ?></span>
+          </div>
+        <div class="d-flex align-items-start" style="min-width: 100%;">
+          <strong class="me-2" style="min-width: 80px;">Escola:</strong>
+          <span id="modalArea" class="text-break"><?= htmlspecialchars($trabalho['escola']) ?></span>
+        </div>
+          <div class="d-flex align-items-start" style="min-width: 100%;">
+            <strong class="me-2" style="min-width: 80px;">Categoria:</strong>
+            <span id="modalEscola" class="text-break"><?= htmlspecialchars($trabalho['categoria']) ?></span>
+          </div>
+
+          <div class="d-flex align-items-start" style="min-width: 100%;">
+            <strong class="me-2" style="min-width: 80px;">Área:</strong>
+            <span id="modalCategoria" class="text-break"><?= htmlspecialchars($trabalho['area']) ?></span>
+         </div>
+          </p>
+        </div>
 
     <table>
         <thead>
