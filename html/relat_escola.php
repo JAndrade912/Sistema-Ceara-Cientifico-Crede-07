@@ -5,7 +5,7 @@ require_once '../dompdf/vendor/autoload.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-if (!isset($_GET['id_escola']) || !is_numeric($_GET['id_escola'])) die("Parâmetros da Escola não fornecidos.");
+if (!isset($_GET['id_escola']) || !is_numeric($_GET['id_escola'])) die("id_escola não foi fornecido.");
 
 $id_escola = (int) $_GET['id_escola'];
 
@@ -24,7 +24,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$id_escola]);
 $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (!$dados) die("Nenhum trabalho encontrado para a escola especificada.");
+if (!$dados) die("Verifique se o id_escola existe no banco de dados, ou se a escola possue trabalhos atrelados a ela.");
 
 $trabalhos = [];
 foreach ($dados as $linha) {
