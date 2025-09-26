@@ -111,11 +111,14 @@ ob_start();
         }
 
         table tbody td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            vertical-align: top;
+        vertical-align: top;
+        word-wrap: break-word; 
+        word-break: break-word;     
+        white-space: pre-wrap;
+        max-width: 400px;   
+        padding: 8px;
+        border: 1px solid #ddd;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -132,7 +135,7 @@ ob_start();
         }
 
         .footer-logos img {
-            width: 140px;
+            width: 120px;
             margin: 0 25px;
             display: inline-block;
             vertical-align: middle;
@@ -164,9 +167,9 @@ ob_start();
         <tbody>
             <?php foreach ($criterios as $num => $nome): ?>
                 <tr>
-                    <td><b><?= htmlspecialchars($nome) ?></b></td>
+                    <td style="font-size: 10px;"><b><?= htmlspecialchars($nome) ?></b></td>
                     <td><?= isset($avaliacoesIndexadas[$num]) ? number_format($avaliacoesIndexadas[$num]['nota'], 2, ',', '.') : '' ?></td>
-                    <td><?= isset($avaliacoesIndexadas[$num]) ? nl2br(htmlspecialchars($avaliacoesIndexadas[$num]['comentario'])) : '' ?></td>
+                    <td style="font-size: 8px;"><?= isset($avaliacoesIndexadas[$num]) ? nl2br(htmlspecialchars($avaliacoesIndexadas[$num]['comentario'])) : '' ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
