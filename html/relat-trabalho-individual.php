@@ -150,10 +150,10 @@ ob_start();
     </div>
 
     <div class="info-header">
-        <div><strong>Título:</strong> <span></span><?= htmlspecialchars($trabalho['titulo']) ?></span></div>
-        <div><strong>Categoria:</strong> </span><?= htmlspecialchars($trabalho['categoria']) ?></span></div>
-        <div><strong>Escola:</strong> <span><?= htmlspecialchars($trabalho['escola']) ?></span></div>
-        <div><strong>Área:</strong> <span><?= htmlspecialchars($trabalho['area']) ?></span></div>
+        <div><strong>TÍTULO:</strong> <span></span><?= htmlspecialchars($trabalho['titulo']) ?></span></div>
+        <div><strong>CATEGORIA:</strong> </span><?= htmlspecialchars($trabalho['categoria']) ?></span></div>
+        <div><strong>ESCOLA:</strong> <span><?= htmlspecialchars($trabalho['escola']) ?></span></div>
+        <div><strong>ÁREA:</strong> <span><?= htmlspecialchars($trabalho['area']) ?></span></div>
     </div>
 
     <table>
