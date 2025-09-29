@@ -23,7 +23,7 @@ $trabalhos = $pdo->query("
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard Relatórios</title>
+  <title>Relatórios</title>
 
   <link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
   <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
@@ -61,7 +61,7 @@ $trabalhos = $pdo->query("
     <hr><br>
 
     <div class="filter-group">
-      <select id="schoolFilter">
+      <select id="Filtro_escola">
         <option value="">Selecione a Escola</option>
         <?php foreach ($escolas as $escola): ?>
           <option value="<?= htmlspecialchars($escola['nome']) ?>">
@@ -69,7 +69,7 @@ $trabalhos = $pdo->query("
           </option>
         <?php endforeach; ?>
       </select>
-      <select id="categoryFilter">
+      <select id="Filtro_categoria">
         <option value="">Selecione a Categoria</option>
         <?php foreach ($categorias as $categoria): ?>
           <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
@@ -77,7 +77,7 @@ $trabalhos = $pdo->query("
           </option>
         <?php endforeach; ?>
       </select>
-      <select id="areaFilter">
+      <select id="Filtro_area">
         <option value="">Selecione a Área</option>
       </select>
     </div>
@@ -117,8 +117,8 @@ $trabalhos = $pdo->query("
             <td><?= htmlspecialchars($t['area'] ?? '—') ?></td>
             <td>
               <?php if ($id_jurado): ?>
-                <a href="../html/relat-trabalho-individual.php?id_trabalho=<?= $t['id_trabalhos'] ?>&id_jurado=<?= $id_jurado ?>&type=pdf" class="btn btn-sm btn-danger me-1" target="_blank" download>PDF</a>
-                <a href="../html/relat-trabalho-individual-excel.php?id_trabalho=<?= $t['id_trabalhos'] ?>&id_jurado=<?= $id_jurado ?>" class="btn btn-sm btn-success" target="_blank" download>Excel</a>
+                <button class="btn bg-danger me-1" data-bs-toggle="modal" data-bs-target="#modalPdf">PDF</button>
+                <button class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalExcel">Excel</button>
               <?php else: ?>
                 <span class="text-muted">Sem avaliação</span>
               <?php endif; ?>
@@ -127,6 +127,42 @@ $trabalhos = $pdo->query("
         <?php endforeach; ?>
       </tbody>
     </table>
+
+     <div class="modal fade" id="modalPdf" tabindex="-1" aria-labelledby="modalPdfLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalPdfLabel">Selecione o Jurado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex justify-content-center" style="gap: 20px;">
+            <a href="#" class="btn btn-primary">Jurado 1</a>
+            <a href="#" class="btn btn-primary">Jurado 2</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+          <div class="modal fade" id="modalExcel" tabindex="-1" aria-labelledby="modalExcelLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalExcelLabel">Selecione o Jurado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex justify-content-center" style="gap: 20px;">
+            <a href="#" class="btn btn-primary">Jurado 1</a>
+            <a href="#" class="btn btn-primary">Jurado 2</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="modal fade" id="modalJurado" tabindex="-1" aria-labelledby="modalJuradoLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -406,15 +442,15 @@ $trabalhos = $pdo->query("
     });
 
     const areas = {
-      "I": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-      "II": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-      "III": [],
-      "IV": ["Ensino Fundamental", "Ensino Médio"]
+      "1": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+      "2": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+      "3": [],
+      "4": ["Ensino Fundamental", "Ensino Médio"]
     };
 
-    $('#categoryFilter').on('change', function() {
+    $('#Filtro_categoria').on('change', function() {
       const cat = $(this).val();
-      const areaSelect = $('#areaFilter');
+      const areaSelect = $('#Filtro_area');
       areaSelect.html('<option value="">Selecione a Área</option>');
       if (areas[cat]) {
         areas[cat].forEach(a => {
@@ -424,37 +460,23 @@ $trabalhos = $pdo->query("
       filterWorks();
     });
 
-    $('#schoolFilter, #areaFilter').on('change', filterWorks);
+    $('#Filtro_escola, #Filtro_area').on('change', filterWorks);
 
 
     function filterWorks() {
-      const school = $('#schoolFilter').val();
-      const categoryVal = $('#categoryFilter').val();
-      const categoryName = $('#categoryFilter option:selected').text();
-      const area = $('#areaFilter').val();
+      const escola = $('#Filtro_escola').val();
+      const categoriaVal = $('#Filtro_categoria').val();
+      const categoriaName = $('#Filtro_categoria option:selected').text();
+      const area = $('#Filtro_area').val();
 
 
       const filtered = works.filter(w => {
-        return (!school || w.school === school) &&
-          (!categoryVal || w.category === categoryName) &&
-          (!area || w.area === area);
-      });
-
-
-      const tbody = $('#workTable tbody');
-      tbody.empty();
-      filtered.forEach(w => {
-        tbody.append(`
-     <tr>
-       <td>${w.title}</td>
-       <td>${w.school}</td>
-       <td>${w.category}</td>
-       <td>${w.area || '-'}</td>
-       <td style="text-align: center;"><span><i><img src="../assets/img/dowload.svg"></i></span></td>
-     </tr>
-   `);
+        return (!escola || id_escola === escola) &&
+          (!categoria || id_categoria === categoria) &&
+          (!area || id_area === area);
       });
     }
+  
 
     filterWorks();
   </script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Jurado</title>
+    <title>Editar Trabalho</title>
     <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/styles/admin-dashboard.css">
     <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
@@ -14,7 +14,7 @@
 </head>
 
 <body class="container mt-4">
-    <h2>Editar Escola</h2>
+    <h2>Editar Trabalho</h2>
             <div class="modal-body">
               <form action="../php/Cadtrabalho.php" method="POST" id="idCadTrabalho">
                 <label for="titulo">Título do Trabalho</label>
