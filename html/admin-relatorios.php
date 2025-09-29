@@ -470,20 +470,6 @@ $trabalhos = $pdo->query("
           (!categoria || id_categoria === categoria) &&
           (!area || id_area === area);
       });
-
-
-      $('#workTbody').empty();
-      filtered.forEach(w => {
-        $('#workTbody').append(`
-      <tr>
-        <td>${titulo}</td>
-        <td>${id_escola || '-'}</td>
-        <td>${id_categoria || '-'}</td>
-        <td>${id_area || '-'}</td>
-        <td style="text-align: center;"><span><i><img src="../assets/img/dowload.svg"></i></span></td>
-      </tr>
-   `);
-      });
     }
   
 

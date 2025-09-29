@@ -33,16 +33,16 @@ if (isset($_SESSION['login_error'])) {
   <div class="container d-flex justify-content-center align-items-center">
     <div class="container-fluid" id="login-box">
       <h1 class="h1" id="tit">Admin</h1>
-      <div class="row d-flex justify-content-center align-items-center" id="coluna">
+      <div class="row d-flex" id="coluna">
         <form method="POST" action="../php/Adm.php" id="loginForm">
            <div class="form-group">
-             <label for="usuario">Email:</label><br>
-             <input type="text" name="usuario" id="usuario" required placeholder="Digite seu usuário" />
+             <label for="usuario">Usuário:</label><br>
+             <input class="form-control-lg" type="text" name="usuario" required placeholder="Digite seu usuário" />
            </div>
            <br>
            <div class="form-group">
              <label for="senha">Senha:</label><br>
-             <input type="password" name="senha" id="senha" placeholder="Digite sua senha" />
+             <input class="form-control-lg" type="password" name="senha"  placeholder="Digite sua senha" />
            </div>
            <button type="submit">Entrar</button>
          </form>
@@ -51,8 +51,8 @@ if (isset($_SESSION['login_error'])) {
              <?= htmlspecialchars($error) ?>
            </div>
          <?php endif; ?>
-<img src="../assets/img/crede7.png" style="width: 25%;">
   </div>
+  <img src="../assets/img/crede7.png" style="width: 25%;">
 </body>
 
 </html>

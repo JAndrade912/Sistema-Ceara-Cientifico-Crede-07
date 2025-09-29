@@ -44,13 +44,13 @@ if (isset($_SESSION['login_error'])) {
                 <div class="form-group">
                   <label for="usuario"><b>Usuário:</b></label>
                   <br>
-                  <input type="text" name="usuario" id="usuario" placeholder="Digite seu usuário"/>
+                  <input class="form-control-lg" type="text" name="usuario" id="usuario" placeholder="Digite seu usuário"/>
                 </div>
                 <br>
                 <div class="form-group">
                   <label for="senha"><b>Senha:</b></label>
                   <br>
-                  <input type="password" name="senha" id="senha" required placeholder="Digite sua senha" />
+                  <input class="form-control-lg" type="password" name="senha" id="senha" required placeholder="Digite sua senha" />
                 </div>
                 <button type="submit" id="bt1">Entrar</button>
               </form>
