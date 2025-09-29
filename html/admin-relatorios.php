@@ -241,7 +241,9 @@ $trabalhos = $pdo->query("
     </div>
 
 
-
+    <!-- Modal de relatorios por escola -->
+    <!-- Pendente: vincular para a geração de PDF de acordo com o ID fornecido  -->
+    
     <div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -264,7 +266,10 @@ $trabalhos = $pdo->query("
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
-            <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
+            <a href="../html/relat_escola.php?id_escolas=<?= $e['id_escolas']?>&type=pdf" class='btn btn-success mt-3' download>Gerar Relatório</a>
+              <!--
+              <a href="../html/relat-trabalho-individual.php?id_trabalho=<?= $t['id_trabalhos'] ?>&id_jurado=<?= $id_jurado ?>&type=pdf" class="btn btn-sm btn-danger me-1" target="_blank" download>PDF</a>
+              -->
           </div>
         </div>
       </div>

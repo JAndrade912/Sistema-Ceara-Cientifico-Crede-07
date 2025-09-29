@@ -61,6 +61,27 @@ $criterios = [
   9 => "Processo participativo e solidário"
 ];
 
+function toBase64Image($path)
+{
+    if (!file_exists($path)) return '';
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    if ($data === false) {
+        return '';
+    }
+    $base64 = base64_encode($data);
+    return "data:image/$type;base64,$base64";
+}
+
+$stmtEsc = $pdo->prepare("SELECT nome FROM Escolas WHERE id_escolas = ?");
+$stmtEsc->execute([$id_escola]);
+$result = $stmtEsc->fetch(PDO::FETCH_ASSOC);
+$userName = $result ? $result['nome'] : 'Escola';
+
+$imgCearaCientifico = toBase64Image(__DIR__.'/../assets/img/cearacientifico.png');
+$imgCrede7 = toBase64Image(__DIR__.'/../assets/img/crede7.png');
+$imgCeara = toBase64Image(__DIR__.'/../assets/img/ceara.png');
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -75,13 +96,13 @@ $criterios = [
 <body>
 
   <div class="text-center my-2">
-    <img src="../assets/img/cearacientifico.png" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;">
+    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;">
     <p><b>ETAPA REGIONAL - 2025</b></p>
   </div>
 
   <nav class="d-flex flex-column align-items-center bg-success mb-2 ">
     <div style="font-size: 15px;">
-      <p><b>PLANILHA DE AVALIAÇÃO POR ESCOLA</b></p>
+      <p style="color: white;"><b>PLANILHA DE AVALIAÇÃO DE <?= $userName?></b></p>
     </div>
   </nav>
   <?php
