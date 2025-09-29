@@ -87,10 +87,38 @@ ob_start();
 <html lang="pt-BR">
 
 <head>
+  <meta charset="UTF-8">
   <title>Relatório por Escola</title>
-  <meta charset="utf-8">
+  <style>
+    table tbody td {
+        vertical-align: top;
+        word-wrap: break-word; 
+        word-break: break-word;     
+        white-space: pre-wrap;
+        max-width: 400px;   
+        padding: 8px;
+        border: 1px solid #ddd;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+  body {
+    font-family: 'DejaVu Sans', sans-serif;
+    font-size: 10px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    text-align: center;
+  }
+</style>
+
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
-  <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -182,10 +210,24 @@ ob_start();
   </div>
 
   <div class="d-flex justify-content-center" style="gap: 50px; margin-top: 20px;">
-    <img src="../assets/img/crede7.png" style="max-width: 100px;">
-    <img src="../assets/img/ceara.png" style="max-width: 100px;">
+    <img src=<?= $imgCrede7 ?> style="max-width: 100px;">
+    <img src=<?= $imgCeara ?> style="max-width: 100px;">
   </div>
 
 </body>
-
 </html>
+<?php
+$html = ob_get_clean();
+
+$options = new Options();
+$options->set('isRemoteEnabled', false);
+$options->set('defaultFont', 'DejaVu Sans'); 
+
+$dompdf = new Dompdf($options);
+$dompdf->loadHtml($html);
+$dompdf->setPaper('A4', 'landscape');
+$dompdf->render();
+$dompdf->stream("relatorio_escola_{$_GET['id_escola']}_.pdf", [
+    "Attachment" => false
+]);
+exit;

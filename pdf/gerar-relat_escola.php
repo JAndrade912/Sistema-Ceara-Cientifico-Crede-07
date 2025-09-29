@@ -3,6 +3,7 @@ require_once '../dompdf/vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
+
 ob_start();
 include(__DIR__ . '/../html/relat_escola.php');
 $html = ob_get_clean();

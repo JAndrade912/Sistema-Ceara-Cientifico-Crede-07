@@ -44,15 +44,21 @@ $trabalhos = $pdo->query("
         <span class="brand-text">SACC</span>
       </button>
       <ul class="nav flex-column">
-        <li><a href="admin-dashboard.php"><i><img src="../assets/img/dashboard.png" class="dashboard"></i> <span class="label-text">Dashboard</span></a></li>
-        <li><a href="admin-escolas.php"><i><img src="../assets/img/escola.png" class="escola"></i> <span class="label-text">Escolas</span></a></li>
-        <li><a href="admin-trabalhos.php"><i><img src="../assets/img/trabalho.png" class="trabalho"></i> <span class="label-text">Trabalhos</span></a></li>
-        <li><a href="admin-jurados.php"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span class="label-text">Jurados</span></a></li>
-        <li><a href="admin-relatorios.php"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span class="label-text">Relatórios</span></a></li>
+        <li><a href="admin-dashboard.php"><i><img src="../assets/img/dashboard.png" class="dashboard"></i> <span
+              class="label-text">Dashboard</span></a></li>
+        <li><a href="admin-escolas.php"><i><img src="../assets/img/escola.png" class="escola"></i> <span
+              class="label-text">Escolas</span></a></li>
+        <li><a href="admin-trabalhos.php"><i><img src="../assets/img/trabalho.png" class="trabalho"></i> <span
+              class="label-text">Trabalhos</span></a></li>
+        <li><a href="admin-jurados.php"><i><img src="../assets/img/Jurados.png" class="jurado"></i> <span
+              class="label-text">Jurados</span></a></li>
+        <li><a href="admin-relatorios.php"><i><img src="../assets/img/relatorio.png" class="relatorio"></i> <span
+              class="label-text">Relatórios</span></a></li>
       </ul>
     </div>
     <ul class="nav flex-column bottom-nav">
-      <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
+      <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span
+            class="label-text">Sair</span></a></li>
     </ul>
   </div>
   <main id="main">
@@ -83,10 +89,14 @@ $trabalhos = $pdo->query("
     </div>
     <br>
     <div class="report-buttons">
-      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado" style="background-color: #4C8F5A;">Por Jurado</button>
-      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbosJurados" style="background-color: #4C8F5A;">Ambos os Jurados</button>
-      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPorEscola" style="background-color: #4C8F5A;">Por Escola</button>
-      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking" style="background-color: #4C8F5A;">Ranking</button>
+      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado"
+        style="background-color: #4C8F5A;">Por Jurado</button>
+      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAmbosJurados"
+        style="background-color: #4C8F5A;">Ambos os Jurados</button>
+      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalPorEscola"
+        style="background-color: #4C8F5A;">Por Escola</button>
+      <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalRanking"
+        style="background-color: #4C8F5A;">Ranking</button>
     </div>
     <br>
     <!-- Tabela de trabalhos -->
@@ -128,7 +138,7 @@ $trabalhos = $pdo->query("
       </tbody>
     </table>
 
-     <div class="modal fade" id="modalPdf" tabindex="-1" aria-labelledby="modalPdfLabel" aria-hidden="true">
+    <div class="modal fade" id="modalPdf" tabindex="-1" aria-labelledby="modalPdfLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -137,16 +147,16 @@ $trabalhos = $pdo->query("
           </div>
           <div class="modal-body">
             <div class="d-flex justify-content-center" style="gap: 20px;">
-            <a href="#" class="btn btn-primary">Jurado 1</a>
-            <a href="#" class="btn btn-primary">Jurado 2</a>
+              <a href="#" class="btn btn-primary">Jurado 1</a>
+              <a href="#" class="btn btn-primary">Jurado 2</a>
             </div>
-            
+
           </div>
         </div>
       </div>
     </div>
 
-          <div class="modal fade" id="modalExcel" tabindex="-1" aria-labelledby="modalExcelLabel" aria-hidden="true">
+    <div class="modal fade" id="modalExcel" tabindex="-1" aria-labelledby="modalExcelLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -155,10 +165,10 @@ $trabalhos = $pdo->query("
           </div>
           <div class="modal-body">
             <div class="d-flex justify-content-center" style="gap: 20px;">
-            <a href="#" class="btn btn-primary">Jurado 1</a>
-            <a href="#" class="btn btn-primary">Jurado 2</a>
+              <a href="#" class="btn btn-primary">Jurado 1</a>
+              <a href="#" class="btn btn-primary">Jurado 2</a>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -221,7 +231,8 @@ $trabalhos = $pdo->query("
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              style="margin-top: 17px;">Fechar</button>
             <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
           </div>
         </div>
@@ -230,7 +241,8 @@ $trabalhos = $pdo->query("
 
 
 
-    <div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel"
+      aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -269,7 +281,8 @@ $trabalhos = $pdo->query("
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              style="margin-top: 17px;">Fechar</button>
             <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
           </div>
         </div>
@@ -279,7 +292,7 @@ $trabalhos = $pdo->query("
 
     <!-- Modal de relatorios por escola -->
     <!-- Pendente: vincular para a geração de PDF de acordo com o ID fornecido  -->
-    
+
     <div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -291,7 +304,7 @@ $trabalhos = $pdo->query("
             <p>Gerar relatório dos trabalhos submetidos por uma escola específica.</p>
 
             <label for="escola" class="form-label">Escola</label>
-            <select name="escola" class="form-control" required>
+            <select id="selectEscola" name="escola" class="form-control" required>
               <option value="">Selecione a Escola</option>
               <?php foreach ($escolas as $escola): ?>
                 <option value="<?= htmlspecialchars($escola['id_escolas']) ?>">
@@ -299,13 +312,20 @@ $trabalhos = $pdo->query("
                 </option>
               <?php endforeach; ?>
             </select>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
-            <a href="../html/relat_escola.php?id_escolas=<?= $e['id_escolas']?>&type=pdf" class='btn btn-success mt-3' download>Gerar Relatório</a>
-              <!--
-              <a href="../html/relat-trabalho-individual.php?id_trabalho=<?= $t['id_trabalhos'] ?>&id_jurado=<?= $id_jurado ?>&type=pdf" class="btn btn-sm btn-danger me-1" target="_blank" download>PDF</a>
-              -->
+
+            <button type="button" class="btn btn-success mt-3" onclick="gerarRelatorio()">Gerar Relatório</button>
+
+            <script>
+              function gerarRelatorio() {
+                const idEscola = document.getElementById('selectEscola').value;
+                if (!idEscola) {
+                  alert('Selecione uma escola antes de gerar o relatório.');
+                  return;
+                }
+                window.open(`../html/relat_escola.php?id_escola=${idEscola}&type=pdf`, '_blank');
+              }
+            </script>
+
           </div>
         </div>
       </div>
@@ -353,7 +373,8 @@ $trabalhos = $pdo->query("
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              style="margin-top: 17px;">Fechar</button>
             <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
           </div>
         </div>
@@ -363,7 +384,7 @@ $trabalhos = $pdo->query("
   </main>
   <script src="../bootstrap/JS/jquery.min.js"></script>
   <script>
-    $('#categoria-Ambos').change(function() {
+    $('#categoria-Ambos').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ambos').slideDown();
@@ -376,7 +397,7 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#categoria-Ranking').change(function() {
+    $('#categoria-Ranking').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ranking').slideDown();
@@ -389,7 +410,7 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#jurado-categoria').change(function() {
+    $('#jurado-categoria').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#jurado-area').slideDown();
@@ -402,7 +423,7 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#jurado-categoria').change(function() {
+    $('#jurado-categoria').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#jurado-area').slideDown();
@@ -415,7 +436,7 @@ $trabalhos = $pdo->query("
         $('#jurado-area, #jurado-area2').slideUp();
       }
     });
-    $('#jurado-area, #jurado-area2').change(function() {
+    $('#jurado-area, #jurado-area2').change(function () {
       $('#jurado-nome').slideDown();
     });
 
@@ -434,7 +455,7 @@ $trabalhos = $pdo->query("
       $('#sidebar').removeClass('mobile-open');
       $('#overlay').removeClass('show');
     }
-    $(window).on('resize', function() {
+    $(window).on('resize', function () {
       if (window.innerWidth > 768) {
         $('#sidebar').removeClass('mobile-open');
         $('#overlay').removeClass('show');
@@ -448,7 +469,7 @@ $trabalhos = $pdo->query("
       "4": ["Ensino Fundamental", "Ensino Médio"]
     };
 
-    $('#Filtro_categoria').on('change', function() {
+    $('#Filtro_categoria').on('change', function () {
       const cat = $(this).val();
       const areaSelect = $('#Filtro_area');
       areaSelect.html('<option value="">Selecione a Área</option>');
@@ -476,7 +497,7 @@ $trabalhos = $pdo->query("
           (!area || id_area === area);
       });
     }
-  
+
 
     filterWorks();
   </script>
