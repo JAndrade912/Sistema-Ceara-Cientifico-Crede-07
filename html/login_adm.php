@@ -31,7 +31,7 @@ if (isset($_SESSION['login_error'])) {
     </div>
   </nav>
   <div class="container d-flex justify-content-center align-items-center">
-    <div class="container-fluid" id="login-box">
+    <div class="container-fluid responsive" id="login-box">
       <h1 class="h1" id="tit">Admin</h1>
       <div class="row d-flex" id="coluna">
         <form method="POST" action="../php/Adm.php" id="loginForm">
