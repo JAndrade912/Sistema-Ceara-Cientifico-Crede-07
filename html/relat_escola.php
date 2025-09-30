@@ -149,7 +149,13 @@ ob_start();
       text-align: center;
       margin-bottom: 10px;
     }
-
+      .logos {
+      margin-top: 60px;
+      text-align: center;
+    }.logos img {
+      height: 55px;
+      margin: 0 25px;
+    }
     .rodape {
       justify-content: first baseline;
       margin-top: 20px;
@@ -276,13 +282,13 @@ ob_start();
       </table>
     </div>
   </div>
-  <div class="rodape">
-    <div>
-      <img src=<?= $imgCrede7 ?> style="max-width: 100px;">
-    </div>
-    <div>
-      <img src=<?= $imgCeara ?> style="max-width: 100px;">
-      </div>
+  <div class="logos">
+
+      <img src=<?= $imgCrede7 ?>>
+
+    
+      <img src=<?= $imgCeara ?>>
+
   </div>
 </body>
 
