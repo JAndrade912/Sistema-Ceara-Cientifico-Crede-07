@@ -40,7 +40,6 @@ CREATE TABLE Trabalhos (
     titulo VARCHAR(45) NOT NULL,
     observacoes VARCHAR(45) NOT NULL,
     id_escolas INT NULL,
-    id_jurados INT NULL,
     id_areas INT NULL,
     id_categoria INT NULL
 );
@@ -151,12 +150,6 @@ REFERENCES Escolas(id_escolas)
 ON DELETE SET NULL
 ON UPDATE CASCADE;
 
-ALTER TABLE Trabalhos
-ADD CONSTRAINT fk_trabalhos_jurados
-FOREIGN KEY (id_jurados)
-REFERENCES Jurados(id_jurados)
-ON DELETE SET NULL
-ON UPDATE CASCADE;
 
 ALTER TABLE Trabalhos
 ADD CONSTRAINT fk_trabalhos_area
