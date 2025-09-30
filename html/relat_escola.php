@@ -1,10 +1,17 @@
 <?php
+// tratamento de erros 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+// importação do banco e da biblioteca do dompdf
 require_once '../php/Connect.php';
 require_once '../dompdf/vendor/autoload.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
-
+// verificação do id fornecido
 if (!isset($_GET['id_escola']) || !is_numeric($_GET['id_escola'])) die("id_escola não foi fornecido.");
 
 $id_escola = (int) $_GET['id_escola'];
@@ -50,27 +57,27 @@ foreach ($dados as $linha) {
 }
 
 $criterios = [
-  1 => "Criatividade e Inovação",
-  2 => "Relevância da pesquisa",
-  3 => "Conhecimento científico fundamentado e contextualização do problema abordado",
-  4 => "Impacto para a construção de uma sociedade que promova os saberes científicos em tempos de crise climática global",
-  5 => "Metodologia científica conectada com os objetivos, resultados e conclusões",
-  6 => "Clareza e objetividade na linguagem apresentada",
+  1 => "Criatividade",
+  2 => "Relevância",
+  3 => "Conhecimento",
+  4 => "Impacto",
+  5 => "Metodologia",
+  6 => "Clareza",
   7 => "Banner",
-  8 => "Caderno de campo",
-  9 => "Processo participativo e solidário"
+  8 => "Caderno",
+  9 => "Participação"
 ];
 
 function toBase64Image($path)
 {
-    if (!file_exists($path)) return '';
-    $type = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($path);
-    if ($data === false) {
-        return '';
-    }
-    $base64 = base64_encode($data);
-    return "data:image/$type;base64,$base64";
+  if (!file_exists($path)) return '';
+  $type = pathinfo($path, PATHINFO_EXTENSION);
+  $data = file_get_contents($path);
+  if ($data === false) {
+    return '';
+  }
+  $base64 = base64_encode($data);
+  return "data:image/$type;base64,$base64";
 }
 
 $stmtEsc = $pdo->prepare("SELECT nome FROM Escolas WHERE id_escolas = ?");
@@ -78,9 +85,9 @@ $stmtEsc->execute([$id_escola]);
 $result = $stmtEsc->fetch(PDO::FETCH_ASSOC);
 $userName = $result ? $result['nome'] : 'Escola';
 
-$imgCearaCientifico = toBase64Image(__DIR__.'/../assets/img/cearacientifico.png');
-$imgCrede7 = toBase64Image(__DIR__.'/../assets/img/crede7.png');
-$imgCeara = toBase64Image(__DIR__.'/../assets/img/ceara.png');
+$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/cearacientifico.png');
+$imgCrede7 = toBase64Image(__DIR__ . '/../assets/img/crede7.png');
+$imgCeara = toBase64Image(__DIR__ . '/../assets/img/ceara.png');
 ob_start();
 ?>
 <!DOCTYPE html>
@@ -91,46 +98,107 @@ ob_start();
   <title>Relatório por Escola</title>
   <style>
     table tbody td {
-        vertical-align: top;
-        word-wrap: break-word; 
-        word-break: break-word;     
-        white-space: pre-wrap;
-        max-width: 400px;   
-        padding: 8px;
-        border: 1px solid #ddd;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-  body {
-    font-family: 'DejaVu Sans', sans-serif;
-    font-size: 10px;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  table th, table td {
-    border: 1px solid #ddd;
-    padding: 4px;
-    text-align: center;
-  }
-</style>
+      word-wrap: break-word;
+      word-break: break-word;
+
+      padding: 3px;
+      border: 1px solid #000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+    }
+
+    body {
+      font-family: 'DejaVu Sans', sans-serif;
+    }
+
+    th,
+    td {
+      border: 1px solid #000;
+      padding: 2px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: center;
+    }
+
+    td {
+      padding: 0;
+    }
+
+    nav {
+      color: #000;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .cabecalho {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .rodape {
+      justify-content: first baseline;
+      margin-top: 20px;
+      height: 150px;
+    }
+    .rodape div{
+      justify-content: space-between;
+      text-align: center;
+      flex-direction: row !important;
+      padding: 10px;
+    }
+    .rodape div img {
+      max-width: 100px;
+    }
+    .table-responsive {
+      overflow: hidden;
+    }
+    thead {
+      display: table-header-group;
+    }
+
+    tfoot {
+      display: table-row-group;
+    }
+
+    tr {
+      page-break-inside: avoid;
+    }
+
+    td:first-child {
+      max-width: 120px;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+  </style>
 
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
 </head>
 
 <body>
 
-  <div class="text-center my-2">
+  <div class="cabecalho">
     <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;">
     <p><b>ETAPA REGIONAL - 2025</b></p>
   </div>
 
-  <nav class="d-flex flex-column align-items-center bg-success mb-2 ">
+  <nav>
     <div style="font-size: 15px;">
-      <p style="color: white;"><b>PLANILHA DE AVALIAÇÃO DE <?= $userName?></b></p>
+      <p><b>PLANILHA DE AVALIAÇÃO DE <?= $userName ?></b></p>
     </div>
   </nav>
   <?php
@@ -148,86 +216,89 @@ ob_start();
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
         <thead class="table-secondary text-center align-middle" style="font-size: 8px;">
-          <tr>
-            <th rowspan="2">Título</th>
-            <?php foreach ($criterios as $nome): ?>
-              <th colspan="2"><?= $nome ?></th>
-            <?php endforeach; ?>
-            <th colspan="2">Total individual</th>
-            <th rowspan="2">Nota final</th>
-          </tr>
-          <tr>
-            <?php foreach ($criterios as $criterio): ?>
-              <?php foreach ($jurados as $usuario): ?>
-                <th class="table-success"><?= htmlspecialchars($usuario) ?></th>
-              <?php endforeach; ?>
-            <?php endforeach; ?>
-            <th> Jurado 1</th>
-            <th> Jurado 2</th>
-          </tr>
-        </thead>
+  <tr>
+    <th rowspan="2">Título</th>
+    <?php foreach ($criterios as $nome): ?>
+      <th colspan="2"><?= $nome ?></th>
+    <?php endforeach; ?>
+    <th colspan="2">Total individual</th>
+    <th rowspan="2">Nota final</th>
+  </tr>
+  <tr>
+    <?php foreach ($criterios as $criterio): ?>
+      <th>Jurado 1</th>
+      <th>Jurado 2</th>
+    <?php endforeach; ?>
+    <th>Jurado 1</th>
+    <th>Jurado 2</th>
+  </tr>
+</thead>
+
         <tbody class="text-center align-middle" style="font-size: 9px;">
-          <?php foreach ($trabalhos as $titulo => $jurados): ?>
-            <tr>
-              <td><?= htmlspecialchars($titulo) ?></td>
+  <?php foreach ($trabalhos as $titulo => $jurados): ?>
+    <tr>
+      <td><?= htmlspecialchars($titulo) ?></td>
 
-              <?php foreach ($criterios as $id => $usuario): ?>
-                <?php foreach ([0, 1] as $i): ?>
-                  <td>
-                    <?php
-                    $juradoIds = array_keys($jurados);
-                    $juradoId = $juradoIds[$i] ?? null;
-                    echo $juradoId && isset($jurados[$juradoId]['criterios'][$id])
-                      ? $jurados[$juradoId]['criterios'][$id]
-                      : "-";
-                    ?>
-                  </td>
-                <?php endforeach; ?>
-              <?php endforeach; ?>
+      <?php foreach ($criterios as $id => $criterio): ?>
+        <?php for ($i = 0; $i < 2; $i++): ?>
+          <td>
+            <?php
+            $juradoIds = array_keys($jurados);
+            $juradoId = $juradoIds[$i] ?? null;
+            echo $juradoId && isset($jurados[$juradoId]['criterios'][$id])
+              ? $jurados[$juradoId]['criterios'][$id]
+              : "-";
+            ?>
+          </td>
+        <?php endfor; ?>
+      <?php endforeach; ?>
 
-              <?php foreach ([0, 1] as $i): ?>
-                <td>
-                  <?php
-                  $juradoIds = array_keys($jurados);
-                  $juradoId = $juradoIds[$i] ?? null;
-                  echo $juradoId ? $jurados[$juradoId]['total'] : "-";
-                  ?>
-                </td>
-              <?php endforeach; ?>
+      <?php for ($i = 0; $i < 2; $i++): ?>
+        <td>
+          <?php
+          $juradoIds = array_keys($jurados);
+          $juradoId = $juradoIds[$i] ?? null;
+          echo $juradoId ? $jurados[$juradoId]['total'] : "-";
+          ?>
+        </td>
+      <?php endfor; ?>
 
-              <td>
-                <?php
-                $soma = array_sum(array_column($jurados, 'total'));
-                $qtd = count($jurados);
-                echo $qtd ? round($soma / $qtd, 2) : "-";
-                ?>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
+      <td>
+        <?php
+        $soma = array_sum(array_column($jurados, 'total'));
+        $qtd = count($jurados);
+        echo $qtd ? round($soma / $qtd, 2) : "-";
+        ?>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+</tbody>
       </table>
     </div>
   </div>
-
-  <div class="d-flex justify-content-center" style="gap: 50px; margin-top: 20px;">
-    <img src=<?= $imgCrede7 ?> style="max-width: 100px;">
-    <img src=<?= $imgCeara ?> style="max-width: 100px;">
+  <div class="rodape">
+    <div>
+      <img src=<?= $imgCrede7 ?> style="max-width: 100px;">
+    </div>
+    <div>
+      <img src=<?= $imgCeara ?> style="max-width: 100px;">
+      </div>
   </div>
-
 </body>
+
 </html>
 <?php
 $html = ob_get_clean();
 
 $options = new Options();
 $options->set('isRemoteEnabled', false);
-$options->set('defaultFont', 'DejaVu Sans'); 
+$options->set('defaultFont', 'DejaVu Sans');
 
 $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 $dompdf->stream("relatorio_escola_{$_GET['id_escola']}_.pdf", [
-    "Attachment" => false
+  "Attachment" => false
 ]);
 exit;

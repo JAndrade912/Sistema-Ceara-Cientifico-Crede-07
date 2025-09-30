@@ -332,7 +332,7 @@ $trabalhos = $pdo->query("
     </div>
 
 
-    <!-- Modal Ranking - CORRIGIDO E ADICIONADO SELECTS -->
+    <!-- Modal Ranking para a geração de PDF do resultado final -->
     <div class="modal fade" id="modalRanking" tabindex="-1" aria-labelledby="modalRankingLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -344,38 +344,61 @@ $trabalhos = $pdo->query("
             <p>Gerar relatório de classificação dos trabalhos.</p>
 
             <label for="categoria-Ranking" class="form-label">Categoria</label>
-            <select id="categoria-Ranking" class="form-select mb-2">
+            <select id="categoria-Ranking" name="id_categoria" class="form-select mb-2">
               <option value="">Selecione a Categoria</option>
-              <option value="1">Ensino Médio</option>
-              <option value="2">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-              <option value="3">Pesquisa Júnior</option>
-              <option value="4">PcD</option>
+              <?php foreach ($categorias as $categoria): ?>
+                <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
+                  <?= htmlspecialchars($categoria['nome_categoria']) ?>
+                </option>
+              <?php endforeach; ?>
             </select>
 
             <div id="area-Ranking" style="display: none;">
-              <label for="area-Ranking" class="form-label">Área</label>
-              <select class="form-select">
+              <label for="area-Ranking-select" name="id_areas" class="form-label">Área</label>
+              <select id="area-Ranking-select" name="id_areas" class="form-select">
                 <option value="">Selecione a Área</option>
-                <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                <option value="2">Matemática e suas Tecnologias - MT</option>
-                <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                <option value="5">Robótica, Automação e Aplicação das TIC</option>
+                <?php foreach ($areas as $area): ?>
+                  <option value="<?= htmlspecialchars($area['id_area']) ?>">
+                    <?= htmlspecialchars($area['nome_area']) ?>
+                  </option>
+                <?php endforeach; ?>
               </select>
             </div>
             <div id="area-Ranking2" style="display: none;">
-              <label for="area-Ranking2" class="form-label">Área</label>
-              <select class="form-select">
+              <label for="area-Ranking2-select" name="id_areas" class="form-label">Área</label>
+              <select id="area-Ranking2-select"  name="id_areas" class="form-select">
                 <option value="">Selecione a Área</option>
-                <option value="1">Ensino Fundamental</option>
-                <option value="2">Ensino Médio</option>
+                <option value="6">Ensino Fundamental</option>
+                <option value="7">Ensino Médio</option>
               </select>
+              
             </div>
-          </div>
+            <script>
+              function gerarRelatorioRanking() {
+                const categoria = document.getElementById('categoria-Ranking').value;
+                const area = document.getElementById('area-Ranking-select').value;
+                const area2 = document.getElementById('area-Ranking2-select').value;
+
+                if (!categoria) {
+                  alert('Selecione uma categoria antes de gerar o relatório.');
+                  return;
+                }
+                let url = `../html/relat_ranking.php?id_categoria=${categoria}`;
+                if (area) {
+                  url += `&id_areas=${area}`;
+                }
+                if (area2) {
+                  url += `&id_areas=${area2}`;
+                }
+
+                window.open(url, '_blank');
+              }
+            </script>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
               style="margin-top: 17px;">Fechar</button>
-            <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
+              <button type="button" class="btn btn-success mt-3" onclick="gerarRelatorioRanking()">Gerar Relatório</button>
+          </div>
           </div>
         </div>
       </div>
