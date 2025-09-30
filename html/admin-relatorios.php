@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once '../php/Connect.php';
 
 $escolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -127,8 +131,8 @@ $trabalhos = $pdo->query("
             <td><?= htmlspecialchars($t['area'] ?? '—') ?></td>
             <td>
               <?php if ($id_jurado): ?>
-                <button class="btn bg-danger me-1" data-bs-toggle="modal" data-bs-target="#modalPdf">PDF</button>
-                <button class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#modalExcel">Excel</button>
+                <button class="btn bg-danger me-1" onclick="abrirModalRelatorio(<?= $t['id_trabalhos'] ?>, 'pdf')">PDF</button>
+                <button class="btn btn-success me-1" onclick="abrirModalRelatorio(<?= $t['id_trabalhos'] ?>, 'excel')">Excel</button>
               <?php else: ?>
                 <span class="text-muted">Sem avaliação</span>
               <?php endif; ?>
@@ -220,26 +224,17 @@ $trabalhos = $pdo->query("
                 <label for="jurado-nome" class="form-label">Nome do Jurado</label>
                 <select id="jurado-nome" class="form-control" name="nome" required>
                   <option selected disabled>Selecione o Jurado</option>
-                  <?php foreach ($jurados as $jurado): ?>
-                    <option value="<?= htmlspecialchars($jurado['id_jurados']) ?>">
-                      <?= htmlspecialchars($jurado['nome']) ?>
-                    </option>
-                  <?php endforeach; ?>
                 </select>
               </div>
-
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-              style="margin-top: 17px;">Fechar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
             <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
           </div>
         </div>
       </div>
     </div>
-
-
 
     <div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel"
       aria-hidden="true">
@@ -288,11 +283,8 @@ $trabalhos = $pdo->query("
         </div>
       </div>
     </div>
-
-
     <!-- Modal de relatorios por escola -->
     <!-- Pendente: vincular para a geração de PDF de acordo com o ID fornecido  -->
-
     <div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -384,7 +376,12 @@ $trabalhos = $pdo->query("
   </main>
   <script src="../bootstrap/JS/jquery.min.js"></script>
   <script>
-    $('#categoria-Ambos').change(function () {
+    $('#modalPdf').on('show.bs.modal', function(event) {
+      const button = $(event.relatedTarget);
+      const idTrabalho = button.data('id');
+    });
+
+    $('#categoria-Ambos').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ambos').slideDown();
@@ -396,8 +393,7 @@ $trabalhos = $pdo->query("
         $('#area-Ambos, #area-Ambos2').slideUp();
       }
     });
-
-    $('#categoria-Ranking').change(function () {
+    $('#categoria-Ranking').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ranking').slideDown();
@@ -410,36 +406,27 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#jurado-categoria').change(function () {
+    $('#jurado-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#jurado-area').slideDown();
         $('#jurado-area2').slideUp();
-      } else if (categoria === '4') {
-        $('#jurado-area').slideUp();
-        $('#jurado-area2').slideDown();
-      } else {
-        $('#jurado-area, #jurado-area2').slideUp();
-      }
-    });
-
-    $('#jurado-categoria').change(function () {
-      var categoria = $(this).val();
-      if (categoria === '1' || categoria === '2') {
-        $('#jurado-area').slideDown();
-        $('#jurado-area2').slideUp();
+        $('#jurado-nome').slideUp();
       } else if (categoria === '4') {
         $('#jurado-area2').slideDown();
         $('#jurado-area').slideUp();
+        $('#jurado-nome').slideUp();
       } else if (categoria === '3') {
         $('#jurado-nome').slideDown();
         $('#jurado-area, #jurado-area2').slideUp();
+      } else {
+        $('#jurado-area, #jurado-area2, #jurado-nome').slideUp();
       }
     });
-    $('#jurado-area, #jurado-area2').change(function () {
+
+    $('#jurado-area, #jurado-area2').change(function() {
       $('#jurado-nome').slideDown();
     });
-
     // SIDEBAR
     function toggleSidebar() {
       if (window.innerWidth <= 768) {
@@ -455,13 +442,12 @@ $trabalhos = $pdo->query("
       $('#sidebar').removeClass('mobile-open');
       $('#overlay').removeClass('show');
     }
-    $(window).on('resize', function () {
+    $(window).on('resize', function() {
       if (window.innerWidth > 768) {
         $('#sidebar').removeClass('mobile-open');
         $('#overlay').removeClass('show');
       }
     });
-
     const areas = {
       "1": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
       "2": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
@@ -469,7 +455,7 @@ $trabalhos = $pdo->query("
       "4": ["Ensino Fundamental", "Ensino Médio"]
     };
 
-    $('#Filtro_categoria').on('change', function () {
+    $('#Filtro_categoria').on('change', function() {
       const cat = $(this).val();
       const areaSelect = $('#Filtro_area');
       areaSelect.html('<option value="">Selecione a Área</option>');
@@ -483,23 +469,70 @@ $trabalhos = $pdo->query("
 
     $('#Filtro_escola, #Filtro_area').on('change', filterWorks);
 
-
     function filterWorks() {
       const escola = $('#Filtro_escola').val();
-      const categoriaVal = $('#Filtro_categoria').val();
-      const categoriaName = $('#Filtro_categoria option:selected').text();
+      const categoria = $('#Filtro_categoria').val();
       const area = $('#Filtro_area').val();
 
-
       const filtered = works.filter(w => {
-        return (!escola || id_escola === escola) &&
-          (!categoria || id_categoria === categoria) &&
-          (!area || id_area === area);
+        const matchEscola = !escola || w.escola === escola;
+        const matchCategoria = !categoria || w.categoria === categoria;
+        const matchArea = !area || w.area === area;
+        return matchEscola && matchCategoria && matchArea;
+      });
+
+      const tbody = $('#workTbody');
+      tbody.empty();
+
+      if (filtered.length === 0) {
+        tbody.append('<tr><td colspan="5">Nenhum trabalho encontrado.</td></tr>');
+        return;
+      }
+
+      filtered.forEach(w => {
+        tbody.append(`
+      <tr>
+        <td>${w.titulo}</td>
+        <td>${w.escola ?? '—'}</td>
+        <td>${w.categoria ?? '—'}</td>
+        <td>${w.area ?? '—'}</td>
+        <td><span class="text-muted">Sem avaliação</span></td>
+      </tr>
+    `);
       });
     }
-
-
     filterWorks();
+
+    function abrirModalRelatorio(idTrabalho, tipo) {
+      $.ajax({
+        url: '../php/JuradoTrabalho.php',
+        method: 'POST',
+        data: {
+          id_trabalho: idTrabalho
+        },
+        success: function(data) {
+          const jurados = JSON.parse(data);
+          const container = tipo === 'pdf' ? $('#modalPdf .modal-body .d-flex') : $('#modalExcel .modal-body .d-flex');
+          container.empty();
+
+          if (jurados.length === 0) {
+            container.append('<span class="text-danger">Nenhuma avaliação encontrada para esse trabalho.</span>');
+            return;
+          }
+
+          jurados.forEach(j => {
+            const btn = $(`<a href="../html/relat-trabalho-individual.php?id_trabalho=${idTrabalho}&id_jurado=${j.id_jurado}&type=${tipo}" class="btn btn-primary" target="_blank">${j.nome}</a>`);
+            container.append(btn);
+          });
+
+          const modal = tipo === 'pdf' ? '#modalPdf' : '#modalExcel';
+          $(modal).modal('show');
+        },
+        error: function() {
+          alert('Erro ao buscar jurados para o trabalho.');
+        }
+      });
+    }
   </script>
 </body>
 
