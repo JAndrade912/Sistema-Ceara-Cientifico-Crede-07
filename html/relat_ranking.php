@@ -127,7 +127,7 @@ img{
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
         <thead class="table-secondary text-center align-middle">
-          <tr style="font-size: 30px;">
+          <tr id="tit">
             <th rowspan="1">Classificação</th>
             <th rowspan="3">Escola</th>
             <th rowspan="3">Título</th>
@@ -135,7 +135,7 @@ img{
           </tr>
         </thead>
         <tbody class="text-center align-middle" style="font-size: 10px;">
-        <tbody id="ranking-tbody" class="text-center">
+
           <?php
           
           $escolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -193,7 +193,7 @@ img{
         */    
         ?>
         </tbody>
-        </tbody>
+        
       </table>
     </div>
   </div>
