@@ -382,7 +382,7 @@ $trabalhos = $pdo->query("
                 if (area2) {
                   url += `&id_areas=${area2}`;
                 }
-                url = url + '&type=pdf'
+
                 window.open(url, '_blank');
               }
             </script>

@@ -172,70 +172,11 @@ $imgCrede7 = toBase64Image(__DIR__ . '/../assets/img/crede7.png');
 $imgCeara = toBase64Image(__DIR__ . '/../assets/img/ceara.png');
 ob_start();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <title>Relatório Ranking Geral</title>
-  <style>
-table {
-    width: 90%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    margin-left: 5%;
-  }
-
-th, td {
-    border: 1px solid #1e1d1dff;
-    padding: 8px;
-    text-align: center;
-}
-
-h2 {
-    text-align: center;
-}
-
-.criterio1{
-    font-size: 17px;
-    background-color: rgb(207, 205, 205);
-    width: 5%;
-}
-
-.criterio{
-    font-size: 17px;
-    background-color: rgb(207, 205, 205);
-    width: 18%;
-}
-
-.d-flex{
-    background-color: #4C8F5A;
-    width: 90%;
-    margin-left: 5%; 
-}
-
-img{
-   margin-left: 45%;
-    width: 20%;
-}
-
-.logo{
-    width: 90%;
-    border: 1px solid #404040;
-    margin-left: 5%;
-    background-color: rgb(207, 205, 205);
-}
-
-.t1{
-    font-size: 28px;
-}
-
-.t2{
-    font-size: 20px;
-}
-
-</style>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
 </head>
@@ -248,43 +189,27 @@ img{
     <div style="font-size: 15px;">
       <p style="color: #e80000ff;"><b>RESULTADO FINAL</b></p>
     </div>
-<<<<<<< HEAD
     <div class="align-items-center flex-column d-flex" style="font-size: 12px;">
       <p>Aqui deve aparecer a categoria e area selecionados</p>
-=======
-    <div class="align-items-center flex-column d-flex">
->>>>>>> 3e5b3c92b56ca00cd25737ec947649d5a002df80
       <p><b>Categoria: I - Ensino Médio</b></p>
       <p><b>Área: Ciências Humanas e Sociais Aplicadas</b></p>
     </div>
   </nav>
 
+
   <!-- Tabela -->
   <div class="container-fluid mb-5">
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
-<<<<<<< HEAD
         <thead class="table-secondary text-center align-middle" style="font-size: 8px;">
           <tr>
             <th>Classificação</th>
             <th>Escola</th>
             <th>Título</th>
             <th>Nota final</th>
-=======
-        <thead class="table-secondary text-center align-middle">
-          <tr id="tit">
-            <th rowspan="1">Classificação</th>
-            <th rowspan="3">Escola</th>
-            <th rowspan="3">Título</th>
-            <th rowspan="1">Nota final</th>
->>>>>>> 3e5b3c92b56ca00cd25737ec947649d5a002df80
           </tr>
         </thead>
         <tbody class="text-center align-middle" style="font-size: 10px;">
-<<<<<<< HEAD
-
-=======
->>>>>>> 74a54d578bd780686585bac12d25d79103ca08ea
           <?php
           
           $escolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -303,7 +228,7 @@ img{
             </tr> 
             <?php endforeach; ?>
         </tbody>
-        
+        </tbody>
       </table>
     </div>
   </div>
