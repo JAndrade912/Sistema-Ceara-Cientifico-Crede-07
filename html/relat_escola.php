@@ -143,6 +143,7 @@ ob_start();
       color: #000;
       text-align: center;
       padding: 10px 0;
+    
     }
 
     .cabecalho {

@@ -187,10 +187,9 @@ ob_start();
   </div>
   <nav class="d-flex flex-column align-items-center bg-success mb-2 ">
     <div style="font-size: 15px;">
-      <p style="color: #e80000ff;"><b>RESULTADO FINAL</b></p>
+      <p><b>RESULTADO FINAL</b></p>
     </div>
     <div class="align-items-center flex-column d-flex" style="font-size: 12px;">
-      <p>Aqui deve aparecer a categoria e area selecionados</p>
       <p><b>Categoria: I - Ensino Médio</b></p>
       <p><b>Área: Ciências Humanas e Sociais Aplicadas</b></p>
     </div>
