@@ -174,48 +174,48 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tbody style="border: 1px solid;">
                   <tr>
                     <td><b>Criatividade e Inovação</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio1" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio1" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario1" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
 
                   <tr>
                     <td><b>Relevância da pesquisa</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio2" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio2" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario2" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Conhecimento científico fundamentado e contextualização do problema abordado</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio3" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio3" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario3" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Impacto para a construção de uma sociedade que promova os saberes científicos em tempos de crise climática global</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio4" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio4" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario4" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Metodologia científica conectada com os objetivos, resultados e conclusões</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio5" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric"  class="form-control nota-auto" name="criterio5" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario5" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Clareza e objetividade na linguagem apresentada</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio6" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio6" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario6" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Banner</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio7" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio7" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario7" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Caderno de campo</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio8" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio8" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario8" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
                     <td><b>Processo participativo e solidário</b></td>
-                    <td style="width: 100px;"><input type="text" class="form-control nota-auto" name="criterio9" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio9" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario9" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                 </tbody>
@@ -226,7 +226,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <button type="button" class="btn btn-success" id="btnAbrirConfirmacao">Finalizar Avaliação</button>
               </div>
               <div class="modal fade" id="confirmarEnvioModal" tabindex="-1" aria-labelledby="confirmarEnvioModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
 
                     <div class="modal-header">

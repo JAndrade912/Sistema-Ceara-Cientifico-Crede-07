@@ -142,17 +142,17 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
   </div>
   <main id="main">
     <div class="container-fluid">
-      <h2>Dashboard Administrativo</h2>
+      <h2 class="mt-5">Dashboard Administrativo</h2>
       <p class="text-muted">Escolha uma das opções abaixo para realizar cadastros:</p>
       <div class="row text-center mb-4">
         <div class="col">
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalInstituicao"
+          <button class="btn btn-success btn-lg mb-4 me-2" data-bs-toggle="modal" data-bs-target="#modalInstituicao"
             style="background-color: #4C8F5A;">Cadastrar Instituição</button>
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalJurado"
+          <button class="btn btn-success btn-lg mb-4 me-2" data-bs-toggle="modal" data-bs-target="#modalJurado"
             style="background-color: #4C8F5A;">Cadastrar Jurado</button>
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalTrabalho"
+          <button class="btn btn-success btn-lg mb-4 me-2" data-bs-toggle="modal" data-bs-target="#modalTrabalho"
             style="background-color: #4C8F5A;">Cadastrar Trabalho</button>
-          <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#modalAssociacao"
+          <button class="btn btn-success btn-lg mb-4 me-2" data-bs-toggle="modal" data-bs-target="#modalAssociacao"
             style="background-color: #4C8F5A;">Associar Jurado</button>
         </div>
       </div>
@@ -423,14 +423,14 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
 
       <!-- CARDS DE ESTATÍSTICAS -->
       <div class="row stat-row">
-        <div class="col-sm-4">
+        <div class="col-sm-4 mb-4">
           <div class="stat-box stat-primary">
             <i><img src="../assets/img/escola.png" class="escola" style="width: 25px;"></i>
             <h2 id="total-escolas"><?php echo $total_escolas; ?></h2>
             <p>Escolas Cadastradas</p>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 mb-4">
           <div class="stat-box stat-primary">
             <i><img src="../assets/img/trabalho.png" class="trabalho" style="width: 25px;"></i>
             <h2 id="total-trabalhos"><?php echo $total_trabalhos; ?></h2>
