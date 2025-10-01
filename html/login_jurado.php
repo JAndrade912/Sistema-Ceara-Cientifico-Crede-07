@@ -40,7 +40,7 @@ if (isset($_SESSION['login_error'])) {
         <form method="POST" action="../php/Jurado.php" id="loginForm">
            <div class="form-group">
              <label for="usuario">Usuário:</label><br>
-             <input class="form-control-md" type="text" name="usuario" required placeholder="Digite seu usuário" />
+             <input class="form-control-md" type="text" inputmode="numeric" name="usuario" maxlength="6" required placeholder="Digite seu usuário" />
            </div>
            <br>
            <div class="form-group">

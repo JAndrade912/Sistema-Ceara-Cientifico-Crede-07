@@ -44,6 +44,10 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$categoriaNome = $trabalhos[0]['categoria'] ?? '';
+$areaNome = $trabalhos[0]['area'] ?? '';
+
+
 $idsTrabalhos = array_column($trabalhos, 'id_trabalhos');
 $avaliacoes = [];
 if(count($idsTrabalhos) > 0){
@@ -181,17 +185,93 @@ ob_start();
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
 </head>
 <body>
-  <div class="text-center my-2">
-    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;">
-    <p><b>ETAPA REGIONAL - 2025</b></p>
+    <style>
+table {
+    width: 90%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-left: 5%;
+  }
+
+th, td {
+    border: 1px solid #1e1d1dff;
+    padding: 8px;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+.criterio1{
+    font-size: 17px;
+    background-color: rgb(207, 205, 205);
+    width: 5%;
+}
+
+.criterio{
+    font-size: 17px;
+    background-color: rgb(207, 205, 205);
+    width: 18%;
+}
+
+.d-flex{
+    width: 90%;
+    margin-left: 5%; 
+}
+
+
+.logo{
+    width: 90%;
+    border: 1px solid #404040;
+    margin-left: 5%;
+    background-color: rgb(207, 205, 205);
+}
+
+.t1{
+    font-size: 28px;
+}
+
+.t2{
+    font-size: 20px;
+}
+.text{
+  text-align: center;
+}      .logos {
+      margin-top: 60px;
+      text-align: center;
+    }.logos img {
+      margin: 0 25px;
+      height: 60px;
+    }
+    .cabecalho{
+      display: flex;justify-content: center;text-align: center;
+    }
+    .imgCabecalho{
+      align-items: center;
+      text-align: center;
+    }
+
+</style>
+  <div class="cabecalho">
+    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="imgCabecalho" style="max-width: 120px;">
+    <p class="text"><b>ETAPA REGIONAL - 2025</b></p>
   </div>
   <nav class="d-flex flex-column align-items-center bg-success mb-2 ">
     <div style="font-size: 15px;">
+<<<<<<< HEAD
       <p><b>RESULTADO FINAL</b></p>
     </div>
     <div class="align-items-center flex-column d-flex" style="font-size: 12px;">
       <p><b>Categoria: I - Ensino Médio</b></p>
       <p><b>Área: Ciências Humanas e Sociais Aplicadas</b></p>
+=======
+      <p class="text"><b>RESULTADO FINAL</b></p>
+    </div>
+    <div class="align-items-center flex-column d-flex" style="font-size: 12px;">
+      <p><b>Categoria: <?= htmlspecialchars($categoriaNome) ?></b></p>
+      <p><b>Área: <?= htmlspecialchars($areaNome) ?></b></p>
+>>>>>>> 2ee723c39bca4cffd04515a9cd8b5b4e9f872a9c
     </div>
   </nav>
 
@@ -231,10 +311,9 @@ ob_start();
       </table>
     </div>
   </div>
-
-  <div class="d-flex justify-content-center" style="gap: 50px; margin-top: 20px;">
-    <img src="<?= $imgCrede7 ?>" style="max-width: 100px;">
-    <img src="<?= $imgCeara ?>" style="max-width: 100px;">
+  <div class="logos">
+      <img src=<?= $imgCrede7 ?>>
+      <img src=<?= $imgCeara ?>>
   </div>
 </body>
 </html>
