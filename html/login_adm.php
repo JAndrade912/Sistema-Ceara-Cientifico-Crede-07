@@ -31,8 +31,8 @@ if (isset($_SESSION['login_error'])) {
     </div>
   </nav>
   <div class="container d-flex justify-content-center align-items-center">
-    <div class="container-fluid " id="login-box">
-      <h1 class="h1" id="tit">Admin</h1>
+    <div class="container-fluid " id="login-box" style="width:50%">
+      <h1 class="h1" id="tit" style="font-weight: bold;">Admin</h1>
       <div class="row d-flex justify-content-center align-items-center" id="coluna">
         <form method="POST" action="../php/Adm.php" id="loginForm">
            <div class="form-group">
@@ -52,7 +52,8 @@ if (isset($_SESSION['login_error'])) {
            </div>
          <?php endif; ?>
   </div>
-  <img src="../assets/img/crede7.png" style="width: 25%;">
+  <img src="../assets/img/crede7.png" style="width: 12
+  0px;">
 </body>
 
 </html>

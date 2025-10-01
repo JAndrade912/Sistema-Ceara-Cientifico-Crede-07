@@ -32,44 +32,30 @@ if (isset($_SESSION['login_error'])) {
       </a>
     </div>
   </nav>
+
   <div class="container d-flex justify-content-center align-items-center">
-
-    <div class="container d-flex justify-content-center align-items-center">
-      <div class="container-fluid" id="login-box">
-        <div class="right">
-          <div class="login-box">
-            <div class="login-cont">
-              <h2><b>Jurado</b></h2><br>
-              <form method="POST" action="../php/Jurado.php" id="loginForm">
-                <div class="form-group">
-                  <label for="usuario"><b>Usuário:</b></label>
-                  <br>
-                  <input class="form-control-lg" type="text" name="usuario" id="usuario" placeholder="Digite seu usuário"/>
-                </div>
-                <br>
-                <div class="form-group">
-                  <label for="senha"><b>Senha:</b></label>
-                  <br>
-                  <input class="form-control-lg" type="password" name="senha" id="senha" required placeholder="Digite sua senha" />
-                </div>
-                <button type="submit" id="bt1">Entrar</button>
-              </form>
-
-              <?php if (!empty($error)) : ?>
+    <div class="container-fluid " id="login-box" style="width:50%">
+      <h1 class="h1" id="tit" style="font-weight: bold;">Jurado</h1>
+      <div class="row d-flex justify-content-center align-items-center" id="coluna">
+        <form method="POST" action="../php/Jurado.php" id="loginForm">
+           <div class="form-group">
+             <label for="usuario">Usuário:</label><br>
+             <input class="form-control-md" type="text" name="usuario" required placeholder="Digite seu usuário" />
+           </div>
+           <br>
+           <div class="form-group">
+             <label for="senha">Senha:</label><br>
+             <input class="form-control-md" type="password" name="senha"  placeholder="Digite sua senha" />
+           </div>
+           <button type="submit">Entrar</button>
+         </form>
+        <?php if (!empty($error)) : ?>
                 <div style="color: red; margin-top: 10px; text-align: center;">
                   <?= htmlspecialchars($error) ?>
                 </div>
               <?php endif; ?>
-
-            </div>
-          </div>
-        </div>
-        <div class="logos">
-          <img src="../assets/img/crede7.png" alt="Crede 7 Canindé">
-        </div>
-      </div>
-    </div>
   </div>
+  <img src="../assets/img/crede7.png" style="width: 120px;">
 </body>
 
 </html>
