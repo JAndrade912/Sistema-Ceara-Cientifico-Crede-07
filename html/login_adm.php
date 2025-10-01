@@ -52,8 +52,7 @@ if (isset($_SESSION['login_error'])) {
            </div>
          <?php endif; ?>
   </div>
-  <img src="../assets/img/crede7.png" style="width: 12
-  0px;">
+  <img src="../assets/img/crede7.png" style="width: 120px;">
 </body>
 
 </html>
