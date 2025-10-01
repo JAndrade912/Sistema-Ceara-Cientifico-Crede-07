@@ -1,10 +1,9 @@
 <?php
-
-// tratamento de erros
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-// inciando sessão e importando o banco e a biblioteca do dompdf
+
+
 session_start();
 require_once '../php/Connect.php';
 require_once '../dompdf/vendor/autoload.php';
@@ -15,13 +14,18 @@ use Dompdf\Options;
 if (!isset($_GET['id_categoria']) || !is_numeric($_GET['id_categoria']) || !isset($_GET['id_areas']) || !is_numeric($_GET['id_areas'])) die("id_categoria ou id_areas não foi encontrado.");
 
 $id_categoria = (int) $_GET['id_categoria'];
-// condicional referente ao caso de area ser opcional (pesquisa junior)
+
 $id_areas = null;
 if (isset($_GET['id_areas']) && is_numeric($_GET['id_areas'])) {
     $id_areas = (int) $_GET['id_areas'];
 }
-// consulta para obter os trabalhos com suas respectivas escolas, categorias e áreas
-$sql = "SELECT t.id_trabalhos, t.titulo, e.nome AS escola, e.focalizada, e.ide, c.nome_categoria AS categoria, a.nome_area AS area 
+$sql = "SELECT t.id_trabalhos,
+ t.titulo,
+  e.nome AS escola,
+   e.focalizada,
+    e.ide,
+     c.nome_categoria AS categoria,
+      a.nome_area AS area 
         FROM Trabalhos t 
         LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas 
         LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria 
@@ -38,7 +42,135 @@ $sql .= " ORDER BY t.id_trabalhos DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
-$dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$idsTrabalhos = array_column($trabalhos, 'id_trabalhos');
+$avaliacoes = [];
+if(count($idsTrabalhos) > 0){
+  $in = str_repeat('?,' , count($idsTrabalhos) - 1) . '?';
+  $sqlNotas = 
+  "SELECT id_trabalho,
+  id_jurado,
+  criterio,
+  nota FROM Avaliacoes
+  WHERE id_trabalho IN ($in)";
+  $stmtNotas = $pdo->prepare($sqlNotas);
+  $stmtNotas-> execute($idsTrabalhos);
+  $avaliacoes = $stmtNotas->fetchAll(PDO::FETCH_ASSOC);
+} 
+$notasPorTrabalho = [];
+foreach ($avaliacoes as $av) {
+    $notasPorTrabalho[$av['id_trabalho']][$av['id_jurado']][$av['criterio']] = (float)$av['nota'];
+}
+
+$pesos = array_fill(0, 9, 1); 
+
+$calculaMediaPonderada = function ($notas, $pesos) {
+    $somaNotas = 0;
+    $somaPesos = 0;
+    foreach ($pesos as $idx => $peso) {
+        $crit = $idx + 1;
+        $nota = $notas[$crit] ?? null;
+        if ($nota !== null) {
+            $somaNotas += $nota * $peso;
+            $somaPesos += $peso;
+        }
+    }
+    return $somaPesos > 0 ? $somaNotas / $somaPesos : null;
+};
+
+$dados = [];
+foreach ($trabalhos as $row) {
+    $id_trabalho = $row['id_trabalhos'];
+    $notasPorJurado = $notasPorTrabalho[$id_trabalho] ?? [];
+
+    $jurados = array_keys($notasPorJurado);
+    sort($jurados);
+
+    $mediaJurado1 = isset($jurados[0]) ? $calculaMediaPonderada($notasPorJurado[$jurados[0]], $pesos) : null;
+    $mediaJurado2 = isset($jurados[1]) ? $calculaMediaPonderada($notasPorJurado[$jurados[1]], $pesos) : null;
+
+    if ($mediaJurado1 !== null && $mediaJurado2 !== null) {
+        $notaFinal = ($mediaJurado1 + $mediaJurado2) / 2;
+    } elseif ($mediaJurado1 !== null) {
+        $notaFinal = $mediaJurado1;
+    } elseif ($mediaJurado2 !== null) {
+        $notaFinal = $mediaJurado2;
+    } else {
+        $notaFinal = null;
+    }
+
+    $criteriosMedios = [];
+    foreach ($pesos as $idx => $_) {
+        $crit = $idx + 1;
+        $nota1 = isset($jurados[0]) ? ($notasPorJurado[$jurados[0]][$crit] ?? null) : null;
+        $nota2 = isset($jurados[1]) ? ($notasPorJurado[$jurados[1]][$crit] ?? null) : null;
+
+        if ($nota1 !== null && $nota2 !== null) {
+            $criteriosMedios[$crit] = ($nota1 + $nota2) / 2;
+        } elseif ($nota1 !== null) {
+            $criteriosMedios[$crit] = $nota1;
+        } elseif ($nota2 !== null) {
+            $criteriosMedios[$crit] = $nota2;
+        } else {
+            $criteriosMedios[$crit] = null;
+        }
+    }
+
+    $dados[] = [
+        'id_trabalho' => $id_trabalho,
+        'titulo' => $row['titulo'],
+        'escola' => $row['escola'],
+        'focalizada' => strtolower($row['focalizada'] ?? '') === 'focalizada',
+        'ide' => strtolower($row['ide'] ?? '') === 'sim',
+        'categoria' => $row['categoria'],
+        'area' => $row['area'],
+        'nota_final' => $notaFinal,
+        'criterios' => $criteriosMedios,
+        'criterio_desempate' => null,
+    ];
+}
+
+function comparaTrabalhos($a, $b, $criteriosDesempate)
+{
+    if ($a['nota_final'] > $b['nota_final']) return -1;
+    if ($a['nota_final'] < $b['nota_final']) return 1;
+
+    foreach ($criteriosDesempate as $crit) {
+        $notaA = $a['criterios'][$crit] ?? 0;
+        $notaB = $b['criterios'][$crit] ?? 0;
+        if ($notaA > $notaB) return -1;
+        if ($notaA < $notaB) return 1;
+    }
+
+    if ($a['focalizada'] && !$b['focalizada']) return -1;
+    if (!$a['focalizada'] && $b['focalizada']) return 1;
+
+    if ($a['ide'] && !$b['ide']) return -1;
+    if (!$a['ide'] && $b['ide']) return 1;
+
+    return 0;
+}
+
+$criteriosDesempate = range(1, 9);
+usort($dados, function ($a, $b) use ($criteriosDesempate) {
+    return comparaTrabalhos($a, $b, $criteriosDesempate);
+});
+function toBase64Image($path)
+{
+  if (!file_exists($path)) return '';
+  $type = pathinfo($path, PATHINFO_EXTENSION);
+  $data = file_get_contents($path);
+  if ($data === false) {
+    return '';
+  }
+  $base64 = base64_encode($data);
+  return "data:image/$type;base64,$base64";
+}
+$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/cearacientifico.png');
+$imgCrede7 = toBase64Image(__DIR__ . '/../assets/img/crede7.png');
+$imgCeara = toBase64Image(__DIR__ . '/../assets/img/ceara.png');
+ob_start();
 ?>
 
 
@@ -109,14 +241,19 @@ img{
 </head>
 <body>
   <div class="text-center my-2">
-    <img src="../assets/img/cearacientifico.png" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;">
+    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;">
     <p><b>ETAPA REGIONAL - 2025</b></p>
   </div>
   <nav class="d-flex flex-column align-items-center bg-success mb-2 ">
     <div style="font-size: 15px;">
-      <p><b>RESULTADO FINAL</b></p>
+      <p style="color: #e80000ff;"><b>RESULTADO FINAL</b></p>
     </div>
+<<<<<<< HEAD
+    <div class="align-items-center flex-column d-flex" style="font-size: 12px;">
+      <p>Aqui deve aparecer a categoria e area selecionados</p>
+=======
     <div class="align-items-center flex-column d-flex">
+>>>>>>> 3e5b3c92b56ca00cd25737ec947649d5a002df80
       <p><b>Categoria: I - Ensino Médio</b></p>
       <p><b>Área: Ciências Humanas e Sociais Aplicadas</b></p>
     </div>
@@ -126,16 +263,28 @@ img{
   <div class="container-fluid mb-5">
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
+<<<<<<< HEAD
+        <thead class="table-secondary text-center align-middle" style="font-size: 8px;">
+          <tr>
+            <th>Classificação</th>
+            <th>Escola</th>
+            <th>Título</th>
+            <th>Nota final</th>
+=======
         <thead class="table-secondary text-center align-middle">
           <tr id="tit">
             <th rowspan="1">Classificação</th>
             <th rowspan="3">Escola</th>
             <th rowspan="3">Título</th>
             <th rowspan="1">Nota final</th>
+>>>>>>> 3e5b3c92b56ca00cd25737ec947649d5a002df80
           </tr>
         </thead>
         <tbody class="text-center align-middle" style="font-size: 10px;">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 74a54d578bd780686585bac12d25d79103ca08ea
           <?php
           
           $escolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
@@ -153,45 +302,6 @@ img{
               </td>
             </tr> 
             <?php endforeach; ?>
-          <?php
-          /*if (count($dados) > 0) {
-            foreach ($dados as $trab) {
-              echo '<tr>';
-              echo '<td>' . '</td>';
-              echo '<td>' . htmlspecialchars($trab['titulo']) . '</td>';
-              echo '<td>' . htmlspecialchars($trab['escola']) . '</td>';
-              echo '<td>' . htmlspecialchars($trab['categoria']) . '</td>';
-              echo '<td>' . htmlspecialchars($trab['area']) . '</td>';
-              echo '<td>' . (
-                isset($trab['jurados'][1]['media_ponderada']) && $trab['jurados'][1]['media_ponderada'] !== null
-                ? number_format($trab['jurados'][1]['media_ponderada'], 2, ',', '')
-                : '-'
-              ) . '</td>';
-
-              echo '<td>' . (
-                isset($trab['jurados'][2]['media_ponderada']) && $trab['jurados'][2]['media_ponderada'] !== null
-                ? number_format($trab['jurados'][2]['media_ponderada'], 2, ',', '')
-                : '-'
-              ) . '</td>';
-
-              echo '<td>' . (
-                $trab['nota_final'] !== null
-                ? number_format($trab['nota_final'], 2, ',', '')
-                : '-'
-              ) . '</td>';
-              if (isset($trab['criterio_desempate']) && $trab['criterio_desempate'] !== null) {
-                $crit = $trab['criterio_desempate'];
-                echo '<td>' . htmlspecialchars($crit['criterio']) . '</td>';
-              } else {
-                echo '<td>-</td>';
-              }
-              echo '</tr>';
-            }
-          } else {
-            echo '<tr><td colspan="8" class="text-center">Nenhum resultado encontrado</td></tr>';
-          } 
-        */    
-        ?>
         </tbody>
         
       </table>
@@ -199,13 +309,12 @@ img{
   </div>
 
   <div class="d-flex justify-content-center" style="gap: 50px; margin-top: 20px;">
-    <img src="../assets/img/crede7.png" style="max-width: 100px;">
-    <img src="../assets/img/ceara.png" style="max-width: 100px;">
+    <img src="<?= $imgCrede7 ?>" style="max-width: 100px;">
+    <img src="<?= $imgCeara ?>" style="max-width: 100px;">
   </div>
 </body>
 </html>
 <?php
-/*
 $html = ob_get_clean();
 
 $options = new Options();
@@ -216,5 +325,5 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
-$dompdf->stream("Ranking_geral.pdf", ["Attachment" => false]);*/
+$dompdf->stream("Ranking_geral.pdf", ["Attachment" => false]);
 ?>
