@@ -70,12 +70,13 @@ $result = $pdo->query($sql);
     <ul class="nav flex-column bottom-nav">
       <li><a href="../php/AdmLogout.php"><img src="../assets/img/sair.png" class="sair"> <span class="label-text">Sair</span></a></li>
     </ul>
-  </div>
+  </div >
   <main id="main">
     <h2>Jurados</h2>
     <br>
     <hr><br>
     <!-- Tabela de trabalhos -->
+     <div class="table-responsive" style="overflow-x:auto;">
     <table class="table" id="workTable">
       <thead class="table-success">
         <tr>
@@ -134,6 +135,7 @@ $result = $pdo->query($sql);
         ?>
       </tbody>
     </table>
+    </div>
   </main>
 
   <script>
