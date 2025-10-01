@@ -190,8 +190,9 @@ ob_start();
       word-wrap: break-word;
       white-space: normal;
     }
+  
   </style>
-
+  
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
 </head>
 
