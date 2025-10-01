@@ -139,7 +139,7 @@ ob_start();
       padding: 0;
     }
 
-    nav {
+    .nav {
       color: #000;
       text-align: center;
       padding: 10px 0;
@@ -190,11 +190,11 @@ ob_start();
       word-wrap: break-word;
       white-space: normal;
     }
+  
   </style>
 
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
 </head>
-
 <body>
 
   <div class="cabecalho">
@@ -202,7 +202,7 @@ ob_start();
     <p><b>ETAPA REGIONAL - 2025</b></p>
   </div>
 
-  <nav>
+  <nav class="nav">
     <div style="font-size: 15px;">
       <p><b>PLANILHA DE AVALIAÇÃO DE <?= $userName ?></b></p>
     </div>
