@@ -1,63 +1,89 @@
- <!DOCTYPE html>
-<html lang="pt-BR">
+<?php
+require_once '../php/Connect.php';
 
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    die('ID não fornecido');
+}
+
+// Buscar dados atuais do trabalho
+$stmt = $pdo->prepare("
+    SELECT 
+        titulo,
+        observacoes,
+        id_escolas,
+        id_jurados,
+        id_areas,
+        id_categoria
+    FROM Trabalhos
+    WHERE id_trabalhos = ?
+");
+$stmt->execute([$id]);
+$trabalho = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$trabalho) {
+    die('Trabalho não encontrado!');
+}
+
+// Opcional: Buscar escolas para preencher select
+$stmtEscolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome");
+$escolas = $stmtEscolas->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Trabalho</title>
     <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/styles/admin-dashboard.css">
-    <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
     <script src="../boostrap/JS/jquery.min.js"></script>
-    <link href="../boostrap/CSS/bootstrap.min.css" rel="stylesheet">
-    <link href="../boostrap/CSS/bootstrap-icons.css" rel="stylesheet">
+    <script src="../boostrap/JS/bootstrap.bundle.min.js"></script>
 </head>
-
 <body class="container mt-4">
     <h2>Editar Trabalho</h2>
-            <div class="modal-body">
-              <form action="../php/Cadtrabalho.php" method="POST" id="idCadTrabalho">
-                <label for="titulo">Título do Trabalho</label>
-                <input type="textarea" class="form-control" name="titulo" placeholder="Digite o nome do Trabalho" required>
-                <label for="escola">Escola</label>
-                <select name="escola" id="escola" class="form-control" required>
-                  <option value="">Selecione a Escola</option>
-                    </option>
-                </select>
-                <label for="trabalho-categoria">Categoria</label>
-                <select id="trabalho-categoria" name="categoria" class="form-control" required>
-                  <option value="">-- Selecione a Categoria --</option>
-                    <option value="1">I - Ensino Médio</option>
-                    <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                    <option value="3">III - Pesquisa Júnior</option>
-                    <option value="4">IV - PcD</option>
-                </select>
-                <div id="trabalho-area">
-                  <label>Área</label>
-                  <select name="area" class="form-control">
-                    <option value="">-- Selecione a Área --</option>
-                    <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                    <option value="2">Matemática e suas Tecnologias - MT</option>
-                    <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                    <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                    <option value="5">Robótica, Automação e Aplicação das TIC</option>
-                  </select>
-                </div>
-                <div id="trabalho-area2">
-                  <label>Área</label>
-                  <select name="area" class="form-control">
-                     <option value="">-- Selecione a Área --</option>
-                    <option value="6">Ensino Fundamental</option>
-                    <option value="7">Ensino Médio</option>
-                  </select>
-                </div>
-            <input type="submit" value="Atualizar" class="btn btn-success mt-3" style="margin-top:10px;">
-            <a href="../html/admin-trabalhos.php" class="btn btn-secondary mt-3">Cancelar</a>
-        </form>
-    </div>
-    <div class="modal-footer">
+    <form action="../php/AtualizaTrabalho.php" method="POST" id="formEditaTrabalho">
+        <input type="hidden" name="id" value="<?= $id ?>">
 
-    </div>
-    </div>
-    </div>
-    </div>
+        <label for="titulo">Título</label>
+        <input type="text" class="form-control" name="titulo" required value="<?= htmlspecialchars($trabalho['titulo']) ?>">
+
+        <label for="observacoes">Observações</label>
+        <textarea class="form-control" name="observacoes"><?= htmlspecialchars($trabalho['observacoes']) ?></textarea>
+
+        <label for="escola">Escola</label>
+        <select name="escola" class="form-control" required>
+            <option value="">Selecione a Escola</option>
+            <?php foreach($escolas as $escola): ?>
+                <option value="<?= $escola['id_escolas'] ?>" <?= $trabalho['id_escolas'] == $escola['id_escolas'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($escola['nome']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <label for="categoria">Categoria</label>
+        <select name="categoria" class="form-control" required>
+            <option value="">Selecione a Categoria</option>
+            <option value="1" <?= $trabalho['id_categoria'] == 1 ? 'selected' : '' ?>>I - Ensino Médio</option>
+            <option value="2" <?= $trabalho['id_categoria'] == 2 ? 'selected' : '' ?>>II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
+            <option value="3" <?= $trabalho['id_categoria'] == 3 ? 'selected' : '' ?>>III - Pesquisa Júnior</option>
+            <option value="4" <?= $trabalho['id_categoria'] == 4 ? 'selected' : '' ?>>IV - PcD</option>
+        </select>
+
+        <label for="area">Área</label>
+        <select name="area" class="form-control">
+            <option value="">Selecione a Área</option>
+            <option value="1" <?= $trabalho['id_areas'] == 1 ? 'selected' : '' ?>>Linguagens, Códigos e suas Tecnologias - LC</option>
+            <option value="2" <?= $trabalho['id_areas'] == 2 ? 'selected' : '' ?>>Matemática e suas Tecnologias - MT</option>
+            <option value="3" <?= $trabalho['id_areas'] == 3 ? 'selected' : '' ?>>Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
+            <option value="4" <?= $trabalho['id_areas'] == 4 ? 'selected' : '' ?>>Ciências Humanas e Sociais Aplicadas - CH</option>
+            <option value="5" <?= $trabalho['id_areas'] == 5 ? 'selected' : '' ?>>Robótica, Automação e Aplicação das TIC</option>
+            <option value="6" <?= $trabalho['id_areas'] == 6 ? 'selected' : '' ?>>Ensino Fundamental</option>
+            <option value="7" <?= $trabalho['id_areas'] == 7 ? 'selected' : '' ?>>Ensino Médio</option>
+        </select>
+
+        <input type="submit" class="btn btn-success mt-3" value="Atualizar">
+        <a href="../html/admin-trabalhos.php" class="btn btn-secondary mt-3">Cancelar</a>
+    </form>
+</body>
+</html>
