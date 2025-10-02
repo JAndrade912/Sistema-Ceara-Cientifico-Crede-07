@@ -698,9 +698,10 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 </thead>
                 <tbody id="ranking-tbody" class="text-center">
                   <?php if (count($dados) > 0) {
+                    $posicao = 1;
                     foreach ($dados as $trab) {
                       echo '<tr>';
-                      echo '<td>'. '</td>';
+                      echo '<td>'. $posicao .  'º</td>';
                       echo '<td>' . htmlspecialchars($trab['titulo']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['escola']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['categoria']) . '</td>';
@@ -729,6 +730,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                         echo '<td>-</td>';
                       }
                       echo '</tr>';
+                      $posicao++;
                     }
                   } else {
                     echo '<tr><td colspan="8" class="text-center">Nenhum resultado encontrado</td></tr>';
