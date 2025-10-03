@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 require_once '../php/Connect.php';
 
 $escolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
+$jurados = $pdo->query("SELECT id_jurados, nome FROM Jurados ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
 $categorias = $pdo->query("SELECT id_categoria, nome_categoria FROM Categorias ORDER BY nome_categoria")->fetchAll(PDO::FETCH_ASSOC);
 $areas = $pdo->query("SELECT id_area, nome_area FROM Areas ORDER BY nome_area")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -103,7 +104,6 @@ $trabalhos = $pdo->query("
         style="background-color: #4C8F5A;">Ranking</button>
     </div>
     <br>
-    <!-- Tabela de trabalhos -->
     <table class="table table-striped table-bordered" id="workTable">
       <thead class=" table-success" style="border: 1px solid">
         <tr class="tr">
@@ -117,7 +117,6 @@ $trabalhos = $pdo->query("
       <tbody class="table-striped text-center" id="workTbody" style="border: 1px solid">
         <?php foreach ($trabalhos as $t): ?>
           <?php
-          // Consulta para buscar o id de um jurado que avaliou esse trabalho
           $stmt = $pdo->prepare("SELECT id_jurado FROM Avaliacoes WHERE id_trabalho = :id_trabalho LIMIT 1");
           $stmt->execute(['id_trabalho' => $t['id_trabalhos']]);
           $juradoRow = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -131,8 +130,10 @@ $trabalhos = $pdo->query("
             <td><?= htmlspecialchars($t['area'] ?? '—') ?></td>
             <td>
               <?php if ($id_jurado): ?>
-                <button class="btn bg-danger me-1" onclick="abrirModalRelatorio(<?= $t['id_trabalhos'] ?>, 'pdf')">PDF</button>
-                <button class="btn btn-success me-1" onclick="abrirModalRelatorio(<?= $t['id_trabalhos'] ?>, 'excel')">Excel</button>
+                <button class="btn bg-danger me-1"
+                  onclick="abrirModalRelatorio(<?= $t['id_trabalhos'] ?>, 'pdf')">PDF</button>
+                <button class="btn btn-success me-1"
+                  onclick="abrirModalRelatorio(<?= $t['id_trabalhos'] ?>, 'excel')">Excel</button>
               <?php else: ?>
                 <span class="text-muted">Sem avaliação</span>
               <?php endif; ?>
@@ -186,54 +187,94 @@ $trabalhos = $pdo->query("
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
           </div>
           <div class="modal-body">
-            <form method="POST" action="#" id="idSelJurado">
-              <label for="id_categoria">Categoria</label>
-              <select id="jurado-categoria" class="form-control" name="categoria" required>
-                <option selected disabled>Selecione...</option>
-                <option value="1">I - Ensino Médio</option>
-                <option value="2">II - Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-                <option value="3">III - Pesquisa Júnior</option>
-                <option value="4">IV - PcD</option>
+            <label for="jurado-categoria">Categoria</label>
+            <select id="jurado-categoria" class="form-select">
+              <option selected disabled>Selecione a Categoria</option>
+              <?php foreach ($categorias as $categoria): ?>
+                <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
+                  <?= htmlspecialchars($categoria['nome_categoria']) ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
+            <div id="jurado-area" style="display:none; margin-top:10px;">
+              <label for="jurado-area-select">Área</label>
+              <select id="jurado-area-select" class="form-select">
+                <option selected disabled>Selecione a Área</option>
+                <?php foreach ($areas as $area): ?>
+                  <option value="<?= htmlspecialchars($area['id_area']) ?>">
+                    <?= htmlspecialchars($area['nome_area']) ?>
+                  </option>
+                <?php endforeach; ?>
               </select>
-
-              <div id="jurado-area" style="display:none;">
-                <label for="id_areas">Área</label>
-                <select class="form-control" name="area">
-                  <option selected disabled>Selecione...</option>
-                  <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                  <option value="2">Matemática e suas Tecnologias - MT</option>
-                  <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                  <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                  <option value="5">Robótica, Automação e Aplicação das TIC</option>
-                </select>
-              </div>
-              <!-- Área para PcD -->
-              <div id="jurado-area2" style="display:none;">
-                <label for="id_area">Área</label>
-                <select class="form-control" name="area">
-                  <option selected disabled>Selecione...</option>
-                  <option value="6">Ensino Fundamental</option>
-                  <option value="7">Ensino Médio</option>
-                </select>
-              </div>
-              <?php
-              $stmt = $pdo->query("SELECT id_jurados,nome FROM Jurados ORDER BY nome ASC");
-              $jurados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-              ?>
-              <div id="jurado-nome" style="display:none;">
-                <label for="jurado-nome" class="form-label">Nome do Jurado</label>
-                <select id="jurado-nome" class="form-control" name="nome" required>
-                  <option selected disabled>Selecione o Jurado</option>
-                </select>
-              </div>
-            </form>
+            </div>
+            <div id="jurado-area2" style="display:none; margin-top:10px;">
+              <label for="jurado-area2-select">Área</label>
+              <select id="jurado-area2-select" class="form-select">
+                <option selected disabled>Selecione a Área</option>
+                <option value="6">Ensino Fundamental</option>
+                <option value="7">Ensino Médio</option>
+              </select>
+            </div>
+            <div id="jurado-nome" style="display:none; margin-top:10px;">
+              <label for="jurado-nome-select">Nome do Jurado</label>
+              <select id="jurado-nome-select" class="form-select">
+                <option selected disabled>Selecione o Jurado</option>
+                <?php foreach ($jurados as $j): ?>
+                  <option value="<?= htmlspecialchars($j['id_jurados']) ?>">
+                    <?= htmlspecialchars($j['nome']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-top: 17px;">Fechar</button>
-            <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-success" id="btnGerarRelatorioJurado">Gerar Relatório</button>
           </div>
         </div>
       </div>
+      <script>
+$('#jurado-categoria').on('change', function() {
+    const val = $(this).val();
+
+    if(val === '4'){ 
+        $('#jurado-area2').slideDown();
+        $('#jurado-area').slideUp();
+        $('#jurado-nome').slideUp();
+    } else if(val === '1' || val === '2'){ 
+        $('#jurado-area').slideDown();
+        $('#jurado-area2').slideUp();
+        $('#jurado-nome').slideUp();
+    } else if(val === '3'){
+        $('#jurado-area, #jurado-area2').slideUp();
+        $('#jurado-nome').slideDown();
+    } else {
+        $('#jurado-area, #jurado-area2, #jurado-nome').slideUp();
+    }
+});
+
+$('#jurado-area-select, #jurado-area2-select').on('change', function() {
+    $('#jurado-nome').slideDown();
+});
+
+$('#btnGerarRelatorioJurado').on('click', function() {
+    const categoria = $('#jurado-categoria').val();
+    const area = $('#jurado-area-select').val() || $('#jurado-area2-select').val() || '';
+    const id_jurado = $('#jurado-nome-select').val();
+
+    if(!categoria || !id_jurado){
+        alert('Selecione todos os campos antes de gerar o relatório.');
+        return;
+    }
+
+    let url = `../html/relat-por-jurado.php?id_jurado=${id_jurado}&id_categoria=${categoria}`;
+    if(area) url += `&id_area=${area}`;
+
+    window.open(url, '_blank');
+});
+
+      </script>
+    </div>
     </div>
 
     <div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel"
@@ -283,8 +324,6 @@ $trabalhos = $pdo->query("
         </div>
       </div>
     </div>
-    <!-- Modal de relatorios por escola -->
-    <!-- Pendente: vincular para a geração de PDF de acordo com o ID fornecido  -->
     <div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -323,8 +362,6 @@ $trabalhos = $pdo->query("
       </div>
     </div>
 
-
-    <!-- Modal Ranking para a geração de PDF do resultado final -->
     <div class="modal fade" id="modalRanking" tabindex="-1" aria-labelledby="modalRankingLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -358,12 +395,12 @@ $trabalhos = $pdo->query("
             </div>
             <div id="area-Ranking2" style="display: none;">
               <label for="area-Ranking2-select" name="id_areas" class="form-label">Área</label>
-              <select id="area-Ranking2-select"  name="id_areas" class="form-select">
+              <select id="area-Ranking2-select" name="id_areas" class="form-select">
                 <option value="">Selecione a Área</option>
                 <option value="6">Ensino Fundamental</option>
                 <option value="7">Ensino Médio</option>
               </select>
-              
+
             </div>
             <script>
               function gerarRelatorioRanking() {
@@ -386,11 +423,12 @@ $trabalhos = $pdo->query("
                 window.open(url, '_blank');
               }
             </script>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-              style="margin-top: 17px;">Fechar</button>
-              <button type="button" class="btn btn-success mt-3" onclick="gerarRelatorioRanking()">Gerar Relatório</button>
-          </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                style="margin-top: 17px;">Fechar</button>
+              <button type="button" class="btn btn-success mt-3" onclick="gerarRelatorioRanking()">Gerar
+                Relatório</button>
+            </div>
           </div>
         </div>
       </div>
@@ -399,12 +437,12 @@ $trabalhos = $pdo->query("
   </main>
   <script src="../bootstrap/JS/jquery.min.js"></script>
   <script>
-    $('#modalPdf').on('show.bs.modal', function(event) {
+    $('#modalPdf').on('show.bs.modal', function (event) {
       const button = $(event.relatedTarget);
       const idTrabalho = button.data('id');
     });
 
-    $('#categoria-Ambos').change(function() {
+    $('#categoria-Ambos').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ambos').slideDown();
@@ -416,7 +454,7 @@ $trabalhos = $pdo->query("
         $('#area-Ambos, #area-Ambos2').slideUp();
       }
     });
-    $('#categoria-Ranking').change(function() {
+    $('#categoria-Ranking').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ranking').slideDown();
@@ -429,7 +467,7 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#jurado-categoria').change(function() {
+    $('#jurado-categoria').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#jurado-area').slideDown();
@@ -447,10 +485,10 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#jurado-area, #jurado-area2').change(function() {
+    $('#jurado-area, #jurado-area2').change(function () {
       $('#jurado-nome').slideDown();
     });
-    // SIDEBAR
+
     function toggleSidebar() {
       if (window.innerWidth <= 768) {
         $('#sidebar').toggleClass('mobile-open');
@@ -465,7 +503,7 @@ $trabalhos = $pdo->query("
       $('#sidebar').removeClass('mobile-open');
       $('#overlay').removeClass('show');
     }
-    $(window).on('resize', function() {
+    $(window).on('resize', function () {
       if (window.innerWidth > 768) {
         $('#sidebar').removeClass('mobile-open');
         $('#overlay').removeClass('show');
@@ -478,7 +516,7 @@ $trabalhos = $pdo->query("
       "4": ["Ensino Fundamental", "Ensino Médio"]
     };
 
-    $('#Filtro_categoria').on('change', function() {
+    $('#Filtro_categoria').on('change', function () {
       const cat = $(this).val();
       const areaSelect = $('#Filtro_area');
       areaSelect.html('<option value="">Selecione a Área</option>');
@@ -533,7 +571,7 @@ $trabalhos = $pdo->query("
         data: {
           id_trabalho: idTrabalho
         },
-        success: function(data) {
+        success: function (data) {
           const jurados = JSON.parse(data);
           const container = tipo === 'pdf' ? $('#modalPdf .modal-body .d-flex') : $('#modalExcel .modal-body .d-flex');
           container.empty();
@@ -551,7 +589,7 @@ $trabalhos = $pdo->query("
           const modal = tipo === 'pdf' ? '#modalPdf' : '#modalExcel';
           $(modal).modal('show');
         },
-        error: function() {
+        error: function () {
           alert('Erro ao buscar jurados para o trabalho.');
         }
       });
