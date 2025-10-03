@@ -246,7 +246,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     <option value="5">Robótica, Automação e Aplicação das TIC</option>
                   </select>
                 </div>
-                <!-- Área para PcD -->
                 <div id="jurado-area2" style="display:none;">
                   <label for="id_area">Área</label>
                   <select class="form-control" name="area[]">
@@ -255,7 +254,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     <option value="7">Ensino Médio</option>
                   </select>
                 </div>
-                <!-- Segunda categoria -->
                 <div class="mb-3" style="display: none;">
                   <label for="categoria_sec" class="form-label">Categoria</label>
                   <select name="categoria[]" id="Adicionar-sec-categoria" class="form-control">
@@ -266,7 +264,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     <option value="4">IV - PcD</option>
                   </select>
                 </div>
-                <!-- Segunda área para categoria -->
                 <div class="mb-3" id="areajuradosec" style="display: none;">
                   <label for="area_sec" class="form-label">Área</label>
                   <select name="area[]" id="area1" class="form-control">
@@ -278,7 +275,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     <option value="5">Robótica, Automação e Aplicação das TIC</option>
                   </select>
                 </div>
-                <!-- Segunda área para PcD -->
                 <div class="mb-3" id="area2juradosec" style="display: none;">
                   <label for="area_sec2" class="form-label">Área</label>
                   <select name="area[]" id="area2" class="form-control">
@@ -366,13 +362,9 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
               </div>
               <div class="modal-body">
-
-                <!-- Mensagem -->
                 <?php if (!empty($mensagem_sucesso)): ?>
                   <div class="alert alert-success"><?= $mensagem_sucesso ?></div>
                 <?php endif; ?>
-
-                <!-- Categoria -->
                 <div class="mb-3">
                   <label for="categoria" class="form-label">Categoria</label>
                   <select name="categoria" class="form-control" id="associar-categoria" required>
@@ -385,7 +377,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   </select>
                 </div>
 
-                <!-- Área -->
                 <div class="mb-3" id="area-div" style="display:none;">
                   <label for="area" class="form-label">Área</label>
                   <select name="area" class="form-control" id="area-select">
@@ -393,7 +384,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   </select>
                 </div>
 
-                <!-- Jurado -->
                 <div class="mb-3" id="jurado-div" style="display:none;">
                   <label for="jurado" class="form-label">Jurado</label>
                   <select name="jurado" class="form-control" id="jurado-select" required>
@@ -401,7 +391,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                   </select>
                 </div>
 
-                <!-- Trabalhos -->
                 <div class="mb-3" id="trabalho-div" style="display:none;">
                   <label for="trabalho" class="form-label">Trabalhos</label>
                   <table class="table table-hover">
@@ -421,7 +410,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
       </div>
 
 
-      <!-- CARDS DE ESTATÍSTICAS -->
       <div class="row stat-row">
         <div class="col-sm-4">
           <div class="stat-box stat-primary">
@@ -446,7 +434,6 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
         </div>
       </div>
 
-      <!-- RANKING PRELIMINAR ÁREA -->
       <div class="row">
         <div class="col-12">
           <div class="ranking-box mt-4">

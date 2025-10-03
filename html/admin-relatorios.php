@@ -227,6 +227,36 @@ $trabalhos = $pdo->query("
               </select>
             </div>
           </div>
+          <script>function carregarJurados() {
+              const categoria = $('#jurado-categoria').val();
+              const area = $('#jurado-area-select').val() || $('#jurado-area2-select').val() || '';
+
+              if (!categoria) return;
+
+              $.getJSON('../php/BuscarJurados.php', { categoria: categoria, area: area })
+                .done(function (data) {
+                  const select = $('#jurado-nome-select');
+                  select.empty().append('<option value="">Selecione o Jurado</option>');
+                  data.forEach(j => {
+                    select.append(`<option value="${j.id_jurados}">${j.nome}</option>`);
+                  });
+                  $('#jurado-nome').slideDown();
+                })
+            }
+
+            $('#jurado-categoria').on('change', carregarJurados);
+            $('#jurado-area-select, #jurado-area2-select').on('change', carregarJurados);
+
+            $.getJSON('../php/BuscarJurados.php', { categoria: categoriaSelecionada, area: areaSelecionada })
+              .done(function (data) {
+                const select = $('#jurado-nome-select');
+                select.empty().append('<option value="">Selecione o Jurado</option>');
+                data.forEach(j => {
+                  select.append(`<option value="${j.id_jurados}">${j.nome}</option>`);
+                });
+              });
+
+          </script>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             <button type="button" class="btn btn-success" id="btnGerarRelatorioJurado">Gerar Relatório</button>
@@ -234,44 +264,44 @@ $trabalhos = $pdo->query("
         </div>
       </div>
       <script>
-$('#jurado-categoria').on('change', function() {
-    const val = $(this).val();
+        $('#jurado-categoria').on('change', function () {
+          const val = $(this).val();
 
-    if(val === '4'){ 
-        $('#jurado-area2').slideDown();
-        $('#jurado-area').slideUp();
-        $('#jurado-nome').slideUp();
-    } else if(val === '1' || val === '2'){ 
-        $('#jurado-area').slideDown();
-        $('#jurado-area2').slideUp();
-        $('#jurado-nome').slideUp();
-    } else if(val === '3'){
-        $('#jurado-area, #jurado-area2').slideUp();
-        $('#jurado-nome').slideDown();
-    } else {
-        $('#jurado-area, #jurado-area2, #jurado-nome').slideUp();
-    }
-});
+          if (val === '4') {
+            $('#jurado-area2').slideDown();
+            $('#jurado-area').slideUp();
+            $('#jurado-nome').slideUp();
+          } else if (val === '1' || val === '2') {
+            $('#jurado-area').slideDown();
+            $('#jurado-area2').slideUp();
+            $('#jurado-nome').slideUp();
+          } else if (val === '3') {
+            $('#jurado-area, #jurado-area2').slideUp();
+            $('#jurado-nome').slideDown();
+          } else {
+            $('#jurado-area, #jurado-area2, #jurado-nome').slideUp();
+          }
+        });
 
-$('#jurado-area-select, #jurado-area2-select').on('change', function() {
-    $('#jurado-nome').slideDown();
-});
+        $('#jurado-area-select, #jurado-area2-select').on('change', function () {
+          $('#jurado-nome').slideDown();
+        });
 
-$('#btnGerarRelatorioJurado').on('click', function() {
-    const categoria = $('#jurado-categoria').val();
-    const area = $('#jurado-area-select').val() || $('#jurado-area2-select').val() || '';
-    const id_jurado = $('#jurado-nome-select').val();
+        $('#btnGerarRelatorioJurado').on('click', function () {
+          const categoria = $('#jurado-categoria').val();
+          const area = $('#jurado-area-select').val() || $('#jurado-area2-select').val() || '';
+          const id_jurado = $('#jurado-nome-select').val();
 
-    if(!categoria || !id_jurado){
-        alert('Selecione todos os campos antes de gerar o relatório.');
-        return;
-    }
+          if (!categoria || !id_jurado) {
+            alert('Selecione todos os campos antes de gerar o relatório.');
+            return;
+          }
 
-    let url = `../html/relat-por-jurado.php?id_jurado=${id_jurado}&id_categoria=${categoria}`;
-    if(area) url += `&id_area=${area}`;
+          let url = `../html/relat-por-jurado.php?id_jurado=${id_jurado}&id_categoria=${categoria}`;
+          if (area) url += `&id_area=${area}`;
 
-    window.open(url, '_blank');
-});
+          window.open(url, '_blank');
+        });
 
       </script>
     </div>
