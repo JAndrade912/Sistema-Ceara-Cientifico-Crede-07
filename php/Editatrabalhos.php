@@ -6,11 +6,11 @@ if (!$id) {
     die('ID não fornecido');
 }
 
-// Buscar dados atuais do trabalho
 $stmt = $pdo->prepare("
     SELECT 
         titulo,
         id_escolas,
+        id_jurados,
         id_areas,
         id_categoria
     FROM Trabalhos

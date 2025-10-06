@@ -24,7 +24,6 @@ try {
 
     $stmt->execute([
         ':titulo' => $titulo,
-        ':observacoes' => $observacoes,
         ':escola' => $escola,
         ':categoria' => $categoria,
         ':area' => $area ?: null,
