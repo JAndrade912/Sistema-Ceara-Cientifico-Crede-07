@@ -11,14 +11,14 @@ require_once '../dompdf/vendor/autoload.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-if (!isset($_GET['id_categoria']) || !is_numeric($_GET['id_categoria']) || !isset($_GET['id_areas']) || !is_numeric($_GET['id_areas'])) die("id_categoria ou id_areas não foi encontrado.");
+if (!isset($_GET['id_categoria']) || !is_numeric($_GET['id_categoria']) || !is_numeric($_GET['id_areas'] ?? 0)) die("id_categoria ou id_areas não foi encontrado.");
 
 $id_categoria = (int) $_GET['id_categoria'];
-
 $id_areas = null;
 if (isset($_GET['id_areas']) && is_numeric($_GET['id_areas'])) {
     $id_areas = (int) $_GET['id_areas'];
 }
+
 $sql = "SELECT t.id_trabalhos,
  t.titulo,
   e.nome AS escola,
@@ -267,8 +267,6 @@ h2 {
     </div>
   </nav>
 
-
-  <!-- Tabela -->
   <div class="container-fluid mb-5">
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
