@@ -38,8 +38,8 @@ CREATE TABLE Escolas (
 CREATE TABLE Trabalhos (
     id_trabalhos INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(45) NOT NULL,
-    observacoes VARCHAR(45) NOT NULL,
     id_escolas INT NULL,
+    id_jurados INT NULL,
     id_areas INT NULL,
     id_categoria INT NULL
 );
