@@ -81,7 +81,7 @@ $result = $pdo->query($sql);
       <thead class="table-success">
         <tr>
           <th>Nome</th>
-          <th>Usuario</th>
+          <th>Usuário</th>
           <th>Senha</th>
           <th>CPF</th>
           <th>E-mail</th>
