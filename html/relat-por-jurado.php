@@ -111,7 +111,6 @@ ob_start();
 
     th,
     td {
-      white-space: nowrap;
       font-size: 11px;
       padding: 6px 8px;
       border: 1px solid #000;
@@ -124,9 +123,42 @@ ob_start();
       font-weight: bold;
     }
 
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: center;
+    }
+
+    td {
+      padding: 0;
+    }
+
+    table tbody td {
+      word-wrap: break-word;
+      word-break: break-word;
+    }
+
+    th,
+    td {
+      border: 1px solid #000;
+      padding: 6px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
     .logos img {
       height: 70px;
       margin: 0 25px;
+    }
+
+    p {
+      word-break: break-all;
     }
   </style>
 </head>
@@ -193,10 +225,10 @@ ob_start();
     $mes_num = date('m');
     $ano = date('Y');
     if (substr($dia, 0, 1) == '0') {
-    $dia = substr($dia, 1);
+      $dia = substr($dia, 1);
     }
     if (substr($mes_num, 0, 1) == '0') {
-    $mes_num = substr($mes_num, 1);
+      $mes_num = substr($mes_num, 1);
     }
     $nome_mes = $meses[$mes_num];
     echo "<p>Canindé, " . $dia . " de " . $nome_mes . " de " . $ano . "</p>";
