@@ -65,7 +65,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   <header class="menu-superior">
     <div class="container-fluid" style="width: 100%; display: flex; justify-content: center; align-items: center; position: relative;">
-      <a href="../html/login_jurado.php" class="left-item" style="position: absolute; left: 15px;"><img src="../assets/img/sair.png" alt="Sair" /></a>
+      <a href="../php/JuradoLogout.php" class="left-item" style="position: absolute; left: 15px;"><img src="../assets/img/sair.png" alt="Sair" /></a>
       <img src="../assets/img/cearacientifico.png" class="center-item" style="max-width: 150px;" alt="Logo Ceará Científico" />
     </div>
   </header>
@@ -136,29 +136,29 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <div class="container">
             <div class="mb-4">
               <p style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-    
-           <div class="d-flex align-items-start" style="min-width: 100%;">
-              <strong class="me-2" style="min-width: 80px;">Titulo:</strong>
-              <span id="modalTitulo" class="text-break"><?= htmlspecialchars($trabalho['titulo']) ?></span>
-          </div>
 
-          <div class="d-flex align-items-start" style="min-width: 100%;">
-            <strong class="me-2" style="min-width: 80px;">Escola:</strong>
-            <span id="modalEscola" class="text-break"><?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?></span>
-          </div>
+              <div class="d-flex align-items-start" style="min-width: 100%;">
+                <strong class="me-2" style="min-width: 80px;">Titulo:</strong>
+                <span id="modalTitulo" class="text-break"><?= htmlspecialchars($trabalho['titulo']) ?></span>
+              </div>
 
-          <div class="d-flex align-items-start" style="min-width: 100%;">
-            <strong class="me-2" style="min-width: 80px;">Categoria:</strong>
-            <span id="modalCategoria" class="text-break"><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></span>
-         </div>
+              <div class="d-flex align-items-start" style="min-width: 100%;">
+                <strong class="me-2" style="min-width: 80px;">Escola:</strong>
+                <span id="modalEscola" class="text-break"><?= htmlspecialchars($trabalho['nome_escola'] ?? 'N/D') ?></span>
+              </div>
 
-        <div class="d-flex align-items-start" style="min-width: 100%;">
-          <strong class="me-2" style="min-width: 80px;">Área:</strong>
-          <span id="modalArea" class="text-break"><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></span>
-        </div>
+              <div class="d-flex align-items-start" style="min-width: 100%;">
+                <strong class="me-2" style="min-width: 80px;">Categoria:</strong>
+                <span id="modalCategoria" class="text-break"><?= htmlspecialchars($trabalho['nome_categoria'] ?? 'N/D') ?></span>
+              </div>
 
-          </p>
-        </div>
+              <div class="d-flex align-items-start" style="min-width: 100%;">
+                <strong class="me-2" style="min-width: 80px;">Área:</strong>
+                <span id="modalArea" class="text-break"><?= htmlspecialchars($trabalho['nome_area'] ?? 'N/D') ?></span>
+              </div>
+
+              </p>
+            </div>
 
 
             <form id="formAvaliacao" action="../php/SalvarAvaliacao.php" method="post">
@@ -195,7 +195,7 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   </tr>
                   <tr>
                     <td><b>Metodologia científica conectada com os objetivos, resultados e conclusões</b></td>
-                    <td style="width: 100px;"><input type="text" inputmode="numeric"  class="form-control nota-auto" name="criterio5" maxlength="5" style="border: 1px solid;" required /></td>
+                    <td style="width: 100px;"><input type="text" inputmode="numeric" class="form-control nota-auto" name="criterio5" maxlength="5" style="border: 1px solid;" required /></td>
                     <td><textarea class="form-control" name="comentario5" cols="50" style="max-height: 30px; border: 1px solid;"></textarea></td>
                   </tr>
                   <tr>
@@ -255,96 +255,105 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const inputsNotas = document.querySelectorAll('.nota-auto');
-    const form = document.getElementById('formAvaliacao');
-    const botaoAbrirConfirmacao = document.getElementById('btnAbrirConfirmacao');
-    const botaoConfirmarEnvio = document.getElementById('confirmarEnvioBtn');
-    let formValido = false;
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputsNotas = document.querySelectorAll('.nota-auto');
+      const form = document.getElementById('formAvaliacao');
+      const botaoAbrirConfirmacao = document.getElementById('btnAbrirConfirmacao');
+      const botaoConfirmarEnvio = document.getElementById('confirmarEnvioBtn');
+      let formValido = false;
 
-    // Validação em tempo real
-    inputsNotas.forEach(input => {
-      input.addEventListener('input', () => {
-        let valor = input.value.replace(/\D/g, '');
+      // Permitir apenas números, vírgula e apagar
+      inputsNotas.forEach(input => {
+        input.addEventListener('input', () => {
+          // Remove caracteres inválidos (aceita dígitos e vírgula)
+          input.value = input.value.replace(/[^0-9,]/g, '');
 
-        if (valor.length > 4) {
-          valor = valor.slice(0, 4);
-        }
+          // Impede mais de uma vírgula
+          const partes = input.value.split(',');
+          if (partes.length > 2) {
+            input.value = partes[0] + ',' + partes[1];
+          }
+        });
 
-        valor = valor.padStart(3, '0');
+        input.addEventListener('blur', () => {
+          let valor = input.value.trim();
 
-        let intParte = valor.slice(0, -2);
-        let decimalParte = valor.slice(-2);
-        let resultado = `${parseInt(intParte, 10)},${decimalParte}`;
+          if (valor === '') {
+            // Se vazio, zera com 0,00 (opcional)
+            input.value = '0,00';
+            input.classList.remove('is-invalid');
+            return;
+          }
 
-        let numero = parseFloat(resultado.replace(',', '.'));
+          // Troca vírgula por ponto para converter
+          let numero = parseFloat(valor.replace(',', '.'));
 
-        if (numero > 10) {
-          alert("Nota inválida! A nota máxima permitida é 10,00.");
-          input.value = '';
-          input.classList.add('is-invalid');
+          // Valida intervalo e casas decimais
+          if (isNaN(numero) || numero < 0 || numero > 10) {
+            input.classList.add('is-invalid');
+            return;
+          }
+
+          // Validar casas decimais: máximo 2
+          const decimalPart = valor.split(',')[1];
+          if (decimalPart && decimalPart.length > 2) {
+            input.classList.add('is-invalid');
+            return;
+          }
+
+          // Formata com 2 casas decimais e vírgula
+          input.value = numero.toFixed(2).replace('.', ',');
+          input.classList.remove('is-invalid');
+        });
+      });
+
+      // Validação geral ao abrir confirmação
+      botaoAbrirConfirmacao.addEventListener('click', () => {
+        let valido = true;
+
+        inputsNotas.forEach(input => {
+          const valorNumerico = parseFloat(input.value.replace(',', '.'));
+          if (isNaN(valorNumerico) || valorNumerico < 0 || valorNumerico > 10) {
+            input.classList.add('is-invalid');
+            valido = false;
+          } else {
+            // Validar casas decimais
+            const decimais = input.value.split(',')[1];
+            if (decimais && decimais.length > 2) {
+              input.classList.add('is-invalid');
+              valido = false;
+              return;
+            }
+            input.classList.remove('is-invalid');
+            input.value = valorNumerico.toFixed(2).replace('.', ',');
+          }
+        });
+
+        if (!valido) {
+          alert("Corrija as notas inválidas (valores entre 0,00 e 10,00 com até 2 casas decimais).");
           return;
         }
 
-        input.value = resultado;
-        input.classList.remove('is-invalid');
+        formValido = true;
+        const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarEnvioModal'));
+        confirmarModal.show();
       });
 
-      input.addEventListener('blur', () => {
-        let numero = parseFloat(input.value.replace(',', '.'));
-
-        if (isNaN(numero) || numero < 0 || numero > 10) {
-          input.value = '0,00';
-          input.classList.add('is-invalid');
-        } else {
-          input.value = numero.toFixed(2).replace('.', ',');
-          input.classList.remove('is-invalid');
+      botaoConfirmarEnvio.addEventListener('click', () => {
+        if (formValido) {
+          form.submit();
         }
       });
     });
 
-    // Abertura do modal de confirmação
-    botaoAbrirConfirmacao.addEventListener('click', () => {
-      let valido = true;
-
-      inputsNotas.forEach(input => {
-        const valorNumerico = parseFloat(input.value.replace(',', '.'));
-        if (isNaN(valorNumerico) || valorNumerico < 0 || valorNumerico > 10) {
-          input.classList.add('is-invalid');
-          valido = false;
-        } else {
-          input.classList.remove('is-invalid');
-          input.value = valorNumerico.toFixed(2).replace('.', ',');
-        }
-      });
-
-      if (!valido) {
-        alert("Corrija as notas inválidas (valores entre 0,00 e 10,00)");
-        return;
-      }
-
-      formValido = true;
-      const confirmarModal = new bootstrap.Modal(document.getElementById('confirmarEnvioModal'));
-      confirmarModal.show();
+    $('.abrir-modal-avaliacao').on('click', function() {
+      $('#modalTitulo').text($(this).data('titulo'));
+      $('#modalEscola').text($(this).data('escola'));
+      $('#modalCategoria').text($(this).data('categoria'));
+      $('#modalArea').text($(this).data('area'));
+      $('#id_trabalho').val($(this).data('id'));
     });
-
-    // Enviar form se confirmado
-    botaoConfirmarEnvio.addEventListener('click', () => {
-      if (formValido) {
-        form.submit();
-      }
-    });
-  });
-
-  // Preenche o modal com os dados do botão
-  $('.abrir-modal-avaliacao').on('click', function () {
-    $('#modalTitulo').text($(this).data('titulo'));
-    $('#modalEscola').text($(this).data('escola'));
-    $('#modalCategoria').text($(this).data('categoria'));
-    $('#modalArea').text($(this).data('area'));
-    $('#id_trabalho').val($(this).data('id'));
-  });
-</script>
+  </script>
 </body>
 
 </html>
