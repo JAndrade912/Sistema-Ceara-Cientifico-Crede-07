@@ -10,9 +10,7 @@ if (!$id) {
 $stmt = $pdo->prepare("
     SELECT 
         titulo,
-        observacoes,
         id_escolas,
-        id_jurados,
         id_areas,
         id_categoria
     FROM Trabalhos
@@ -25,7 +23,6 @@ if (!$trabalho) {
     die('Trabalho não encontrado!');
 }
 
-// Opcional: Buscar escolas para preencher select
 $stmtEscolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome");
 $escolas = $stmtEscolas->fetchAll(PDO::FETCH_ASSOC);
 
@@ -42,14 +39,11 @@ $escolas = $stmtEscolas->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body class="container mt-4">
     <h2>Editar Trabalho</h2>
-    <form action="../php/AtualizaTrabalho.php" method="POST" id="formEditaTrabalho">
+    <form action="../php/Atualizatrabalho.php" method="POST" id="formEditaTrabalho">
         <input type="hidden" name="id" value="<?= $id ?>">
 
         <label for="titulo">Título</label>
         <input type="text" class="form-control" name="titulo" required value="<?= htmlspecialchars($trabalho['titulo']) ?>">
-
-        <label for="observacoes">Observações</label>
-        <textarea class="form-control" name="observacoes"><?= htmlspecialchars($trabalho['observacoes']) ?></textarea>
 
         <label for="escola">Escola</label>
         <select name="escola" class="form-control" required>
