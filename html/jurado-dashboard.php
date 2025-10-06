@@ -262,13 +262,10 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       const botaoConfirmarEnvio = document.getElementById('confirmarEnvioBtn');
       let formValido = false;
 
-      // Permitir apenas números, vírgula e apagar
       inputsNotas.forEach(input => {
         input.addEventListener('input', () => {
-          // Remove caracteres inválidos (aceita dígitos e vírgula)
           input.value = input.value.replace(/[^0-9,]/g, '');
 
-          // Impede mais de uma vírgula
           const partes = input.value.split(',');
           if (partes.length > 2) {
             input.value = partes[0] + ',' + partes[1];
@@ -279,35 +276,29 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           let valor = input.value.trim();
 
           if (valor === '') {
-            // Se vazio, zera com 0,00 (opcional)
             input.value = '0,00';
             input.classList.remove('is-invalid');
             return;
           }
 
-          // Troca vírgula por ponto para converter
           let numero = parseFloat(valor.replace(',', '.'));
 
-          // Valida intervalo e casas decimais
           if (isNaN(numero) || numero < 0 || numero > 10) {
             input.classList.add('is-invalid');
             return;
           }
 
-          // Validar casas decimais: máximo 2
           const decimalPart = valor.split(',')[1];
           if (decimalPart && decimalPart.length > 2) {
             input.classList.add('is-invalid');
             return;
           }
 
-          // Formata com 2 casas decimais e vírgula
           input.value = numero.toFixed(2).replace('.', ',');
           input.classList.remove('is-invalid');
         });
       });
 
-      // Validação geral ao abrir confirmação
       botaoAbrirConfirmacao.addEventListener('click', () => {
         let valido = true;
 
@@ -317,7 +308,6 @@ $trabalhos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             input.classList.add('is-invalid');
             valido = false;
           } else {
-            // Validar casas decimais
             const decimais = input.value.split(',')[1];
             if (decimais && decimais.length > 2) {
               input.classList.add('is-invalid');
