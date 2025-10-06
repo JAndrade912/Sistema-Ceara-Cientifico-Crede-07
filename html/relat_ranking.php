@@ -80,7 +80,7 @@ $calculaMediaPonderada = function ($notas, $pesos) {
             $somaPesos += $peso;
         }
     }
-    return $somaPesos > 0 ? $somaNotas / $somaPesos : null;
+    return $somaPesos > 0 ? ($somaNotas / $somaPesos) * 10 : null;
 };
 
 $dados = [];

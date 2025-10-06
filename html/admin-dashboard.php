@@ -475,7 +475,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             $categoria = $_POST['categoria'] ?? null;
             $area = $_POST['area'] ?? null;
 
-            $pesos = [1, 1, 1.5, 1, 2, 1, 1, 1, 0.5];
+            $pesos = array_fill(0, 9, 1);
             $criteriosDesempate = [
               1, 
               2,
@@ -541,7 +541,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     $somaPesos += $peso;
                   }
                 }
-                return $somaPesos > 0 ? $somaNotas / $somaPesos : null;
+                return $somaPesos > 0 ? ($somaNotas / $somaPesos) * 10 : null;
               };
 
               $jurados = array_keys($notasPorJurado);
