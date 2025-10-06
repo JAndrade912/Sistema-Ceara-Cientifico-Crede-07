@@ -692,7 +692,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                       echo '<td>' . htmlspecialchars($trab['titulo']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['escola']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['categoria']) . '</td>';
-                      echo '<td>' . htmlspecialchars($trab['area']) . '</td>';
+                      echo '<td>' . htmlspecialchars($trab['area'] ?? 'Sem área') . '</td>';
                       echo '<td>' . (
                         isset($trab['jurados'][1]['media_ponderada']) && $trab['jurados'][1]['media_ponderada'] !== null
                         ? number_format($trab['jurados'][1]['media_ponderada'], 2, ',', '')
