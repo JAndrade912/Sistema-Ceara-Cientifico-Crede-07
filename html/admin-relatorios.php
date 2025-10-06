@@ -306,7 +306,7 @@ $trabalhos = $pdo->query("
       </script>
     </div>
     </div>
-
+      <!--  MODAL DE AMBOS OS JURADOS - COMEÇO  -->
     <div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel"
       aria-hidden="true">
       <div class="modal-dialog">
@@ -318,42 +318,60 @@ $trabalhos = $pdo->query("
           <div class="modal-body">
             <p>Gerar relatório dos trabalhos avaliados por ambos os jurados.</p>
 
-            <label for="categoria-Ambos" class="form-label">Categoria</label>
-            <select id="categoria-Ambos" class="form-select mb-2" name="categoria">
+            <label for="categoria-Ambos-select" class="form-label">Categoria</label>
+            <select id="categoria-Ambos-select" class="form-select mb-2" name="categoria">
               <option value="">Selecione a Categoria</option>
-              <option value="1">Ensino Médio</option>
-              <option value="2">Ensino Médio - Ações Afirmativas e CEJAs EM</option>
-              <option value="3">Pesquisa Júnior</option>
-              <option value="4">PcD</option>
+              <?php foreach ($categorias as $categoria): ?>
+                <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>">
+                  <?= htmlspecialchars($categoria['nome_categoria']) ?>
+                </option>
+              <?php endforeach; ?>
             </select>
-            <div id="area-Ambos" style="display: none;">
-              <label for="area-Ambos" class="form-label">Área</label>
-              <select class="form-select">
-                <option value="">Selecione a Área</option>
-                <option value="1">Linguagens, Códigos e suas Tecnologias - LC</option>
-                <option value="2">Matemática e suas Tecnologias - MT</option>
-                <option value="3">Ciências da Natureza, Educação Ambiental e Engenharias - CN</option>
-                <option value="4">Ciências Humanas e Sociais Aplicadas - CH</option>
-                <option value="5">Robótica, Automação e Aplicação das TIC</option>
+            <div id="area-Ambos-select" style="display: none;">
+              <label for="area-Ambos1-select" class="form-label">Área</label>
+              <select id="area-Ambos1-select" class="form-select">
+                <option selected disabled>Selecione a Área</option>
+                <?php foreach ($areas as $area): ?>
+                  <option value="<?= htmlspecialchars($area['id_area']) ?>">
+                    <?= htmlspecialchars($area['nome_area']) ?>
+                  </option>
+                <?php endforeach; ?>
               </select>
             </div>
-            <div id="area-Ambos2" style="display: none;">
-              <label for="area-Ambos2" class="form-label">Área</label>
-              <select class="form-select">
-                <option value="">Selecione a Área</option>
-                <option value="1">Ensino Fundamental</option>
-                <option value="2">Ensino Médio</option>
+            <div id="area-Ambos2-select" style="display: none;">
+              <label for="area-Ambos2-select" class="form-label">Área</label>
+              <select id="area-Ambos2-select" class="form-select">
+                <option selected disabled>Selecione a Área</option>
+                <option value="6">Ensino Fundamental</option>
+                <option value="7">Ensino Médio</option>
               </select>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
               style="margin-top: 17px;">Fechar</button>
-            <button type="button" class="btn btn-success mt-3">Gerar Relatório</button>
+            <button type="button" class="btn btn-success mt-3" onclick="gerarRelatorioAmbos()">Gerar Relatório</button>
           </div>
         </div>
+        <script>
+          function gerarRelatorioAmbos() {
+            const categoria = document.getElementById('categoria-Ambos-select').value;
+            const area = $('#area-Ambos1-select').val() || $('#area-Ambos2-select').val() || '';
+            
+
+            if (!categoria) {
+              alert('Selecione a categoria antes de gerar o relatório.');
+              return;
+            }
+
+            let url = `../html/relatorios-ambos-jurados.php?catId=${categoria}&areaId=${area}&type=pdf`;
+            window.open(url, '_blank');
+          }
+        </script>
       </div>
     </div>
+          <!--  MODAL DE AMBOS OS JURADOS - FIM  -->
+
     <div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -472,16 +490,16 @@ $trabalhos = $pdo->query("
       const idTrabalho = button.data('id');
     });
 
-    $('#categoria-Ambos').change(function () {
+    $('#categoria-Ambos-select').change(function () {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
-        $('#area-Ambos').slideDown();
-        $('#area-Ambos2').slideUp();
+        $('#area-Ambos-select').slideDown();
+        $('#area-Ambos2-select').slideUp();
       } else if (categoria === '4') {
-        $('#area-Ambos').slideUp();
-        $('#area-Ambos2').slideDown();
+        $('#area-Ambos-select').slideUp();
+        $('#area-Ambos2-select').slideDown();
       } else if (categoria === '3') {
-        $('#area-Ambos, #area-Ambos2').slideUp();
+        $('#area-Ambos-select, #area-Ambos2-select').slideUp();
       }
     });
     $('#categoria-Ranking').change(function () {
