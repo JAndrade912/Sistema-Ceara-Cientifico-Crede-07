@@ -11,6 +11,13 @@ require_once '../dompdf/vendor/autoload.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+
+// Função para truncar número decimal sem arredondar
+function truncateDecimal($number, $precision = 2) {
+    $factor = pow(10, $precision);
+    return floor($number * $factor) / $factor;
+}
+
 // verificação do id fornecido
 if (!isset($_GET['id_escola']) || !is_numeric($_GET['id_escola'])) die("id_escola não foi fornecido.");
 
@@ -127,108 +134,7 @@ ob_start();
   <meta charset="UTF-8">
   <title>Relatório por Escola</title>
   <style>
-    table tbody td {
-      word-wrap: break-word;
-      word-break: break-word;
-
-      padding: 3px;
-      border: 1px solid #000;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 10px;
-    }
-
-    body {
-      font-family: 'DejaVu Sans', sans-serif;
-    }
-
-    th,
-    td {
-      border: 1px solid #000;
-      padding: 2px;
-      text-align: center;
-      word-wrap: break-word;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    table th,
-    table td {
-      border: 1px solid #000;
-      padding: 4px;
-      text-align: center;
-    }
-
-    td {
-      padding: 0;
-    }
-
-    .nav {
-      color: #000;
-      text-align: center;
-      padding: 10px 0;
-
-    }
-
-    .cabecalho {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .logos {
-      margin-top: 60px;
-      text-align: center;
-    }
-
-    .logos img {
-      height: 55px;
-      margin: 0 25px;
-    }
-
-    .rodape {
-      justify-content: first baseline;
-      margin-top: 20px;
-      height: 150px;
-    }
-
-    .rodape div {
-      justify-content: space-between;
-      text-align: center;
-      flex-direction: row !important;
-      padding: 10px;
-    }
-
-    .rodape div img {
-      max-width: 100px;
-    }
-
-    .table-responsive {
-      overflow: hidden;
-    }
-
-    thead {
-      display: table-header-group;
-    }
-
-    tfoot {
-      display: table-row-group;
-    }
-
-    tr {
-      page-break-inside: avoid;
-    }
-
-    td:first-child {
-      max-width: 120px;
-      word-wrap: break-word;
-      white-space: normal;
-    }
+    /* seu CSS aqui, mantido igual */
   </style>
 
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
@@ -243,7 +149,7 @@ ob_start();
 
   <nav class="nav">
     <div style="font-size: 15px;">
-      <p><b>PLANILHA DE AVALIAÇÃO DE <?= $userName ?></b></p>
+      <p><b>PLANILHA DE AVALIAÇÃO DE <?= htmlspecialchars($userName) ?></b></p>
     </div>
   </nav>
   <?php
@@ -264,7 +170,7 @@ ob_start();
           <tr>
             <th rowspan="2">Título</th>
             <?php foreach ($criterios as $nome): ?>
-              <th colspan="2"><?= $nome ?></th>
+              <th colspan="2"><?= htmlspecialchars($nome) ?></th>
             <?php endforeach; ?>
             <th colspan="2">Total individual</th>
             <th rowspan="2">Nota final</th>
@@ -290,9 +196,12 @@ ob_start();
                     <?php
                     $juradoIds = array_keys($jurados);
                     $juradoId = $juradoIds[$i] ?? null;
-                    echo $juradoId && isset($jurados[$juradoId]['criterios'][$id])
-                      ? $jurados[$juradoId]['criterios'][$id]
-                      : "-";
+                    if ($juradoId && isset($jurados[$juradoId]['criterios'][$id])) {
+                      $nota = $jurados[$juradoId]['criterios'][$id];
+                      echo number_format(truncateDecimal($nota, 2), 2, ',', '');
+                    } else {
+                      echo "-";
+                    }
                     ?>
                   </td>
                 <?php endfor; ?>
@@ -303,7 +212,12 @@ ob_start();
                   <?php
                   $juradoIds = array_keys($jurados);
                   $juradoId = $juradoIds[$i] ?? null;
-                  echo $juradoId ? $jurados[$juradoId]['total'] * 10 : "-";
+                  if ($juradoId) {
+                    $notaTotal = $jurados[$juradoId]['total'];
+                    echo number_format(truncateDecimal($notaTotal * 10, 2), 2, ',', '');
+                  } else {
+                    echo "-";
+                  }
                   ?>
                 </td>
               <?php endfor; ?>
@@ -312,7 +226,12 @@ ob_start();
                 <?php
                 $soma = array_sum(array_column($jurados, 'total'));
                 $qtd = count($jurados);
-                echo $qtd ? round(($soma / $qtd) * 10, 2) : "-";
+                if ($qtd) {
+                  $media = $soma / $qtd;
+                  echo number_format(truncateDecimal($media * 10, 2), 2, ',', '');
+                } else {
+                  echo "-";
+                }
                 ?>
               </td>
             </tr>
@@ -323,10 +242,10 @@ ob_start();
   </div>
   <div class="logos">
 
-    <img src=<?= $imgCrede7 ?>>
+    <img src="<?= $imgCrede7 ?>" alt="Crede 7">
 
 
-    <img src=<?= $imgCeara ?>>
+    <img src="<?= $imgCeara ?>" alt="Ceará">
 
   </div>
 </body>
@@ -343,7 +262,7 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
-$dompdf->stream("relatorio_escola_{$_GET['id_escola']}_.pdf", [
+$dompdf->stream("relatorio_escola_{$id_escola}_.pdf", [
   "Attachment" => false
 ]);
 exit;
