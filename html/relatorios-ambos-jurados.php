@@ -234,7 +234,7 @@ ob_start();
                 echo "<td>$nota</td>";
               }
             }
-            $media_final = $total_jurados ? number_format($nota_total / $total_jurados, 2) : 0;
+            $media_final = $total_jurados ? number_format(($nota_total / $total_jurados) * 10, 2)  : 0;
             ?>
             <td><?= $media_final ?></td>
           </tr>
