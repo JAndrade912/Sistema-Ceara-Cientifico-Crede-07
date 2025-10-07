@@ -67,7 +67,17 @@ foreach ($avaliacoes as $av) {
     $notasPorTrabalho[$av['id_trabalho']][$av['id_jurado']][$av['criterio']] = (float)$av['nota'];
 }
 
-$pesos = array_fill(0, 9, 1); 
+$pesos = [
+  1 => 1,
+  2 => 1,
+  3 => 1.5,
+  4 => 1,
+  5 => 2,
+  6 => 1,
+  7 => 1,
+  8 => 1,
+  9 => 0.5
+]; 
 
 $calculaMediaPonderada = function ($notas, $pesos) {
     $somaNotas = 0;

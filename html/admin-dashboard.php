@@ -475,8 +475,18 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
             $categoria = $_POST['categoria'] ?? null;
             $area = $_POST['area'] ?? null;
 
-            $pesos = array_fill(0, 9, 1);
-            $criteriosDesempate = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+            $pesos = [
+              1 => 1,
+              2 => 1,
+              3 => 1.5,
+              4 => 1,
+              5 => 2,
+              6 => 1,
+              7 => 1,
+              8 => 1,
+              9 => 0.5
+            ];
+            $criteriosDesempate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
             $sql = "SELECT t.id_trabalhos, t.titulo, e.nome AS escola, e.focalizada, e.ide, c.nome_categoria AS categoria, a.nome_area AS area 
         FROM Trabalhos t 
@@ -678,7 +688,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
                     $posicao = 1;
                     foreach ($dados as $trab) {
                       echo '<tr>';
-                      echo '<td>'. $posicao .  'º</td>';
+                      echo '<td>' . $posicao .  'º</td>';
                       echo '<td>' . htmlspecialchars($trab['titulo']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['escola']) . '</td>';
                       echo '<td>' . htmlspecialchars($trab['categoria']) . '</td>';

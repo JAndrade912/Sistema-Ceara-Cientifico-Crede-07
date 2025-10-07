@@ -34,6 +34,20 @@ $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (!$dados) die("Verifique se o id_escola existe no banco de dados, ou se a escola possue trabalhos atrelados a ela.");
 
 $trabalhos = [];
+
+// Definindo os pesos dos critérios
+$peso_criterios = [
+  1 => 1,
+  2 => 1,
+  3 => 1.5,
+  4 => 1,
+  5 => 2,
+  6 => 1,
+  7 => 1,
+  8 => 1,
+  9 => 0.5
+];
+
 foreach ($dados as $linha) {
   $titulo = $linha['titulo'];
   $jurado = $linha['id_jurados'];
@@ -46,15 +60,31 @@ foreach ($dados as $linha) {
     $trabalhos[$titulo][$jurado] = [
       'nome' => $linha['nome_jurado'],
       'criterios' => [],
+      'ponderado_soma' => 0,
+      'peso_total' => 0,
       'total' => 0
     ];
   }
 
   if ($linha['criterio']) {
-    $trabalhos[$titulo][$jurado]['criterios'][$linha['criterio']] = $linha['nota'];
-    $trabalhos[$titulo][$jurado]['total'] += $linha['nota'];
+    $criterioId = (int)$linha['criterio'];
+    $nota = (float)$linha['nota'];
+    $peso = $peso_criterios[$criterioId] ?? 1;
+
+    $trabalhos[$titulo][$jurado]['criterios'][$criterioId] = $nota;
+    $trabalhos[$titulo][$jurado]['ponderado_soma'] += ($nota * $peso);
+    $trabalhos[$titulo][$jurado]['peso_total'] += $peso;
   }
 }
+
+// Cálculo da média ponderada para cada jurado
+foreach ($trabalhos as $titulo => &$avaliacoes) {
+  foreach ($avaliacoes as &$dadosJurado) {
+    $peso_total = $dadosJurado['peso_total'] ?: 1;
+    $dadosJurado['total'] = round($dadosJurado['ponderado_soma'] / $peso_total, 2);
+  }
+}
+unset($avaliacoes, $dadosJurado);
 
 $criterios = [
   1 => "Criatividade",
@@ -143,37 +173,45 @@ ob_start();
       color: #000;
       text-align: center;
       padding: 10px 0;
-    
+
     }
 
     .cabecalho {
       text-align: center;
       margin-bottom: 10px;
     }
-      .logos {
+
+    .logos {
       margin-top: 60px;
       text-align: center;
-    }.logos img {
+    }
+
+    .logos img {
       height: 55px;
       margin: 0 25px;
     }
+
     .rodape {
       justify-content: first baseline;
       margin-top: 20px;
       height: 150px;
     }
-    .rodape div{
+
+    .rodape div {
       justify-content: space-between;
       text-align: center;
       flex-direction: row !important;
       padding: 10px;
     }
+
     .rodape div img {
       max-width: 100px;
     }
+
     .table-responsive {
       overflow: hidden;
     }
+
     thead {
       display: table-header-group;
     }
@@ -191,11 +229,11 @@ ob_start();
       word-wrap: break-word;
       white-space: normal;
     }
-  
   </style>
 
   <link rel="stylesheet" href="../boostrap/CSS/bootstrap.min.css">
 </head>
+
 <body>
 
   <div class="cabecalho">
@@ -223,72 +261,72 @@ ob_start();
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
         <thead class="table-secondary text-center align-middle" style="font-size: 8px;">
-  <tr>
-    <th rowspan="2">Título</th>
-    <?php foreach ($criterios as $nome): ?>
-      <th colspan="2"><?= $nome ?></th>
-    <?php endforeach; ?>
-    <th colspan="2">Total individual</th>
-    <th rowspan="2">Nota final</th>
-  </tr>
-  <tr>
-    <?php foreach ($criterios as $criterio): ?>
-      <th>Jurado 1</th>
-      <th>Jurado 2</th>
-    <?php endforeach; ?>
-    <th>Jurado 1</th>
-    <th>Jurado 2</th>
-  </tr>
-</thead>
+          <tr>
+            <th rowspan="2">Título</th>
+            <?php foreach ($criterios as $nome): ?>
+              <th colspan="2"><?= $nome ?></th>
+            <?php endforeach; ?>
+            <th colspan="2">Total individual</th>
+            <th rowspan="2">Nota final</th>
+          </tr>
+          <tr>
+            <?php foreach ($criterios as $criterio): ?>
+              <th>Jurado 1</th>
+              <th>Jurado 2</th>
+            <?php endforeach; ?>
+            <th>Jurado 1</th>
+            <th>Jurado 2</th>
+          </tr>
+        </thead>
 
         <tbody class="text-center align-middle" style="font-size: 9px;">
-  <?php foreach ($trabalhos as $titulo => $jurados): ?>
-    <tr>
-      <td><?= htmlspecialchars($titulo) ?></td>
+          <?php foreach ($trabalhos as $titulo => $jurados): ?>
+            <tr>
+              <td><?= htmlspecialchars($titulo) ?></td>
 
-      <?php foreach ($criterios as $id => $criterio): ?>
-        <?php for ($i = 0; $i < 2; $i++): ?>
-          <td>
-            <?php
-            $juradoIds = array_keys($jurados);
-            $juradoId = $juradoIds[$i] ?? null;
-            echo $juradoId && isset($jurados[$juradoId]['criterios'][$id])
-              ? $jurados[$juradoId]['criterios'][$id]
-              : "-";
-            ?>
-          </td>
-        <?php endfor; ?>
-      <?php endforeach; ?>
+              <?php foreach ($criterios as $id => $criterio): ?>
+                <?php for ($i = 0; $i < 2; $i++): ?>
+                  <td>
+                    <?php
+                    $juradoIds = array_keys($jurados);
+                    $juradoId = $juradoIds[$i] ?? null;
+                    echo $juradoId && isset($jurados[$juradoId]['criterios'][$id])
+                      ? $jurados[$juradoId]['criterios'][$id]
+                      : "-";
+                    ?>
+                  </td>
+                <?php endfor; ?>
+              <?php endforeach; ?>
 
-      <?php for ($i = 0; $i < 2; $i++): ?>
-        <td>
-          <?php
-          $juradoIds = array_keys($jurados);
-          $juradoId = $juradoIds[$i] ?? null;
-          echo $juradoId ? $jurados[$juradoId]['total'] : "-";
-          ?>
-        </td>
-      <?php endfor; ?>
+              <?php for ($i = 0; $i < 2; $i++): ?>
+                <td>
+                  <?php
+                  $juradoIds = array_keys($jurados);
+                  $juradoId = $juradoIds[$i] ?? null;
+                  echo $juradoId ? $jurados[$juradoId]['total'] : "-";
+                  ?>
+                </td>
+              <?php endfor; ?>
 
-      <td>
-        <?php
-        $soma = array_sum(array_column($jurados, 'total'));
-        $qtd = count($jurados);
-        echo $qtd ? round($soma / $qtd, 2) : "-";
-        ?>
-      </td>
-    </tr>
-  <?php endforeach; ?>
-</tbody>
+              <td>
+                <?php
+                $soma = array_sum(array_column($jurados, 'total'));
+                $qtd = count($jurados);
+                echo $qtd ? round($soma / $qtd, 2) : "-";
+                ?>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
       </table>
     </div>
   </div>
   <div class="logos">
 
-      <img src=<?= $imgCrede7 ?>>
+    <img src=<?= $imgCrede7 ?>>
 
-    
-      <img src=<?= $imgCeara ?>>
+
+    <img src=<?= $imgCeara ?>>
 
   </div>
 </body>
