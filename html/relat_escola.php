@@ -49,10 +49,15 @@ $peso_criterios = [
 ];
 function truncarDecimal($valor, $casas = 2)
 {
-  $fator = pow(10, $casas);
-  return floor($valor * $fator) / $fator;
-}
+  $partes = explode('.', (string)$valor);
+  if (count($partes) === 1) {
+    return number_format($valor, $casas, '.', '');
+  }
 
+  $inteiro = $partes[0];
+  $decimal = substr($partes[1], 0, $casas);
+  return $inteiro . '.' . str_pad($decimal, $casas, '0');
+}
 
 foreach ($dados as $linha) {
   $titulo = $linha['titulo'];
@@ -316,7 +321,7 @@ ob_start();
                   $juradoId = $juradoIds[$i] ?? null;
                   if ($juradoId) {
                     $total = $jurados[$juradoId]['total'] * 10;
-                    echo number_format(truncarDecimal($total), 2, '.', '');
+                    echo truncarDecimal($total, 2);
                   } else {
                     echo "-";
                   }
@@ -330,7 +335,7 @@ ob_start();
                 $qtd = count($jurados);
                 if ($qtd) {
                   $final = ($soma / $qtd) * 10;
-                  echo number_format(truncarDecimal($final), 2, '.', '');
+                  echo truncarDecimal($final, 2);
                 } else {
                   echo "-";
                 }
