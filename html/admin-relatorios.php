@@ -88,14 +88,14 @@ $trabalhos = $pdo->query("
           </option>
         <?php endforeach; ?>
       </select>
-<select id="Filtro_area">
-  <option value="">Selecione a Área</option>
-  <?php foreach ($areas as $area): ?>
-    <option value="<?= htmlspecialchars($area['nome_area']) ?>">
-      <?= htmlspecialchars($area['nome_area']) ?>
-    </option>
-  <?php endforeach; ?>
-</select>
+      <select id="Filtro_area">
+        <option value="">Selecione a Área</option>
+        <?php foreach ($areas as $area): ?>
+          <option value="<?= htmlspecialchars($area['nome_area']) ?>">
+            <?= htmlspecialchars($area['nome_area']) ?>
+          </option>
+        <?php endforeach; ?>
+      </select>
 
     </div>
     <br>
@@ -148,36 +148,36 @@ $trabalhos = $pdo->query("
         <?php endforeach; ?>
       </tbody>
     </table>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-  const filtroEscola = document.getElementById("Filtro_escola");
-  const filtroCategoria = document.getElementById("Filtro_categoria");
-  const filtroArea = document.getElementById("Filtro_area");
-  const linhas = document.querySelectorAll("#workTable tbody tr");
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const filtroEscola = document.getElementById("Filtro_escola");
+        const filtroCategoria = document.getElementById("Filtro_categoria");
+        const filtroArea = document.getElementById("Filtro_area");
+        const linhas = document.querySelectorAll("#workTable tbody tr");
 
-  function filtrarTabela() {
-    const escolaSelecionada = filtroEscola.value.toLowerCase();
-    const categoriaSelecionada = filtroCategoria.options[filtroCategoria.selectedIndex].text.toLowerCase();
-    const areaSelecionada = filtroArea.value.toLowerCase();
+        function filtrarTabela() {
+          const escolaSelecionada = filtroEscola.value.toLowerCase();
+          const categoriaSelecionada = filtroCategoria.options[filtroCategoria.selectedIndex].text.toLowerCase();
+          const areaSelecionada = filtroArea.value.toLowerCase();
 
-    linhas.forEach(tr => {
-      const escola = tr.children[1].textContent.toLowerCase();
-      const categoria = tr.children[2].textContent.toLowerCase();
-      const area = tr.children[3].textContent.toLowerCase();
+          linhas.forEach(tr => {
+            const escola = tr.children[1].textContent.toLowerCase();
+            const categoria = tr.children[2].textContent.toLowerCase();
+            const area = tr.children[3].textContent.toLowerCase();
 
-      const escolaOk = !escolaSelecionada || escola.includes(escolaSelecionada);
-      const categoriaOk = !filtroCategoria.value || categoria === categoriaSelecionada;
-      const areaOk = !areaSelecionada || area.includes(areaSelecionada);
+            const escolaOk = !escolaSelecionada || escola.includes(escolaSelecionada);
+            const categoriaOk = !filtroCategoria.value || categoria === categoriaSelecionada;
+            const areaOk = !areaSelecionada || area.includes(areaSelecionada);
 
-      tr.style.display = (escolaOk && categoriaOk && areaOk) ? "" : "none";
-    });
-  }
+            tr.style.display = (escolaOk && categoriaOk && areaOk) ? "" : "none";
+          });
+        }
 
-  filtroEscola.addEventListener("change", filtrarTabela);
-  filtroCategoria.addEventListener("change", filtrarTabela);
-  filtroArea.addEventListener("change", filtrarTabela);
-});
-</script>
+        filtroEscola.addEventListener("change", filtrarTabela);
+        filtroCategoria.addEventListener("change", filtrarTabela);
+        filtroArea.addEventListener("change", filtrarTabela);
+      });
+    </script>
     <div class="modal fade" id="modalPdf" tabindex="-1" aria-labelledby="modalPdfLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -262,14 +262,18 @@ $trabalhos = $pdo->query("
               </select>
             </div>
           </div>
-          <script>function carregarJurados() {
+          <script>
+            function carregarJurados() {
               const categoria = $('#jurado-categoria').val();
               const area = $('#jurado-area-select').val() || $('#jurado-area2-select').val() || '';
 
               if (!categoria) return;
 
-              $.getJSON('../php/BuscarJurados.php', { categoria: categoria, area: area })
-                .done(function (data) {
+              $.getJSON('../php/BuscarJurados.php', {
+                  categoria: categoria,
+                  area: area
+                })
+                .done(function(data) {
                   const select = $('#jurado-nome-select');
                   select.empty().append('<option value="">Selecione o Jurado</option>');
                   data.forEach(j => {
@@ -282,15 +286,17 @@ $trabalhos = $pdo->query("
             $('#jurado-categoria').on('change', carregarJurados);
             $('#jurado-area-select, #jurado-area2-select').on('change', carregarJurados);
 
-            $.getJSON('../php/BuscarJurados.php', { categoria: categoriaSelecionada, area: areaSelecionada })
-              .done(function (data) {
+            $.getJSON('../php/BuscarJurados.php', {
+                categoria: categoriaSelecionada,
+                area: areaSelecionada
+              })
+              .done(function(data) {
                 const select = $('#jurado-nome-select');
                 select.empty().append('<option value="">Selecione o Jurado</option>');
                 data.forEach(j => {
                   select.append(`<option value="${j.id_jurados}">${j.nome}</option>`);
                 });
               });
-
           </script>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -299,7 +305,7 @@ $trabalhos = $pdo->query("
         </div>
       </div>
       <script>
-        $('#jurado-categoria').on('change', function () {
+        $('#jurado-categoria').on('change', function() {
           const val = $(this).val();
 
           if (val === '4') {
@@ -318,11 +324,11 @@ $trabalhos = $pdo->query("
           }
         });
 
-        $('#jurado-area-select, #jurado-area2-select').on('change', function () {
+        $('#jurado-area-select, #jurado-area2-select').on('change', function() {
           $('#jurado-nome').slideDown();
         });
 
-        $('#btnGerarRelatorioJurado').on('click', function () {
+        $('#btnGerarRelatorioJurado').on('click', function() {
           const categoria = $('#jurado-categoria').val();
           const area = $('#jurado-area-select').val() || $('#jurado-area2-select').val() || '';
           const id_jurado = $('#jurado-nome-select').val();
@@ -337,11 +343,10 @@ $trabalhos = $pdo->query("
 
           window.open(url, '_blank');
         });
-
       </script>
     </div>
     </div>
-      <!--  MODAL DE AMBOS OS JURADOS - COMEÇO  -->
+    <!--  MODAL DE AMBOS OS JURADOS - COMEÇO  -->
     <div class="modal fade" id="modalAmbosJurados" tabindex="-1" aria-labelledby="modalAmbosJuradosLabel"
       aria-hidden="true">
       <div class="modal-dialog">
@@ -392,7 +397,7 @@ $trabalhos = $pdo->query("
           function gerarRelatorioAmbos() {
             const categoria = document.getElementById('categoria-Ambos-select').value;
             const area = $('#area-Ambos1-select').val() || $('#area-Ambos2-select').val() || '';
-            
+
 
             if (!categoria) {
               alert('Selecione a categoria antes de gerar o relatório.');
@@ -405,7 +410,7 @@ $trabalhos = $pdo->query("
         </script>
       </div>
     </div>
-          <!--  MODAL DE AMBOS OS JURADOS - FIM  -->
+    <!--  MODAL DE AMBOS OS JURADOS - FIM  -->
 
     <div class="modal fade" id="modalPorEscola" tabindex="-1" aria-labelledby="modalPorEscolaLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -520,12 +525,12 @@ $trabalhos = $pdo->query("
   </main>
   <script src="../bootstrap/JS/jquery.min.js"></script>
   <script>
-    $('#modalPdf').on('show.bs.modal', function (event) {
+    $('#modalPdf').on('show.bs.modal', function(event) {
       const button = $(event.relatedTarget);
       const idTrabalho = button.data('id');
     });
 
-    $('#categoria-Ambos-select').change(function () {
+    $('#categoria-Ambos-select').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ambos-select').slideDown();
@@ -537,7 +542,7 @@ $trabalhos = $pdo->query("
         $('#area-Ambos-select, #area-Ambos2-select').slideUp();
       }
     });
-    $('#categoria-Ranking').change(function () {
+    $('#categoria-Ranking').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#area-Ranking').slideDown();
@@ -550,7 +555,7 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#jurado-categoria').change(function () {
+    $('#jurado-categoria').change(function() {
       var categoria = $(this).val();
       if (categoria === '1' || categoria === '2') {
         $('#jurado-area').slideDown();
@@ -568,7 +573,7 @@ $trabalhos = $pdo->query("
       }
     });
 
-    $('#jurado-area, #jurado-area2').change(function () {
+    $('#jurado-area, #jurado-area2').change(function() {
       $('#jurado-nome').slideDown();
     });
 
@@ -586,7 +591,7 @@ $trabalhos = $pdo->query("
       $('#sidebar').removeClass('mobile-open');
       $('#overlay').removeClass('show');
     }
-    $(window).on('resize', function () {
+    $(window).on('resize', function() {
       if (window.innerWidth > 768) {
         $('#sidebar').removeClass('mobile-open');
         $('#overlay').removeClass('show');
@@ -599,7 +604,7 @@ $trabalhos = $pdo->query("
       "4": ["Ensino Fundamental", "Ensino Médio"]
     };
 
-    $('#Filtro_categoria').on('change', function () {
+    $('#Filtro_categoria').on('change', function() {
       const cat = $(this).val();
       const areaSelect = $('#Filtro_area');
       areaSelect.html('<option value="">Selecione a Área</option>');
@@ -654,7 +659,7 @@ $trabalhos = $pdo->query("
         data: {
           id_trabalho: idTrabalho
         },
-        success: function (data) {
+        success: function(data) {
           const jurados = JSON.parse(data);
           const container = tipo === 'pdf' ? $('#modalPdf .modal-body .d-flex') : $('#modalExcel .modal-body .d-flex');
           container.empty();
@@ -665,14 +670,23 @@ $trabalhos = $pdo->query("
           }
 
           jurados.forEach(j => {
-            const btn = $(`<a href="../html/relat-trabalho-individual.php?id_trabalho=${idTrabalho}&id_jurado=${j.id_jurado}&type=${tipo}" class="btn btn-primary" target="_blank">${j.nome}</a>`);
+            const file = tipo === 'pdf' ?
+              '../html/relat-trabalho-individual.php' :
+              '../html/relat-trabalho-individual-excel.php'; // <<-- mude aqui
+
+            const btn = $(
+              `<a href="${file}?id_trabalho=${idTrabalho}&id_jurado=${j.id_jurado}" 
+        class="btn btn-primary" target="_blank">${j.nome}</a>`
+            );
+
             container.append(btn);
           });
+
 
           const modal = tipo === 'pdf' ? '#modalPdf' : '#modalExcel';
           $(modal).modal('show');
         },
-        error: function () {
+        error: function() {
           alert('Erro ao buscar jurados para o trabalho.');
         }
       });

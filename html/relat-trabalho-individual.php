@@ -194,5 +194,5 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
-$dompdf->stream("avaliacao_trabalho_{$id_trabalho}_jurado_{$id_jurado}.pdf", ["Attachment" => true]);
+$dompdf->stream("avaliacao_trabalho_{$id_trabalho}_jurado_{$id_jurado}.pdf", ["Attachment" => false]);
 exit;
