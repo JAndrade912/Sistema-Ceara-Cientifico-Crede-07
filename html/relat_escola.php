@@ -303,7 +303,7 @@ ob_start();
                   <?php
                   $juradoIds = array_keys($jurados);
                   $juradoId = $juradoIds[$i] ?? null;
-                  echo $juradoId ? $jurados[$juradoId]['total'] : "-";
+                  echo $juradoId ? $jurados[$juradoId]['total'] * 10 : "-";
                   ?>
                 </td>
               <?php endfor; ?>
@@ -312,7 +312,7 @@ ob_start();
                 <?php
                 $soma = array_sum(array_column($jurados, 'total'));
                 $qtd = count($jurados);
-                echo $qtd ? round($soma / $qtd, 2) : "-";
+                echo $qtd ? round(($soma / $qtd) * 10, 2) : "-";
                 ?>
               </td>
             </tr>
