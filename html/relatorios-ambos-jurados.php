@@ -14,11 +14,13 @@ function imgToBase64($path)
   return '';
 }
 
+// Imagens
 $imgCearaCientifico = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/cearacientifico.png');
 $imgCrede7 = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/crede7.png');
 $imgCeara = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/ceara.png');
 $imgLogo = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/b76f995f-d85d-4d51-bf6b-47dd645dad78.png');
 
+// Mapas de critérios e pesos
 $mapa_criterios = [
   1 => 'criatividade',
   2 => 'relevancia',
@@ -44,11 +46,24 @@ $criterios = [
   'processo' => 'Processo'
 ];
 
-// Receber filtros via URL
+// Pesos dos critérios
+$pesos = [
+  1 => 1,
+  2 => 1,
+  3 => 1.5,
+  4 => 1,
+  5 => 2,
+  6 => 1,
+  7 => 1,
+  8 => 1,
+  9 => 0.5
+];
+
+// Filtros via URL
 $catId = isset($_GET['catId']) ? intval($_GET['catId']) : 0;
 $areaId = isset($_GET['areaId']) ? intval($_GET['areaId']) : 0;
 
-// Montar SQL dinâmico
+// Consulta SQL
 $sql = "
 SELECT 
     t.id_trabalhos,
@@ -84,6 +99,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Estrutura de dados
 $trabalhos = [];
 $jurados_por_criterio = [];
 foreach ($dados as $linha) {
@@ -92,7 +108,8 @@ foreach ($dados as $linha) {
   $user_jurado = $linha['user_jurado'] ?? 'Sem jurado';
   $nota = $linha['nota'] ?? 0;
 
-  $criterio = isset($mapa_criterios[$linha['criterio']]) ? $mapa_criterios[$linha['criterio']] : null;
+  $criterio_id = $linha['criterio'];
+  $criterio = $mapa_criterios[$criterio_id] ?? null;
 
   $trabalhos[$id]['titulo'] = $linha['titulo'];
   $trabalhos[$id]['escola'] = $linha['escola'];
@@ -101,81 +118,32 @@ foreach ($dados as $linha) {
 
   if ($criterio && $criterio != 'total') {
     $trabalhos[$id]['notas'][$criterio][$id_jurado] = $nota;
+    $trabalhos[$id]['pesos'][$criterio] = $pesos[$criterio_id] ?? 1;
     $jurados_por_criterio[$criterio][$id_jurado] = $user_jurado;
   }
 }
 
-// Gerar HTML
+// HTML
 ob_start();
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8">
   <title>Relatório dos Jurados</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 10px;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .table-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    table {
-      border-collapse: collapse;
-      font-size: 9px;
-      width: 100%;
-      max-width: 1200px;
-    }
-
-    th,
-    td {
-      border: 1px solid #000;
-      padding: 4px;
-      text-align: center;
-    }
-
-    th {
-      background-color: #d1e7dd;
-    }
-
-    .header-title {
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .sub-title {
-      font-size: 11px;
-      font-weight: bold;
-      margin: 2px 0;
-    }
-
-    .footer-images {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .footer-images img,
-    .header-image {
-      max-width: 130px;
-      display: inline-block;
-      margin: 0 10px;
-    }
+    body { font-family: Arial, sans-serif; padding: 10px; }
+    .text-center { text-align: center; }
+    .table-container { display: flex; justify-content: center; margin-top: 10px; }
+    table { border-collapse: collapse; font-size: 9px; width: 100%; max-width: 1200px; }
+    th, td { border: 1px solid #000; padding: 4px; text-align: center; }
+    th { background-color: #d1e7dd; }
+    .header-title { font-size: 14px; font-weight: bold; }
+    .sub-title { font-size: 11px; font-weight: bold; margin: 2px 0; }
+    .footer-images { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+    .footer-images img, .header-image { max-width: 130px; display: inline-block; margin: 0 10px; }
   </style>
 </head>
-
 <body>
   <div class="text-center">
     <?php if ($imgCearaCientifico): ?>
@@ -205,7 +173,7 @@ ob_start();
           <?php foreach ($criterios as $c => $label): ?>
             <th colspan="<?= count($jurados_por_criterio[$c] ?? [1, 2]) ?>"><?= $label ?></th>
           <?php endforeach; ?>
-          <th rowspan="2">Nota final</th>
+          <th rowspan="2">Nota Final</th>
         </tr>
         <tr>
           <?php foreach ($criterios as $c => $label):
@@ -222,21 +190,26 @@ ob_start();
             <td><?= htmlspecialchars($t['escola']) ?></td>
             <td><?= htmlspecialchars($t['titulo']) ?></td>
             <?php
-            $nota_total = 0;
-            $total_jurados = 0;
+            $soma_ponderada = 0;
+            $soma_pesos = 0;
+
             foreach ($criterios as $c => $label) {
               $notas_criterio = $t['notas'][$c] ?? [];
+              $peso = $t['pesos'][$c] ?? 1;
+
               $jurados = $jurados_por_criterio[$c] ?? [0 => 'Jurado 1', 1 => 'Jurado 2'];
+
               foreach ($jurados as $id_j => $nome_j) {
                 $nota = $notas_criterio[$id_j] ?? 0;
-                $nota_total += $nota;
-                $total_jurados++;
                 echo "<td>$nota</td>";
+                $soma_ponderada += ($nota * $peso);
+                $soma_pesos += $peso;
               }
             }
-            $media_final = $total_jurados ? number_format(($nota_total / $total_jurados) * 10, 2)  : 0;
+
+            $nota_final = $soma_pesos ? number_format(($soma_ponderada / $soma_pesos) * 10, 2) : 0;
             ?>
-            <td><?= $media_final ?></td>
+            <td><?= $nota_final ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -249,7 +222,6 @@ ob_start();
     <?php if ($imgLogo): ?><img src="<?= $imgLogo ?>"><?php endif; ?>
   </div>
 </body>
-
 </html>
 
 <?php
