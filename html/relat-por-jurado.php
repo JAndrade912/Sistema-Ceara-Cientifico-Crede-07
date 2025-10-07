@@ -32,7 +32,7 @@ $avaliacoesQuery = $pdo->prepare("
 $avaliacoesQuery->execute([$id_jurado]);
 $avaliacoesRaw = $avaliacoesQuery->fetchAll(PDO::FETCH_ASSOC);
 
-// ✅ Pesos por critério
+// Pesos por critério
 $pesos = [
   1 => 1,
   2 => 1,
@@ -45,7 +45,7 @@ $pesos = [
   9 => 0.5
 ];
 
-// ✅ Processar os dados por trabalho
+// Processar os dados por trabalho
 $trabalhos = [];
 
 foreach ($avaliacoesRaw as $row) {
