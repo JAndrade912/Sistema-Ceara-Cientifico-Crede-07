@@ -17,6 +17,7 @@ if (!isset($_GET['id_escola']) || !is_numeric($_GET['id_escola'])) die("id_escol
 $id_escola = (int) $_GET['id_escola'];
 
 $sql = "SELECT
+        t.id_trabalhos AS id_trabalho,
         t.titulo,
         j.id_jurados,
         j.usuario AS nome_jurado,
