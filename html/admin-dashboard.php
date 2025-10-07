@@ -533,8 +533,7 @@ $total_jurados = $stmt->fetch(PDO::FETCH_ASSOC)['total_jurados'];
               $calculaMediaPonderada = function ($notas, $pesos) {
                 $somaNotas = 0;
                 $somaPesos = 0;
-                foreach ($pesos as $idx => $peso) {
-                  $crit = $idx + 1;
+                foreach ($pesos as $crit => $peso) {
                   $nota = $notas[$crit] ?? null;
                   if ($nota !== null) {
                     $somaNotas += $nota * $peso;
