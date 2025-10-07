@@ -217,28 +217,7 @@ ob_start();
   </table>
 
   <div class="footer">
-    <?php
-    $meses = array(
-      1 => 'Janeiro',
-      2 => 'Fevereiro',
-      3 => 'Março',
-      4 => 'Abril',
-      5 => 'Maio',
-      6 => 'Junho',
-      7 => 'Julho',
-      8 => 'Agosto',
-      9 => 'Setembro',
-      10 => 'Outubro',
-      11 => 'Novembro',
-      12 => 'Dezembro'
-    );
-    $dia = date('d');
-    $mes_num = date('m');
-    $ano = date('Y');
-    if (substr($dia, 0, 1) == '0') $dia = substr($dia, 1);
-    if (substr($mes_num, 0, 1) == '0') $mes_num = substr($mes_num, 1);
-    echo "<p>Canindé, " . $dia . " de " . $meses[$mes_num] . " de " . $ano . "</p>";
-    ?>
+    <p>Canindé, 9 de Outubro de 2025</p>
   </div>
 
   <div class="assinatura">
