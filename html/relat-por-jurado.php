@@ -32,31 +32,52 @@ $avaliacoesQuery = $pdo->prepare("
 $avaliacoesQuery->execute([$id_jurado]);
 $avaliacoesRaw = $avaliacoesQuery->fetchAll(PDO::FETCH_ASSOC);
 
+// ✅ Pesos por critério
+$pesos = [
+  1 => 1,
+  2 => 1,
+  3 => 1.5,
+  4 => 1,
+  5 => 2,
+  6 => 1,
+  7 => 1,
+  8 => 1,
+  9 => 0.5
+];
+
+// ✅ Processar os dados por trabalho
 $trabalhos = [];
+
 foreach ($avaliacoesRaw as $row) {
   $id = $row['id_trabalhos'];
+  $criterio = $row['criterio'];
+  $nota = $row['nota'];
+  $peso = isset($pesos[$criterio]) ? $pesos[$criterio] : 1;
+
   if (!isset($trabalhos[$id])) {
     $trabalhos[$id] = [
       'titulo' => $row['titulo'],
       'escola' => $row['escola'],
       'notas' => [],
-      'nota_final_raw' => [],
+      'ponderada_soma' => 0,
+      'peso_total' => 0,
       'nota_final' => 0
     ];
   }
-  $trabalhos[$id]['notas'][$row['criterio']] = $row['nota'];
-  $trabalhos[$id]['nota_final_raw'][] = $row['nota'];
+
+  $trabalhos[$id]['notas'][$criterio] = $nota;
+  $trabalhos[$id]['ponderada_soma'] += $nota * $peso;
+  $trabalhos[$id]['peso_total'] += $peso;
 }
 
-// ✅ Cálculo correto da nota final: (soma / 9) * 10
 foreach ($trabalhos as &$t) {
-  if (count($t['nota_final_raw']) === 9) {
-    $media = array_sum($t['nota_final_raw']) / 9;
-    $t['nota_final'] = $media * 10;
+  if ($t['peso_total'] > 0) {
+    $t['nota_final'] = ($t['ponderada_soma'] / $t['peso_total']) * 10;
   } else {
     $t['nota_final'] = 0;
   }
-  unset($t['nota_final_raw']);
+
+  unset($t['ponderada_soma'], $t['peso_total']);
 }
 unset($t);
 
