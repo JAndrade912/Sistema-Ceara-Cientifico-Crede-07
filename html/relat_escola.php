@@ -47,6 +47,12 @@ $peso_criterios = [
   8 => 1,
   9 => 0.5
 ];
+function truncarDecimal($valor, $casas = 2)
+{
+  $fator = pow(10, $casas);
+  return floor($valor * $fator) / $fator;
+}
+
 
 foreach ($dados as $linha) {
   $titulo = $linha['titulo'];
@@ -81,7 +87,6 @@ foreach ($dados as $linha) {
 foreach ($trabalhos as $titulo => &$avaliacoes) {
   foreach ($avaliacoes as &$dadosJurado) {
     $peso_total = $dadosJurado['peso_total'] ?: 1;
-    // aqui sem arredondar e com 2 casas decimais (sem arredondar)
     $dadosJurado['total'] = number_format($dadosJurado['ponderado_soma'] / $peso_total, 2, '.', '');
   }
 }
@@ -311,8 +316,7 @@ ob_start();
                   $juradoId = $juradoIds[$i] ?? null;
                   if ($juradoId) {
                     $total = $jurados[$juradoId]['total'] * 10;
-                    // 2 casas decimais, sem arredondar
-                    echo number_format($total, 2, '.', '');
+                    echo number_format(truncarDecimal($total), 2, '.', '');
                   } else {
                     echo "-";
                   }
@@ -326,7 +330,7 @@ ob_start();
                 $qtd = count($jurados);
                 if ($qtd) {
                   $final = ($soma / $qtd) * 10;
-                  echo number_format($final, 2, '.', '');
+                  echo number_format(truncarDecimal($final), 2, '.', '');
                 } else {
                   echo "-";
                 }

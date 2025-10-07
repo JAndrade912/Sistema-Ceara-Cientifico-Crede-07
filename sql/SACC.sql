@@ -134,6 +134,9 @@ INSERT INTO Categorias_Areas (id_categoria, id_area) VALUES
 (4, 6),
 (4, 7);
 
+-- Inserindo um usuário padrão para administração
+INSERT INTO Administracao (usuario, senha) VALUES
+('Crede07', 'cr701201'); 
 
 -- Relacionamentos
 ALTER TABLE Jurados 
