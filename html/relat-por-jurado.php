@@ -40,15 +40,29 @@ foreach ($avaliacoesRaw as $row) {
       'titulo' => $row['titulo'],
       'escola' => $row['escola'],
       'notas' => [],
+      'nota_final_raw' => [],
       'nota_final' => 0
     ];
   }
   $trabalhos[$id]['notas'][$row['criterio']] = $row['nota'];
-  $trabalhos[$id]['nota_final'] += $row['nota'];
+  $trabalhos[$id]['nota_final_raw'][] = $row['nota'];
 }
+
+// ✅ Cálculo correto da nota final: (soma / 9) * 10
+foreach ($trabalhos as &$t) {
+  if (count($t['nota_final_raw']) === 9) {
+    $media = array_sum($t['nota_final_raw']) / 9;
+    $t['nota_final'] = $media * 10;
+  } else {
+    $t['nota_final'] = 0;
+  }
+  unset($t['nota_final_raw']);
+}
+unset($t);
 
 function imgBase64($path)
 {
+  if (!file_exists($path)) return '';
   $type = pathinfo($path, PATHINFO_EXTENSION);
   $data = file_get_contents($path);
   return 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -123,33 +137,9 @@ ob_start();
       font-weight: bold;
     }
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    table th,
-    table td {
-      border: 1px solid #000;
-      padding: 4px;
-      text-align: center;
-    }
-
-    td {
-      padding: 0;
-    }
-
     table tbody td {
       word-wrap: break-word;
       word-break: break-word;
-    }
-
-    th,
-    td {
-      border: 1px solid #000;
-      padding: 6px;
-      text-align: center;
-      word-wrap: break-word;
     }
 
     .logos img {
@@ -219,20 +209,14 @@ ob_start();
       9 => 'Setembro',
       10 => 'Outubro',
       11 => 'Novembro',
-      12 => 'Dezembro',
+      12 => 'Dezembro'
     );
     $dia = date('d');
     $mes_num = date('m');
     $ano = date('Y');
-    if (substr($dia, 0, 1) == '0') {
-      $dia = substr($dia, 1);
-    }
-    if (substr($mes_num, 0, 1) == '0') {
-      $mes_num = substr($mes_num, 1);
-    }
-    $nome_mes = $meses[$mes_num];
-    echo "<p>Canindé, " . $dia . " de " . $nome_mes . " de " . $ano . "</p>";
-
+    if (substr($dia, 0, 1) == '0') $dia = substr($dia, 1);
+    if (substr($mes_num, 0, 1) == '0') $mes_num = substr($mes_num, 1);
+    echo "<p>Canindé, " . $dia . " de " . $meses[$mes_num] . " de " . $ano . "</p>";
     ?>
   </div>
 
