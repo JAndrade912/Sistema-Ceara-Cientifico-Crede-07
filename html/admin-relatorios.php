@@ -90,6 +90,11 @@ $trabalhos = $pdo->query("
       </select>
       <select id="Filtro_area">
         <option value="">Selecione a Área</option>
+        <?php foreach ($areas as $area): ?>
+          <option value="<?= htmlspecialchars($area['id_area']) ?>">
+            <?= htmlspecialchars($area['nome_area']) ?>
+          </option>
+          <?php endforeach; ?>
       </select>
     </div>
     <br>
@@ -142,7 +147,36 @@ $trabalhos = $pdo->query("
         <?php endforeach; ?>
       </tbody>
     </table>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  const filtroEscola = document.getElementById("Filtro_escola");
+  const filtroCategoria = document.getElementById("Filtro_categoria");
+  const filtroArea = document.getElementById("Filtro_area");
+  const linhas = document.querySelectorAll("#workTable tbody tr");
 
+  function filtrarTabela() {
+    const escolaSelecionada = filtroEscola.value.toLowerCase();
+    const categoriaSelecionada = filtroCategoria.options[filtroCategoria.selectedIndex].text.toLowerCase();
+    const areaSelecionada = filtroArea.value.toLowerCase();
+
+    linhas.forEach(tr => {
+      const escola = tr.children[1].textContent.toLowerCase();
+      const categoria = tr.children[2].textContent.toLowerCase();
+      const area = tr.children[3].textContent.toLowerCase();
+
+      const escolaOk = !escolaSelecionada || escola.includes(escolaSelecionada);
+      const categoriaOk = !filtroCategoria.value || categoria === categoriaSelecionada;
+      const areaOk = !areaSelecionada || area.includes(areaSelecionada);
+
+      tr.style.display = (escolaOk && categoriaOk && areaOk) ? "" : "none";
+    });
+  }
+
+  filtroEscola.addEventListener("change", filtrarTabela);
+  filtroCategoria.addEventListener("change", filtrarTabela);
+  filtroArea.addEventListener("change", filtrarTabela);
+});
+</script>
     <div class="modal fade" id="modalPdf" tabindex="-1" aria-labelledby="modalPdfLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -558,8 +592,8 @@ $trabalhos = $pdo->query("
       }
     });
     const areas = {
-      "1": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
-      "2": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza - CN", "Educação Ambiental e Engenharias - CH", "Robótica, Automação e Aplicação das TIC"],
+      "1": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza  - CN", "Ciências Humanas - CH", "Robótica, Automação e Aplicação das TIC"],
+      "2": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza  - CN", "Ciências Humanas - CH", "Robótica, Automação e Aplicação das TIC"],
       "3": [],
       "4": ["Ensino Fundamental", "Ensino Médio"]
     };
