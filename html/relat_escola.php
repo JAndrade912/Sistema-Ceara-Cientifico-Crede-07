@@ -35,8 +35,8 @@ if (!$dados) die("Verifique se o id_escola existe no banco de dados, ou se a esc
 
 $trabalhos = [];
 
-// Definindo os pesos dos critérios
-$peso_criterios = [
+// Pesos dos critérios
+$pesos = [
   1 => 1,
   2 => 1,
   3 => 1.5,
@@ -47,55 +47,70 @@ $peso_criterios = [
   8 => 1,
   9 => 0.5
 ];
-function truncarDecimal($valor, $casas = 2)
-{
-  $partes = explode('.', (string)$valor);
-  if (count($partes) === 1) {
-    return number_format($valor, $casas, '.', '');
-  }
 
-  $inteiro = $partes[0];
-  $decimal = substr($partes[1], 0, $casas);
-  return $inteiro . '.' . str_pad($decimal, $casas, '0');
+// Função para calcular média ponderada simples
+function calculaMediaPonderada(array $notas, array $pesos): ?float
+{
+  $somaNotas = 0;
+  $somaPesos = 0;
+  foreach ($pesos as $criterio => $peso) {
+    if (isset($notas[$criterio])) {
+      $somaNotas += $notas[$criterio] * $peso;
+      $somaPesos += $peso;
+    }
+  }
+  if ($somaPesos === 0) return null;
+  return ($somaNotas / $somaPesos) * 10;
 }
 
-foreach ($dados as $linha) {
-  $titulo = $linha['titulo'];
-  $jurado = $linha['id_jurados'];
+$trabalhos = [];
+$notasPorTrabalho = [];
 
-  if (!isset($trabalhos[$titulo])) {
-    $trabalhos[$titulo] = [];
-  }
+foreach ($dados as $row) {
+  $id_trabalho = $row['id_trabalho'] ?? $row['id_trabalhos'] ?? null;
+  if (!$id_trabalho) continue;
 
-  if (!isset($trabalhos[$titulo][$jurado])) {
-    $trabalhos[$titulo][$jurado] = [
-      'nome' => $linha['nome_jurado'],
-      'criterios' => [],
-      'ponderado_soma' => 0,
-      'peso_total' => 0,
-      'total' => 0
+  if (!isset($trabalhos[$id_trabalho])) {
+    $trabalhos[$id_trabalho] = [
+      'id_trabalhos' => $id_trabalho,
+      'titulo' => $row['titulo']
     ];
   }
 
-  if ($linha['criterio']) {
-    $criterioId = (int)$linha['criterio'];
-    $nota = (float)$linha['nota'];
-    $peso = $peso_criterios[$criterioId] ?? 1;
-
-    $trabalhos[$titulo][$jurado]['criterios'][$criterioId] = $nota;
-    $trabalhos[$titulo][$jurado]['ponderado_soma'] += ($nota * $peso);
-    $trabalhos[$titulo][$jurado]['peso_total'] += $peso;
+  if ($row['id_jurados'] && $row['criterio'] && $row['nota'] !== null) {
+    $notasPorTrabalho[$id_trabalho][$row['id_jurados']][$row['criterio']] = (float) $row['nota'];
   }
 }
 
-// Cálculo da média ponderada para cada jurado
-foreach ($trabalhos as $titulo => &$avaliacoes) {
-  foreach ($avaliacoes as &$dadosJurado) {
-    $peso_total = $dadosJurado['peso_total'] ?: 1;
-    $dadosJurado['total'] = number_format($dadosJurado['ponderado_soma'] / $peso_total, 2, '.', '');
+$dadosCalculados = [];
+
+foreach ($trabalhos as $trabalho) {
+  $id_trabalho = $trabalho['id_trabalhos'];
+  $notasPorJurado = $notasPorTrabalho[$id_trabalho] ?? [];
+
+  $jurados = array_keys($notasPorJurado);
+  sort($jurados);
+
+  $mediaJurado1 = isset($jurados[0]) ? calculaMediaPonderada($notasPorJurado[$jurados[0]], $pesos) : null;
+  $mediaJurado2 = isset($jurados[1]) ? calculaMediaPonderada($notasPorJurado[$jurados[1]], $pesos) : null;
+
+  if ($mediaJurado1 !== null && $mediaJurado2 !== null) {
+    $notaFinal = ($mediaJurado1 + $mediaJurado2) / 2;
+  } elseif ($mediaJurado1 !== null) {
+    $notaFinal = $mediaJurado1;
+  } elseif ($mediaJurado2 !== null) {
+    $notaFinal = $mediaJurado2;
+  } else {
+    $notaFinal = null;
   }
+
+  $dadosCalculados[$trabalho['titulo']] = [
+    'id_trabalho' => $id_trabalho,
+    'titulo' => $trabalho['titulo'],
+    'nota_final' => $notaFinal,
+    'notas_por_jurado' => $notasPorJurado,
+  ];
 }
-unset($avaliacoes, $dadosJurado);
 
 $criterios = [
   1 => "Criatividade",
@@ -291,21 +306,19 @@ ob_start();
         </thead>
 
         <tbody class="text-center align-middle" style="font-size: 9px;">
-          <?php foreach ($trabalhos as $titulo => $jurados): ?>
+          <?php foreach ($dadosCalculados as $titulo => $dadosTrabalho): ?>
             <tr>
               <td><?= htmlspecialchars($titulo) ?></td>
 
-              <?php foreach ($criterios as $id => $criterio): ?>
+              <?php foreach ($criterios as $id_criterio => $nome_criterio): ?>
                 <?php for ($i = 0; $i < 2; $i++): ?>
                   <td>
                     <?php
-                    $juradoIds = array_keys($jurados);
+                    $juradoIds = array_keys($dadosTrabalho['notas_por_jurado']);
+                    sort($juradoIds);
                     $juradoId = $juradoIds[$i] ?? null;
-                    if ($juradoId && isset($jurados[$juradoId]['criterios'][$id])) {
-                      // mostra nota com 2 casas decimais, sem arredondar
-                      $nota = $jurados[$juradoId]['criterios'][$id];
-                      $notaFormatada = number_format($nota, 2, '.', '');
-                      echo $notaFormatada;
+                    if ($juradoId !== null && isset($dadosTrabalho['notas_por_jurado'][$juradoId][$id_criterio])) {
+                      echo number_format($dadosTrabalho['notas_por_jurado'][$juradoId][$id_criterio], 2, '.', '');
                     } else {
                       echo "-";
                     }
@@ -317,11 +330,12 @@ ob_start();
               <?php for ($i = 0; $i < 2; $i++): ?>
                 <td>
                   <?php
-                  $juradoIds = array_keys($jurados);
+                  $juradoIds = array_keys($dadosTrabalho['notas_por_jurado']);
+                  sort($juradoIds);
                   $juradoId = $juradoIds[$i] ?? null;
-                  if ($juradoId) {
-                    $total = $jurados[$juradoId]['total'] * 10;
-                    echo truncarDecimal($total, 2);
+                  if ($juradoId !== null) {
+                    $media = calculaMediaPonderada($dadosTrabalho['notas_por_jurado'][$juradoId], $pesos);
+                    echo number_format($media, 2, '.', '');
                   } else {
                     echo "-";
                   }
@@ -330,16 +344,7 @@ ob_start();
               <?php endfor; ?>
 
               <td>
-                <?php
-                $soma = array_sum(array_column($jurados, 'total'));
-                $qtd = count($jurados);
-                if ($qtd) {
-                  $final = ($soma / $qtd) * 10;
-                  echo truncarDecimal($final, 2);
-                } else {
-                  echo "-";
-                }
-                ?>
+                <?= $dadosTrabalho['nota_final'] !== null ? number_format($dadosTrabalho['nota_final'], 2, '.', '') : "-" ?>
               </td>
             </tr>
           <?php endforeach; ?>
