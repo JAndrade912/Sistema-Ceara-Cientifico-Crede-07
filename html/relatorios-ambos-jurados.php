@@ -55,7 +55,7 @@ SELECT
     t.titulo,
     e.nome AS escola,
     j.id_jurados,
-    j.nome AS nome_jurado,
+    j.usuario AS user_jurado,
     av.criterio,
     av.nota,
     c.nome_categoria AS categoria,
@@ -89,7 +89,7 @@ $jurados_por_criterio = [];
 foreach ($dados as $linha) {
   $id = $linha['id_trabalhos'];
   $id_jurado = $linha['id_jurados'];
-  $nome_jurado = $linha['nome_jurado'] ?? 'Sem jurado';
+  $user_jurado = $linha['user_jurado'] ?? 'Sem jurado';
   $nota = $linha['nota'] ?? 0;
 
   $criterio = isset($mapa_criterios[$linha['criterio']]) ? $mapa_criterios[$linha['criterio']] : null;
@@ -101,7 +101,7 @@ foreach ($dados as $linha) {
 
   if ($criterio && $criterio != 'total') {
     $trabalhos[$id]['notas'][$criterio][$id_jurado] = $nota;
-    $jurados_por_criterio[$criterio][$id_jurado] = $nome_jurado;
+    $jurados_por_criterio[$criterio][$id_jurado] = $user_jurado;
   }
 }
 
