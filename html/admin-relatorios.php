@@ -88,14 +88,15 @@ $trabalhos = $pdo->query("
           </option>
         <?php endforeach; ?>
       </select>
-      <select id="Filtro_area">
-        <option value="">Selecione a Área</option>
-        <?php foreach ($areas as $area): ?>
-          <option value="<?= htmlspecialchars($area['id_area']) ?>">
-            <?= htmlspecialchars($area['nome_area']) ?>
-          </option>
-          <?php endforeach; ?>
-      </select>
+<select id="Filtro_area">
+  <option value="">Selecione a Área</option>
+  <?php foreach ($areas as $area): ?>
+    <option value="<?= htmlspecialchars($area['nome_area']) ?>">
+      <?= htmlspecialchars($area['nome_area']) ?>
+    </option>
+  <?php endforeach; ?>
+</select>
+
     </div>
     <br>
     <div class="report-buttons">
