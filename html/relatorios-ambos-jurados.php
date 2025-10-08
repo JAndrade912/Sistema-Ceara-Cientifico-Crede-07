@@ -231,5 +231,9 @@ $dompdf->set_option('isRemoteEnabled', true);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
+
+$canvas = $dompdf->getCanvas();
+$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+
 $dompdf->stream("relatorio_jurados.pdf", ["Attachment" => false]);
 ?>

@@ -194,5 +194,8 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
+$canvas = $dompdf->getCanvas();
+$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+
 $dompdf->stream("avaliacao_trabalho_{$id_trabalho}_jurado_{$id_jurado}.pdf", ["Attachment" => false]);
 exit;

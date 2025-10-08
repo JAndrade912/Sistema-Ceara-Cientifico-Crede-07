@@ -339,5 +339,9 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
+
+$canvas = $dompdf->getCanvas();
+$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+
 $dompdf->stream("Ranking_geral.pdf", ["Attachment" => false]);
 ?>

@@ -89,7 +89,7 @@ function imgBase64($path)
   return 'data:image/' . $type . ';base64,' . base64_encode($data);
 }
 
-$logo1 = imgBase64(__DIR__ . '/../assets/img/cearacientifico.png');
+$logo1 = imgBase64(__DIR__ . '/../assets/img/crede-ceara-cientifico-estado.png');
 $logo2 = imgBase64(__DIR__ . '/../assets/img/crede7.png');
 $logo3 = imgBase64(__DIR__ . '/../assets/img/ceara.png');
 
@@ -110,15 +110,9 @@ ob_start();
       padding: 20px;
     }
 
-    .footer {
-      text-align: center;
+    .assinatura {
       margin-top: 50px;
       margin-bottom: 40px;
-    }
-
-    .assinatura {
-      margin-top: 40px;
-      margin-bottom: 60px;
       text-align: center;
     }
 
@@ -171,6 +165,11 @@ ob_start();
     p {
       word-break: break-all;
     }
+
+    .page-number {
+      text-align: center;
+      font-size: 10px;
+    }
   </style>
 </head>
 
@@ -216,19 +215,16 @@ ob_start();
     </tbody>
   </table>
 
-  <div class="footer">
-    <p>Canindé, 9 de Outubro de 2025</p>
-  </div>
+    <div class="assinatura">
+      <hr style="width: 40%;">
+      <p>Avaliador(a)</p>
+    </div>
 
-  <div class="assinatura">
-    <hr style="width: 40%;">
-    <p>Avaliador(a)</p>
-  </div>
 
-  <div class="logos">
+  <!-- <div class="logos">
     <img src="<?= $logo2 ?>" alt="CREDE">
     <img src="<?= $logo3 ?>" alt="CEARÁ">
-  </div>
+  </div> -->
 
 </body>
 
@@ -241,4 +237,40 @@ $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
+
+date_default_timezone_set('America/Fortaleza');
+
+$formatter = new IntlDateFormatter(
+  'pt_BR',
+  IntlDateFormatter::LONG,
+  IntlDateFormatter::NONE,
+  'America/Fortaleza',
+  IntlDateFormatter::GREGORIAN,
+  "d 'de' MMMM 'de' yyyy"
+);
+
+$dataServidor = $formatter->format(new DateTime());
+
+$canvas = $dompdf->getCanvas();
+$font = $dompdf->getFontMetrics()->getFont('Helvetica', 'normal');
+
+$pageWidth = $canvas->get_width();
+$pageHeight = $canvas->get_height();
+
+$fontSize = 10;
+$marginBottom = 30;
+
+$dataText = "Canindé, $dataServidor";
+$dataTextWidth = $dompdf->getFontMetrics()->getTextWidth($dataText, $font, $fontSize);
+$xData = ($pageWidth / 2) - ($dataTextWidth / 2);
+$y = $pageHeight - $marginBottom;
+
+$pageText = "Página {PAGE_NUM} de {PAGE_COUNT}";
+$pageTextWidth = $dompdf->getFontMetrics()->getTextWidth($pageText, $font, $fontSize);
+$xPageNum = $pageWidth - $pageTextWidth - 40;
+
+$canvas->page_text($xData, $y, $dataText, $font, $fontSize, [0, 0, 0]);
+$canvas->page_text($xPageNum, $y, $pageText, $font, $fontSize, [0, 0, 0]);
+
+
 $dompdf->stream("relatorio_jurado.pdf", ["Attachment" => false]);
