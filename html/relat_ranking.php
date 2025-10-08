@@ -180,7 +180,7 @@ function toBase64Image($path)
   $base64 = base64_encode($data);
   return "data:image/$type;base64,$base64";
 }
-$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/cearacientifico.png');
+$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/crede-ceara-cientifico-estado.png');
 $imgCrede7 = toBase64Image(__DIR__ . '/../assets/img/crede7.png');
 $imgCeara = toBase64Image(__DIR__ . '/../assets/img/ceara.png');
 ob_start();

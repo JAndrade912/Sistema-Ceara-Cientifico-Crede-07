@@ -134,8 +134,9 @@ $trabalhos = $pdo->query("
             <td><?= htmlspecialchars($t['escola'] ?? '—') ?></td>
             <td><?= htmlspecialchars($t['categoria'] ?? '—') ?></td>
             <td><?= htmlspecialchars($t['area'] ?? '—') ?></td>
-            <td>
+            <td class="d-flex justify-content-center">
               <?php if ($id_jurado): ?>
+              
                 <button class="btn bg-danger me-1"
                   onclick="abrirModalRelatorio(<?= $t['id_trabalhos'] ?>, 'pdf')">PDF</button>
                 <button class="btn btn-success me-1"

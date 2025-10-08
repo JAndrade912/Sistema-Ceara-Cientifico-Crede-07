@@ -142,7 +142,7 @@ $stmtEsc->execute([$id_escola]);
 $result = $stmtEsc->fetch(PDO::FETCH_ASSOC);
 $userName = $result ? $result['nome'] : 'Escola';
 
-$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/cearacientifico.png');
+$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/crede-ceara-cientifico-estado.png');
 $imgCrede7 = toBase64Image(__DIR__ . '/../assets/img/crede7.png');
 $imgCeara = toBase64Image(__DIR__ . '/../assets/img/ceara.png');
 ob_start();

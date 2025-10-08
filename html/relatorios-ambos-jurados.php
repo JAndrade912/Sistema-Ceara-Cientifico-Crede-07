@@ -15,10 +15,9 @@ function imgToBase64($path)
 }
 
 // Imagens
-$imgCearaCientifico = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/cearacientifico.png');
-$imgCrede7 = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/crede7.png');
-$imgCeara = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/ceara.png');
-$imgLogo = imgToBase64('C:/xampp/htdocs/GitHub/Sistema-Ceara-Cientifico-Crede-07/assets/img/b76f995f-d85d-4d51-bf6b-47dd645dad78.png');
+$imgCearaCientifico = imgToBase64('/../assets/img/crede-ceara-cientifico-estado.png');
+
+$imgLogo = imgToBase64('./../assets/img/b76f995f-d85d-4d51-bf6b-47dd645dad78.png');
 
 // Mapas de critérios e pesos
 $mapa_criterios = [
