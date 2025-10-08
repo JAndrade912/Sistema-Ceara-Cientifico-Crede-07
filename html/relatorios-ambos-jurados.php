@@ -4,20 +4,22 @@ require_once '../dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 
-function imgToBase64($path)
+function toBase64Image($path)
 {
-  if (file_exists($path)) {
-    $type = pathinfo($path, PATHINFO_EXTENSION);
-    $data = file_get_contents($path);
-    return 'data:image/' . $type . ';base64,' . base64_encode($data);
+  if (!file_exists($path)) return '';
+  $type = pathinfo($path, PATHINFO_EXTENSION);
+  $data = file_get_contents($path);
+  if ($data === false) {
+    return '';
   }
-  return '';
+  $base64 = base64_encode($data);
+  return "data:image/$type;base64,$base64";
 }
 
 // Imagens
-$imgCearaCientifico = imgToBase64('/../assets/img/crede-ceara-cientifico-estado.png');
+$imgCearaCientifico = toBase64Image('../assets/img/crede-ceara-cientifico-estado.png');
 
-$imgLogo = imgToBase64('./../assets/img/b76f995f-d85d-4d51-bf6b-47dd645dad78.png');
+$imgLogo = toBase64Image('../assets/img/b76f995f-d85d-4d51-bf6b-47dd645dad78.png');
 
 // Mapas de critérios e pesos
 $mapa_criterios = [
@@ -127,27 +129,76 @@ ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <title>Relatório dos Jurados</title>
+
   <style>
-    body { font-family: Arial, sans-serif; padding: 10px; }
-    .text-center { text-align: center; }
-    .table-container { display: flex; justify-content: center; margin-top: 10px; }
-    table { border-collapse: collapse; font-size: 9px; width: 100%; max-width: 1200px; }
-    th, td { border: 1px solid #000; padding: 4px; text-align: center; }
-    th { background-color: #d1e7dd; }
-    .header-title { font-size: 14px; font-weight: bold; }
-    .sub-title { font-size: 11px; font-weight: bold; margin: 2px 0; }
-    .footer-images { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-    .footer-images img, .header-image { max-width: 130px; display: inline-block; margin: 0 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .table-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 9px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    th,
+    td {
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #d1e7dd;
+    }
+
+    .header-title {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .sub-title {
+      font-size: 11px;
+      font-weight: bold;
+      margin: 2px 0;
+    }
+
+    .footer-images {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .footer-images img,
+    .header-image {
+      max-width: 130px;
+      display: inline-block;
+      margin: 0 10px;
+    }
   </style>
+
 </head>
+
 <body>
   <div class="text-center">
-    <?php if ($imgCearaCientifico): ?>
-      <img src="<?= $imgCearaCientifico ?>" style="max-width:150px; margin-bottom:10px;">
-    <?php endif; ?>
+    <img src="<?= $imgCearaCientifico ?>" style="height:80px;">
     <p><b>ETAPA REGIONAL - 2025</b></p>
   </div>
 
@@ -221,6 +272,7 @@ ob_start();
     <?php if ($imgLogo): ?><img src="<?= $imgLogo ?>"><?php endif; ?>
   </div>
 </body>
+
 </html>
 
 <?php
@@ -232,7 +284,7 @@ $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
 
 $canvas = $dompdf->getCanvas();
-$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0, 0, 0));
 
 $dompdf->stream("relatorio_jurados.pdf", ["Attachment" => false]);
 ?>

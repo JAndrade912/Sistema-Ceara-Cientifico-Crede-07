@@ -145,7 +145,7 @@ ob_start();
 
 <body>
     <div class="center">
-        <img src="<?= $imgCearaCientifico ?>" style="max-width: 120px;"><br>
+        <img src="<?= $imgCearaCientifico ?>" style="height: 80px;"><br>
         <b>ETAPA REGIONAL - 2025</b>
     </div>
 
@@ -175,10 +175,10 @@ ob_start();
         </tbody>
     </table>
 
-    <div class="footer-logos">
+    <!-- <div class="footer-logos">
         <img src="<?= $imgCrede7 ?>" alt="CREDE 7" />
         <img src="<?= $imgCeara ?>" alt="Governo do Ceará" />
-    </div>
+    </div> -->
 
 </body>
 

@@ -274,7 +274,7 @@ ob_start();
     }
   </style>
   <div class="cabecalho">
-    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="imgCabecalho" style="max-width: 120px;">
+    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="imgCabecalho" style="height: 80px;">
     <p class="text"><b>ETAPA REGIONAL - 2025</b></p>
   </div>
   <nav class="d-flex flex-column align-items-center bg-success mb-2 ">
@@ -321,10 +321,10 @@ ob_start();
       </table>
     </div>
   </div>
-  <div class="logos">
+  <!-- <div class="logos">
     <img src=<?= $imgCrede7 ?>>
     <img src=<?= $imgCeara ?>>
-  </div>
+  </div> -->
 </body>
 
 </html>
