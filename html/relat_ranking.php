@@ -164,11 +164,49 @@ function comparaTrabalhos($a, $b, $criteriosDesempate)
 
   return 0;
 }
+function criterioDesempateUsado($a, $b, $criteriosDesempate)
+{
+  foreach ($criteriosDesempate as $index => $crit) {
+    $notaA = $a['criterios'][$crit] ?? 0;
+    $notaB = $b['criterios'][$crit] ?? 0;
+    if ($notaA != $notaB) {
+      return [
+        'indice' => $index + 1,
+        'criterio' => "Critério #" . ($index + 1),
+      ];
+    }
+  }
+
+  if ($a['focalizada'] !== $b['focalizada']) {
+    return ['indice' => 'Focalizada', 'criterio' => 'Escola focalizada'];
+  }
+
+  if ($a['ide'] !== $b['ide']) {
+    return ['indice' => 'IDE', 'criterio' => 'Escola com IDE'];
+  }
+
+  return null;
+}
 
 $criteriosDesempate = range(1, 9);
 usort($dados, function ($a, $b) use ($criteriosDesempate) {
   return comparaTrabalhos($a, $b, $criteriosDesempate);
 });
+
+
+for ($i = 0; $i < count($dados) - 1; $i++) {
+  $atual = $dados[$i];
+  $proximo = $dados[$i + 1];
+
+  if (abs($atual['nota_final'] - $proximo['nota_final']) < 0.0001) {
+    $criterioUsado = criterioDesempateUsado($atual, $proximo, $criteriosDesempate);
+    if ($criterioUsado !== null) {
+      $dados[$i]['criterio_desempate'] = $criterioUsado;
+      $dados[$i + 1]['criterio_desempate'] = null;
+    }
+  }
+}
+
 function toBase64Image($path)
 {
   if (!file_exists($path)) return '';
@@ -296,17 +334,42 @@ ob_start();
             <th>Escola</th>
             <th>Título</th>
             <th>Nota final</th>
+            <th>Critério de Desempate</th>
           </tr>
         </thead>
         <tbody class="text-center align-middle" style="font-size: 10px;">
           <?php
-
           $escolas = $pdo->query("SELECT id_escolas, nome FROM Escolas ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
           $categorias = $pdo->query("SELECT id_categoria, nome_categoria FROM Categorias ORDER BY nome_categoria")->fetchAll(PDO::FETCH_ASSOC);
           $areas = $pdo->query("SELECT id_area, nome_area FROM Areas ORDER BY nome_area")->fetchAll(PDO::FETCH_ASSOC);
           $trabalhos = $pdo->query("SELECT id_trabalhos, titulo FROM Trabalhos ORDER BY titulo")->fetchAll(PDO::FETCH_ASSOC);
+
+          $criteriosDesempate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+          $sql = "SELECT 
+          t.id_trabalhos,
+           t.titulo,
+            e.nome AS escola,
+             e.focalizada,
+              e.ide,
+               c.nome_categoria AS categoria,
+                a.nome_area AS area 
+            FROM Trabalhos t 
+            LEFT JOIN Escolas e ON t.id_escolas = e.id_escolas 
+            LEFT JOIN Categorias c ON t.id_categoria = c.id_categoria 
+            LEFT JOIN Areas a ON t.id_areas = a.id_area 
+            WHERE 1=1";
+          $sql_avaliacoes = "SELECT id_jurado, criterio, nota FROM Avaliacoes WHERE id_trabalho = :id_trabalho";
+          $stmt_av = $pdo->prepare($sql_avaliacoes);
+          $stmt_av->execute([':id_trabalho' => $id_trabalho]);
+          $avaliacoes = $stmt_av->fetchAll(PDO::FETCH_ASSOC);
+
+          $focalizada = strtolower($row['focalizada'] ?? '') === 'focalizada' ? true : false;
+          $ide = strtolower($row['ide'] ?? '') === 'sim' ? true : false;
+
+
           ?>
           <?php foreach ($dados as $index => $trab): ?>
+
             <tr>
               <td><?= $index + 1 ?></td>
               <td><?= htmlspecialchars($trab['escola']) ?></td>
@@ -314,8 +377,16 @@ ob_start();
               <td>
                 <?= $trab['nota_final'] !== null ? number_format($trab['nota_final'], 2, ',', '') : '-' ?>
               </td>
-            </tr>
-          <?php endforeach; ?>
+              <?php
+              if (isset($trab['criterio_desempate']) && $trab['criterio_desempate'] !== null) {
+                $crit = $trab['criterio_desempate'];
+                echo '<td>' . htmlspecialchars($crit['criterio']) . '</td>';
+              } else {
+                echo '<td> - </td>';
+              }
+              ?>         
+              </tr>
+            <?php endforeach; ?>
         </tbody>
         </tbody>
       </table>
