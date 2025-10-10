@@ -142,7 +142,7 @@ $stmtEsc->execute([$id_escola]);
 $result = $stmtEsc->fetch(PDO::FETCH_ASSOC);
 $userName = $result ? $result['nome'] : 'Escola';
 
-$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/cearacientifico.png');
+$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/crede-ceara-cientifico-estado.png');
 $imgCrede7 = toBase64Image(__DIR__ . '/../assets/img/crede7.png');
 $imgCeara = toBase64Image(__DIR__ . '/../assets/img/ceara.png');
 ob_start();
@@ -264,7 +264,7 @@ ob_start();
 <body>
 
   <div class="cabecalho">
-    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="img-fluid" style="max-width: 120px;">
+    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="img-fluid" style="height: 80px;">
     <p><b>ETAPA REGIONAL - 2025</b></p>
   </div>
 
@@ -353,13 +353,13 @@ ob_start();
       </table>
     </div>
   </div>
-  <div class="logos">
+  <!-- <div class="logos">
 
     <img src=<?= $imgCrede7 ?>>
 
     <img src=<?= $imgCeara ?>>
 
-  </div>
+  </div> -->
 </body>
 
 </html>
@@ -374,6 +374,10 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
+
+$canvas = $dompdf->getCanvas();
+$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+
 $dompdf->stream("relatorio_escola_{$_GET['id_escola']}_.pdf", [
   "Attachment" => false
 ]);

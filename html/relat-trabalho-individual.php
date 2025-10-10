@@ -75,7 +75,7 @@ function toBase64Image($path)
     return "data:image/$type;base64,$base64";
 }
 
-$imgCearaCientifico = toBase64Image(__DIR__.'/../assets/img/cearacientifico.png');
+$imgCearaCientifico = toBase64Image(__DIR__.'/../assets/img/crede-ceara-cientifico-estado.png');
 $imgCrede7 = toBase64Image(__DIR__.'/../assets/img/crede7.png');
 $imgCeara = toBase64Image(__DIR__.'/../assets/img/ceara.png');
 
@@ -145,7 +145,7 @@ ob_start();
 
 <body>
     <div class="center">
-        <img src="<?= $imgCearaCientifico ?>" style="max-width: 120px;"><br>
+        <img src="<?= $imgCearaCientifico ?>" style="height: 80px;"><br>
         <b>ETAPA REGIONAL - 2025</b>
     </div>
 
@@ -175,10 +175,10 @@ ob_start();
         </tbody>
     </table>
 
-    <div class="footer-logos">
+    <!-- <div class="footer-logos">
         <img src="<?= $imgCrede7 ?>" alt="CREDE 7" />
         <img src="<?= $imgCeara ?>" alt="Governo do Ceará" />
-    </div>
+    </div> -->
 
 </body>
 
@@ -193,6 +193,9 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
+
+$canvas = $dompdf->getCanvas();
+$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
 
 $dompdf->stream("avaliacao_trabalho_{$id_trabalho}_jurado_{$id_jurado}.pdf", ["Attachment" => false]);
 exit;

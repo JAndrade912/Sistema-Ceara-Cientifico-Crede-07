@@ -218,7 +218,7 @@ function toBase64Image($path)
   $base64 = base64_encode($data);
   return "data:image/$type;base64,$base64";
 }
-$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/cearacientifico.png');
+$imgCearaCientifico = toBase64Image(__DIR__ . '/../assets/img/crede-ceara-cientifico-estado.png');
 $imgCrede7 = toBase64Image(__DIR__ . '/../assets/img/crede7.png');
 $imgCeara = toBase64Image(__DIR__ . '/../assets/img/ceara.png');
 ob_start();
@@ -312,7 +312,7 @@ ob_start();
     }
   </style>
   <div class="cabecalho">
-    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="imgCabecalho" style="max-width: 120px;">
+    <img src="<?= $imgCearaCientifico ?>" alt="Ceará Científico" class="imgCabecalho" style="height: 80px;">
     <p class="text"><b>ETAPA REGIONAL - 2025</b></p>
   </div>
   <nav class="d-flex flex-column align-items-center bg-success mb-2 ">
@@ -392,10 +392,10 @@ ob_start();
       </table>
     </div>
   </div>
-  <div class="logos">
+  <!-- <div class="logos">
     <img src=<?= $imgCrede7 ?>>
     <img src=<?= $imgCeara ?>>
-  </div>
+  </div> -->
 </body>
 
 </html>
@@ -410,5 +410,9 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'landscape');
 $dompdf->render();
+
+$canvas = $dompdf->getCanvas();
+$canvas->page_text(720, 570, "Página {PAGE_NUM} de {PAGE_COUNT}", null, 10, array(0,0,0));
+
 $dompdf->stream("Ranking_geral.pdf", ["Attachment" => false]);
 ?>
