@@ -599,8 +599,8 @@ $trabalhos = $pdo->query("
       }
     });
     const areas = {
-      "1": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza  - CN", "Ciências Humanas - CH", "Robótica, Automação e Aplicação das TIC"],
-      "2": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza  - CN", "Ciências Humanas - CH", "Robótica, Automação e Aplicação das TIC"],
+      "1": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza, Educação Ambiental e Engenharias - CN", "Ciências Humanas e Sociais Aplicadas - CH", "Robótica, Automação e Aplicação das TIC"],
+      "2": ["Linguagens, Códigos e suas Tecnologias - LC", "Matemática e suas Tecnologias - MT", "Ciências da Natureza, Educação Ambiental e Engenharias - CN", "Ciências Humanas e Sociais Aplicadas - CH", "Robótica, Automação e Aplicação das TIC"],
       "3": [],
       "4": ["Ensino Fundamental", "Ensino Médio"]
     };
